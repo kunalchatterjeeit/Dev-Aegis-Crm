@@ -25,6 +25,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -581,6 +582,7 @@
     <Content Include="Service\signaturePadTest.aspx" />
     <Content Include="Service\TonerApproval.aspx" />
     <Content Include="Service\TonnerRequestList.aspx" />
+    <Content Include="TestGitHub.aspx" />
     <Content Include="UserControl\Message.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -927,6 +929,13 @@
     </Compile>
     <Compile Include="Service\TonnerRequestList.aspx.designer.cs">
       <DependentUpon>TonnerRequestList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TestGitHub.aspx.cs">
+      <DependentUpon>TestGitHub.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TestGitHub.aspx.designer.cs">
+      <DependentUpon>TestGitHub.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\Message.ascx.cs">
       <DependentUpon>Message.ascx</DependentUpon>
