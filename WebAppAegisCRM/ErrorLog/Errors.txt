@@ -1,0 +1,993 @@
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+
+
+User ID: 3|KUNAL CHATTERJEE
+
+
+Error DateTime: 29-Sep-2016 12:00:00 AM
+
+
+
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 30-Sep-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Sep-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Sep-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Sep-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 13-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 15-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 19-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 50044|SAIL-RMD
+Error DateTime: 19-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 50044|SAIL-RMD
+Error DateTime: 19-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 50044|SAIL-RMD
+Error DateTime: 19-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 22-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 22-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 22-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 22-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 22-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 23-Oct-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 21-Nov-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 22-Nov-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 19-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 19-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 20-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 20-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 22-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 22-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 22-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 24-Dec-2016 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 03-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 28-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 30-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Cannot find table 3.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Cannot find table 3.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Cannot find table 3.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Column 'A3BWLastMeterReading' does not belong to table Table3.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 31-Jan-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 01-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: File does not exist.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 03-Feb-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 27-May-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 06-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 06-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 06-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 06-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 06-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 07-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 07-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 10-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 10-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 10-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 10-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 20-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 20-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 20-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Object reference not set to an instance of an object.
+User ID: 1
+Error DateTime: 20-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 20-Jun-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The server tag is not well formed.
+User ID: 1
+Error DateTime: 08-Jul-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The server tag is not well formed.
+User ID: 1
+Error DateTime: 08-Jul-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Column 'SpareName' does not belong to table Table.
+User ID: 1
+Error DateTime: 08-Jul-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Freelance\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Service\ServiceBookReport.aspx(146): error CS1061: 'ASP.service_servicebookreport_aspx' does not contain a definition for 'gvService_PageIndexChanging' and no extension method 'gvService_PageIndexChanging' accepting a first argument of type 'ASP.service_servicebookreport_aspx' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 24-Sep-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Sep-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Sep-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 07-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The file '/Purchase.aspx' does not exist.
+User ID: 1
+Error DateTime: 16-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 16-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Freelance\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Purchase\Purchase.aspx(135): error CS1061: 'ASP.purchase_purchase_aspx' does not contain a definition for 'btnSubmit_Click' and no extension method 'btnSubmit_Click' accepting a first argument of type 'ASP.purchase_purchase_aspx' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 16-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The file '/Service/purchase.aspx' does not exist.
+User ID: 1
+Error DateTime: 25-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Freelance\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Purchase\Purchase.aspx(145): error CS1061: 'ASP.purchase_purchase_aspx' does not contain a definition for 'gvItem_RowCommand' and no extension method 'gvItem_RowCommand' accepting a first argument of type 'ASP.purchase_purchase_aspx' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 25-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Oct-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 07-Nov-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 29-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 30-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 31-Dec-2017 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 05-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 05-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Dashboard.aspx(208): error CS1061: 'string' does not contain a definition for 'EncryptOrPadding' and no extension method 'EncryptOrPadding' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Dashboard.aspx(208): error CS1061: 'string' does not contain a definition for 'EncryptOrPadding' and no extension method 'EncryptOrPadding' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Dashboard.aspx(208): error CS1061: 'string' does not contain a definition for 'EncryptOrPadding' and no extension method 'EncryptOrPadding' accepting a first argument of type 'string' could be found (are you missing a using directive or an assembly reference?)
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/InternalServices.asmx.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/InternalServices.asmx.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/InternalServices.asmx.
+User ID: 1
+Error DateTime: 13-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/InternalServices.asmx.
+User ID: 1
+Error DateTime: 15-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/InternalServices.asmx.
+User ID: 1
+Error DateTime: 15-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: No web service found at: /Service/WebServices/InternalServices.asmx.
+User ID: 1
+Error DateTime: 15-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The server tag is not well formed.
+User ID: 1
+Error DateTime: 17-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The server tag is not well formed.
+User ID: 1
+Error DateTime: 17-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Service\ServiceChallan.aspx(121): error CS1026: ) expected
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Service\ServiceChallan.aspx(121): error CS1026: ) expected
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: h:\Personal\Aegis Solution\WebAppAegisCRM\WebAppAegisCRM\Service\ServiceChallan.aspx(121): error CS1026: ) expected
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 18-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 22-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The tag contains duplicate 'class' attributes.
+User ID: 1
+Error DateTime: 24-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Jan-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 01-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 17-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 21-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 21-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 24-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 25-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 26-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 26-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 26-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 26-Feb-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: The file '/Purchase/StockSnap.aspx' does not exist.
+User ID: 1
+Error DateTime: 03-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 04-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 04-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 04-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 04-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------
+Error Message: Exception of type 'System.Web.HttpUnhandledException' was thrown.
+User ID: 1
+Error DateTime: 04-Mar-2018 12:00:00 AM
+------------------------------------------------------------------------------------------------------

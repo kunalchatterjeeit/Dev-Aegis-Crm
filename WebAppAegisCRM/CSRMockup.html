@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+
+        body {
+            font-family: Cambria, Georgia, serif;
+            line-height: 12px;
+            font-size: 12px;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            margin: 1px;
+            line-height: 18px;
+            vertical-align: middle;
+        }
+
+            table tbody th {
+                text-align: left;
+            }
+
+        .leftimg {
+            text-align: left !important;
+        }
+
+        .rightimg {
+            text-align: right !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <table cellspacing="0" cellpadding="0" border="0">
+                <tbody>
+                    <tr>
+                        <td style="width:30%; text-align:left">
+                            <h2>Aegis Solutions</h2>
+                            <h5>
+                                232, Jodhpur Gardens, Opp - South City Mall, Kolkata 45<br />
+                                Contact No - 8335810009, Email - info@aegissolutions.in
+                            </h5>
+                        </td>
+                        <td>
+                            <img class="leftimg" src="http://aegiscrm.in/images/Aegis_CRM_Logo.png" width="150" />
+                            <h2><u>CHALLAN</u></h2>
+                        </td>
+                        <td style="width:30%; text-align:left">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Challan No. ASC</td>
+                                        <td><span id="tdChallanNo"></span></td>
+                                        <td>Date</td>
+                                        <td><span id="tdChallanDate"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Invoice No.</td>
+                                        <td><span id="tdInvoiceNo"></span></td>
+                                        <td>Date</td>
+                                        <td><span id="tdInvoiceDate"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Order No.</td>
+                                        <td><span id="tdOrderNo"></span></td>
+                                        <td>Date</td>
+                                        <td><span id="tdOrderDate"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <table style=" border-bottom:solid 1px">
+                                <tbody>
+                                    <tr style="text-align:left; font-size:12pt;">
+                                        <td>*VAT No.</td>
+                                        <td>19621456433</td>
+                                        <td>*CST No.</td>
+                                        <td>19621456433</td>
+                                        <td>*S.T. No.</td>
+                                        <td>AAWFA7948RSD001</td>
+                                        <td>*PAN No.</td>
+                                        <td>AAWFA7948R</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </header>
+        <section>
+            <table style="font-size:10pt; text-align:left">
+                <tr>
+                    <td>
+                        Consignee,<br />
+                        M/s,<br /><span id="tdConsigneeName"></span>
+                        VAT No.
+                        <span id="tdVatNo"></span>
+                    </td>
+                    <td>
+                        Delivery Ref:<br />
+                        <span id="tdDeliveryRef"></span>
+                        Remarks:
+                        <span id="tdRemarks"></span>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <table cellspacing="0" cellpadding="0" border="1">
+                <thead>
+                    <tr>
+                        <th>Sl No.</th>
+                        <th>Part No</th>
+                        <th>Description</th>
+                        <th>Qty.</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style="min-height:200px"></div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td style="text-align:center">
+                            TOTAL
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            *This is computer generated no signature required.
+        </section>
+    </div>
+</body>
+</html>
