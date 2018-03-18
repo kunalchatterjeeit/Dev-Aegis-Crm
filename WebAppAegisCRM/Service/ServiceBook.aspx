@@ -288,11 +288,17 @@
                                         <asp:TextBox ID="txtA4CLCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        Service Engineer :
+                                        Assigned Service Engineer :
                                         <asp:DropDownList ID="ddlServiceEngineer" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">   
+                                        <br />                                     
+                                        <asp:Button ID="btnCallTransfer" runat="server" Text="Call Transfer" OnClientClick="OpenWindow('CallTransfer.aspx')" CssClass="btn btn-outline btn-success pull-left" style="Width:100%"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -450,7 +456,7 @@
                                         </asp:GridView>
                                     </div>
                                 </div>--%>
-                                <div id="signature-pad" class="m-signature-pad" style="display: none">
+                                <%--<div id="signature-pad" class="m-signature-pad" style="display: none">
                                     <div class="m-signature-pad--body">
                                         <canvas></canvas>
                                     </div>
@@ -460,7 +466,7 @@
                                         <button id="btnProceed" type="button" class="button save btn btn-outline btn-success extra-margin pull-right" data-action="save">Proceed</button>
                                     </div>
                                 </div>
-                                <input type="hidden" id="signature" runat="server" />
+                                <input type="hidden" id="signature" runat="server" />--%>
                                 <div class="clearfix">
                                 </div>
                                 <div class="col-lg-12" id="buttonSection">

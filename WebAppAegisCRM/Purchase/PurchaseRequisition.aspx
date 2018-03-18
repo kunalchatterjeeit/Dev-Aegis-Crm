@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="PurchaseRequisition.aspx.cs" Inherits="WebAppAegisCRM.Purchase.PurchaseRequisition" %>
+﻿<%@ Page Title="PURCHASE REQUISITION" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="PurchaseRequisition.aspx.cs" Inherits="WebAppAegisCRM.Purchase.PurchaseRequisition" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>

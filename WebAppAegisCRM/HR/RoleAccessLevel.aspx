@@ -108,6 +108,8 @@
                                 </asp:ListItem>
                                 <asp:ListItem Value="303" Text="&nbsp;&nbsp;&nbsp;VENDOR LIST">
                                 </asp:ListItem>
+                                 <asp:ListItem Value="306" Text="&nbsp;&nbsp;&nbsp;VENDOR LIST">
+                                </asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
@@ -133,6 +135,7 @@
                                 <asp:ListItem Value="407" Text="&nbsp;&nbsp;&nbsp;SERVICE BOOK"></asp:ListItem>
                                 <asp:ListItem Value="411" Text="&nbsp;&nbsp;&nbsp;TONNER QUICK LINK PERMISSION"></asp:ListItem>
                                 <asp:ListItem Value="410" Text="&nbsp;&nbsp;&nbsp;DOCKET QUICK LINK PERMISSION"></asp:ListItem>
+                                <asp:ListItem Value="414" Text="&nbsp;&nbsp;&nbsp;CALL TRANSFER"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

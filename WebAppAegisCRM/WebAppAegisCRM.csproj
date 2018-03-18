@@ -60,7 +60,7 @@
       <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Kunal.Exception">
-      <HintPath>..\..\..\POC\Kunal.Exception\Kunal.Exception\bin\Debug\Kunal.Exception.dll</HintPath>
+      <HintPath>..\..\Dev-Aegis-Exception\Kunal.Exception\Kunal.Exception\bin\Debug\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -565,6 +565,7 @@
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="Service\CallStatus.aspx" />
+    <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />
     <Content Include="Service\ContractStatus.aspx" />
     <Content Include="Service\ActionTaken.aspx" />
@@ -809,6 +810,13 @@
     </Compile>
     <Compile Include="Service\CallStatus.aspx.designer.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\CallTransfer.aspx.cs">
+      <DependentUpon>CallTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Service\CallTransfer.aspx.designer.cs">
+      <DependentUpon>CallTransfer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\Challan.aspx.cs">
       <DependentUpon>Challan.aspx</DependentUpon>

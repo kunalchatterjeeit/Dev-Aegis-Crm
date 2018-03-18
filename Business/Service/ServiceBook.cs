@@ -85,5 +85,10 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_ServiceBookDetailsApproval_GetAll(serviceBook);
         }
+
+        public int Service_CallTransfer_Save(Entity.Service.ServiceBook serviceBook)
+        {
+            return DataAccess.Service.ServiceBook.Service_CallTransfer_Save(serviceBook);
+        }
     }
 }

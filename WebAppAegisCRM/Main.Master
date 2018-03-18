@@ -41,7 +41,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="dist/css/signature-pad.css">
+<%--    <link rel="stylesheet" href="dist/css/signature-pad.css">--%>
 
     <script type="text/javascript">
         var _gaq = _gaq || [];
@@ -335,6 +335,9 @@
                         <li id="liInventory" runat="server">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li id="liPurchaseRequisitionEntry" runat="server">
+                                    <a href="../Purchase/Purchase.aspx">Purchase Requisition Entry</a>
+                                </li>
                                 <li id="liPurchaseEntry" runat="server">
                                     <a href="../Purchase/Purchase.aspx">Purchase Entry</a>
                                 </li>
@@ -412,8 +415,8 @@
             <!-- /#page-wrapper -->
         </div>
         <!-- /#wrapper -->
-        <script src="../js/signature_pad.js"></script>
-        <script src="../js/app.js"></script>
+        <%--<script src="../js/signature_pad.js"></script>
+        <script src="../js/app.js"></script>--%>
     </form>
 </body>
 </html>

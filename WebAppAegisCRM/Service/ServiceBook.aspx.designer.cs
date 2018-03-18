@@ -319,6 +319,15 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.DropDownList ddlServiceEngineer;
         
         /// <summary>
+        /// btnCallTransfer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCallTransfer;
+        
+        /// <summary>
         /// ddlProblemObserved control.
         /// </summary>
         /// <remarks>
@@ -371,15 +380,6 @@ namespace WebAppAegisCRM.Service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvAssociatedEngineers;
-        
-        /// <summary>
-        /// signature control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden signature;
         
         /// <summary>
         /// MessageDocket control.

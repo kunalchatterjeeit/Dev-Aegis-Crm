@@ -31,6 +31,7 @@ namespace Entity.HR
         public const string VENDOR_LIST = "303";
         public const string PURCHASE_LIST = "304";
         public const string STOCK_LOOKUP = "305";
+        public const string PURCHASE_REQUISITION_ENTRY = "306";
 
 
         //Service
@@ -46,6 +47,7 @@ namespace Entity.HR
         public const string TONNER_QUICK_LINK_PERMISSION = "411";
         public const string CUSTOMER_LIST_SHOW_ALL = "412";
         public const string TONNER_REQUEST_APPROVAL = "413";
+        public const string CALL_TRANSFER = "414";
 
         //Reports
         public const string REPORT = "500";

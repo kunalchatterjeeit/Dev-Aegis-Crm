@@ -540,5 +540,34 @@ namespace DataAccess.Service
                 return dt;
             }
         }
+
+        public static int Service_CallTransfer_Save(Entity.Service.ServiceBook serviceBook)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_CallTransfer_Save";
+
+                        cmd.Parameters.AddWithValue("@CallTransferId", serviceBook.CallTransferId);
+                        cmd.Parameters.AddWithValue("@CallId", serviceBook.CallId);
+                        cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
+                        cmd.Parameters.AddWithValue("@NewEngineerId", serviceBook.EmployeeId_FK);
+                        cmd.Parameters.AddWithValue("@TransferReason", serviceBook.Remarks);
+                        cmd.Parameters.AddWithValue("@CreatedBy", serviceBook.CreatedBy);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
     }
 }

@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Kunal.Exception">
-      <HintPath>..\..\..\POC\Kunal.Exception\Kunal.Exception\bin\Debug\Kunal.Exception.dll</HintPath>
+      <HintPath>..\..\Dev-Aegis-Exception\Kunal.Exception\Kunal.Exception\bin\Debug\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

@@ -230,9 +230,9 @@ namespace WebAppAegisCRM.Purchase
                         PurchaseRequisitionId = purchaseRequisitionId,
                         ItemId = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[0]),
                         ItemType = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[1]),
-                        Quantity = (!string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
+                        Quantity = (drItem["Quantity"]!=null && !string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
                         UOM = 1,
-                        Description = drItem["Description"].ToString(),
+                        Description = (drItem["Description"] != null && !string.IsNullOrEmpty(drItem["Description"].ToString())) ? drItem["Description"].ToString() : string.Empty,
                         ApprovalStatus = (int)ApprovalStatus.None
                     });
                 }

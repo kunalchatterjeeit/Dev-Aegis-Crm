@@ -9,7 +9,9 @@ namespace Entity.Purchase
 {
     public class PurchaseRequisition
     {
-        public PurchaseRequisition() { }
+        public PurchaseRequisition() {
+            PurchaseRequisitionDetailsCollection = new Collection<PurchaseRequisitionDetails>();
+        }
 
         public Int64 PurchaseRequisitionId { get; set; }
         public string PurchaseRequisitionNo { get; set; }

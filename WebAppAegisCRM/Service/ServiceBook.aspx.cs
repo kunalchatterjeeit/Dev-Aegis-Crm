@@ -71,6 +71,7 @@ namespace WebAppAegisCRM.Service
                     Response.Redirect("~/MainLogout.aspx");
                 }
 
+                btnCallTransfer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CALL_TRANSFER);
                 LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM);
                 LoadDocketCallStatus();
                 LoadProblemObserved();
@@ -237,28 +238,36 @@ namespace WebAppAegisCRM.Service
                 }
                 else
                     if (ddlInTimeMM.SelectedIndex == 0)
-                    {
-                        MessageDocket.IsSuccess = false;
-                        MessageDocket.Text = "Please select In Time MM";
-                        MessageDocket.Show = true;
-                        retValue = false;
-                    }
-                    else
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select In Time MM";
+                    MessageDocket.Show = true;
+                    retValue = false;
+                }
+                else
                         if (ddlOutTimeHH.SelectedIndex == 0)
-                        {
-                            MessageDocket.IsSuccess = false;
-                            MessageDocket.Text = "Please select Out Time HH";
-                            MessageDocket.Show = true;
-                            retValue = false;
-                        }
-                        else
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select Out Time HH";
+                    MessageDocket.Show = true;
+                    retValue = false;
+                }
+                else
                             if (ddlOutTimeMM.SelectedIndex == 0)
-                            {
-                                MessageDocket.IsSuccess = false;
-                                MessageDocket.Text = "Please select Out Time MM";
-                                MessageDocket.Show = true;
-                                retValue = false;
-                            }
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select Out Time MM";
+                    MessageDocket.Show = true;
+                    retValue = false;
+                }
+            }
+
+            if (string.IsNullOrEmpty(Business.Common.Context.Signature))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please provide signature before submit.";
+                MessageDocket.Show = true;
+                return retValue = false;
             }
             return retValue;
         }
@@ -578,6 +587,8 @@ namespace WebAppAegisCRM.Service
             MessageDocket.Show = false;
             Business.Common.Context.SelectedAssets.Clear();
             Business.Common.Context.Signature = string.Empty;
+            Business.Common.Context.CallId = 0;
+            Business.Common.Context.CallType = CallType.None;
         }
         protected void ClearTonnerControls()
         {
@@ -596,6 +607,8 @@ namespace WebAppAegisCRM.Service
             txtDiagnosis.Text = "";
             gvTonnerList.DataBind();
             MessageTonner.Show = false;
+            Business.Common.Context.CallId = 0;
+            Business.Common.Context.CallType = CallType.None;
         }
         protected void EmployeeMaster_GetAll()
         {
@@ -705,6 +718,8 @@ namespace WebAppAegisCRM.Service
                 if (checkBox.Checked)
                 {
                     DocketId = Int64.Parse(gvDocket.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                    Business.Common.Context.CallId = DocketId;
+                    Business.Common.Context.CallType = CallType.Docket;
                     lblProblem.Text = gridViewRow.Cells[8].Text;
                     divDocketClosing.Visible = true;
                     LoadServiceBookMasterHistory();
@@ -750,7 +765,11 @@ namespace WebAppAegisCRM.Service
                 if (checkBox.Checked)
                 {
                     if (gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values != null && gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values.Count > 0)
+                    {
                         TonerRequestId = Int64.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                        Business.Common.Context.CallId = TonerRequestId;
+                        Business.Common.Context.CallType = CallType.Toner;
+                    }
                     if (gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values != null && gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values.Count > 1)
                         CustomerPurchaseId = int.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[1].ToString());
                     LoadService_Tonner_GetByTonnerRequestId();
@@ -931,7 +950,7 @@ namespace WebAppAegisCRM.Service
                         else
                             serviceBook.A4CLMeterReading = int.Parse(txtA4CLCurrentMeterReading.Text.Trim());
 
-                        serviceBook.Signature = signature.Value;
+                        serviceBook.Signature = Business.Common.Context.Signature;
                     }
                 }
                 int i = objServiceBook.Service_ServiceBook_Save(serviceBook);
@@ -1007,13 +1026,6 @@ namespace WebAppAegisCRM.Service
                 }
                 MessageDocket.Show = true;
             }
-        }
-
-        protected void btnSignature_Click(object sender, EventArgs e)
-        {
-            //if (ValidateDocket())
-            //{
-            //}
         }
 
         protected void gvAssociatedEngineers_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -193,6 +193,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liInventory;
         
         /// <summary>
+        /// liPurchaseRequisitionEntry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liPurchaseRequisitionEntry;
+        
+        /// <summary>
         /// liPurchaseEntry control.
         /// </summary>
         /// <remarks>
