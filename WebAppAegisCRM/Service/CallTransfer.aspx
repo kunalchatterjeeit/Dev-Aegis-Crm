@@ -102,4 +102,10 @@
         </asp:UpdatePanel>
     </form>
 </body>
+<script type="text/javascript">
+    function refreshAndClose() {
+        window.opener.location.reload(true);
+        window.close();
+    }
+</script>
 </html>
