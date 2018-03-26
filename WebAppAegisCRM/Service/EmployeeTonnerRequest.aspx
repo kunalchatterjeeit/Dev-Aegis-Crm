@@ -258,7 +258,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Request Date:
-                                        <asp:TextBox ID="txtRequestDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtRequestDate" runat="server" CssClass="form-control" style="background:#fff" disabled></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRequestDate"
                                             Format="dd MMM yyyy" Enabled="True">
                                         </asp:CalendarExtender>

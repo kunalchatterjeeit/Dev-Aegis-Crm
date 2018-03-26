@@ -167,7 +167,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Docket Date:
-                                        <asp:TextBox ID="txtDocketDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtDocketDate" runat="server" CssClass="form-control" style="background:#fff" disabled></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDocketDate"
                                             Format="dd MMM yyyy" Enabled="True">
                                         </asp:CalendarExtender>

@@ -126,7 +126,7 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@AssignEngineer", tonerRequest.AssignEngineer);
-                        cmd.InsertPaging(tonerRequest);
+                        cmd.InsertPaging(tonerRequest, tonerRequest.TonerRequestId);
 
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;

@@ -11,7 +11,7 @@ namespace Business.Service
         public ServiceBook()
         { }
 
-        public int Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
+        public Int64 Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
         {
             return DataAccess.Service.ServiceBook.Service_ServiceBook_Save(serviceBook);
         }
@@ -89,6 +89,11 @@ namespace Business.Service
         public int Service_CallTransfer_Save(Entity.Service.ServiceBook serviceBook)
         {
             return DataAccess.Service.ServiceBook.Service_CallTransfer_Save(serviceBook);
+        }
+
+        public bool Service_ServiceSpareApprovalCheck(Entity.Service.ServiceBook serviceBook)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceSpareApprovalCheck(serviceBook);
         }
     }
 }

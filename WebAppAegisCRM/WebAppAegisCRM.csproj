@@ -579,6 +579,7 @@
     <Content Include="Service\EmployeeTonnerRequest.aspx" />
     <Content Include="Service\ServiceBook.aspx" />
     <Content Include="Service\ServiceBookReport.aspx" />
+    <Content Include="Service\ServiceBookSpareApproval.aspx" />
     <Content Include="Service\ServiceChallan.aspx" />
     <Content Include="Service\signaturePadTest.aspx" />
     <Content Include="Service\TonerApproval.aspx" />
@@ -908,6 +909,13 @@
     </Compile>
     <Compile Include="Service\ServiceBookReport.aspx.designer.cs">
       <DependentUpon>ServiceBookReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\ServiceBookSpareApproval.aspx.cs">
+      <DependentUpon>ServiceBookSpareApproval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Service\ServiceBookSpareApproval.aspx.designer.cs">
+      <DependentUpon>ServiceBookSpareApproval.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\ServiceChallan.aspx.cs">
       <DependentUpon>ServiceChallan.aspx</DependentUpon>

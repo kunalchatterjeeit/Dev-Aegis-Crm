@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.Services.Description;
-using System.Data.SqlClient;
 namespace WebAppAegisCRM.Customer
 {
-    public partial class CustomerMaster : System.Web.UI.Page
+    public partial class CustomerMaster : Page
     {
-        public Int64 CustomerId
+        public long CustomerId
         {
             get { return Convert.ToInt64(ViewState["CustomerId"]); }
             set { ViewState["CustomerId"] = value; }
         }
-        public Int64 CustomerAddressId
+        public long CustomerAddressId
         {
             get { return Convert.ToInt64(ViewState["CustomerAddressId"]); }
             set { ViewState["CustomerAddressId"] = value; }
         }
-        public Int64 CustomerContactDetailsId
+        public long CustomerContactDetailsId
         {
             get { return Convert.ToInt64(ViewState["CustomerContactDetailsId"]); }
             set { ViewState["CustomerContactDetailsId"] = value; }

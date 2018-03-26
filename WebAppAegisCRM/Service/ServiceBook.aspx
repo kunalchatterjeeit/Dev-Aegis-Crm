@@ -218,12 +218,14 @@
                                         <asp:Label ID="lblProblem" runat="server" CssClass="form-control" Style="height: 50px"></asp:Label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="clearfix"></div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         In Time :
                                         <div class="form-control">
-                                            <asp:TextBox ID="txtInDate" runat="server" Style="border: none"></asp:TextBox>
+                                            <asp:TextBox ID="txtInDate" runat="server" Style="border: none; background: #fff; width:55px" disabled></asp:TextBox>
                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtInDate"
                                                 Format="dd MMM yyyy" Enabled="True">
                                             </asp:CalendarExtender>
@@ -238,11 +240,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Out Time :
                                         <div class="form-control">
-                                            <asp:TextBox ID="txtOutDate" runat="server" Style="border: none"></asp:TextBox>
+                                            <asp:TextBox ID="txtOutDate" runat="server" Style="border: none; background: #fff; width:55px" disabled></asp:TextBox>
                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtOutDate"
                                                 Format="dd MMM yyyy" Enabled="True">
                                             </asp:CalendarExtender>
@@ -257,13 +259,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Current Call Status :
                                         <asp:DropDownList ID="ddlCurrentCallStatusDocket" CssClass="form-control" runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <br />
+                                        <%--<asp:Button ID="Button1" runat="server" Text="Call Transfer" OnClientClick="OpenWindow('CallTransfer.aspx')" CssClass="btn btn-outline btn-info pull-left" Style="width: 100%" />--%>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         A3 BW Current Meter Reading:                                        
@@ -288,6 +299,8 @@
                                         <asp:TextBox ID="txtA4CLCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Assigned Service Engineer :
@@ -296,9 +309,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <div class="form-group">   
-                                        <br />                                     
-                                        <asp:Button ID="btnCallTransfer" runat="server" Text="Call Transfer" OnClientClick="OpenWindow('CallTransfer.aspx')" CssClass="btn btn-outline btn-success pull-left" style="Width:100%"/>
+                                    <div class="form-group">
+                                        <br />
+                                        <asp:Button ID="btnCallTransfer" runat="server" Text="Call Transfer" OnClientClick="OpenWindow('CallTransfer.aspx')" CssClass="btn btn-outline btn-info pull-left" Style="width: 100%" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -308,6 +321,8 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         Diagnosis :
@@ -322,6 +337,8 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         Remarks :
@@ -334,6 +351,8 @@
                                         <asp:TextBox ID="txtCustomerFeedback" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         Select Associated Engineers:
@@ -362,7 +381,7 @@
                                                             In Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none;background: #fff; width:55px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtAssociatedInDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
@@ -381,7 +400,7 @@
                                                             Out Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none"></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none;background: #fff; width:55px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtAssociatedOutDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
@@ -419,7 +438,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%--<div class="col-lg-12">
+                            </div>
+                            <%--<div class="col-lg-12">
                                     <div class="table-responsive">
                                         Replacable Spare List:
                                         <asp:GridView ID="gvSpareList" DataKeyNames="SpareId" runat="server"
@@ -456,7 +476,7 @@
                                         </asp:GridView>
                                     </div>
                                 </div>--%>
-                                <%--<div id="signature-pad" class="m-signature-pad" style="display: none">
+                            <%--<div id="signature-pad" class="m-signature-pad" style="display: none">
                                     <div class="m-signature-pad--body">
                                         <canvas></canvas>
                                     </div>
@@ -467,18 +487,18 @@
                                     </div>
                                 </div>
                                 <input type="hidden" id="signature" runat="server" />--%>
-                                <div class="clearfix">
-                                </div>
-                                <div class="col-lg-12" id="buttonSection">
-                                    <br />
-                                    <uc3:Message ID="MessageDocket" runat="server" />
-                                    <asp:Button ID="btnServiceChallan" runat="server" Text="Proceed to Challan & Signature" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-success extra-margin pull-right" Style="width: 100%" />
-                                    <asp:Button ID="btnDocketClose" runat="server" Text="Submit" class="btn btn-outline btn-success extra-margin pull-right" OnClick="btnDocketClose_Click" Style="width: 100%" />
-                                </div>
+                            <div class="clearfix">
+                            </div>
+                            <div class="col-lg-12" id="buttonSection">
+                                <br />
+                                <uc3:Message ID="MessageDocket" runat="server" />
+                                <asp:Button ID="btnServiceChallan" runat="server" Text="Proceed to Challan & Signature" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-success extra-margin pull-right" Style="width: 100%" />
+                                <asp:Button ID="btnDocketClose" runat="server" Text="Submit" class="btn btn-outline btn-success extra-margin pull-right" OnClick="btnDocketClose_Click" Style="width: 100%" />
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <div class="row" id="divDocketClosingHistory" runat="server" visible="false">
                 <div class="col-lg-12">
@@ -583,7 +603,7 @@
                                     <div class="table-responsive">
                                         <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId,CustomerPurchaseId" runat="server"
                                             AutoGenerateColumns="False" Width="100%" CellPadding="4" AllowPaging="true" AllowCustomPaging="true" PageSize="5"
-                                            ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left" 
+                                            ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
                                             OnPageIndexChanging="gvTonnerRequest_PageIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField>

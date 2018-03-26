@@ -108,7 +108,7 @@
                                 </asp:ListItem>
                                 <asp:ListItem Value="303" Text="&nbsp;&nbsp;&nbsp;VENDOR LIST">
                                 </asp:ListItem>
-                                 <asp:ListItem Value="306" Text="&nbsp;&nbsp;&nbsp;VENDOR LIST">
+                                 <asp:ListItem Value="306" Text="&nbsp;&nbsp;&nbsp;PURCHASE REQUISITION ENTRY">
                                 </asp:ListItem>
                             </asp:CheckBoxList>
                         </div>

@@ -108,10 +108,10 @@
             -moz-border-radius: 8;
             border-radius: 4px;
             font-family: Arial;
-            color: #3cfc63;
+            color: #5cb85c;
             font-size: 13px;
             padding: 10px 20px 10px 20px;
-            border: solid #3cfc63 1px;
+            border: solid #5cb85c 1px;
             text-decoration: none;
             margin-top:5px;
             width:100%;
@@ -119,7 +119,7 @@
 
             .btn:hover {
                 text-decoration: none;
-                background: #3cfc63;
+                background: #5cb85c;
                 color: #fff;
             }
     </style>

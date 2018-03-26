@@ -13,9 +13,9 @@ namespace DataAccess.Service
         public ServiceBook()
         { }
 
-        public static int Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
+        public static Int64 Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
         {
-            int rowsAffacted = 0;
+            Int64 rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -26,7 +26,7 @@ namespace DataAccess.Service
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Service_ServiceBook_Save";
 
-                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId);
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId).Direction = ParameterDirection.InputOutput;
                         cmd.Parameters.AddWithValue("@CallId", serviceBook.CallId);
                         cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
                         cmd.Parameters.AddWithValue("@EmployeeId_FK", serviceBook.EmployeeId_FK);
@@ -58,7 +58,8 @@ namespace DataAccess.Service
                     }
                     if (con.State == ConnectionState.Closed)
                         con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                    rowsAffacted = Convert.ToInt64(cmd.Parameters["@ServiceBookId"].Value);
                     con.Close();
                 }
             }
@@ -527,6 +528,7 @@ namespace DataAccess.Service
                         else
                             cmd.Parameters.AddWithValue("@RequestToDate", serviceBook.RequestToDate);
                         cmd.Parameters.AddWithValue("@ApprovalStatus", serviceBook.ApprovalStatus);
+                        cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -568,6 +570,37 @@ namespace DataAccess.Service
                 }
             }
             return rowsAffacted;
+        }
+
+        public static bool Service_ServiceSpareApprovalCheck(Entity.Service.ServiceBook serviceBook)
+        {
+            bool retValue = false;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceSpareApprovalCheck";
+                        cmd.Parameters.AddWithValue("@LowYieldFound", false).Direction = ParameterDirection.InputOutput;
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId);
+                        cmd.Parameters.AddWithValue("@CallId", serviceBook.CallId);
+                        using (DataSet dsItems = new DataSet())
+                        {
+                            dsItems.Tables.Add(serviceBook.ApprovalItems);
+                            cmd.Parameters.AddWithValue("@SpareXml", dsItems.GetXml());
+                        }
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    retValue = Convert.ToBoolean(cmd.Parameters["@LowYieldFound"].Value);
+                    con.Close();
+                }
+            }
+            return retValue;
         }
     }
 }

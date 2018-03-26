@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Service
 {
-    public partial class TonerApproval : System.Web.UI.Page
+    public partial class ServiceBookSpareApproval : System.Web.UI.Page
     {
         private void Service_ServiceBookDetailsApproval_GetAll()
         {
@@ -20,7 +20,7 @@ namespace WebAppAegisCRM.Service
                 FromDate = (!string.IsNullOrEmpty(txtLogFromDate.Text.Trim()) ? Convert.ToDateTime(txtLogFromDate.Text.Trim()) : DateTime.MinValue),
                 ToDate = (!string.IsNullOrEmpty(txtLogToDate.Text.Trim()) ? Convert.ToDateTime(txtLogToDate.Text.Trim()) : DateTime.MinValue),
                 ApprovalStatus = Convert.ToInt32(ddlApprovalStatus.SelectedValue),
-                CallType = 1
+                CallType = 2
             };
 
             DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(serviceBook);
@@ -63,12 +63,12 @@ namespace WebAppAegisCRM.Service
                 {
                     Service_ServiceBookDetailsApproval_GetAll();
                     Message.IsSuccess = true;
-                    Message.Text = "Toner response has been given.";
+                    Message.Text = "Spare response has been given.";
                 }
                 else
                 {
                     Message.IsSuccess = false;
-                    Message.Text = "Toner response failed.";
+                    Message.Text = "Spare response failed.";
                 }
                 Message.Show = true;
             }

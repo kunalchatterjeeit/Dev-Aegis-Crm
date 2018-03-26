@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business;
 using Entity.Inventory;
+using Business.Common;
 
 namespace WebAppAegisCRM.Service
 {
@@ -14,24 +15,31 @@ namespace WebAppAegisCRM.Service
     {
         private void GetSpareInventory_ByProductId(Int64 productId, int assetLocationId)
         {
-            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            DataTable dt = objServiceBook.GetSpareInventory_ByProductId(productId, assetLocationId);
-            dt.Columns.Add("IsSelected");
-            if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
+            try
             {
-                foreach (DataRow drSelected in Business.Common.Context.SelectedAssets.Rows)
+                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                DataTable dt = objServiceBook.GetSpareInventory_ByProductId(productId, assetLocationId);
+                dt.Columns.Add("IsSelected");
+                if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
-                    if (dt.AsEnumerable().Select(item => item["AssetId"] == drSelected["AssetId"]).Any())
+                    foreach (DataRow drSelected in Business.Common.Context.SelectedAssets.Rows)
                     {
-                        dt.AsEnumerable().Where(item => Guid.Parse(item["AssetId"].ToString()) == Guid.Parse(drSelected["AssetId"].ToString())).FirstOrDefault()["IsSelected"] = "1";
-                        dt.AcceptChanges();
+                        if (dt.AsEnumerable().Select(item => item["AssetId"] == drSelected["AssetId"]).Any())
+                        {
+                            dt.AsEnumerable().Where(item => Guid.Parse(item["AssetId"].ToString()) == Guid.Parse(drSelected["AssetId"].ToString())).FirstOrDefault()["IsSelected"] = "1";
+                            dt.AcceptChanges();
+                        }
                     }
                 }
+                if (dt != null)
+                {
+                    RepeaterInventory.DataSource = dt;
+                    RepeaterInventory.DataBind();
+                }
             }
-            if (dt != null)
+            catch (Exception ex)
             {
-                RepeaterInventory.DataSource = dt;
-                RepeaterInventory.DataBind();
+                ex.WriteException();
             }
         }
 

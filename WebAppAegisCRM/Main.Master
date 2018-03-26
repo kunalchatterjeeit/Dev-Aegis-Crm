@@ -377,6 +377,9 @@
                                 <li id="liServiceBook" runat="server">
                                     <a href="../Service/ServiceBook.aspx">Service Book</a>
                                 </li>
+                                <li id="liServiceBookApproval" runat="server">
+                                    <a href="../Service/ServiceBookSpareApproval.aspx">Service Book Approval</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
