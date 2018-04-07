@@ -7,7 +7,7 @@ namespace Business.Common
 {
     public static class Context
     {
-        public static Int64 ProductId
+        public static long ProductId
         {
             get
             {
@@ -43,7 +43,7 @@ namespace Business.Common
             }
         }
 
-        public static Int64 CallId
+        public static long CallId
         {
             get
             {
@@ -73,6 +73,18 @@ namespace Business.Common
             set
             {
                 HttpContext.Current.Session["CallType"] = value;
+            }
+        }
+
+        public static long ServiceBookId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ServiceBookId"] != null) ? Convert.ToInt64(HttpContext.Current.Session["ServiceBookId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["ServiceBookId"] = value;
             }
         }
     }

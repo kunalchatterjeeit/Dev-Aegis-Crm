@@ -34,7 +34,7 @@ namespace WebAppAegisCRM.Service
 
             int approvalId = int.Parse(e.CommandArgument.ToString());
             int approvalResponse = 0;
-            GridViewRow row = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
+            GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
             string comment = ((TextBox)row.FindControl("txtComment")).Text.Trim();
             using (DataTable dtApproval = new DataTable())
             {

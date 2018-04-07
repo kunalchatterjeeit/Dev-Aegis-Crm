@@ -70,6 +70,7 @@
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Service\ApprovalStatus.cs" />
     <Compile Include="Service\CallStatus.cs" />
+    <Compile Include="Service\CallStatusType.cs" />
     <Compile Include="Service\CallType.cs" />
     <Compile Include="Service\Contract.cs" />
     <Compile Include="Service\Docket.cs" />

@@ -95,8 +95,8 @@
                                                 <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                                                 <asp:BoundField HeaderText="Yield" DataField="Yield" />
                                             </Columns>
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                             <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                             <EditRowStyle BackColor="#999999" />
                                             <EmptyDataRowStyle CssClass="EditRowStyle" />

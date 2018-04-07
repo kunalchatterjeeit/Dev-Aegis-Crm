@@ -88,9 +88,14 @@
                                                         <%# Container.DataItemIndex+1 %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
-                                                <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
-                                                <asp:BoundField HeaderText="Docket Id" DataField="RequestNo" />
+                                                <asp:BoundField HeaderText="Machine" DataField="MachineId" />
+                                                <asp:BoundField HeaderText="Docket" DataField="RequestNo" />
+                                                <asp:BoundField HeaderText="Spare" DataField="SpareName" />
+                                                <asp:BoundField HeaderText="Yield" DataField="Yield" />
+                                                <asp:BoundField HeaderText="A3BW" DataField="A3BWMeterReading" />
+                                                <asp:BoundField HeaderText="A3CL" DataField="A3CLMeterReading" />
+                                                <asp:BoundField HeaderText="A4BW" DataField="A4BWMeterReading" />
+                                                <asp:BoundField HeaderText="A4CL" DataField="A4CLMeterReading" />
                                                 <asp:BoundField HeaderText="Log Date" DataField="RequestDateTime" />
                                                 <asp:TemplateField HeaderText="Approval Status">
                                                     <ItemTemplate>
@@ -105,22 +110,26 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
-                                                        <asp:Button ID="btnApprove" runat="server" Text="Approve" CommandArgument='<%# Eval("ApprovalId") %>' CommandName="Approve" />
+                                                        <asp:ImageButton ID="btnApprove" runat="server" CausesValidation="false" CommandName="Approve"
+                                                        CommandArgument='<%# Eval("ApprovalId") %>' ImageUrl="~/images/Thumbs_up-icon.png"
+                                                        ImageAlign="AbsMiddle" ToolTip="Approve" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
-                                                        <asp:Button ID="btnReject" runat="server" Text="Reject" CommandArgument='<%# Eval("ApprovalId") %>' CommandName="Reject" />
+                                                        <asp:ImageButton ID="btnReject" runat="server" CausesValidation="false" CommandName="Reject"
+                                                        CommandArgument='<%# Eval("ApprovalId") %>' ImageUrl="~/images/Thumbs_down_icon.png"
+                                                        ImageAlign="AbsMiddle" ToolTip="Reject" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                             <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                             <EditRowStyle BackColor="#999999" />
                                             <EmptyDataRowStyle CssClass="EditRowStyle" />
                                             <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                             <EmptyDataTemplate>
                                                 No Record Found...

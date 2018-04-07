@@ -13,7 +13,7 @@ namespace WebAppAegisCRM.Service
 {
     public partial class ServiceChallan : System.Web.UI.Page
     {
-        private void GetSpareInventory_ByProductId(Int64 productId, int assetLocationId)
+        private void GetSpareInventory_ByProductId(long productId, int assetLocationId)
         {
             try
             {
@@ -53,6 +53,7 @@ namespace WebAppAegisCRM.Service
         {
             if (!IsPostBack)
             {
+                Message.Show = false;
                 GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
                 if (Business.Common.Context.SelectedAssets != null && Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
@@ -63,22 +64,33 @@ namespace WebAppAegisCRM.Service
 
         protected void RepeaterInventory_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
             if (e.CommandName == "Add")
             {
+                Message.Show = false;
                 string assetId = e.CommandArgument.ToString().Split('|')[0];
                 string itemId = e.CommandArgument.ToString().Split('|')[1];
-                if (Business.Common.Context.SelectedAssets.Rows.Count == 0)
+                if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId,Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
                 {
-                    Business.Common.Context.SelectedAssets = new DataTable();
-                    Business.Common.Context.SelectedAssets.Columns.Add("AssetId");
-                    Business.Common.Context.SelectedAssets.Columns.Add("ItemId");
+                    Message.IsSuccess = false;
+                    Message.Text = "Invalid request. Not able to add since it is already rejected.";
+                    Message.Show = true;
                 }
-                DataRow dr = Business.Common.Context.SelectedAssets.NewRow();
-                dr["AssetId"] = assetId;
-                dr["ItemId"] = itemId;
-                Business.Common.Context.SelectedAssets.Rows.Add(dr);
-                GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
-                LoadSelectedAssets();
+                else
+                {
+                    if (Business.Common.Context.SelectedAssets.Rows.Count == 0)
+                    {
+                        Business.Common.Context.SelectedAssets = new DataTable();
+                        Business.Common.Context.SelectedAssets.Columns.Add("AssetId");
+                        Business.Common.Context.SelectedAssets.Columns.Add("ItemId");
+                    }
+                    DataRow dr = Business.Common.Context.SelectedAssets.NewRow();
+                    dr["AssetId"] = assetId;
+                    dr["ItemId"] = itemId;
+                    Business.Common.Context.SelectedAssets.Rows.Add(dr);
+                    GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
+                    LoadSelectedAssets();
+                }
             }
         }
 

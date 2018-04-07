@@ -125,13 +125,13 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
-                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                    <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                     <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                     <EditRowStyle BackColor="#999999" />
                                     <EmptyDataRowStyle CssClass="EditRowStyle" />
                                     <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                    <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                     <EmptyDataTemplate>
                                         No Record Found...
@@ -171,13 +171,13 @@
                                 <asp:BoundField HeaderText="HSN Code" DataField="HSNCode" />
                                 <asp:BoundField HeaderText="Discount" DataField="DISCOUNT" />
                             </Columns>
-                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" Wrap="false" />
+                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" Wrap="false" />
                             <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" Wrap="false" />
                             <EditRowStyle BackColor="#999999" />
                             <EmptyDataRowStyle CssClass="EditRowStyle" />
                             <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                            <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                             <EmptyDataTemplate>
                                 No Record Found...

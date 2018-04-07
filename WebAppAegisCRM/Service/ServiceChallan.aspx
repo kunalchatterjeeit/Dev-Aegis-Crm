@@ -1,128 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ServiceChallan.aspx.cs" Inherits="WebAppAegisCRM.Service.ServiceChallan" %>
 
+<%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>SERVICE CHALLAN</title>
+    <link href="../dist/css/custom.css" rel="stylesheet" />
+    <link href="../dist/css/custom-popup.css" rel="stylesheet" />
     <link rel="stylesheet" href="../dist/css/signature-pad.css" type="text/css" />
     <link href="../js/AutoComplete/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>
     <script type="text/javascript" src="../js/AutoComplete/jquery-ui.min.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        .myInput {
-            background-image: url('/../images/searchicon.png');
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            width: 100%;
-            font-size: 12px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
-            margin-bottom: 12px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            border: 1px solid #ddd;
-            font-size: 12px;
-        }
-
-        #myTable th, #myTable td {
-            text-align: left;
-            padding: 2px;
-        }
-
-        #myTable tr {
-            border-bottom: 1px solid #ddd;
-        }
-
-            #myTable tr.header, #myTable tr:hover {
-                background-color: #f1f1f1;
-            }
-    </style>
-    <script type="text/javascript">
-        function showSignaturePad() {
-            document.getElementById("signature-pad").style.display = 'block';
-            resizeCanvas();
-            //scroll to sign pad
-            $('html, body').animate({
-                scrollTop: $("#signature-pad").offset().top
-            }, 2000);
-        }
-        function GetAutocompleteInventories() {
-            myFunction();
-            $("#txtItem").autocomplete({
-                source: function (request, response) {
-                    $.ajax({
-                        type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        url: "../WebServices/InternalServices.asmx/LoadAutoCompleteItems",
-                        data: "{'searchContent':'" + document.getElementById('txtItem').value + "'}",
-                        dataType: "json",
-                        success: function (data) {
-                            response(data.d);
-                        },
-                        error: function (result) {
-                            alert(result.responseText);
-                        }
-                    });
-                }
-            });
-        }
-    </script>
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("txtItem");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                td2 = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    if ((td.innerHTML.toUpperCase().indexOf(filter) > -1) || (td2.innerHTML.toUpperCase().indexOf(filter) > -1)) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/css">
-        .btn {
-            background: #ffffff;
-            background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
-            background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
-            background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
-            background-image: -o-linear-gradient(top, #ffffff, #ffffff);
-            background-image: linear-gradient(to bottom, #ffffff, #ffffff);
-            -webkit-border-radius: 8;
-            -moz-border-radius: 8;
-            border-radius: 4px;
-            font-family: Arial;
-            color: #5cb85c;
-            font-size: 13px;
-            padding: 10px 20px 10px 20px;
-            border: solid #5cb85c 1px;
-            text-decoration: none;
-            margin-top:5px;
-            width:100%;
-        }
-
-            .btn:hover {
-                text-decoration: none;
-                background: #5cb85c;
-                color: #fff;
-            }
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -136,6 +26,7 @@
                     <asp:TextBox ID="txtItem" CssClass="form-control myInput"
                         Style="max-width: 400px; margin: 5px 10px; font-size: 11px" runat="server"
                         onkeydown="javascript:GetAutocompleteInventories()" placeholder="Search"></asp:TextBox>
+                    <uc3:Message ID="Message" runat="server" />
                     <table id="myTable">
                         <asp:Repeater ID="RepeaterInventory" runat="server" OnItemCommand="RepeaterInventory_ItemCommand">
                             <HeaderTemplate>
@@ -184,13 +75,13 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                        <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                         <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                         <EditRowStyle BackColor="#999999" />
                         <EmptyDataRowStyle CssClass="EditRowStyle" />
                         <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                        <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                        <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                         <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                         <EmptyDataTemplate>
                             No Record Found...
@@ -214,6 +105,7 @@
             </div>
         </div>
 
+        <script src="../dist/js/custom.js"></script>
         <script src="../js/signature_pad.js"></script>
         <script src="../js/app.js"></script>
 

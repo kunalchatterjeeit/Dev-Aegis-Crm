@@ -173,7 +173,7 @@
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
                                                         CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/Images/edit_button.png"
-                                                        ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                                        ImageAlign="AbsMiddle" ToolTip="Edit" Width="20px" Height="20px" />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField>
@@ -184,13 +184,13 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
-                                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                        <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                         <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                         <EditRowStyle BackColor="#999999" />
                                         <EmptyDataRowStyle CssClass="EditRowStyle" />
                                         <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                        <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                        <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                         <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                         <EmptyDataTemplate>
                                             No Record Found...
@@ -291,13 +291,13 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField></asp:TemplateField>
                                                 </Columns>
-                                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                                <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                                 <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                                 <EditRowStyle BackColor="#999999" />
                                                 <EmptyDataRowStyle CssClass="EditRowStyle" />
                                                 <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                                <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                                 <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                                 <EmptyDataTemplate>
                                                     No Record Found...
@@ -393,13 +393,13 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField></asp:TemplateField>
                                                 </Columns>
-                                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                                <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                                 <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                                 <EditRowStyle BackColor="#999999" />
                                                 <EmptyDataRowStyle CssClass="EditRowStyle" />
                                                 <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                                <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                                 <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                                 <EmptyDataTemplate>
                                                     No Record Found...

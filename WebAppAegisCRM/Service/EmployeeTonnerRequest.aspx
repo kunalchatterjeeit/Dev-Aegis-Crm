@@ -91,13 +91,13 @@
                                                 <asp:BoundField HeaderText="Mobile" DataField="MobileNo" />
                                                 <asp:BoundField HeaderText="Email" DataField="EmailId" />
                                             </Columns>
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                             <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                             <EditRowStyle BackColor="#999999" />
                                             <EmptyDataRowStyle CssClass="EditRowStyle" />
                                             <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                             <EmptyDataTemplate>
                                                 No Record Found...
@@ -135,13 +135,13 @@
                                                     <asp:BoundField HeaderText="Avg Response Time" DataField="AVGResponseTime" ItemStyle-HorizontalAlign="Left" />
                                                     <asp:BoundField HeaderText="UpTime " DataField="UpTime" ItemStyle-HorizontalAlign="Left" />
                                                 </Columns>
-                                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                                <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                                 <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                                 <EditRowStyle BackColor="#999999" />
                                                 <EmptyDataRowStyle CssClass="EditRowStyle" />
                                                 <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                                <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                                 <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                                 <EmptyDataTemplate>
                                                     No Record Found...
@@ -179,13 +179,13 @@
                                                 <asp:BoundField HeaderText="A3 CL Last Meter Reading" DataField="A3CLLastMeterReading" />
                                                 <asp:BoundField HeaderText="A4 CL Last Meter Reading" DataField="A4CLLastMeterReading" />--%>
                                             </Columns>
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                             <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                             <EditRowStyle BackColor="#999999" />
                                             <EmptyDataRowStyle CssClass="EditRowStyle" />
                                             <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                             <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                             <EmptyDataTemplate>
                                                 No Record Found...
@@ -311,13 +311,13 @@
                                         <asp:BoundField HeaderText="A4 CL Meter" DataField="A4CLMeterReading" />
                                         <asp:BoundField HeaderText="Status" DataField="CallStatus" />
                                     </Columns>
-                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                                    <HeaderStyle BackColor="#0349AA" Font-Bold="True" ForeColor="White" />
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                     <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                     <EditRowStyle BackColor="#999999" />
                                     <EmptyDataRowStyle CssClass="EditRowStyle" />
                                     <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                    <PagerStyle CssClass="PagerStyle" BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                     <EmptyDataTemplate>
                                         No Record Found...

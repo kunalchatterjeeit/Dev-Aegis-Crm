@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using Entity.Service;
 
 namespace Business.Service
 {
@@ -11,9 +12,24 @@ namespace Business.Service
         public ServiceBook()
         { }
 
-        public Int64 Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
+        public long Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
         {
             return DataAccess.Service.ServiceBook.Service_ServiceBook_Save(serviceBook);
+        }
+
+        public int Service_ServiceBookDetails_Save(Entity.Service.ServiceBook serviceBook)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceBookDetails_Save(serviceBook);
+        }
+
+        public DataSet Service_ServiceBookMaster_GetByCallId(long callId, CallType callType)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceBookMaster_GetByCallId(callId, callType);
+        }
+
+        public DataSet Service_AssociatedEngineers_GetByCallId(long callId, CallType callType)
+        {
+            return DataAccess.Service.ServiceBook.Service_AssociatedEngineers_GetByCallId(callId, callType);
         }
 
         public int Service_TonerRequest_Approve(Entity.Service.ServiceBook serviceBook)
@@ -94,6 +110,11 @@ namespace Business.Service
         public bool Service_ServiceSpareApprovalCheck(Entity.Service.ServiceBook serviceBook)
         {
             return DataAccess.Service.ServiceBook.Service_ServiceSpareApprovalCheck(serviceBook);
+        }
+
+        public ApprovalStatus Service_GetServiceBookDetailsApprovalStatus(long serviceBookId, long itemId)
+        {
+            return DataAccess.Service.ServiceBook.Service_GetServiceBookDetailsApprovalStatus(serviceBookId, itemId);
         }
     }
 }

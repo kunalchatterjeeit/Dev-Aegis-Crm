@@ -1,0 +1,56 @@
+﻿.myInput {
+    background-image: url('/../images/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 12px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 12px;
+}
+
+#myTable th, #myTable td {
+    text-align: left;
+    padding: 2px;
+}
+
+#myTable tr {
+    border-bottom: 1px solid #ddd;
+}
+
+    #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+    }
+
+.btn {
+    background: #ffffff;
+    background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 4px;
+    font-family: Arial;
+    color: #5cb85c;
+    font-size: 13px;
+    padding: 10px 20px 10px 20px;
+    border: solid #5cb85c 1px;
+    text-decoration: none;
+    margin-top: 5px;
+    width: 100%;
+}
+
+    .btn:hover {
+        text-decoration: none;
+        background: #5cb85c;
+        color: #fff;
+    }

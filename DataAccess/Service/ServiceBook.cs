@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Entity.Service;
 
 namespace DataAccess.Service
 {
@@ -13,9 +14,62 @@ namespace DataAccess.Service
         public ServiceBook()
         { }
 
-        public static Int64 Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
+        public static long Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
         {
             Int64 rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    //using (DataSet ds = new DataSet())
+                    //{
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_Service_ServiceBook_Save";
+
+                    cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId).Direction = ParameterDirection.InputOutput;
+                    cmd.Parameters.AddWithValue("@CallId", serviceBook.CallId);
+                    cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
+                    cmd.Parameters.AddWithValue("@EmployeeId_FK", serviceBook.EmployeeId_FK);
+                    cmd.Parameters.AddWithValue("@Remarks", serviceBook.Remarks);
+                    cmd.Parameters.AddWithValue("@InTime", serviceBook.InTime);
+                    cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
+                    cmd.Parameters.AddWithValue("@Diagnosis", serviceBook.Diagnosis);
+                    cmd.Parameters.AddWithValue("@ActionTaken", serviceBook.ActionTaken);
+                    cmd.Parameters.AddWithValue("@CallStatusId", serviceBook.CallStatusId);
+                    cmd.Parameters.AddWithValue("@CustomerFeedBack", serviceBook.CustomerFeedback);
+                    cmd.Parameters.AddWithValue("@CreatedBy", serviceBook.CreatedBy);
+                    if (serviceBook.ProblemObserved == "")
+                        cmd.Parameters.AddWithValue("@ProblemObserved", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ProblemObserved", serviceBook.ProblemObserved);
+
+                    //ds.Tables.Add(serviceBook.ServiceBookDetails);
+                    //cmd.Parameters.AddWithValue("@ServiceBookDetails", ds.GetXml());
+                    cmd.Parameters.AddWithValue("@Signature", serviceBook.Signature);
+                    cmd.Parameters.AddWithValue("@A3BWMeterReading", serviceBook.A3BWMeterReading);
+                    cmd.Parameters.AddWithValue("@A3CLMeterReading", serviceBook.A3CLMeterReading);
+                    cmd.Parameters.AddWithValue("@A4BWMeterReading", serviceBook.A4BWMeterReading);
+                    cmd.Parameters.AddWithValue("@A4CLMeterReading", serviceBook.A4CLMeterReading);
+                    using (DataSet dsAssociate = new DataSet())
+                    {
+                        dsAssociate.Tables.Add(serviceBook.AssociatedEngineers);
+                        cmd.Parameters.AddWithValue("@AssociatedEngineers", dsAssociate.GetXml());
+                    }
+                    //}
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    rowsAffacted = Convert.ToInt64(cmd.Parameters["@ServiceBookId"].Value);
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Service_ServiceBookDetails_Save(Entity.Service.ServiceBook serviceBook)
+        {
+            int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -24,42 +78,19 @@ namespace DataAccess.Service
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_Service_ServiceBook_Save";
+                        cmd.CommandText = "usp_Service_ServiceBookDetails_Save";
 
-                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId).Direction = ParameterDirection.InputOutput;
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBook.ServiceBookId);
                         cmd.Parameters.AddWithValue("@CallId", serviceBook.CallId);
                         cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
-                        cmd.Parameters.AddWithValue("@EmployeeId_FK", serviceBook.EmployeeId_FK);
-                        cmd.Parameters.AddWithValue("@Remarks", serviceBook.Remarks);
-                        cmd.Parameters.AddWithValue("@InTime", serviceBook.InTime);
-                        cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
-                        cmd.Parameters.AddWithValue("@Diagnosis", serviceBook.Diagnosis);
-                        cmd.Parameters.AddWithValue("@ActionTaken", serviceBook.ActionTaken);
-                        cmd.Parameters.AddWithValue("@CallStatusId", serviceBook.CallStatusId);
-                        cmd.Parameters.AddWithValue("@CustomerFeedBack", serviceBook.CustomerFeedback);
-                        cmd.Parameters.AddWithValue("@CreatedBy", serviceBook.CreatedBy);
-                        if (serviceBook.ProblemObserved == "")
-                            cmd.Parameters.AddWithValue("@ProblemObserved", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@ProblemObserved", serviceBook.ProblemObserved);
-
                         ds.Tables.Add(serviceBook.ServiceBookDetails);
                         cmd.Parameters.AddWithValue("@ServiceBookDetails", ds.GetXml());
-                        cmd.Parameters.AddWithValue("@Signature", serviceBook.Signature);
-                        cmd.Parameters.AddWithValue("@A3BWMeterReading", serviceBook.A3BWMeterReading);
-                        cmd.Parameters.AddWithValue("@A3CLMeterReading", serviceBook.A3CLMeterReading);
-                        cmd.Parameters.AddWithValue("@A4BWMeterReading", serviceBook.A4BWMeterReading);
-                        cmd.Parameters.AddWithValue("@A4CLMeterReading", serviceBook.A4CLMeterReading);
-                        using (DataSet dsAssociate = new DataSet())
-                        {
-                            dsAssociate.Tables.Add(serviceBook.AssociatedEngineers);
-                            cmd.Parameters.AddWithValue("@AssociatedEngineers", dsAssociate.GetXml());
-                        }
+                        cmd.Parameters.AddWithValue("@CreatedBy", serviceBook.CreatedBy);
                     }
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     cmd.ExecuteNonQuery();
-                    rowsAffacted = Convert.ToInt64(cmd.Parameters["@ServiceBookId"].Value);
+                    rowsAffacted = Convert.ToInt32(cmd.Parameters["@ServiceBookId"].Value);
                     con.Close();
                 }
             }
@@ -601,6 +632,93 @@ namespace DataAccess.Service
                 }
             }
             return retValue;
+        }
+
+        public static DataSet Service_ServiceBookMaster_GetByCallId(long callId, CallType callType)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@CallId", callId);
+                        cmd.Parameters.AddWithValue("@CallType", (int)callType);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceBookMaster_GetByCallId";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
+
+        public static DataSet Service_AssociatedEngineers_GetByCallId(long callId, CallType callType)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@CallId", callId);
+                        cmd.Parameters.AddWithValue("@CallType", (int)callType);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_AssociatedEngineers_GetByCallId";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
+
+        public static ApprovalStatus Service_GetServiceBookDetailsApprovalStatus(long serviceBookId, long itemId)
+        {
+            ApprovalStatus approvalStatus = ApprovalStatus.None;
+            using (DataTable ds = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
+                        cmd.Parameters.AddWithValue("@ItemId", itemId);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_GetServiceBookDetailsApprovalStatus";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+
+                        if (ds != null && ds.Rows.Count > 0)
+                        {
+                            Enum.TryParse(ds.Rows[0][0].ToString(), out approvalStatus);
+                        }
+                    }
+                }                
+            }
+            return approvalStatus;
         }
     }
 }
