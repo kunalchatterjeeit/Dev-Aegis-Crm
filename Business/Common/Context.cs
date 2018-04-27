@@ -87,5 +87,17 @@ namespace Business.Common
                 HttpContext.Current.Session["ServiceBookId"] = value;
             }
         }
+
+        public static DataTable SpareRequisition
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SpareRequisition"] != null) ? (DataTable)HttpContext.Current.Session["SpareRequisition"] : new DataTable();
+            }
+            set
+            {
+                HttpContext.Current.Session["SpareRequisition"] = value;
+            }
+        }
     }
 }

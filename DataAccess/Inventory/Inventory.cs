@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -55,20 +56,20 @@ namespace DataAccess.Inventory
 
                         if (fromDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@FromDate", fromDate);                        
+                            cmd.Parameters.AddWithValue("@FromDate", fromDate);
                         }
-                        else 
+                        else
                         {
-                            cmd.Parameters.Add("@FromDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
                         }
 
                         if (toDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@ToDate", toDate);
+                            cmd.Parameters.AddWithValue("@ToDate", toDate);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@ToDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         }
 
                         if (con.State == ConnectionState.Closed)
@@ -95,7 +96,37 @@ namespace DataAccess.Inventory
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Inventory_Transaction_GetByInventoryId";
-                        cmd.Parameters.Add("@InventoryId", inventoryId);
+                        cmd.Parameters.AddWithValue("@InventoryId", inventoryId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation,ItemType itemType)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Inventory_GetApprovedInventorySpareByServiceBookId";
+                        if (serviceBookId == 0)
+                            cmd.Parameters.AddWithValue("@ServiceBookId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
+                        cmd.Parameters.AddWithValue("@AssetLocationId", (int)assetLocation);
+                        cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))

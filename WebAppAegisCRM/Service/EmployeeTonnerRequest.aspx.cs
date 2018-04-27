@@ -32,7 +32,7 @@ namespace WebAppAegisCRM.Service
             set { ViewState["ContractTypeId"] = value; }
         }
 
-        public Int64 TonnerRequestId
+        public long TonnerRequestId
         {
             get { return Convert.ToInt64(ViewState["TonnerRequestId"]); }
             set { ViewState["TonnerRequestId"] = value; }
@@ -254,7 +254,7 @@ namespace WebAppAegisCRM.Service
                 tonnerRequest.RequestNo = "";
                 tonnerRequest.RequestDateTime = Convert.ToDateTime(txtRequestDate.Text);
                 tonnerRequest.isCustomerEntry = false;
-                tonnerRequest.CallStatusId = 8;
+                tonnerRequest.CallStatusId = (int)CallStatusType.TonerRequestInQueue;
                 if (txtA3BWMeterReading.Text.Trim() == string.Empty)
                     tonnerRequest.A3BWMeterReading = null;
                 else
@@ -278,7 +278,7 @@ namespace WebAppAegisCRM.Service
                 {
                     if (((CheckBox)toner.FindControl("chk1")).Checked)
                     {
-                        tonnerRequest.SpareIds.Add(Int64.Parse(gvTonner.DataKeys[toner.RowIndex].Values[0].ToString()));
+                        tonnerRequest.SpareIds.Add(long.Parse(gvTonner.DataKeys[toner.RowIndex].Values[0].ToString()));
                     }
                 }
 
@@ -309,9 +309,10 @@ namespace WebAppAegisCRM.Service
 
                     /* Checking whether machine is in contract or not*/
                     Business.Service.Contract objContract = new Business.Service.Contract();
-                    if (objContract.Service_MachineIsInContractCheck(CustomerPurchaseId) || isTonerLowYield) //Out of Contract AND Low Yield
+                    int approvalResponse = Approval_Save(tonnerRequest, dtTonnerRequest, isTonerLowYield);
+
+                    if (!objContract.Service_MachineIsInContractCheck(CustomerPurchaseId) || isTonerLowYield) //Out of Contract AND Low Yield
                     {
-                        int approvalResponse = Approval_Save(tonnerRequest, dtTonnerRequest);
                         if (approvalResponse > 0)
                         {
                             //Appending low toner warning
@@ -332,7 +333,7 @@ namespace WebAppAegisCRM.Service
             }
         }
 
-        private static int Approval_Save(Entity.Service.TonerRequest tonnerRequest, DataTable dtTonnerRequest)
+        private static int Approval_Save(Entity.Service.TonerRequest tonnerRequest, DataTable dtTonnerRequest, bool isLowYield)
         {
             int approvalResponse = 0;
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
@@ -344,6 +345,8 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("ServiceBookId");
                 dtApproval.Columns.Add("ItemId");
                 dtApproval.Columns.Add("ApprovalStatus");
+                dtApproval.Columns.Add("IsLowYield");
+                dtApproval.Columns.Add("CallStatus");
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
                 foreach (Int64 tonerId in tonnerRequest.SpareIds)
@@ -352,9 +355,11 @@ namespace WebAppAegisCRM.Service
                     drApprovalItem["ApprovalId"] = 0;
                     drApprovalItem["ServiceBookId"] = dtTonnerRequest.Rows[0]["ServiceBookId"].ToString();
                     drApprovalItem["ItemId"] = tonerId;
-                    drApprovalItem["ApprovalStatus"] = (int)ApprovalStatus.None;
+                    drApprovalItem["ApprovalStatus"] = (isLowYield) ? (int)ApprovalStatus.None : (int)ApprovalStatus.Approved;
+                    drApprovalItem["IsLowYield"] = isLowYield;
+                    drApprovalItem["CallStatus"] = (isLowYield) ? (int)CallStatusType.TonerOpenForApproval : (int)CallStatusType.TonerRequestInQueue;
                     drApprovalItem["RespondBy"] = string.Empty;
-                    drApprovalItem["Comment"] = "NEED TONER APPROVAL";
+                    drApprovalItem["Comment"] = (isLowYield) ? "NEED TONER APPROVAL" : "AUTO APPROVED";
                     dtApproval.Rows.Add(drApprovalItem);
                     dtApproval.AcceptChanges();
                 }

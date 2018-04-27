@@ -76,6 +76,24 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.GridView gvSelectedAsset;
         
         /// <summary>
+        /// btnSign control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSign;
+        
+        /// <summary>
+        /// btnDone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDone;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

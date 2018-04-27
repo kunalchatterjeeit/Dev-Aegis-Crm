@@ -98,9 +98,7 @@ namespace WebAppAegisCRM.Customer
             ddlBrand.DataTextField = "BrandName";
             ddlBrand.DataValueField = "BrandId";
             ddlBrand.DataBind();
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlBrand.Items.Insert(0, li);
+            ddlBrand.InsertSelect();
         }
         protected void PopulateCustomerPurchaseDetails()
         {
@@ -151,8 +149,7 @@ namespace WebAppAegisCRM.Customer
             ddlAssignEngineer.DataTextField = "EmployeeName";
             ddlAssignEngineer.DataValueField = "EmployeeMasterId";
             ddlAssignEngineer.DataBind();
-            ListItem li = new ListItem("--Select--", "0");
-            ddlAssignEngineer.Items.Insert(0, li);
+            ddlAssignEngineer.InsertSelect();
         }
         protected void LoadCustomerPurchaseList()
         {

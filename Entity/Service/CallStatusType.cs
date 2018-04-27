@@ -14,6 +14,7 @@
         TonerRequestInQueue = 7,
         TonerOpenForApproval =8,
         TonerDelivered = 9,
-        TonerRejected = 10
+        TonerRejected = 10,
+        TonerResponseGiven = 13,
     }
 }

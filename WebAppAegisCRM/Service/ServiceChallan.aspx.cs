@@ -13,12 +13,42 @@ namespace WebAppAegisCRM.Service
 {
     public partial class ServiceChallan : System.Web.UI.Page
     {
-        private void GetSpareInventory_ByProductId(long productId, int assetLocationId)
+        private void GetSpareInventory()
         {
             try
             {
-                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-                DataTable dt = objServiceBook.GetSpareInventory_ByProductId(productId, assetLocationId);
+                Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
+                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Spare);
+                dt.Columns.Add("IsSelected");
+                if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
+                {
+                    foreach (DataRow drSelected in Business.Common.Context.SelectedAssets.Rows)
+                    {
+                        if (dt.AsEnumerable().Select(item => item["AssetId"] == drSelected["AssetId"]).Any())
+                        {
+                            dt.AsEnumerable().Where(item => Guid.Parse(item["AssetId"].ToString()) == Guid.Parse(drSelected["AssetId"].ToString())).FirstOrDefault()["IsSelected"] = "1";
+                            dt.AcceptChanges();
+                        }
+                    }
+                }
+                if (dt != null)
+                {
+                    RepeaterInventory.DataSource = dt;
+                    RepeaterInventory.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
+        }
+
+        private void GetTonerInventory()
+        {
+            try
+            {
+                Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
+                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Toner);
                 dt.Columns.Add("IsSelected");
                 if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
@@ -54,7 +84,19 @@ namespace WebAppAegisCRM.Service
             if (!IsPostBack)
             {
                 Message.Show = false;
-                GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
+                if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
+                {
+                    btnSign.Visible = true;
+                    btnDone.Visible = false;
+                    GetSpareInventory();
+                }
+                else if (Business.Common.Context.CallType == Entity.Service.CallType.Toner)
+                {
+                    btnSign.Visible = false;
+                    btnDone.Visible = true;
+                    GetTonerInventory();
+                }
+
                 if (Business.Common.Context.SelectedAssets != null && Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
                     LoadSelectedAssets();
@@ -70,7 +112,7 @@ namespace WebAppAegisCRM.Service
                 Message.Show = false;
                 string assetId = e.CommandArgument.ToString().Split('|')[0];
                 string itemId = e.CommandArgument.ToString().Split('|')[1];
-                if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId,Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
+                if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
                 {
                     Message.IsSuccess = false;
                     Message.Text = "Invalid request. Not able to add since it is already rejected.";
@@ -88,7 +130,16 @@ namespace WebAppAegisCRM.Service
                     dr["AssetId"] = assetId;
                     dr["ItemId"] = itemId;
                     Business.Common.Context.SelectedAssets.Rows.Add(dr);
-                    GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
+
+                    if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
+                    {
+                        GetSpareInventory();
+                    }
+                    else if (Business.Common.Context.CallType == Entity.Service.CallType.Toner)
+                    {
+                        GetTonerInventory();
+                    }
+
                     LoadSelectedAssets();
                 }
             }
@@ -105,7 +156,15 @@ namespace WebAppAegisCRM.Service
                     .Select("AssetId='" + assetId + "'").FirstOrDefault())].Delete();
                 Business.Common.Context.SelectedAssets.AcceptChanges();
 
-                GetSpareInventory_ByProductId(Business.Common.Context.ProductId, (int)AssetLocation.Store);
+                if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
+                {
+                    GetSpareInventory();
+                }
+                else if (Business.Common.Context.CallType == Entity.Service.CallType.Toner)
+                {
+                    GetTonerInventory();
+                }
+
                 LoadSelectedAssets();
             }
         }

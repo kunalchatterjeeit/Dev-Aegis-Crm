@@ -40,6 +40,15 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// divCallType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divCallType;
+        
+        /// <summary>
         /// ddlCallType control.
         /// </summary>
         /// <remarks>
@@ -391,6 +400,15 @@ namespace WebAppAegisCRM.Service {
         protected global::WebAppAegisCRM.UserControl.Message MessageDocket;
         
         /// <summary>
+        /// btnSpareRequisition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSpareRequisition;
+        
+        /// <summary>
         /// btnServiceChallan control.
         /// </summary>
         /// <remarks>
@@ -634,15 +652,6 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.TextBox txtActionTaken;
         
         /// <summary>
-        /// gvTonnerList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTonnerList;
-        
-        /// <summary>
         /// MessageTonner control.
         /// </summary>
         /// <remarks>
@@ -650,6 +659,15 @@ namespace WebAppAegisCRM.Service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WebAppAegisCRM.UserControl.Message MessageTonner;
+        
+        /// <summary>
+        /// btnTonerChallan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTonerChallan;
         
         /// <summary>
         /// btnSubmitTonner control.

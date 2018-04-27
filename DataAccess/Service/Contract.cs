@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Common;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -211,7 +212,7 @@ namespace DataAccess.Service
                         con.Close();
                     }
                 }
-                return (dt != null && dt.Rows.Count > 0 && dt.Rows[0]["Flag"].ToString() == "1") ? true : false;
+                return (dt != null && dt.Rows.Count > 0 && dt.Rows[0]["Flag"].ToString() == "1") ? false : true;
             }
         }
 
@@ -271,6 +272,7 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@AssignEngineer", contract.AssignEngineer);
+                        cmd.InsertPaging(contract, contract.ContractId);
 
                         if (con.State == ConnectionState.Closed)
                             con.Open();

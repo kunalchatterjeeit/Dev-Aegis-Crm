@@ -42,6 +42,8 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("ServiceBookId");
                 dtApproval.Columns.Add("ItemId");
                 dtApproval.Columns.Add("ApprovalStatus");
+                dtApproval.Columns.Add("IsLowYield");
+                dtApproval.Columns.Add("CallStatus");
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
 

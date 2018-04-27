@@ -112,14 +112,14 @@
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="btnApprove" runat="server" CausesValidation="false" CommandName="Approve"
                                                         CommandArgument='<%# Eval("ApprovalId") %>' ImageUrl="~/images/Thumbs_up-icon.png"
-                                                        ImageAlign="AbsMiddle" ToolTip="Approve" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
+                                                        ImageAlign="AbsMiddle" ToolTip="Approve" Width="20px" Height="20px"/>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <asp:ImageButton ID="btnReject" runat="server" CausesValidation="false" CommandName="Reject"
                                                         CommandArgument='<%# Eval("ApprovalId") %>' ImageUrl="~/images/Thumbs_down_icon.png"
-                                                        ImageAlign="AbsMiddle" ToolTip="Reject" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
+                                                        ImageAlign="AbsMiddle" ToolTip="Reject" Width="20px" Height="20px"/>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

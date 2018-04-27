@@ -53,7 +53,7 @@ namespace WebAppAegisCRM.Inventory
         {
             LoadSpare();
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
-            DataTable dt = objProductMaster.ProductSpareMapping_GetById(int.Parse(ddlProduct.SelectedValue));
+            DataTable dt = objProductMaster.ProductSpareMapping_GetById(long.Parse(ddlProduct.SelectedValue), Entity.Inventory.ItemType.None);
             if (dt != null)
             {
                 foreach (DataRow dr in dt.Rows)

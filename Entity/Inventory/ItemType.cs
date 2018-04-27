@@ -5,6 +5,7 @@ namespace Entity.Inventory
     {
         None = 0,
         Product = 1,
-        Spare = 2
+        Spare = 2,
+        Toner = 3
     }
 }

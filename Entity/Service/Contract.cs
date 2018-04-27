@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Entity.Service
 {
-    public class Contract
+    public class Contract: BaseEntity
     {
         public int ContractId { get; set; }
         public int CustomerId { get; set; }

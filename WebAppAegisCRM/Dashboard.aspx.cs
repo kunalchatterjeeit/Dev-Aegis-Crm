@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.UI.HtmlControls;
+using Entity.Service;
+using Entity.Common;
 
 namespace WebAppAegisCRM
 {
@@ -20,7 +22,7 @@ namespace WebAppAegisCRM
             {
                 LoadDocket();
                 LoadTonnerRequest();
-                LoadContractStatusList();
+                LoadContractStatusList(0, gvExpiredList.PageSize, ContractStatusType.None);
             }
 
             LoadPieChart();
@@ -36,7 +38,6 @@ namespace WebAppAegisCRM
             docket.ProductId = 0;
             docket.DocketFromDateTime = DateTime.MinValue;
             docket.DocketToDateTime = DateTime.MinValue;
-            docket.CallStatusId = 1;
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 docket.AssignEngineer = 0;
             else
@@ -45,11 +46,9 @@ namespace WebAppAegisCRM
             DataTable dt = objDocket.Service_Docket_GetAll(docket);
             using (DataView dv = new DataView(dt))
             {
-                if (dt != null)
-                {
-                    gvDocket.DataSource = dv.ToTable();
-                    gvDocket.DataBind();
-                }
+                dv.RowFilter = "CallStatusId IN (1,12)"; //REQUEST IN QUEUE && RESPONSE GIVEN
+                gvDocket.DataSource = dv.ToTable();
+                gvDocket.DataBind();
             }
         }
 
@@ -72,20 +71,19 @@ namespace WebAppAegisCRM
             DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonnerRequest).Tables[0];
             using (DataView dv = new DataView(dt))
             {
-                dv.RowFilter = "CallStatusId IN (7,8)"; //REQUEST IN QUEUE && OPEN FOR APPROVAL
+                dv.RowFilter = "CallStatusId IN (7,13)"; //REQUEST IN QUEUE && RESPONSE GIVEN
+                gvTonnerRequest.DataSource = dv.ToTable();
 
-                if (dt != null)
-                {
-                    gvTonnerRequest.DataSource = dv.ToTable();
-                    gvTonnerRequest.DataBind();
-                }
+                gvTonnerRequest.DataBind();
             }
         }
 
-        protected void LoadContractStatusList()
+        protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
         {
             Entity.Service.Contract contract = new Entity.Service.Contract();
             Business.Service.Contract objContract = new Business.Service.Contract();
+            contract.PageIndex = pageIndex;
+            contract.PageSize = pageSize;
             contract.MachineId = "";
             contract.FromDate = DateTime.MinValue;
             contract.ToDate = DateTime.MinValue;
@@ -95,11 +93,28 @@ namespace WebAppAegisCRM
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             DataSet ds = objContract.Service_ContractStatusList(contract);
 
-            gvExpiringSoon.DataSource = ds.Tables[0];
-            gvExpiringSoon.DataBind();
+            if (ContractStatusType.None == contractType)
+            {
+                gvExpiringSoon.DataSource = ds.Tables[0];
+                gvExpiringSoon.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiringSoon.DataBind();
 
-            gvExpiredList.DataSource = ds.Tables[1];
-            gvExpiredList.DataBind();
+                gvExpiredList.DataSource = ds.Tables[1];
+                gvExpiredList.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiredList.DataBind();
+            }
+            else if (ContractStatusType.Expiring == contractType)
+            {
+                gvExpiringSoon.DataSource = ds.Tables[0];
+                gvExpiringSoon.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiringSoon.DataBind();
+            }
+            else if (ContractStatusType.Expired == contractType)
+            {
+                gvExpiredList.DataSource = ds.Tables[1];
+                gvExpiredList.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiredList.DataBind();
+            }
         }
 
         protected void LoadPieChart()
@@ -129,35 +144,13 @@ namespace WebAppAegisCRM
         protected void gvExpiringSoon_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiringSoon.PageIndex = e.NewPageIndex;
-            Entity.Service.Contract contract = new Entity.Service.Contract();
-            Business.Service.Contract objContract = new Business.Service.Contract();
-            contract.MachineId = "";
-            contract.FromDate = DateTime.MinValue;
-            contract.ToDate = DateTime.MinValue;
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                contract.AssignEngineer = 0;
-            else
-                contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataSet ds = objContract.Service_ContractStatusList(contract);
-            gvExpiringSoon.DataSource = ds.Tables[0];
-            gvExpiringSoon.DataBind();
+            LoadContractStatusList(e.NewPageIndex, gvExpiringSoon.PageSize, ContractStatusType.Expiring);
         }
 
         protected void gvExpiredList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiredList.PageIndex = e.NewPageIndex;
-            Entity.Service.Contract contract = new Entity.Service.Contract();
-            Business.Service.Contract objContract = new Business.Service.Contract();
-            contract.MachineId = "";
-            contract.FromDate = DateTime.MinValue;
-            contract.ToDate = DateTime.MinValue;
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                contract.AssignEngineer = 0;
-            else
-                contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataSet ds = objContract.Service_ContractStatusList(contract);
-            gvExpiredList.DataSource = ds.Tables[1];
-            gvExpiredList.DataBind();
+            LoadContractStatusList(e.NewPageIndex, gvExpiredList.PageSize, ContractStatusType.Expired);
         }
 
         protected void gvDocket_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -166,6 +159,17 @@ namespace WebAppAegisCRM
             {
                 HtmlContainerControl anchorDocket = e.Row.FindControl("anchorDocket") as HtmlContainerControl;
                 anchorDocket.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_QUICK_LINK_PERMISSION);
+
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
+                {
+                    HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
+                    anchorCallIn.Attributes["style"] = "display:none";
+                    e.Row.Attributes["style"] = "background-color: #C6F2C6";
+                }
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #FFF39E";
+                }
             }
         }
 
@@ -176,7 +180,7 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorToner = e.Row.FindControl("anchorToner") as HtmlContainerControl;
                 anchorToner.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TONNER_QUICK_LINK_PERMISSION);
 
-                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == "8")
+                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #fff39e";
                 }

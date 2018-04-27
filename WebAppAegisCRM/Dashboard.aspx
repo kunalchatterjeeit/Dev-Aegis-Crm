@@ -1,23 +1,22 @@
 ﻿<%@ Page Title="AEGIS CRM" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true"
     CodeBehind="Dashboard.aspx.cs" Inherits="WebAppAegisCRM.Dashboard" %>
+
 <%@ Import Namespace="Business.Common" %>
 <%@ Import Namespace="Entity.Common" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Morris Charts CSS -->
-    <link href="bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="bower_components/morrisjs/morris.css" rel="stylesheet" />
     <!-- Timeline CSS -->
-    <link href="dist/css/timeline.css" rel="stylesheet">
-
+    <link href="dist/css/timeline.css" rel="stylesheet" />
     <!-- Flot Charts JavaScript -->
-    <script src="bower_components/flot/excanvas.min.js"></script>
-    <script src="bower_components/flot/jquery.flot.js"></script>
-    <script src="bower_components/flot/jquery.flot.pie.js"></script>
-    <script src="bower_components/flot/jquery.flot.resize.js"></script>
-    <script src="bower_components/flot/jquery.flot.time.js"></script>
-    <script src="bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-
-    <script>
+    <script type="text/javascript" src="bower_components/flot/excanvas.min.js"></script>
+    <script type="text/javascript" src="bower_components/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="bower_components/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="bower_components/flot/jquery.flot.resize.js"></script>
+    <script type="text/javascript" src="bower_components/flot/jquery.flot.time.js"></script>
+    <script type="text/javascript" src="bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript">
         //Flot Pie Chart
         function PieData(a, b, c, d) {
             $(document).ready(function () {
@@ -74,7 +73,7 @@
                             <asp:GridView ID="gvDocket" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
                                 AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                 class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvDocket_PageIndexChanging" PageSize="5" AllowPaging="true" 
+                                OnPageIndexChanging="gvDocket_PageIndexChanging" PageSize="5" AllowPaging="true"
                                 OnRowDataBound="gvDocket_RowDataBound">
                                 <Columns>
                                     <asp:TemplateField>
@@ -91,8 +90,17 @@
                                     <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <span id="anchorDocket" runat="server"><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
-                                                <img src="images/go_icon.gif" width="15px" alt="" /></a></span>
+                                            <span id="anchorCallIn" runat="server" title='<%# string.Concat("CALL ATTEND TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
+                                                <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callin'>
+                                                    <img src="images/intime_icon.png" width="13px" alt="GO" />
+                                                </a>
+                                            </span>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <ItemTemplate>
+                                            <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
+                                                <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -142,7 +150,7 @@
                                     <asp:TemplateField>
                                         <ItemTemplate>
                                             <span id="anchorToner" runat="server"><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
-                                                <img src="images/go_icon.gif" width="15px" /></a></span>
+                                                <img src="images/go_icon.gif" width="13px" /></a></span>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -192,14 +200,14 @@
                             <asp:GridView ID="gvExpiringSoon" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiringSoon_PageIndexChanging" PageSize="17" AllowPaging="true">
+                                OnPageIndexChanging="gvExpiringSoon_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
                                             SN.
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <%# Container.DataItemIndex+1 %>
+                                            <%#  (gvExpiringSoon.PageIndex * gvExpiringSoon.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Expire on" DataField="ContractEndDate" />
@@ -208,7 +216,7 @@
                                         <ItemTemplate>
                                             <span id="anchorExpyring" runat="server" title='<%# Eval("CustomerName") %>'>
                                                 <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
-                                                    <img src="images/go_icon.gif" width="15px" alt="" />
+                                                    <img src="images/go_icon.gif" width="13px" alt="" />
                                                 </a>
                                             </span>
                                         </ItemTemplate>
@@ -242,14 +250,14 @@
                             <asp:GridView ID="gvExpiredList" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiredList_PageIndexChanging" PageSize="17" AllowPaging="true">
+                                OnPageIndexChanging="gvExpiredList_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
                                             SN.
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <%# Container.DataItemIndex+1 %>
+                                            <%#  (gvExpiredList.PageIndex * gvExpiredList.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Expired on" DataField="ContractEndDate" />
@@ -258,7 +266,7 @@
                                         <ItemTemplate>
                                             <span id="anchorExpired" runat="server" title='<%# Eval("CustomerName") %>'>
                                                 <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
-                                                    <img src="images/go_icon.gif" width="15px" alt="" />
+                                                    <img src="images/go_icon.gif" width="13px" alt="" />
                                                 </a>
                                             </span>
                                         </ItemTemplate>

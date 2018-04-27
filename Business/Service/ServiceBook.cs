@@ -52,10 +52,10 @@ namespace Business.Service
             return DataAccess.Service.ServiceBook.Service_ServiceBook_GetAll(calltype, serviceBook);
         }
 
-        public DataTable GetLastMeterReadingByCustomerPurchaseIdAndItemId(int customerPurchaseId, int spareId)
-        {
-            return DataAccess.Service.ServiceBook.GetLastMeterReadingByCustomerPurchaseIdAndItemId(customerPurchaseId, spareId);
-        }
+        //public DataTable GetLastMeterReadingByCustomerPurchaseIdAndItemId(int customerPurchaseId, int spareId)
+        //{
+        //    return DataAccess.Service.ServiceBook.GetLastMeterReadingByCustomerPurchaseIdAndItemId(customerPurchaseId, spareId);
+        //}
 
         public DataTable Service_CheckIfAnyOpenTonnerRequest(int customerPurchaseId)
         {

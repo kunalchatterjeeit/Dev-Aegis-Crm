@@ -46,6 +46,7 @@ namespace Entity.Service
         public DateTime RequestToDate { get; set; }
         public int ApprovalStatus { get; set; }
         public int CallTransferId { get; set; }
+        public DataTable SpareRequisition { get; set; }
     }
 
     public class MachineResponseTime

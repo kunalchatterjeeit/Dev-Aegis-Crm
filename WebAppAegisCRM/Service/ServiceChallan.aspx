@@ -22,7 +22,7 @@
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <%--<asp:HiddenField ID="hdnProductId" runat="server" />--%>
-                <div style="overflow: scroll; height: 55vh;">
+                <div style="overflow: scroll; height: 60vh;">
                     <asp:TextBox ID="txtItem" CssClass="form-control myInput"
                         Style="max-width: 400px; margin: 5px 10px; font-size: 11px" runat="server"
                         onkeydown="javascript:GetAutocompleteInventories()" placeholder="Search"></asp:TextBox>
@@ -54,7 +54,7 @@
 
                     </table>
                 </div>
-                <div style="overflow: scroll; height: 35vh;">
+                <div style="overflow: scroll; height: 27vh;">
                     <asp:GridView ID="gvSelectedAsset" DataKeyNames="AssetId" runat="server"
                         AutoGenerateColumns="False" Width="100%" CellPadding="4"
                         ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvSelectedAsset_RowCommand">
@@ -90,7 +90,8 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-        <input type="button" class="btn" value="Proceed to Sign" onclick="showSignaturePad()" />
+        <asp:Button ID="btnSign" runat="server" Text="Proceed to Sign" class="btn" OnClientClick="showSignaturePad(); return false;"  />
+        <asp:Button ID="btnDone" runat="server" Text="Done" class="btn" OnClientClick="window.close();" />
 
         <div id="signature-pad" class="m-signature-pad" style="display: none">
             <div class="m-signature-pad--body">

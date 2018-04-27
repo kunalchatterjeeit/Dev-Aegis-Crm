@@ -141,7 +141,7 @@ namespace WebAppAegisCRM.Service
 
                     /* Checking whether machine is in contract or not*/
                     Business.Service.Contract objContract = new Business.Service.Contract();
-                    if (objContract.Service_MachineIsInContractCheck(CustomerPurchaseId))
+                    if (!objContract.Service_MachineIsInContractCheck(CustomerPurchaseId))
                     {
                         Message.IsSuccess = false;
                         Message.Text = "Out of Contract! Please call Customer Help Desk.";

@@ -16,7 +16,7 @@ namespace DataAccess.Service
 
         public static long Service_ServiceBook_Save(Entity.Service.ServiceBook serviceBook)
         {
-            Int64 rowsAffacted = 0;
+            long rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
             {
                 using (SqlCommand cmd = new SqlCommand())
@@ -33,7 +33,10 @@ namespace DataAccess.Service
                     cmd.Parameters.AddWithValue("@EmployeeId_FK", serviceBook.EmployeeId_FK);
                     cmd.Parameters.AddWithValue("@Remarks", serviceBook.Remarks);
                     cmd.Parameters.AddWithValue("@InTime", serviceBook.InTime);
-                    cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
+                    if (serviceBook.OutTime == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@OutTime", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
                     cmd.Parameters.AddWithValue("@Diagnosis", serviceBook.Diagnosis);
                     cmd.Parameters.AddWithValue("@ActionTaken", serviceBook.ActionTaken);
                     cmd.Parameters.AddWithValue("@CallStatusId", serviceBook.CallStatusId);
@@ -130,6 +133,10 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@TonnerRequestId", serviceBook.TonnerRequestId);
                             cmd.Parameters.AddWithValue("@TonerId", Convert.ToInt64(item["TonerId"].ToString()));
                             cmd.Parameters.AddWithValue("@ServiceEngineer", serviceBook.EmployeeId_FK);
+                            cmd.Parameters.AddWithValue("@AssetId", item["AssetId"].ToString());
+                            cmd.Parameters.AddWithValue("@AssetLocationId", item["AssetLocationId"].ToString());
+                            cmd.Parameters.AddWithValue("@CustomerId", serviceBook.CustomerId);
+                            cmd.Parameters.AddWithValue("@CreatedBy", serviceBook.CreatedBy);
 
                             if (con.State == ConnectionState.Closed)
                                 con.Open();
@@ -260,33 +267,33 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataTable GetLastMeterReadingByCustomerPurchaseIdAndItemId(int customerPurchaseId, int spareId)
-        {
-            using (DataTable dt = new DataTable())
-            {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = con;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_Service_GetLastMeterReadingByCustomerPurchaseIdAndItemId";
+        //public static DataTable GetLastMeterReadingByCustomerPurchaseIdAndItemId(int customerPurchaseId, int spareId)
+        //{
+        //    using (DataTable dt = new DataTable())
+        //    {
+        //        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand())
+        //            {
+        //                cmd.Connection = con;
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.CommandText = "usp_Service_GetLastMeterReadingByCustomerPurchaseIdAndItemId";
 
-                        cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerPurchaseId);
-                        cmd.Parameters.AddWithValue("@SpareId", spareId);
+        //                cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerPurchaseId);
+        //                cmd.Parameters.AddWithValue("@SpareId", spareId);
 
-                        if (con.State == ConnectionState.Closed)
-                            con.Open();
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
-                        con.Close();
-                    }
-                }
-                return dt;
-            }
-        }
+        //                if (con.State == ConnectionState.Closed)
+        //                    con.Open();
+        //                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+        //                {
+        //                    da.Fill(dt);
+        //                }
+        //                con.Close();
+        //            }
+        //        }
+        //        return dt;
+        //    }
+        //}
 
         public static DataTable Service_CheckIfAnyOpenTonnerRequest(int customerPurchaseId)
         {
@@ -510,6 +517,7 @@ namespace DataAccess.Service
                         cmd.Parameters.AddWithValue("@ServiceBookId", drItem["ServiceBookId"]);
                         cmd.Parameters.AddWithValue("@ItemId", drItem["ItemId"]);
                         cmd.Parameters.AddWithValue("@ApprovalStatus", drItem["ApprovalStatus"]);
+                        cmd.Parameters.AddWithValue("@Comment", drItem["Comment"]);
                         if (string.IsNullOrEmpty(drItem["RespondBy"].ToString()))
                         {
                             cmd.Parameters.AddWithValue("@RespondBy", DBNull.Value);
@@ -518,7 +526,22 @@ namespace DataAccess.Service
                         {
                             cmd.Parameters.AddWithValue("@RespondBy", drItem["RespondBy"]);
                         }
-                        cmd.Parameters.AddWithValue("@Comment", drItem["Comment"]);
+                        if (drItem["IsLowYield"] == null)
+                        {
+                            cmd.Parameters.AddWithValue("@IsLowYield", DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@IsLowYield", drItem["IsLowYield"]);
+                        }
+                        if (drItem["CallStatus"] == null)
+                        {
+                            cmd.Parameters.AddWithValue("@CallStatus", DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@CallStatus", drItem["CallStatus"]);
+                        }
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         rowsAffacted += cmd.ExecuteNonQuery();
@@ -716,7 +739,7 @@ namespace DataAccess.Service
                             Enum.TryParse(ds.Rows[0][0].ToString(), out approvalStatus);
                         }
                     }
-                }                
+                }
             }
             return approvalStatus;
         }

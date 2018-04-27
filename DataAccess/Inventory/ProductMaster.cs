@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using Entity;
 using System.Configuration;
+using Entity.Inventory;
 
 namespace DataAccess.Inventory
 {
@@ -154,7 +155,7 @@ namespace DataAccess.Inventory
             return rowsAffacted;
         }
 
-        public static DataTable ProductSpareMapping_GetById(int productid)
+        public static DataTable ProductSpareMapping_GetById(long productid, ItemType itemType)
         {
             using (DataTable dt = new DataTable())
             {
@@ -166,6 +167,10 @@ namespace DataAccess.Inventory
                         cmd.CommandText = "usp_Inventory_ProductSpareMapping_GetById";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@ProductId", productid);
+                        if(itemType == ItemType.None)
+                            cmd.Parameters.AddWithValue("@ItemType", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);

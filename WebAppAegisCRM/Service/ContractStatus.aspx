@@ -97,14 +97,15 @@
                                     <div class="table-responsive">
                                         <asp:GridView ID="gvContractStatusList" runat="server" RowStyle-Font-Size="12px" AutoGenerateColumns="False"
                                             Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped"
-                                            GridLines="None" Style="text-align: left" AllowPaging="True" OnPageIndexChanging="gvContractStatusList_PageIndexChanging" PageSize="15">
+                                            GridLines="None" Style="text-align: left" OnPageIndexChanging="gvContractStatusList_PageIndexChanging"
+                                            PageSize="15" AllowPaging="True" AllowCustomPaging="true">
                                             <Columns>
                                                 <asp:TemplateField>
                                                     <HeaderTemplate>
                                                         SN.
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <%# Container.DataItemIndex+1 %>
+                                                        <%#  (gvContractStatusList.PageIndex * gvContractStatusList.PageSize) + (Container.DataItemIndex + 1) %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Customer" DataField="CustomerName" />

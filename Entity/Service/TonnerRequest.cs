@@ -1,9 +1,6 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 
 namespace Entity.Service
 {
@@ -14,9 +11,9 @@ namespace Entity.Service
             SpareIds = new Collection<long>();
         }
 
-        public Int64 TonerRequestValueId { get; set; }
-        public Int64 TonerRequestId { get; set; }
-        public Int64 TonerId { get; set; }
+        public long TonerRequestValueId { get; set; }
+        public long TonerRequestId { get; set; }
+        public long TonerId { get; set; }
         public string RequestNo { get; set; }
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
@@ -27,7 +24,7 @@ namespace Entity.Service
         public int? A4BWMeterReading { get; set; }
         public int? A3CLMeterReading { get; set; }
         public int? A4CLMeterReading { get; set; }
-        public Collection<Int64> SpareIds { get; set; }
+        public Collection<long> SpareIds { get; set; }
         public string Remarks { get; set; }
         public bool isCustomerEntry { get; set; }
         public int CallStatusId { get; set; }

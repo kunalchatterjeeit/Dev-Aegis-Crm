@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -33,9 +34,9 @@ namespace Business.Inventory
         {
             return DataAccess.Inventory.ProductMaster.ProductSpareMapping_Save(productMaster);
         }
-        public DataTable ProductSpareMapping_GetById(int productid)
+        public DataTable ProductSpareMapping_GetById(long productid, ItemType itemType)
         {
-            return DataAccess.Inventory.ProductMaster.ProductSpareMapping_GetById(productid);
+            return DataAccess.Inventory.ProductMaster.ProductSpareMapping_GetById(productid, itemType);
         }
         public int ProductSpareMapping_Delete(int productsparemappingid)
         {

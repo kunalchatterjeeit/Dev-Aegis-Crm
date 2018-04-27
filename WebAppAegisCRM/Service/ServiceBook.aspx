@@ -55,7 +55,7 @@
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div class="row">
+            <div class="row" id="divCallType" runat="server">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -229,11 +229,11 @@
                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtInDate"
                                                 Format="dd MMM yyyy" Enabled="True">
                                             </asp:CalendarExtender>
-                                            <asp:DropDownList ID="ddlInTimeHH" runat="server">
+                                            <asp:DropDownList ID="ddlInTimeHH" runat="server" Enabled="false">
                                             </asp:DropDownList>
-                                            <asp:DropDownList ID="ddlInTimeMM" runat="server">
+                                            <asp:DropDownList ID="ddlInTimeMM" runat="server" Enabled="false">
                                             </asp:DropDownList>
-                                            <asp:DropDownList ID="ddlInTimeTT" runat="server">
+                                            <asp:DropDownList ID="ddlInTimeTT" runat="server" Enabled="false">
                                                 <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
                                                 <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                             </asp:DropDownList>
@@ -492,6 +492,7 @@
                             <div class="col-lg-12" id="buttonSection">
                                 <br />
                                 <uc3:Message ID="MessageDocket" runat="server" />
+                                <asp:Button ID="btnSpareRequisition" runat="server" Text="Spare Requisition" OnClientClick="OpenWindow('SpareRequisition.aspx')" class="btn btn-outline btn-warning extra-margin pull-right" Style="width: 100%" />
                                 <asp:Button ID="btnServiceChallan" runat="server" Text="Proceed to Challan & Signature" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-success extra-margin pull-right" Style="width: 100%" />
                                 <asp:Button ID="btnDocketClose" runat="server" Text="Submit" class="btn btn-outline btn-success extra-margin pull-right" OnClick="btnDocketClose_Click" Style="width: 100%" />
                             </div>
@@ -601,7 +602,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId,CustomerPurchaseId" runat="server"
+                                        <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId,CustomerPurchaseId,ProductMasterId" runat="server"
                                             AutoGenerateColumns="False" Width="100%" CellPadding="4" AllowPaging="true" AllowCustomPaging="true" PageSize="5"
                                             ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
                                             OnPageIndexChanging="gvTonnerRequest_PageIndexChanging">
@@ -738,7 +739,7 @@
                                 </div>
                                 <div class="clearfix">
                                 </div>
-                                <div class="col-lg-12">
+                                <%--<div class="col-lg-12">
                                     <div class="table-responsive">
                                         Toner Description:
                                         <asp:GridView ID="gvTonnerList" DataKeyNames="SpareId,ApprovalStatus" runat="server"
@@ -780,10 +781,12 @@
                                             </EmptyDataTemplate>
                                         </asp:GridView>
                                     </div>
-                                </div>
+                                </div>--%>
                                 <div class="col-lg-12">
+                                    <br />
                                     <uc3:Message ID="MessageTonner" runat="server" />
                                     <br />
+                                    <asp:Button ID="btnTonerChallan" runat="server" Text="Proceed to Challan" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-success extra-margin pull-right" Style="width: 100%" />
                                     <asp:Button ID="btnSubmitTonner" runat="server" Text="Submit" CssClass="btn btn-outline btn-success"
                                         OnClick="btnSubmitTonner_Click" Style="width: 100%" />
                                 </div>

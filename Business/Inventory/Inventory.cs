@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -24,6 +25,11 @@ namespace Business.Inventory
         public static DataTable Inventory_Transaction_GetByInventoryId(Int64 inventoryId)
         {
             return DataAccess.Inventory.Inventory.Inventory_Transaction_GetByInventoryId(inventoryId);
+        }
+
+        public DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType)
+        {
+            return DataAccess.Inventory.Inventory.Inventory_GetApprovedInventorySpareByServiceBookId(serviceBookId, assetLocation, itemType);
         }
     }
 }

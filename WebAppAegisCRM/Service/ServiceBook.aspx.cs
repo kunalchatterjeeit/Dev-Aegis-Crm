@@ -66,6 +66,18 @@ namespace WebAppAegisCRM.Service
             MessageDocket.Show = false;
             bool retValue = false;
 
+            if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString() && Business.Common.Context.SpareRequisition.Rows.Count == 0)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please select spare requisition.";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+            else if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString() && Business.Common.Context.SpareRequisition.Rows.Count > 0)
+            {
+                return retValue = true;
+            }
+
             if (Convert.ToDateTime(txtInDate.Text.Trim()).Date > System.DateTime.Now.Date)
             {
                 MessageDocket.IsSuccess = false;
@@ -82,6 +94,129 @@ namespace WebAppAegisCRM.Service
                 return retValue = false;
             }
 
+            if (!ValidateAssociatedEngineer())
+            {
+                return retValue = false;
+            }
+
+            foreach (GridViewRow gvr in gvDocket.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkDocket")).Checked == true)
+                {
+                    retValue = true;
+                    break;
+                }
+            }
+            if (!retValue)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please select docket.";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+
+            if (ddlInTimeHH.SelectedIndex == 0)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please select In Time HH";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+            else if (ddlInTimeMM.SelectedIndex == 0)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please select In Time MM";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+
+            if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")))
+            {
+                if (ddlOutTimeHH.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select Out Time HH";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                else if (ddlOutTimeMM.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select Out Time MM";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+            }
+
+            if (string.IsNullOrEmpty(Business.Common.Context.Signature)
+                && ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketClose))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please provide signature before submit.";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+
+            if (SelectedDocketCallStatusId == (int)CallStatusType.DocketOpenForApproval)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Cannot submit while status is in OPEN FOR APPROVAL/RESPONSE GIVEN. Please contact admin.";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+            return retValue;
+        }
+        private bool ValidateTonner()
+        {
+            MessageTonner.Show = true;
+            bool retValue = false;
+
+            if (ddlTonerServiceEngineer.SelectedIndex == 0)
+            {
+                MessageTonner.IsSuccess = false;
+                MessageTonner.Text = "Please select toner delivered by.";
+                MessageTonner.Show = true;
+                return retValue = false;
+            }
+
+            foreach (GridViewRow gvr in gvTonnerRequest.Rows)
+            {
+                if (((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked == true)
+                {
+                    retValue = true;
+                    break;
+                }
+            }
+            if (retValue)
+            {
+                if (ddlCurrentTonnerRequestCallStatus.SelectedIndex == 0)
+                {
+                    MessageTonner.IsSuccess = false;
+                    MessageTonner.Text = "Please select Current Call Status";
+                    MessageTonner.Show = true;
+                    retValue = false;
+                }
+            }
+
+            bool isTonerSelected = false;
+            if (ddlCurrentTonnerRequestCallStatus.SelectedValue == ((int)CallStatusType.TonerDelivered).ToString()
+                && Business.Common.Context.SelectedAssets.Rows != null && Business.Common.Context.SelectedAssets.Rows.Count > 0)
+            {
+                isTonerSelected = true;
+            }
+            if (!isTonerSelected)
+            {
+                MessageTonner.IsSuccess = false;
+                MessageTonner.Text = "Please select toner.";
+                MessageTonner.Show = true;
+                return false;
+            }
+
+            return retValue;
+        }
+        private bool ValidateAssociatedEngineer()
+        {
+            bool retValue = true;
             foreach (GridViewRow gvr in gvAssociatedEngineers.Rows)
             {
                 CheckBox chkEngineer = (CheckBox)gvr.FindControl("chkEngineer");
@@ -152,126 +287,6 @@ namespace WebAppAegisCRM.Service
                     }
                 }
             }
-
-            foreach (GridViewRow gvr in gvDocket.Rows)
-            {
-                if (((CheckBox)gvr.FindControl("chkDocket")).Checked == true)
-                {
-                    retValue = true;
-                    break;
-                }
-            }
-
-            if (retValue)
-            {
-                if (ddlInTimeHH.SelectedIndex == 0)
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select In Time HH";
-                    MessageDocket.Show = true;
-                    retValue = false;
-                }
-                else if (ddlInTimeMM.SelectedIndex == 0)
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select In Time MM";
-                    MessageDocket.Show = true;
-                    retValue = false;
-                }
-                else if (ddlOutTimeHH.SelectedIndex == 0)
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select Out Time HH";
-                    MessageDocket.Show = true;
-                    retValue = false;
-                }
-                else if (ddlOutTimeMM.SelectedIndex == 0)
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select Out Time MM";
-                    MessageDocket.Show = true;
-                    retValue = false;
-                }
-            }
-
-            if (string.IsNullOrEmpty(Business.Common.Context.Signature)
-                && (ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketFunctional) || ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketClose)))
-            {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Please provide signature before submit.";
-                MessageDocket.Show = true;
-                return retValue = false;
-            }
-
-            if (SelectedDocketCallStatusId == (int)CallStatusType.DocketOpenForApproval)
-            {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Cannot submit while status is in OPEN FOR APPROVAL/RESPONSE GIVEN. Please contact admin.";
-                MessageDocket.Show = true;
-                return retValue = false;
-            }
-
-            if (!retValue)
-            {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Please select docket.";
-                MessageDocket.Show = true;
-            }
-            return retValue;
-        }
-        private bool ValidateTonner()
-        {
-            MessageTonner.Show = true;
-            bool retValue = false;
-
-            if (ddlTonerServiceEngineer.SelectedIndex == 0)
-            {
-                MessageTonner.IsSuccess = false;
-                MessageTonner.Text = "Please select toner delivered by.";
-                MessageTonner.Show = true;
-                return retValue = false;
-            }
-
-            foreach (GridViewRow gvr in gvTonnerRequest.Rows)
-            {
-                if (((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked == true)
-                {
-                    retValue = true;
-                    break;
-                }
-            }
-            if (retValue)
-            {
-                if (ddlCurrentTonnerRequestCallStatus.SelectedIndex == 0)
-                {
-                    MessageTonner.IsSuccess = false;
-                    MessageTonner.Text = "Please select Current Call Status";
-                    MessageTonner.Show = true;
-                    retValue = false;
-                }
-            }
-
-            bool isTonerSelected = false;
-            if (gvTonnerList.Rows.Count > 0)
-            {
-                foreach (GridViewRow gvr in gvTonnerList.Rows)
-                {
-                    if (((CheckBox)gvr.FindControl("chkToner")).Checked
-                    || gvTonnerList.DataKeys[gvr.RowIndex].Values[1].ToString().Equals(Convert.ToString((int)ApprovalStatus.Rejected)))
-                    {
-                        isTonerSelected = true;
-                        break;
-                    }
-                }
-            }
-            if (!isTonerSelected)
-            {
-                MessageTonner.IsSuccess = false;
-                MessageTonner.Text = "Please select toner.";
-                MessageTonner.Show = true;
-                return false;
-            }
-
             return retValue;
         }
         protected void LoadTime(DropDownList ddlInHH, DropDownList ddlInMM, DropDownList ddlOutHH, DropDownList ddlOutMM)
@@ -324,7 +339,7 @@ namespace WebAppAegisCRM.Service
             }
             ListItem li = new ListItem("--SELECT--", "0");
             ddlDocketCallStatus.Items.Insert(0, li);
-            ddlDocketCallStatus.SelectedIndex = 1;
+            //ddlDocketCallStatus.SelectedIndex = 1;
         }
         protected void LoadProblemObserved()
         {
@@ -377,7 +392,7 @@ namespace WebAppAegisCRM.Service
         protected void LoadCurrentCallStatusDocket()
         {
             Business.Service.CallStatus objCallStatus = new Business.Service.CallStatus();
-            DataTable dt = objCallStatus.GetAll(2);
+            DataTable dt = objCallStatus.GetAll((int)CallType.Docket);
             dt.Rows.Remove(dt.AsEnumerable().Where(x => x["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString()).FirstOrDefault());
             dt.Rows.Remove(dt.AsEnumerable().Where(x => x["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString()).FirstOrDefault());
             dt.AcceptChanges();
@@ -389,7 +404,7 @@ namespace WebAppAegisCRM.Service
                 ddlCurrentCallStatusDocket.DataBind();
             }
             ListItem li = new ListItem("--SELECT--", "0");
-            ddlCurrentCallStatusDocket.Items.Insert(0, li);
+            ddlCurrentCallStatusDocket.InsertSelect();
         }
         protected void LoadTonnerRequestCallStatus()
         {
@@ -409,8 +424,10 @@ namespace WebAppAegisCRM.Service
         protected void LoadCurrentTonnerRequestCallStatus()
         {
             Business.Service.CallStatus objCallStatus = new Business.Service.CallStatus();
-            DataTable dt = objCallStatus.GetAll(1);
-
+            DataTable dt = objCallStatus.GetAll((int)CallType.Toner);
+            dt.Rows.Remove(dt.AsEnumerable().Where(x => x["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString()).FirstOrDefault());
+            dt.Rows.Remove(dt.AsEnumerable().Where(x => x["CallStatusId"].ToString() == ((int)CallStatusType.TonerRequestInQueue).ToString()).FirstOrDefault());
+            dt.Rows.Remove(dt.AsEnumerable().Where(x => x["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString()).FirstOrDefault());
             if (dt != null)
             {
                 ddlCurrentTonnerRequestCallStatus.DataSource = dt;
@@ -511,21 +528,22 @@ namespace WebAppAegisCRM.Service
         protected void LoadService_Tonner_GetByTonnerRequestId()
         {
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            DataSet ds = objServiceBook.Service_Tonner_GetByTonnerRequestId(TonerRequestId);
+            DataSet dsService = objServiceBook.Service_Tonner_GetByTonnerRequestId(TonerRequestId);
 
-            if (ds != null)
-            {
-                gvTonnerList.DataSource = ds.Tables[0];
-                gvTonnerList.DataBind();
-            }
-            lblA3BWCurrentMeterReading.Text = (ds.Tables[0].Rows[0]["A3BWCurrentMeterReading"] == DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["A3BWCurrentMeterReading"].ToString();
-            lblA4BWCurrentMeterReading.Text = (ds.Tables[0].Rows[0]["A4BWCurrentMeterReading"] == DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["A4BWCurrentMeterReading"].ToString();
-            lblA3CLCurrentMeterReading.Text = (ds.Tables[0].Rows[0]["A3CLCurrentMeterReading"] == DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["A3CLCurrentMeterReading"].ToString();
-            lblA4CLCurrentMeterReading.Text = (ds.Tables[0].Rows[0]["A4CLCurrentMeterReading"] == DBNull.Value) ? "0" : ds.Tables[0].Rows[0]["A4CLCurrentMeterReading"].ToString();
-            lblA3BWLastMeterReading.Text = (ds.Tables[1].Rows.Count == 0 || ds.Tables[1].Rows[0]["A3BWLastMeterReading"] == DBNull.Value) ? "0" : ds.Tables[1].Rows[0]["A3BWLastMeterReading"].ToString();
-            lblA4BWLastMeterReading.Text = (ds.Tables[1].Rows.Count == 0 || ds.Tables[1].Rows[0]["A4BWLastMeterReading"] == DBNull.Value) ? "0" : ds.Tables[1].Rows[0]["A4BWLastMeterReading"].ToString();
-            lblA3CLLastMeterReading.Text = (ds.Tables[1].Rows.Count == 0 || ds.Tables[1].Rows[0]["A3CLLastMeterReading"] == DBNull.Value) ? "0" : ds.Tables[1].Rows[0]["A3CLLastMeterReading"].ToString();
-            lblA4CLLastMeterReading.Text = (ds.Tables[1].Rows.Count == 0 || ds.Tables[1].Rows[0]["A4CLLastMeterReading"] == DBNull.Value) ? "0" : ds.Tables[1].Rows[0]["A4CLLastMeterReading"].ToString();
+            //if (dsService != null)
+            //{
+            //    gvTonnerList.DataSource = dsService.Tables[0];
+            //    gvTonnerList.DataBind();
+            //}
+            lblA3BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3BWCurrentMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[0].Rows[0]["A3BWCurrentMeterReading"].ToString();
+            lblA4BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4BWCurrentMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[0].Rows[0]["A4BWCurrentMeterReading"].ToString();
+            lblA3CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3CLCurrentMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[0].Rows[0]["A3CLCurrentMeterReading"].ToString();
+            lblA4CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4CLCurrentMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[0].Rows[0]["A4CLCurrentMeterReading"].ToString();
+            lblA3BWLastMeterReading.Text = (dsService.Tables[1].Rows.Count == 0 || dsService.Tables[1].Rows[0]["A3BWLastMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[1].Rows[0]["A3BWLastMeterReading"].ToString();
+            lblA4BWLastMeterReading.Text = (dsService.Tables[1].Rows.Count == 0 || dsService.Tables[1].Rows[0]["A4BWLastMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[1].Rows[0]["A4BWLastMeterReading"].ToString();
+            lblA3CLLastMeterReading.Text = (dsService.Tables[1].Rows.Count == 0 || dsService.Tables[1].Rows[0]["A3CLLastMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[1].Rows[0]["A3CLLastMeterReading"].ToString();
+            lblA4CLLastMeterReading.Text = (dsService.Tables[1].Rows.Count == 0 || dsService.Tables[1].Rows[0]["A4CLLastMeterReading"] == DBNull.Value) ? "0" : dsService.Tables[1].Rows[0]["A4CLLastMeterReading"].ToString();
+            Business.Common.Context.ServiceBookId = (dsService.Tables[0].Rows[0]["ServiceBookId"] != null) ? Convert.ToInt64(dsService.Tables[0].Rows[0]["ServiceBookId"].ToString()) : 0;
         }
         protected void ClearDocketControls()
         {
@@ -546,6 +564,14 @@ namespace WebAppAegisCRM.Service
             Business.Common.Context.Signature = string.Empty;
             Business.Common.Context.CallId = 0;
             Business.Common.Context.CallType = CallType.None;
+            Business.Common.Context.ServiceBookId = 0;
+            Business.Common.Context.SpareRequisition.Clear();
+            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
+            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
+            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            ddlOutTimeHH.SelectedValue = DateTime.Now.ToString("hh");
+            ddlOutTimeMM.SelectedValue = DateTime.Now.ToString("mm");
+            ddlOutTimeTT.SelectedValue = DateTime.Now.ToString("tt");
         }
         protected void ClearTonnerControls()
         {
@@ -562,10 +588,14 @@ namespace WebAppAegisCRM.Service
             ddlTonerServiceEngineer.SelectedIndex = 0;
             txtActionTaken.Text = "";
             txtDiagnosis.Text = "";
-            gvTonnerList.DataBind();
+            //gvTonnerList.DataBind();
             MessageTonner.Show = false;
             Business.Common.Context.CallId = 0;
             Business.Common.Context.CallType = CallType.None;
+            Business.Common.Context.SelectedAssets.Clear();
+            Business.Common.Context.Signature = string.Empty;
+            Business.Common.Context.ServiceBookId = 0;
+            Business.Common.Context.SpareRequisition.Clear();
         }
         protected void EmployeeMaster_GetAll()
         {
@@ -627,7 +657,7 @@ namespace WebAppAegisCRM.Service
             serviceBook.Remarks = txtRemarks.Text.Trim();
             //Has problem check
             serviceBook.InTime = Convert.ToDateTime(txtInDate.Text + " " + ddlInTimeHH.SelectedValue + ":" + ddlInTimeMM.SelectedValue + ":00" + " " + ddlInTimeTT.SelectedValue);
-            serviceBook.OutTime = Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
+            serviceBook.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
             serviceBook.Diagnosis = ddlDocketDiagnosis.SelectedValue.Trim();
             serviceBook.ActionTaken = ddlDocketActionTaken.SelectedValue.Trim();
             serviceBook.CallStatusId = int.Parse(ddlCurrentCallStatusDocket.SelectedValue);
@@ -685,12 +715,12 @@ namespace WebAppAegisCRM.Service
                 dtSpare.Columns.Add("A4BW");
                 dtSpare.Columns.Add("A4CL");
 
-                foreach (DataRow drReplacedItem in Business.Common.Context.SelectedAssets.Rows)
+                foreach (DataRow drReplacedItem in Business.Common.Context.SpareRequisition.Rows)
                 {
                     dtSpare.Rows.Add();
                     dtSpare.Rows[dtSpare.Rows.Count - 1]["CallId"] = serviceBook.CallId;
                     dtSpare.Rows[dtSpare.Rows.Count - 1]["CallType"] = (int)CallType.Docket;
-                    dtSpare.Rows[dtSpare.Rows.Count - 1]["ItemId"] = drReplacedItem["ItemId"];
+                    dtSpare.Rows[dtSpare.Rows.Count - 1]["ItemId"] = drReplacedItem["SpareId"];
                     if (txtA3BWCurrentMeterReading.Text.Trim() == string.Empty)
                         dtSpare.Rows[dtSpare.Rows.Count - 1]["A3BW"] = 0;
                     else
@@ -809,7 +839,7 @@ namespace WebAppAegisCRM.Service
             {
                 if (dsService.Tables.Count > 0 && dsService.Tables[0] != null && dsService.Tables[0].Rows != null && dsService.Tables[0].Rows.Count > 0)
                 {
-                    if (dsService.Tables[0].Rows[0]["InTime"] != null)
+                    if (dsService.Tables[0].Rows[0]["InTime"] != null && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["InTime"].ToString()))
                     {
                         txtInDate.Text = Convert.ToDateTime(dsService.Tables[0].Rows[0]["InTime"].ToString()).ToString("dd MMM yyyy");
 
@@ -820,7 +850,7 @@ namespace WebAppAegisCRM.Service
                         ddlInTimeMM.SelectedValue = Convert.ToDateTime(dsService.Tables[0].Rows[0]["InTime"].ToString()).ToString("mm");
                         ddlInTimeTT.SelectedValue = Convert.ToDateTime(dsService.Tables[0].Rows[0]["InTime"].ToString()).ToString("tt");
                     }
-                    if (dsService.Tables[0].Rows[0]["OutTime"] != null)
+                    if (dsService.Tables[0].Rows[0]["OutTime"] != null && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["OutTime"].ToString()))
                     {
                         txtOutDate.Text = Convert.ToDateTime(dsService.Tables[0].Rows[0]["OutTime"].ToString()).ToString("dd MMM yyyy");
 
@@ -889,6 +919,25 @@ namespace WebAppAegisCRM.Service
                 }
             }
         }
+        private void LoadFunctions()
+        {
+            btnCallTransfer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CALL_TRANSFER);
+            LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM);
+            LoadDocketCallStatus();
+            LoadProblemObserved();
+            LoadDiagnosis();
+            LoadActionTaken();
+            LoadCurrentCallStatusDocket();
+            LoadTonnerRequestCallStatus();
+            LoadCurrentTonnerRequestCallStatus();
+            LoadProduct();
+            LoadCustomer();
+            EmployeeMaster_GetAll();
+            EmployeeMaster_GetAll_ForToner();
+
+            MessageTonner.Show = false;
+            MessageDocket.Show = false;
+        }
         #endregion
 
         #region SYSTEM DEFINED FUNCTIONS
@@ -901,24 +950,10 @@ namespace WebAppAegisCRM.Service
                     Response.Redirect("~/MainLogout.aspx");
                 }
 
-                btnCallTransfer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CALL_TRANSFER);
-                LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM);
-                LoadDocketCallStatus();
-                LoadProblemObserved();
-                LoadDiagnosis();
-                LoadActionTaken();
-                LoadCurrentCallStatusDocket();
-                LoadTonnerRequestCallStatus();
-                LoadCurrentTonnerRequestCallStatus();
-                LoadProduct();
-                LoadCustomer();
-                EmployeeMaster_GetAll();
-                EmployeeMaster_GetAll_ForToner();
-
-                MessageTonner.Show = false;
-                MessageDocket.Show = false;
+                LoadFunctions();
                 //Checking Auto Fetch functionality conditions
                 if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)
+                {
                     if (Request.QueryString["calltype"] != null && Request.QueryString["calltype"].ToString().Length > 0)
                     {
                         ddlCallType.SelectedValue = Request.QueryString["calltype"].ToString();
@@ -936,6 +971,8 @@ namespace WebAppAegisCRM.Service
                                 }
                             }
                             //TonerRequestId = 0;
+                            divCallType.Visible = false;
+                            divTonnerRequest.Visible = false;
                         }
                         else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
                         {
@@ -950,8 +987,20 @@ namespace WebAppAegisCRM.Service
                                 }
                             }
                             //DocketId = 0;
+                            divCallType.Visible = false;
+                            divDocket.Visible = false;
+                        }
+
+                        if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
+                        {
+                            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
+                            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
+                            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+                            ddlCurrentCallStatusDocket.SelectedValue = ((int)CallStatusType.DocketRequestInQueue).ToString();
+                            btnDocketClose_Click(sender, e);
                         }
                     }
+                }
             }
         }
 
@@ -1070,12 +1119,17 @@ namespace WebAppAegisCRM.Service
                 {
                     if (gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values != null && gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values.Count > 0)
                     {
-                        TonerRequestId = Int64.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                        TonerRequestId = long.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
                         Business.Common.Context.CallId = TonerRequestId;
                         Business.Common.Context.CallType = CallType.Toner;
                     }
+
                     if (gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values != null && gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values.Count > 1)
                         CustomerPurchaseId = int.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[1].ToString());
+
+                    if (gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values != null && gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values.Count > 2)
+                        Business.Common.Context.ProductId = long.Parse(gvTonnerRequest.DataKeys[gridViewRow.RowIndex].Values[2].ToString());
+
                     LoadService_Tonner_GetByTonnerRequestId();
                     divTonnerRequestApproval.Visible = true;
                 }
@@ -1104,23 +1158,23 @@ namespace WebAppAegisCRM.Service
                 using (serviceBook.ServiceBookDetails = new DataTable())
                 {
                     serviceBook.ServiceBookDetails.Columns.Add("TonerId");
+                    serviceBook.ServiceBookDetails.Columns.Add("AssetId");
+                    serviceBook.ServiceBookDetails.Columns.Add("AssetLocationId");
 
-                    foreach (GridViewRow gvr in gvTonnerList.Rows)
+                    foreach (DataRow drAsset in Business.Common.Context.SelectedAssets.Rows)
                     {
-                        CheckBox chkToner = (CheckBox)gvr.FindControl("chkToner");
-                        if (chkToner.Checked)
-                        {
-                            DataRow dr = serviceBook.ServiceBookDetails.NewRow();
-                            dr["TonerId"] = Int64.Parse(gvTonnerList.DataKeys[gvr.RowIndex].Values[0].ToString());
-                            serviceBook.ServiceBookDetails.Rows.Add(dr);
-                            serviceBook.ServiceBookDetails.AcceptChanges();
-                        }
+                        DataRow dr = serviceBook.ServiceBookDetails.NewRow();
+                        dr["TonerId"] = long.Parse(drAsset["ItemId"].ToString());
+                        dr["AssetId"] = drAsset["AssetId"].ToString();
+                        dr["AssetLocationId"] = (int)AssetLocation.Customer;
+                        serviceBook.ServiceBookDetails.Rows.Add(dr);
+                        serviceBook.ServiceBookDetails.AcceptChanges();
                     }
                 }
 
-                int i = objServiceBook.Service_TonerRequest_Approve(serviceBook);
+                int approveResponse = objServiceBook.Service_TonerRequest_Approve(serviceBook);
 
-                if (i > 0)
+                if (approveResponse > 0)
                 {
                     //updating meter readings
                     serviceBook.CustomerPurchaseId = CustomerPurchaseId;
@@ -1141,11 +1195,10 @@ namespace WebAppAegisCRM.Service
                     else
                         serviceBook.A4CLMeterReading = int.Parse(lblA4CLCurrentMeterReading.Text.Trim());
 
-                    int j = objServiceBook.Service_MeterReading_Update(serviceBook);
+                    int readingResponse = objServiceBook.Service_MeterReading_Update(serviceBook);
 
-                    if (j > 0)
+                    if (readingResponse > 0)
                     {
-
                         ClearTonnerControls();
                         LoadTonnerRequest(gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
                         MessageTonner.IsSuccess = true;
@@ -1184,69 +1237,95 @@ namespace WebAppAegisCRM.Service
                     }
                 }
 
-                long serviceBookId = objServiceBook.Service_ServiceBook_Save(serviceBook);
-                int serviceBookDetails = 0;
-
-                serviceBook.ServiceBookId = serviceBookId;
-
-                //If low yield then removing spare entry in service book details
-                bool isLowYieldSpareChange = CheckingSpareYield(serviceBook, objServiceBook);
-                if (isLowYieldSpareChange)
+                if (Business.Common.Context.SpareRequisition != null && Business.Common.Context.SpareRequisition.Rows != null && Business.Common.Context.SpareRequisition.Rows.Count > 0 &&
+                    (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString()
+                    || ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketFunctional).ToString()))
                 {
+                    serviceBook.SpareRequisition = Business.Common.Context.SpareRequisition;
                     serviceBook.ServiceBookDetails = new DataTable();
                     serviceBook.ServiceBookDetails.AcceptChanges();
-                    serviceBook.CallStatusId = (int)CallStatusType.DocketOpenForApproval;
                 }
-                else
+
+                long serviceBookId = objServiceBook.Service_ServiceBook_Save(serviceBook);
+
+
+                if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
                 {
                     if (serviceBookId > 0)
                     {
-                        serviceBookDetails = objServiceBook.Service_ServiceBookDetails_Save(serviceBook);
+                        Response.Redirect(HttpContext.Current.Request.UrlReferrer.AbsoluteUri);
+                    }
+                    else
+                    {
+                        MessageDocket.IsSuccess = false;
+                        MessageDocket.Text = "Sorry! unable log In-Time. Please try again.";
+                        MessageDocket.Show = true;
                     }
                 }
-                if (serviceBookId > 0)
+                else
                 {
-                    //updating last meter reading in Customer Purchase
-                    int meterResponse = 0;
-                    meterResponse = objServiceBook.Service_MeterReading_Update(serviceBook);
-                    if (meterResponse > 0)
+                    int serviceBookDetails = 0;
+                    serviceBook.ServiceBookId = serviceBookId;
+
+                    //If low yield then removing spare entry in service book details
+                    bool isLowYieldSpareChange = CheckingSpareYield(serviceBook, objServiceBook);
+                    if (isLowYieldSpareChange)
                     {
-                        serviceBook.ServiceBookId = serviceBookId;
-                        if (isLowYieldSpareChange)
+                        serviceBook.ServiceBookDetails = new DataTable();
+                        serviceBook.ServiceBookDetails.AcceptChanges();
+                        //serviceBook.CallStatusId = (int)CallStatusType.DocketOpenForApproval;
+                    }
+                    else
+                    {
+                        if (serviceBookId > 0)
                         {
-                            MessageDocket.IsSuccess = false;
-                            MessageDocket.Text = "Low yield spare change found. Your docket is under verification now.";
+                            serviceBookDetails = objServiceBook.Service_ServiceBookDetails_Save(serviceBook);
                         }
-                        else
+                    }
+                    if (serviceBookId > 0)
+                    {
+                        //updating last meter reading in Customer Purchase
+                        int meterResponse = 0;
+                        meterResponse = objServiceBook.Service_MeterReading_Update(serviceBook);
+                        if (meterResponse > 0)
                         {
-                            if (serviceBook.ServiceBookDetails != null && serviceBook.ServiceBookDetails.Rows.Count > 0 && serviceBookDetails == 0)
+                            serviceBook.ServiceBookId = serviceBookId;
+                            if (isLowYieldSpareChange)
                             {
                                 MessageDocket.IsSuccess = false;
-                                MessageDocket.Text = "Cannot save spares information in service book details.";
+                                MessageDocket.Text = "Low yield spare change found. Your docket is under verification now.";
                             }
                             else
                             {
-                                SentMail();
-                                LoadDocket();
-                                ClearDocketControls();
-                                LoadServiceBookMasterHistory();
-                                MessageDocket.IsSuccess = true;
-                                MessageDocket.Text = "Docket response successfully given.";
+                                if (serviceBook.ServiceBookDetails != null && serviceBook.ServiceBookDetails.Rows.Count > 0 && serviceBookDetails == 0)
+                                {
+                                    MessageDocket.IsSuccess = false;
+                                    MessageDocket.Text = "Cannot save spares information in service book details.";
+                                }
+                                else
+                                {
+                                    SentMail();
+                                    LoadDocket();
+                                    ClearDocketControls();
+                                    LoadServiceBookMasterHistory();
+                                    MessageDocket.IsSuccess = true;
+                                    MessageDocket.Text = "Docket response successfully given.";
+                                }
                             }
+                        }
+                        else
+                        {
+                            MessageDocket.IsSuccess = false;
+                            MessageDocket.Text = "Current meter reading unable to update! Please contact system administrator immediately.";
                         }
                     }
                     else
                     {
                         MessageDocket.IsSuccess = false;
-                        MessageDocket.Text = "Current meter reading unable to update! Please contact system administrator immediately.";
+                        MessageDocket.Text = "Sorry! docket response not given. Please try again.";
                     }
+                    MessageDocket.Show = true;
                 }
-                else
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Sorry! docket cannot close. Please try again.";
-                }
-                MessageDocket.Show = true;
             }
         }
 
@@ -1266,17 +1345,17 @@ namespace WebAppAegisCRM.Service
             }
         }
 
-        protected void gvTonnerList_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                if (((DataTable)(gvTonnerList.DataSource)).Rows[e.Row.RowIndex]["ApprovalStatus"].ToString() == Convert.ToString((int)ApprovalStatus.Rejected))
-                {
-                    ((CheckBox)e.Row.FindControl("chkToner")).Enabled = false;
-                    e.Row.Attributes["style"] = "background-color: #ff3f3f";
-                }
-            }
-        }
+        //protected void gvTonnerList_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        if (((DataTable)(gvTonnerList.DataSource)).Rows[e.Row.RowIndex]["ApprovalStatus"].ToString() == Convert.ToString((int)ApprovalStatus.Rejected))
+        //        {
+        //            ((CheckBox)e.Row.FindControl("chkToner")).Enabled = false;
+        //            e.Row.Attributes["style"] = "background-color: #ff3f3f";
+        //        }
+        //    }
+        //}
 
         protected void gvTonnerRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {

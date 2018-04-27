@@ -20,7 +20,7 @@ namespace WebAppAegisCRM.Service
                 FromDate = (!string.IsNullOrEmpty(txtLogFromDate.Text.Trim()) ? Convert.ToDateTime(txtLogFromDate.Text.Trim()) : DateTime.MinValue),
                 ToDate = (!string.IsNullOrEmpty(txtLogToDate.Text.Trim()) ? Convert.ToDateTime(txtLogToDate.Text.Trim()) : DateTime.MinValue),
                 ApprovalStatus = Convert.ToInt32(ddlApprovalStatus.SelectedValue),
-                CallType = 1
+                CallType = (int)CallType.Toner
             };
 
             DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(serviceBook);
@@ -42,6 +42,8 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("ServiceBookId");
                 dtApproval.Columns.Add("ItemId");
                 dtApproval.Columns.Add("ApprovalStatus");
+                dtApproval.Columns.Add("IsLowYield");
+                dtApproval.Columns.Add("CallStatus");
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
 
