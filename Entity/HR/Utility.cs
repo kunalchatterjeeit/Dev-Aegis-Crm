@@ -48,6 +48,7 @@ namespace Entity.HR
         public const string CUSTOMER_LIST_SHOW_ALL = "412";
         public const string TONNER_REQUEST_APPROVAL = "413";
         public const string CALL_TRANSFER = "414";
+        public const string SERVICE_BOOK_SPARE_APPROVAL = "415";
 
         //Reports
         public const string REPORT = "500";

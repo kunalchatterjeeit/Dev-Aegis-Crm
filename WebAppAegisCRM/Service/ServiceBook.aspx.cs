@@ -204,6 +204,10 @@ namespace WebAppAegisCRM.Service
             {
                 isTonerSelected = true;
             }
+            else if(ddlCurrentTonnerRequestCallStatus.SelectedValue == ((int)CallStatusType.TonerRejected).ToString())
+            {
+                isTonerSelected = true;
+            }
             if (!isTonerSelected)
             {
                 MessageTonner.IsSuccess = false;
@@ -289,10 +293,12 @@ namespace WebAppAegisCRM.Service
             }
             return retValue;
         }
-        protected void LoadTime(DropDownList ddlInHH, DropDownList ddlInMM, DropDownList ddlOutHH, DropDownList ddlOutMM)
+        protected void LoadTime(DropDownList ddlInHH, DropDownList ddlInMM, DropDownList ddlOutHH, DropDownList ddlOutMM, DropDownList ddlInTT, DropDownList ddlOutTT)
         {
             ddlInHH.Items.Clear();
             ddlInMM.Items.Clear();
+            ddlInTT.Items.Clear();
+            ddlOutTT.Items.Clear();
             ddlInTimeTT.SelectedIndex = 0;
 
             ddlOutHH.Items.Clear();
@@ -303,13 +309,17 @@ namespace WebAppAegisCRM.Service
             ddlOutHH.Items.Insert(0, "HH");
             ddlInMM.Items.Insert(0, "MM");
             ddlOutMM.Items.Insert(0, "MM");
+            ddlInTT.Items.Insert(0, "AM");
+            ddlInTT.Items.Insert(1, "PM");
+            ddlOutTT.Items.Insert(0, "AM");
+            ddlOutTT.Items.Insert(1, "PM");
 
-            for (int i = 0; i <= 11; i++)
+            for (int i = 0; i <= 12; i++)
             {
                 ListItem li = new ListItem(i.ToString("00"), i.ToString("00"));
                 ddlInHH.Items.Insert(i + 1, li);
             }
-            for (int i = 0; i <= 11; i++)
+            for (int i = 0; i <= 12; i++)
             {
                 ListItem li = new ListItem(i.ToString("00"), i.ToString("00"));
                 ddlOutHH.Items.Insert(i + 1, li);
@@ -550,7 +560,7 @@ namespace WebAppAegisCRM.Service
             lblProblem.Text = "";
             txtInDate.Text = System.DateTime.Now.ToString("dd MMM yyyy");
             txtOutDate.Text = System.DateTime.Now.ToString("dd MMM yyyy");
-            LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM);
+            LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM, ddlInTimeTT, ddlOutTimeTT);
             ddlCurrentCallStatusDocket.SelectedIndex = 0;
             ddlProblemObserved.SelectedIndex = 0;
             ddlDocketDiagnosis.SelectedIndex = 0;
@@ -558,7 +568,8 @@ namespace WebAppAegisCRM.Service
             txtCustomerFeedback.Text = "";
             txtRemarks.Text = "";
             ddlServiceEngineer.SelectedIndex = 0;
-            gvAssociatedEngineers.DataBind();
+            //gvAssociatedEngineers.DataBind();
+            LoadAssociateEngineersList();
             MessageDocket.Show = false;
             Business.Common.Context.SelectedAssets.Clear();
             Business.Common.Context.Signature = string.Empty;
@@ -710,6 +721,7 @@ namespace WebAppAegisCRM.Service
                 dtSpare.Columns.Add("CallId");
                 dtSpare.Columns.Add("CallType");
                 dtSpare.Columns.Add("ItemId");
+                dtSpare.Columns.Add("RequisiteQty");
                 dtSpare.Columns.Add("A3BW");
                 dtSpare.Columns.Add("A3CL");
                 dtSpare.Columns.Add("A4BW");
@@ -721,6 +733,7 @@ namespace WebAppAegisCRM.Service
                     dtSpare.Rows[dtSpare.Rows.Count - 1]["CallId"] = serviceBook.CallId;
                     dtSpare.Rows[dtSpare.Rows.Count - 1]["CallType"] = (int)CallType.Docket;
                     dtSpare.Rows[dtSpare.Rows.Count - 1]["ItemId"] = drReplacedItem["SpareId"];
+                    dtSpare.Rows[dtSpare.Rows.Count - 1]["RequisiteQty"] = drReplacedItem["RequisiteQty"];
                     if (txtA3BWCurrentMeterReading.Text.Trim() == string.Empty)
                         dtSpare.Rows[dtSpare.Rows.Count - 1]["A3BW"] = 0;
                     else
@@ -922,7 +935,7 @@ namespace WebAppAegisCRM.Service
         private void LoadFunctions()
         {
             btnCallTransfer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CALL_TRANSFER);
-            LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM);
+            LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM, ddlInTimeTT, ddlOutTimeTT);
             LoadDocketCallStatus();
             LoadProblemObserved();
             LoadDiagnosis();
@@ -1072,7 +1085,6 @@ namespace WebAppAegisCRM.Service
                     divDocketClosingHistory.Visible = true;
                     LoadServiceBookMasterHistory();
                     Service_ServiceBookMaster_GetByCallId(DocketId, CallType.Docket);
-                    LoadAssociateEngineersList();
                     Service_AssociatedEngineers_GetByCallId(DocketId, CallType.Docket);
                 }
                 else
@@ -1337,11 +1349,13 @@ namespace WebAppAegisCRM.Service
                 TextBox txtAssociatedOutDate = ((TextBox)e.Row.FindControl("txtAssociatedOutDate"));
                 DropDownList ddlAssociatedInTimeHH = ((DropDownList)e.Row.FindControl("ddlAssociatedInTimeHH"));
                 DropDownList ddlAssociatedInTimeMM = ((DropDownList)e.Row.FindControl("ddlAssociatedInTimeMM"));
+                DropDownList ddlAssociatedInTimeTT = ((DropDownList)e.Row.FindControl("ddlAssociatedInTimeTT"));
                 DropDownList ddlAssociatedOutTimeHH = ((DropDownList)e.Row.FindControl("ddlAssociatedOutTimeHH"));
                 DropDownList ddlAssociatedOutTimeMM = ((DropDownList)e.Row.FindControl("ddlAssociatedOutTimeMM"));
+                DropDownList ddlAssociatedOutTimeTT = ((DropDownList)e.Row.FindControl("ddlAssociatedOutTimeTT"));
 
                 txtAssociatedOutDate.Text = txtAssociatedInDate.Text = System.DateTime.Now.ToString("dd MMM yyyy");
-                LoadTime(ddlAssociatedInTimeHH, ddlAssociatedInTimeMM, ddlAssociatedOutTimeHH, ddlAssociatedOutTimeMM);
+                LoadTime(ddlAssociatedInTimeHH, ddlAssociatedInTimeMM, ddlAssociatedOutTimeHH, ddlAssociatedOutTimeMM, ddlAssociatedInTimeTT, ddlAssociatedOutTimeTT);
             }
         }
 

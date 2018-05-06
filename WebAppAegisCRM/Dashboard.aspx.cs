@@ -33,6 +33,8 @@ namespace WebAppAegisCRM
             Business.Service.Docket objDocket = new Business.Service.Docket();
             Entity.Service.Docket docket = new Entity.Service.Docket();
 
+            //docket.PageIndex = 0;
+            //docket.PageSize = 50;
             docket.DocketNo = "";
             docket.CustomerId = 0;
             docket.ProductId = 0;
@@ -55,20 +57,22 @@ namespace WebAppAegisCRM
         protected void LoadTonnerRequest()
         {
             Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
-            Entity.Service.TonerRequest tonnerRequest = new Entity.Service.TonerRequest();
+            Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
 
-            tonnerRequest.RequestNo = "";
-            tonnerRequest.CustomerId = 0;
-            tonnerRequest.ProductId = 0;
-            tonnerRequest.RequestFromDateTime = DateTime.MinValue;
-            tonnerRequest.RequestToDateTime = DateTime.MinValue;
-            tonnerRequest.CallStatusId = 0;
+            tonerRequest.PageIndex = 0;
+            tonerRequest.PageSize = 50;
+            tonerRequest.RequestNo = "";
+            tonerRequest.CustomerId = 0;
+            tonerRequest.ProductId = 0;
+            tonerRequest.RequestFromDateTime = DateTime.MinValue;
+            tonerRequest.RequestToDateTime = DateTime.MinValue;
+            tonerRequest.CallStatusId = 0;
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                tonnerRequest.AssignEngineer = 0;
+                tonerRequest.AssignEngineer = 0;
             else
-                tonnerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+                tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonnerRequest).Tables[0];
+            DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonerRequest).Tables[0];
             using (DataView dv = new DataView(dt))
             {
                 dv.RowFilter = "CallStatusId IN (7,13)"; //REQUEST IN QUEUE && RESPONSE GIVEN

@@ -11,12 +11,12 @@ namespace Entity.Service
         public ServiceBook()
         { }
 
-        public Int64 ServiceBookId { get; set; }
-        public Int64 ServiceBookDetailsId { get; set; }
-        public Int64 CallId { get; set; }
+        public long ServiceBookId { get; set; }
+        public long ServiceBookDetailsId { get; set; }
+        public long CallId { get; set; }
         public int CallType { get; set; }
         public int CallStatusId { get; set; }
-        public Int64 TonnerRequestId { get; set; }
+        public long TonnerRequestId { get; set; }
         public int EmployeeId_FK { get; set; }
         public string Remarks { get; set; }
         public DateTime InTime { get; set; }

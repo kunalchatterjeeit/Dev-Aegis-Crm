@@ -349,7 +349,8 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("CallStatus");
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
-                foreach (Int64 tonerId in tonnerRequest.SpareIds)
+                dtApproval.Columns.Add("RequisiteQty");
+                foreach (long tonerId in tonnerRequest.SpareIds)
                 {
                     DataRow drApprovalItem = dtApproval.NewRow();
                     drApprovalItem["ApprovalId"] = 0;
@@ -360,6 +361,7 @@ namespace WebAppAegisCRM.Service
                     drApprovalItem["CallStatus"] = (isLowYield) ? (int)CallStatusType.TonerOpenForApproval : (int)CallStatusType.TonerRequestInQueue;
                     drApprovalItem["RespondBy"] = string.Empty;
                     drApprovalItem["Comment"] = (isLowYield) ? "NEED TONER APPROVAL" : "AUTO APPROVED";
+                    drApprovalItem["RequisiteQty"] = "1";//Default sending 1, later can change from Toner Requisition Service Book
                     dtApproval.Rows.Add(drApprovalItem);
                     dtApproval.AcceptChanges();
                 }

@@ -210,7 +210,11 @@
                                             <%#  (gvExpiringSoon.PageIndex * gvExpiringSoon.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Expire on" DataField="ContractEndDate" />
+                                     <asp:TemplateField HeaderText="Expire on">
+                                        <ItemTemplate>
+                                            <%# Convert.ToDateTime(Eval("ContractEndDate")).ToString("dd/MM/yy") %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                     <asp:TemplateField>
                                         <ItemTemplate>
@@ -260,7 +264,11 @@
                                             <%#  (gvExpiredList.PageIndex * gvExpiredList.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Expired on" DataField="ContractEndDate" />
+                                    <asp:TemplateField HeaderText="Expired on">
+                                        <ItemTemplate>
+                                            <%# Convert.ToDateTime(Eval("ContractEndDate")).ToString("dd/MM/yy") %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
                                     <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                     <asp:TemplateField>
                                         <ItemTemplate>

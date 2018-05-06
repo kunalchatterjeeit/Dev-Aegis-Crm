@@ -542,6 +542,14 @@ namespace DataAccess.Service
                         {
                             cmd.Parameters.AddWithValue("@CallStatus", drItem["CallStatus"]);
                         }
+                        if (drItem["RequisiteQty"] == null)
+                        {
+                            cmd.Parameters.AddWithValue("@RequisiteQty", DBNull.Value);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@RequisiteQty", drItem["RequisiteQty"]);
+                        }
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         rowsAffacted += cmd.ExecuteNonQuery();

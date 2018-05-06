@@ -133,6 +133,7 @@
                                 <asp:ListItem Value="413" Text="&nbsp;&nbsp;&nbsp;TONER REQUEST APPROVAL"></asp:ListItem>
                                 <%--<asp:ListItem Value="409" Text="&nbsp;&nbsp;&nbsp;TONER REQUEST LIST SHOW ALL"></asp:ListItem>--%>
                                 <asp:ListItem Value="407" Text="&nbsp;&nbsp;&nbsp;SERVICE BOOK"></asp:ListItem>
+                                <asp:ListItem Value="415" Text="&nbsp;&nbsp;&nbsp;SERVICE BOOK SPARE APPROVAL"></asp:ListItem>
                                 <asp:ListItem Value="411" Text="&nbsp;&nbsp;&nbsp;TONNER QUICK LINK PERMISSION"></asp:ListItem>
                                 <asp:ListItem Value="410" Text="&nbsp;&nbsp;&nbsp;DOCKET QUICK LINK PERMISSION"></asp:ListItem>
                                 <asp:ListItem Value="414" Text="&nbsp;&nbsp;&nbsp;CALL TRANSFER"></asp:ListItem>

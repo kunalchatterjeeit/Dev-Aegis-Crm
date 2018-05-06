@@ -35,6 +35,11 @@
                             </asp:TemplateField>
                             <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                             <asp:BoundField HeaderText="Yield" DataField="Yield" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number"></asp:TextBox>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                         <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

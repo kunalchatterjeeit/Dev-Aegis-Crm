@@ -50,6 +50,7 @@ namespace WebAppAegisCRM
                 liServiceBook.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICEBOOK);
                 liAddEditCustomer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITCUSTOMER);
                 liTagCustomerModel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TAGCUSTOMERMODEL);
+                liServiceBookApproval.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_SPARE_APPROVAL);
 
                 //REPORT
                 liReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.REPORT);

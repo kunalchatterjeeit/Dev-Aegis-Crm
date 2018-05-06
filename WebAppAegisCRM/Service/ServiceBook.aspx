@@ -234,8 +234,6 @@
                                             <asp:DropDownList ID="ddlInTimeMM" runat="server" Enabled="false">
                                             </asp:DropDownList>
                                             <asp:DropDownList ID="ddlInTimeTT" runat="server" Enabled="false">
-                                                <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
-                                                <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
@@ -253,8 +251,6 @@
                                             <asp:DropDownList ID="ddlOutTimeMM" runat="server">
                                             </asp:DropDownList>
                                             <asp:DropDownList ID="ddlOutTimeTT" runat="server">
-                                                <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
-                                                <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                             </asp:DropDownList>
                                         </div>
                                     </div>
@@ -390,8 +386,6 @@
                                                             <asp:DropDownList ID="ddlAssociatedInTimeMM" runat="server">
                                                             </asp:DropDownList>
                                                             <asp:DropDownList ID="ddlAssociatedInTimeTT" runat="server">
-                                                                <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
-                                                                <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -409,8 +403,6 @@
                                                             <asp:DropDownList ID="ddlAssociatedOutTimeMM" runat="server">
                                                             </asp:DropDownList>
                                                             <asp:DropDownList ID="ddlAssociatedOutTimeTT" runat="server">
-                                                                <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
-                                                                <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                                             </asp:DropDownList>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

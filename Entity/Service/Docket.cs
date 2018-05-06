@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Entity.Service
 {
-    public class Docket
+    public class Docket:BaseEntity
     {
         public Docket()
         { }

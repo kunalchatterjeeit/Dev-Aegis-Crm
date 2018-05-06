@@ -118,10 +118,17 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@RequestToDateTime", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@RequestToDateTime", tonerRequest.RequestToDateTime);
-                        if (tonerRequest.CallStatusId == 0)
-                            cmd.Parameters.AddWithValue("@CallStatus", DBNull.Value);
+                        if (string.IsNullOrEmpty(tonerRequest.MultipleCallStatusFilter))
+                        {
+                            if (tonerRequest.CallStatusId == 0)
+                                cmd.Parameters.AddWithValue("@CallStatus", DBNull.Value);
+                            else
+                                cmd.Parameters.AddWithValue("@CallStatus", tonerRequest.CallStatusId);
+                        }
                         else
-                            cmd.Parameters.AddWithValue("@CallStatus", tonerRequest.CallStatusId);
+                        {
+                            cmd.Parameters.AddWithValue("@CallStatus", tonerRequest.MultipleCallStatusFilter);
+                        }
                         if (tonerRequest.AssignEngineer == 0)
                             cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                         else

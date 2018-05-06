@@ -28,6 +28,7 @@ namespace Entity.Service
         public string Remarks { get; set; }
         public bool isCustomerEntry { get; set; }
         public int CallStatusId { get; set; }
+        public string MultipleCallStatusFilter { get; set; }
         public int CreatedBy { get; set; }
         public Int64 CustomerPurchaseId { get; set; }
         public string Diagnosis { get; set; }

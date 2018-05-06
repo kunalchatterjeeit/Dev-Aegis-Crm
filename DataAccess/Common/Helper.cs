@@ -10,7 +10,7 @@ namespace DataAccess.Common
 {
     public static class Helper
     {
-        public static SqlCommand InsertPaging(this SqlCommand sqlCommand, BaseEntity entity, Int64 primaryId)
+        public static SqlCommand InsertPaging(this SqlCommand sqlCommand, BaseEntity entity, long primaryId)
         {
             int pageIndex = (entity.PageIndex < 0) ? 0 : entity.PageIndex * entity.PageSize; //Coming to next page row number
 

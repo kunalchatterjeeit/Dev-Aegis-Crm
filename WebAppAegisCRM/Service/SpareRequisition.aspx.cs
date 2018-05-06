@@ -27,12 +27,14 @@ namespace WebAppAegisCRM.Service
             using (DataTable dtRequisition = new DataTable())
             {
                 dtRequisition.Columns.Add("SpareId");
+                dtRequisition.Columns.Add("RequisiteQty");
                 foreach (GridViewRow gvr in gvSpareList.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chkSpare")).Checked)
                     {
                         DataRow drSpareId = dtRequisition.NewRow();
                         drSpareId["SpareId"] = gvSpareList.DataKeys[gvr.RowIndex].Values[0].ToString();
+                        drSpareId["RequisiteQty"] = ((TextBox)gvr.FindControl("txtRequisiteQty")).Text.Trim();
                         dtRequisition.Rows.Add(drSpareId);
                         dtRequisition.AcceptChanges();
                     }

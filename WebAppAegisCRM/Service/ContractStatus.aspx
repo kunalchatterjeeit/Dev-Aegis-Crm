@@ -111,7 +111,11 @@
                                                 <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
                                                 <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                                 <asp:BoundField HeaderText="Contract Type" DataField="ContractName" />
-                                                <asp:BoundField HeaderText="Expire on" DataField="ContractEndDate" />
+                                                <asp:TemplateField HeaderText="Expire on">
+                                                    <ItemTemplate>
+                                                        <%# (Convert.ToDateTime(Eval("ContractEndDate")).ToString("yyyy").Equals("1900"))?"N/A":Convert.ToDateTime(Eval("ContractEndDate")).ToString("dd/MM/yyyy") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Days Left" DataField="DayLeft" />
                                                 <asp:TemplateField>
                                                     <ItemTemplate>

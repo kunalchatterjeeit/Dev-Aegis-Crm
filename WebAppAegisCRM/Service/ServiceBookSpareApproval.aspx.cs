@@ -20,7 +20,7 @@ namespace WebAppAegisCRM.Service
                 FromDate = (!string.IsNullOrEmpty(txtLogFromDate.Text.Trim()) ? Convert.ToDateTime(txtLogFromDate.Text.Trim()) : DateTime.MinValue),
                 ToDate = (!string.IsNullOrEmpty(txtLogToDate.Text.Trim()) ? Convert.ToDateTime(txtLogToDate.Text.Trim()) : DateTime.MinValue),
                 ApprovalStatus = Convert.ToInt32(ddlApprovalStatus.SelectedValue),
-                CallType = 2
+                CallType = (int)CallType.Docket
             };
 
             DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(serviceBook);
