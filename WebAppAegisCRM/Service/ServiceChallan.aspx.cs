@@ -118,6 +118,15 @@ namespace WebAppAegisCRM.Service
                     Message.Text = "Invalid request. Not able to add since it is already rejected.";
                     Message.Show = true;
                 }
+                else if (Business.Common.Context.SelectedAssets != null && Business.Common.Context.SelectedAssets.Rows.Count > 0
+                    && Business.Common.Context.SelectedAssets.AsEnumerable().Where(p=>p["ItemId"].ToString() == itemId).Any()
+                    && Business.Common.Context.SelectedAssets.AsEnumerable().Count(p => p["ItemId"].ToString() == itemId)
+                    >= Convert.ToDecimal(objServiceBook.Service_ServiceBookDetailsApproval_GetById(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)).Tables[0].Rows[0]["RequisiteQty"].ToString()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Max limit of selection is reached.";
+                    Message.Show = true;
+                }
                 else
                 {
                     if (Business.Common.Context.SelectedAssets.Rows.Count == 0)

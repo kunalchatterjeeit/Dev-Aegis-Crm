@@ -116,5 +116,10 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_GetServiceBookDetailsApprovalStatus(serviceBookId, itemId);
         }
+
+        public DataSet Service_ServiceBookDetailsApproval_GetById(long serviceBookId, long itemId)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceBookDetailsApproval_GetById(serviceBookId, itemId);
+        }
     }
 }

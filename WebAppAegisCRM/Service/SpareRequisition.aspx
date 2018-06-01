@@ -36,8 +36,9 @@
                             <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                             <asp:BoundField HeaderText="Yield" DataField="Yield" />
                             <asp:TemplateField>
+                                <HeaderTemplate>Quantity</HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number"></asp:TextBox>
+                                    <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

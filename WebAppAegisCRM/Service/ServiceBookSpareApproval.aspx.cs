@@ -46,6 +46,7 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("CallStatus");
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
+                dtApproval.Columns.Add("RequisiteQty");
 
                 DataRow drApprovalItem = dtApproval.NewRow();
                 drApprovalItem["ApprovalId"] = approvalId;

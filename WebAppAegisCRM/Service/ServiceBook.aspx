@@ -225,7 +225,7 @@
                                     <div class="form-group has-error">
                                         In Time :
                                         <div class="form-control">
-                                            <asp:TextBox ID="txtInDate" runat="server" Style="border: none; background: #fff; width:55px" disabled></asp:TextBox>
+                                            <asp:TextBox ID="txtInDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtInDate"
                                                 Format="dd MMM yyyy" Enabled="True">
                                             </asp:CalendarExtender>
@@ -242,7 +242,7 @@
                                     <div class="form-group has-error">
                                         Out Time :
                                         <div class="form-control">
-                                            <asp:TextBox ID="txtOutDate" runat="server" Style="border: none; background: #fff; width:55px" disabled></asp:TextBox>
+                                            <asp:TextBox ID="txtOutDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtOutDate"
                                                 Format="dd MMM yyyy" Enabled="True">
                                             </asp:CalendarExtender>
@@ -377,7 +377,7 @@
                                                             In Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none;background: #fff; width:55px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtAssociatedInDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
@@ -394,7 +394,7 @@
                                                             Out Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none;background: #fff; width:55px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtAssociatedOutDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>

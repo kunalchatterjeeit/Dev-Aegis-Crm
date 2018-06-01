@@ -751,5 +751,32 @@ namespace DataAccess.Service
             }
             return approvalStatus;
         }
+
+        public static DataSet Service_ServiceBookDetailsApproval_GetById(long serviceBookId, long itemId)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
+                        cmd.Parameters.AddWithValue("@ItemId", itemId);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceBookDetailsApproval_GetById";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
     }
 }

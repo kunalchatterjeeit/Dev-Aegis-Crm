@@ -92,6 +92,7 @@
                                                 <asp:BoundField HeaderText="Docket" DataField="RequestNo" />
                                                 <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                                                 <asp:BoundField HeaderText="Yield" DataField="Yield" />
+                                                <asp:BoundField HeaderText="Req Qty" DataField="RequisiteQty" />
                                                 <asp:BoundField HeaderText="A3BW" DataField="A3BWMeterReading" />
                                                 <asp:BoundField HeaderText="A3CL" DataField="A3CLMeterReading" />
                                                 <asp:BoundField HeaderText="A4BW" DataField="A4BWMeterReading" />

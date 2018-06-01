@@ -6,6 +6,7 @@
 
 body {
     background-color: #f8f8f8;
+    overflow-y: -webkit-paged-y;
 }
 
 #wrapper {
@@ -216,7 +217,7 @@ body {
 
 .flot-chart {
     display: block;
-    height: 370px;
+    height: 400px;
 }
 
 .flot-chart-content {

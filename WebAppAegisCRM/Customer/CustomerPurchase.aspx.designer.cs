@@ -211,6 +211,24 @@ namespace WebAppAegisCRM.Customer {
         protected global::System.Web.UI.WebControls.FileUpload FileUploadStamp;
         
         /// <summary>
+        /// txtInstallationDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtInstallationDate;
+        
+        /// <summary>
+        /// txtInstallationDate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtInstallationDate_CalendarExtender;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

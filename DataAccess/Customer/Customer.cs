@@ -179,7 +179,10 @@ namespace DataAccess.Customer
                     cmd.Parameters.AddWithValue("@ContactPerson", customer.ContactPerson);
                     cmd.Parameters.AddWithValue("@Address", customer.Address);
                     cmd.Parameters.AddWithValue("@MobileNo", customer.MobileNo);
-                    cmd.Parameters.AddWithValue("@Phone", customer.PhoneNo);
+                    if (customer.InstallationDate == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@InstallationDate", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@InstallationDate", customer.InstallationDate);
                     if (customer.AssignEngineer == 0)
                         cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                     else
@@ -278,6 +281,7 @@ namespace DataAccess.Customer
                             customer.PhoneNo = (dr["Phone"] == DBNull.Value) ? string.Empty : dr["Phone"].ToString();
                             customer.MobileNo = (dr["MobileNo"] == DBNull.Value) ? string.Empty : dr["MobileNo"].ToString();
                             customer.AssignEngineer = (dr["AssignEngineer"] == DBNull.Value) ? 0 : int.Parse(dr["AssignEngineer"].ToString());
+                            customer.InstallationDate = (dr["InstallationDate"] == DBNull.Value) ? DateTime.MinValue : DateTime.Parse(dr["InstallationDate"].ToString());
                         }
                     }
                     con.Close();

@@ -299,11 +299,8 @@ namespace WebAppAegisCRM.Service
             ddlInMM.Items.Clear();
             ddlInTT.Items.Clear();
             ddlOutTT.Items.Clear();
-            ddlInTimeTT.SelectedIndex = 0;
-
             ddlOutHH.Items.Clear();
             ddlOutMM.Items.Clear();
-            ddlOutTimeTT.SelectedIndex = 0;
 
             ddlInHH.Items.Insert(0, "HH");
             ddlOutHH.Items.Insert(0, "HH");
@@ -335,6 +332,8 @@ namespace WebAppAegisCRM.Service
                 ListItem li = new ListItem(i.ToString("00"), i.ToString("00"));
                 ddlOutMM.Items.Insert(i + 1, li);
             }
+            ddlInTimeTT.SelectedIndex = 0;
+            ddlOutTimeTT.SelectedIndex = 0;
         }
         protected void LoadDocketCallStatus()
         {

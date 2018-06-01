@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="TAG CUSTOMER MODEL" Language="C#" MasterPageFile="~/Main.Master"
     AutoEventWireup="True" CodeBehind="CustomerPurchase.aspx.cs" Inherits="WebAppAegisCRM.Customer.CustomerPurchase" %>
+
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -190,8 +191,13 @@
                                                 <td>
                                                     <asp:FileUpload ID="FileUploadStamp" runat="server" />
                                                 </td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>Installation Date</td>
+                                                <td>
+                                                    <asp:TextBox ID="txtInstallationDate" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:CalendarExtender ID="txtInstallationDate_CalendarExtender" runat="server" Enabled="True"
+                                                        Format="dd MMM yyyy" TargetControlID="txtInstallationDate">
+                                                    </asp:CalendarExtender>
+                                                </td>
                                             </tr>
                                         </table>
                                         <br />

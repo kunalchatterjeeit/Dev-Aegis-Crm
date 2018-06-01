@@ -118,8 +118,9 @@ namespace WebAppAegisCRM.Customer
                     ddlAssignEngineer.SelectedValue = Convert.ToString(customer.AssignEngineer);
                     LoadProduct();
                     ddlProduct.SelectedValue = Convert.ToString(customer.Productid);
+                    txtInstallationDate.Text = (customer.InstallationDate == DateTime.MinValue) ? string.Empty : customer.InstallationDate.ToString("dd MMM yyyy");
                 }
-                catch (Exception ex)
+                catch
                 { }
             }
         }
@@ -192,6 +193,7 @@ namespace WebAppAegisCRM.Customer
             txtAddress.Text = "";
             txtMobileNo.Text = "";
             txtPhone.Text = "";
+            txtInstallationDate.Text = string.Empty;
             CustomerPurchaseId = 0;
         }
         protected void ClearControlForContract()
@@ -210,7 +212,7 @@ namespace WebAppAegisCRM.Customer
             customer.SerialNo = txtProductSlNo.Text;
             customer.PurchaseDate = DateTime.MinValue;
             customer.MachineId = "";
-            customer.InstallationDate = DateTime.MinValue;
+            customer.InstallationDate = (string.IsNullOrEmpty(txtInstallationDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtInstallationDate.Text.Trim());
             customer.AssignEngineer = int.Parse(ddlAssignEngineer.SelectedValue);
             customer.CustomerRemarks = txtCustomerRemarks.Text;
             customer.UserId = int.Parse(HttpContext.Current.User.Identity.Name);
