@@ -164,13 +164,13 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorDocket = e.Row.FindControl("anchorDocket") as HtmlContainerControl;
                 anchorDocket.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_QUICK_LINK_PERMISSION);
 
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
                     anchorCallIn.Attributes["style"] = "display:none";
                     e.Row.Attributes["style"] = "background-color: #C6F2C6";
                 }
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #FFF39E";
                 }
@@ -184,7 +184,7 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorToner = e.Row.FindControl("anchorToner") as HtmlContainerControl;
                 anchorToner.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TONNER_QUICK_LINK_PERMISSION);
 
-                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
+                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #fff39e";
                 }
