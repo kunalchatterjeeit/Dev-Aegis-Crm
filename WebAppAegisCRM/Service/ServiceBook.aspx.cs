@@ -86,7 +86,7 @@ namespace WebAppAegisCRM.Service
                 return retValue = false;
             }
 
-            if (Convert.ToDateTime(txtOutDate.Text.Trim()).Date > System.DateTime.Now.Date)
+            if (Convert.ToDateTime(txtOutDate.Text.Trim()).Date > DateTime.Now.Date)
             {
                 MessageDocket.IsSuccess = false;
                 MessageDocket.Text = "Invalid Out date.";
@@ -148,6 +148,61 @@ namespace WebAppAegisCRM.Service
                 }
             }
 
+            if (Request.QueryString["action"] != null && !Request.QueryString["action"].Equals("callin"))
+            {
+                if (string.IsNullOrEmpty(txtA3BWCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please enter A3 B/W meter reading.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                if (string.IsNullOrEmpty(txtA4BWCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please enter A4 B/W meter reading.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                if (string.IsNullOrEmpty(txtA3CLCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please enter A3 CL meter reading.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                if (string.IsNullOrEmpty(txtA4CLCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please enter A4 CL meter reading.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+
+                if (ddlDocketActionTaken.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select action taken";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+
+                if (ddlDocketDiagnosis.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select docket diagnosis.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+
+                if (ddlProblemObserved.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select problem observed";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+            }
             if (string.IsNullOrEmpty(Business.Common.Context.Signature)
                 && ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketClose))
             {

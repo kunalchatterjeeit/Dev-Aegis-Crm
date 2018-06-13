@@ -272,27 +272,39 @@
                             <div class="clearfix"></div>
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         A3 BW Current Meter Reading:                                        
-                                        <asp:TextBox ID="txtA3BWCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtA3BWCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                        <asp:FilteredTextBoxExtender ID="txtA3BWCurrentMeterReading_FilteredTextBoxExtender" ValidChars="0123456789"
+                                            runat="server" TargetControlID="txtA3BWCurrentMeterReading">
+                                        </asp:FilteredTextBoxExtender>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         A4 BW Current Meter Reading:                                        
-                                        <asp:TextBox ID="txtA4BWCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtA4BWCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                        <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" ValidChars="0123456789"
+                                            runat="server" TargetControlID="txtA4BWCurrentMeterReading">
+                                        </asp:FilteredTextBoxExtender>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         A3 CL Current Meter Reading:                                        
-                                        <asp:TextBox ID="txtA3CLCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtA3CLCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                        <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" ValidChars="0123456789"
+                                            runat="server" TargetControlID="txtA3CLCurrentMeterReading">
+                                        </asp:FilteredTextBoxExtender>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         A4 CL Current Meter Reading:                                        
-                                        <asp:TextBox ID="txtA4CLCurrentMeterReading" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:TextBox ID="txtA4CLCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                                        <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" ValidChars="0123456789"
+                                            runat="server" TargetControlID="txtA4CLCurrentMeterReading">
+                                        </asp:FilteredTextBoxExtender>
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +323,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Problem Observed :
                                         <asp:DropDownList ID="ddlProblemObserved" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
@@ -320,14 +332,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Diagnosis :
                                         <asp:DropDownList ID="ddlDocketDiagnosis" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Action Taken :
                                         <asp:DropDownList ID="ddlDocketActionTaken" runat="server" CssClass="form-control">
                                         </asp:DropDownList>
@@ -377,7 +389,7 @@
                                                             In Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none; background: #fff; width: 60px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtAssociatedInDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
@@ -394,7 +406,7 @@
                                                             Out Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none; background: #fff; width: 55px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none; background: #fff; width: 60px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtAssociatedOutDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
@@ -431,43 +443,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <%--<div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        Replacable Spare List:
-                                        <asp:GridView ID="gvSpareList" DataKeyNames="SpareId" runat="server"
-                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                            class="table table-striped" GridLines="None" Style="text-align: left">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chkSpare" runat="server"></asp:CheckBox>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField>
-                                                    <HeaderTemplate>
-                                                        SN.
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <%# Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Spare" DataField="SpareName" />
-                                                <asp:BoundField HeaderText="Yield" DataField="Yield" />
-                                            </Columns>
-                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <EditRowStyle BackColor="#999999" />
-                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <EmptyDataTemplate>
-                                                No Record Found...
-                                            </EmptyDataTemplate>
-                                        </asp:GridView>
-                                    </div>
-                                </div>--%>
                             <%--<div id="signature-pad" class="m-signature-pad" style="display: none">
                                     <div class="m-signature-pad--body">
                                         <canvas></canvas>

@@ -222,7 +222,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Current A3 B/W Reading:
-                                        <asp:TextBox ID="txtA3BWMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtA3BWMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="txtMeterReading_FilteredTextBoxExtender" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA3BWMeterReading">
                                         </asp:FilteredTextBoxExtender>
@@ -231,7 +231,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Current A4 B/W Reading:
-                                        <asp:TextBox ID="txtA4BWMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtA4BWMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA4BWMeterReading">
                                         </asp:FilteredTextBoxExtender>
@@ -240,7 +240,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Current A3 CL Reading:
-                                        <asp:TextBox ID="txtA3CLMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtA3CLMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA3CLMeterReading">
                                         </asp:FilteredTextBoxExtender>
@@ -249,7 +249,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Current A4 CL Reading:
-                                        <asp:TextBox ID="txtA4CLMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtA4CLMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA4CLMeterReading">
                                         </asp:FilteredTextBoxExtender>

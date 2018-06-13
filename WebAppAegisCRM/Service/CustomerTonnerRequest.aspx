@@ -3,7 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
@@ -36,40 +35,44 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group has-error">
                                                     Choose Machine
-                                        <asp:GridView ID="gvPurchase" DataKeyNames="CustomerPurchaseId" runat="server"
-                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                            class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvPurchase_RowDataBound">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chk" runat="server" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" ToolTip='<%# (Eval("IsTonerOpen").ToString() == "1")? "Already open request" : "Choose to request a toner" %>' />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
-                                                <asp:BoundField HeaderText="Brand" DataField="BrandName" />
-                                                <asp:BoundField HeaderText="Model Code" DataField="ProductCode" />
-                                                <asp:BoundField HeaderText="Model Name" DataField="ProductName" />
-                                                <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
-                                                <asp:BoundField HeaderText="Avg Response Time" DataField="AVGResponseTime" ItemStyle-HorizontalAlign="Left" />
-                                                <asp:TemplateField HeaderText="Up Time" ItemStyle-HorizontalAlign="Left">
-                                                    <ItemTemplate>
-                                                        <%# Eval("UpTime") %>%
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
-                                            </Columns>
-                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <EditRowStyle BackColor="#999999" />
-                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <EmptyDataTemplate>
-                                                No Record Found...
-                                            </EmptyDataTemplate>
-                                        </asp:GridView>
+                                                    <div class="table-responsive">
+                                                        <div style="height: 50vh; overflow: scroll">
+                                                            <asp:GridView ID="gvPurchase" DataKeyNames="CustomerPurchaseId" runat="server"
+                                                                AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                                                class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvPurchase_RowDataBound">
+                                                                <Columns>
+                                                                    <asp:TemplateField>
+                                                                        <ItemTemplate>
+                                                                            <asp:CheckBox ID="chk" runat="server" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" ToolTip='<%# (Eval("IsTonerOpen").ToString() == "1")? "Already open request" : "Choose to request a toner" %>' />
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateField>
+                                                                    <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
+                                                                    <asp:BoundField HeaderText="Brand" DataField="BrandName" />
+                                                                    <asp:BoundField HeaderText="Model Code" DataField="ProductCode" />
+                                                                    <asp:BoundField HeaderText="Model Name" DataField="ProductName" />
+                                                                    <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
+                                                                    <asp:BoundField HeaderText="Avg Response Time" DataField="AVGResponseTime" ItemStyle-HorizontalAlign="Left" />
+                                                                    <asp:TemplateField HeaderText="Up Time" ItemStyle-HorizontalAlign="Left">
+                                                                        <ItemTemplate>
+                                                                            <%# Eval("UpTime") %>%
+                                                                        </ItemTemplate>
+                                                                    </asp:TemplateField>
+                                                                    <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
+                                                                </Columns>
+                                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                                <EditRowStyle BackColor="#999999" />
+                                                                <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                                <EmptyDataTemplate>
+                                                                    No Record Found...
+                                                                </EmptyDataTemplate>
+                                                            </asp:GridView>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
@@ -107,7 +110,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group has-error">
                                                     Current A3 B/W Meter Reading:
-                                        <asp:TextBox ID="txtA3BWMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtA3BWMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                                     <asp:FilteredTextBoxExtender ID="txtMeterReading_FilteredTextBoxExtender" ValidChars="0123456789"
                                                         runat="server" TargetControlID="txtA3BWMeterReading">
                                                     </asp:FilteredTextBoxExtender>
@@ -116,7 +119,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group has-error">
                                                     Current A4 B/W Meter Reading:
-                                        <asp:TextBox ID="txtA4BWMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtA4BWMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                                     <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" ValidChars="0123456789"
                                                         runat="server" TargetControlID="txtA4BWMeterReading">
                                                     </asp:FilteredTextBoxExtender>
@@ -125,7 +128,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group has-error">
                                                     Current A3 CL Meter Reading:
-                                        <asp:TextBox ID="txtA3CLMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtA3CLMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                                     <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" ValidChars="0123456789"
                                                         runat="server" TargetControlID="txtA3CLMeterReading">
                                                     </asp:FilteredTextBoxExtender>
@@ -134,7 +137,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group has-error">
                                                     Current A4 CL Meter Reading:
-                                        <asp:TextBox ID="txtA4CLMeterReading" CssClass="form-control" runat="server"></asp:TextBox>
+                                                    <asp:TextBox ID="txtA4CLMeterReading" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                                     <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" ValidChars="0123456789"
                                                         runat="server" TargetControlID="txtA4CLMeterReading">
                                                     </asp:FilteredTextBoxExtender>

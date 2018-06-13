@@ -292,6 +292,15 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.TextBox txtA3BWCurrentMeterReading;
         
         /// <summary>
+        /// txtA3BWCurrentMeterReading_FilteredTextBoxExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender txtA3BWCurrentMeterReading_FilteredTextBoxExtender;
+        
+        /// <summary>
         /// txtA4BWCurrentMeterReading control.
         /// </summary>
         /// <remarks>
@@ -299,6 +308,15 @@ namespace WebAppAegisCRM.Service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtA4BWCurrentMeterReading;
+        
+        /// <summary>
+        /// FilteredTextBoxExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender FilteredTextBoxExtender1;
         
         /// <summary>
         /// txtA3CLCurrentMeterReading control.
@@ -310,6 +328,15 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.TextBox txtA3CLCurrentMeterReading;
         
         /// <summary>
+        /// FilteredTextBoxExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender FilteredTextBoxExtender2;
+        
+        /// <summary>
         /// txtA4CLCurrentMeterReading control.
         /// </summary>
         /// <remarks>
@@ -317,6 +344,15 @@ namespace WebAppAegisCRM.Service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtA4CLCurrentMeterReading;
+        
+        /// <summary>
+        /// FilteredTextBoxExtender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender FilteredTextBoxExtender3;
         
         /// <summary>
         /// ddlServiceEngineer control.

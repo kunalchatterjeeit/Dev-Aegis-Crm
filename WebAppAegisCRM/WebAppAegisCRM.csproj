@@ -60,7 +60,7 @@
       <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Kunal.Exception">
-      <HintPath>..\..\Dev-Aegis-Exception\Kunal.Exception\Kunal.Exception\bin\Debug\Kunal.Exception.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />

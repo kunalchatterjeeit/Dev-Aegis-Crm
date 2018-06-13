@@ -93,10 +93,13 @@
                                                 <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                                                 <asp:BoundField HeaderText="Yield" DataField="Yield" />
                                                 <asp:BoundField HeaderText="Req Qty" DataField="RequisiteQty" />
-                                                <asp:BoundField HeaderText="A3BW" DataField="A3BWMeterReading" />
-                                                <asp:BoundField HeaderText="A3CL" DataField="A3CLMeterReading" />
+                                                <%--<asp:BoundField HeaderText="A3BW" DataField="A3BWMeterReading" />--%>
+                                                <%--<asp:BoundField HeaderText="A3CL" DataField="A3CLMeterReading" />--%>
+                                                <asp:BoundField HeaderText="Last A4BW" DataField="LastA4BWMeterReading" />
+                                                <asp:BoundField HeaderText="Last A4CL" DataField="LastA4CLMeterReading" />
                                                 <asp:BoundField HeaderText="A4BW" DataField="A4BWMeterReading" />
                                                 <asp:BoundField HeaderText="A4CL" DataField="A4CLMeterReading" />
+                                                <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
                                                 <asp:BoundField HeaderText="Log Date" DataField="RequestDateTime" />
                                                 <asp:TemplateField HeaderText="Approval Status">
                                                     <ItemTemplate>
