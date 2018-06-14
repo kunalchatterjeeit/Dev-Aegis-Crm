@@ -117,34 +117,36 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group has-error">
-                                        <asp:GridView ID="gvPurchase" DataKeyNames="CustomerPurchaseId" runat="server"
-                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                            class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvPurchase_RowDataBound">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="chk" runat="server" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" ToolTip='<%# (Eval("IsDocketOpen").ToString() == "1")? "Already open docket" : "Choose to docket" %>' />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
-                                                <asp:BoundField HeaderText="Brand" DataField="BrandName" />
-                                                <asp:BoundField HeaderText="Model Code" DataField="ProductCode" />
-                                                <asp:BoundField HeaderText="Model Name" DataField="ProductName" />
-                                                <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
-                                                <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
-                                            </Columns>
-                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <EditRowStyle BackColor="#999999" />
-                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <EmptyDataTemplate>
-                                                No Record Found...
-                                            </EmptyDataTemplate>
-                                        </asp:GridView>
+                                        <div style="height: 30vh; overflow: scroll">
+                                            <asp:GridView ID="gvPurchase" DataKeyNames="CustomerPurchaseId" runat="server"
+                                                AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                                class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvPurchase_RowDataBound">
+                                                <Columns>
+                                                    <asp:TemplateField>
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox ID="chk" runat="server" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" ToolTip='<%# (Eval("IsDocketOpen").ToString() == "1")? "Already open docket" : "Choose to docket" %>' />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
+                                                    <asp:BoundField HeaderText="Brand" DataField="BrandName" />
+                                                    <asp:BoundField HeaderText="Model Code" DataField="ProductCode" />
+                                                    <asp:BoundField HeaderText="Model Name" DataField="ProductName" />
+                                                    <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
+                                                    <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
+                                                </Columns>
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                <EditRowStyle BackColor="#999999" />
+                                                <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                <EmptyDataTemplate>
+                                                    No Record Found...
+                                                </EmptyDataTemplate>
+                                            </asp:GridView>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -167,7 +169,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Docket Date:
-                                        <asp:TextBox ID="txtDocketDate" runat="server" CssClass="form-control" style="background:#fff" disabled></asp:TextBox>
+                                        <asp:TextBox ID="txtDocketDate" runat="server" CssClass="form-control" Style="background: #fff" disabled></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtDocketDate"
                                             Format="dd MMM yyyy" Enabled="True">
                                         </asp:CalendarExtender>
