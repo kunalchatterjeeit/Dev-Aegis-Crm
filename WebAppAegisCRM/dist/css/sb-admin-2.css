@@ -6,7 +6,7 @@
 
 body {
     background-color: #f8f8f8;
-    overflow-y: -webkit-paged-y;
+    overflow-y: scroll;
 }
 
 #wrapper {
