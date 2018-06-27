@@ -85,6 +85,7 @@
                                 <asp:ListItem Value="201" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT ROLE"></asp:ListItem>
                                 <asp:ListItem Value="202" Text="&nbsp;&nbsp;&nbsp;MANAGE ROLE ACCESS"></asp:ListItem>
                                 <asp:ListItem Value="203" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT EMPLOYEE"></asp:ListItem>
+                                <asp:ListItem Value="204" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT LOYALTY POINT REASON"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

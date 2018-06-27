@@ -184,6 +184,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAddEditEmployee;
         
         /// <summary>
+        /// liLoyaltyPointReasonMaster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLoyaltyPointReasonMaster;
+        
+        /// <summary>
         /// liInventory control.
         /// </summary>
         /// <remarks>

@@ -98,6 +98,7 @@
     <Content Include="Error.html" />
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
+    <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
     <Content Include="HR\ViewEmoployeeDetails.aspx" />
@@ -252,6 +253,13 @@
     </Compile>
     <Compile Include="HR\Employee.aspx.designer.cs">
       <DependentUpon>Employee.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
+      <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\LoyaltyPointReasonMaster.aspx.designer.cs">
+      <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\RoleAccessLevel.aspx.cs">
       <DependentUpon>RoleAccessLevel.aspx</DependentUpon>

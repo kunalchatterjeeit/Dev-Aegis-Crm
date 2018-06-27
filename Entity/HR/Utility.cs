@@ -22,6 +22,7 @@ namespace Entity.HR
         public const string ADDEDITROLE = "201";
         public const string MANAGEROLEACCESS = "202";
         public const string ADDEDITEMPLOYEE = "203";
+        public const string ADDEDITLOYALTYPOINTREASONMASTER = "204";
 
 
         //Inventory

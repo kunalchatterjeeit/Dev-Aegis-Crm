@@ -49,6 +49,7 @@
     <Compile Include="Common\ContractType.cs" />
     <Compile Include="Common\CryptographyMode.cs" />
     <Compile Include="Common\LoginStatus.cs" />
+    <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleMaster.cs" />
     <Compile Include="HR\Utility.cs" />
     <Compile Include="Customer\Contract.cs" />

@@ -329,6 +329,9 @@
                                 <li id="liAddEditEmployee" runat="server">
                                     <a href="../HR/Employee.aspx">Add/Edit Employee</a>
                                 </li>
+                                <li id="liLoyaltyPointReasonMaster" runat="server">
+                                    <a href="../HR/LoyaltyPointReasonMaster.aspx">Add/Edit Loyalty Point Reason</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
