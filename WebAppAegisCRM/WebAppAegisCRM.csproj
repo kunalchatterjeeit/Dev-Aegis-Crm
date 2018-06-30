@@ -79,6 +79,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CalendarControl.aspx" />
     <Content Include="Common\City.aspx" />
     <Content Include="CustomerDashboard.aspx" />
     <Content Include="CustomerLogout.aspx" />
@@ -174,6 +175,13 @@
     <Content Include="WebServices\WebServiceChart.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalendarControl.aspx.cs">
+      <DependentUpon>CalendarControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CalendarControl.aspx.designer.cs">
+      <DependentUpon>CalendarControl.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\City.aspx.cs">
       <DependentUpon>City.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

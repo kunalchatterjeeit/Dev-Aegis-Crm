@@ -278,7 +278,11 @@ namespace WebAppAegisCRM.Service
                 {
                     if (((CheckBox)toner.FindControl("chk1")).Checked)
                     {
-                        tonnerRequest.SpareIds.Add(long.Parse(gvTonner.DataKeys[toner.RowIndex].Values[0].ToString()));
+                        tonnerRequest.SpareIds.Add(new TonerIdQuantity
+                        {
+                            TonerId = long.Parse(gvTonner.DataKeys[toner.RowIndex].Values[0].ToString()),
+                            Quantity = int.Parse(((TextBox)toner.FindControl("txtRequisiteQty")).Text)
+                        });
                     }
                 }
 
@@ -350,18 +354,18 @@ namespace WebAppAegisCRM.Service
                 dtApproval.Columns.Add("RespondBy");
                 dtApproval.Columns.Add("Comment");
                 dtApproval.Columns.Add("RequisiteQty");
-                foreach (long tonerId in tonnerRequest.SpareIds)
+                foreach (TonerIdQuantity item in tonnerRequest.SpareIds)
                 {
                     DataRow drApprovalItem = dtApproval.NewRow();
                     drApprovalItem["ApprovalId"] = 0;
                     drApprovalItem["ServiceBookId"] = dtTonnerRequest.Rows[0]["ServiceBookId"].ToString();
-                    drApprovalItem["ItemId"] = tonerId;
+                    drApprovalItem["ItemId"] = item.TonerId;
                     drApprovalItem["ApprovalStatus"] = (isLowYield) ? (int)ApprovalStatus.None : (int)ApprovalStatus.Approved;
                     drApprovalItem["IsLowYield"] = isLowYield;
                     drApprovalItem["CallStatus"] = (isLowYield) ? (int)CallStatusType.TonerOpenForApproval : (int)CallStatusType.TonerRequestInQueue;
                     drApprovalItem["RespondBy"] = string.Empty;
                     drApprovalItem["Comment"] = (isLowYield) ? "NEED TONER APPROVAL" : "AUTO APPROVED";
-                    drApprovalItem["RequisiteQty"] = "1";//Default sending 1, later can change from Toner Requisition Service Book
+                    drApprovalItem["RequisiteQty"] = item.Quantity;
                     dtApproval.Rows.Add(drApprovalItem);
                     dtApproval.AcceptChanges();
                 }

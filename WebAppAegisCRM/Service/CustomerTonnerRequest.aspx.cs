@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Service;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,36 +12,18 @@ namespace WebAppAegisCRM.Service
 {
     public partial class CustomerTonnerRequest : System.Web.UI.Page
     {
-        public int CustomerMasterId
-        {
-            get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
-            set { ViewState["CustomerMasterId"] = value; }
-        }
-
         public int CustomerPurchaseId
         {
             get { return Convert.ToInt32(ViewState["CustomerPurchaseId"]); }
             set { ViewState["CustomerPurchaseId"] = value; }
         }
-
-        public int ContractTypeId
-        {
-            get { return Convert.ToInt32(ViewState["ContractTypeId"]); }
-            set { ViewState["ContractTypeId"] = value; }
-        }
-
-        public Int64 TonnerRequestId
+        
+        public long TonnerRequestId
         {
             get { return Convert.ToInt64(ViewState["TonnerRequestId"]); }
             set { ViewState["TonnerRequestId"] = value; }
         }
-
-        public Int64 SpareId
-        {
-            get { return Convert.ToInt64(ViewState["SpareId"]); }
-            set { ViewState["SpareId"] = value; }
-        }
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -51,7 +34,6 @@ namespace WebAppAegisCRM.Service
                 }
 
                 Message.Show = false;
-                CustomerMasterId = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]);
                 LoadCustomerPurchaseList();
                 LoadTonnerRequest();
             }
@@ -62,19 +44,31 @@ namespace WebAppAegisCRM.Service
         {
             Business.Customer.Customer objCustomerMaster = new Business.Customer.Customer();
             Entity.Customer.Customer customerMaster = new Entity.Customer.Customer();
-            gvPurchase.DataSource = objCustomerMaster.CustomerPurchase_GetByCustomerId(CustomerMasterId);
+            gvPurchase.DataSource = objCustomerMaster.CustomerPurchase_GetByCustomerId(int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]));
             gvPurchase.DataBind();
         }
         protected bool ComplainValidation()
         {
             bool flag = false;
 
-            if (SpareId == 0)
+            bool isTonerSelected = false;
+            if (gvTonner.Rows.Count > 0)
             {
-                Message.IsSuccess = false;
-                Message.Text = "Please select Toner";
+                foreach (GridViewRow toner in gvTonner.Rows)
+                {
+                    CheckBox chkToner = (CheckBox)toner.FindControl("chk1");
+                    if (chkToner.Checked)
+                    {
+                        isTonerSelected = true;
+                        break;
+                    }
+                }
+            }
+            if (!isTonerSelected)
+            {
+                Message.Text = "Please select toner";
                 Message.Show = true;
-                return flag;
+                return false;
             }
 
             foreach (GridViewRow gvr in gvPurchase.Rows)
@@ -162,42 +156,95 @@ namespace WebAppAegisCRM.Service
             {
                 Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
                 Entity.Service.TonerRequest tonnerRequest = new Entity.Service.TonerRequest();
+                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
 
                 foreach (GridViewRow gvr in gvPurchase.Rows)
                 {
                     if (((CheckBox)gvr.FindControl("chk")).Checked)
                     {
                         tonnerRequest.CustomerPurchaseId = int.Parse(gvPurchase.DataKeys[gvr.RowIndex].Values[0].ToString());
+                        serviceBook.CustomerPurchaseId = int.Parse(gvPurchase.DataKeys[gvr.RowIndex].Values[0].ToString());
                     }
                 }
 
-                tonnerRequest.CustomerId = int.Parse(HttpContext.Current.User.Identity.Name);
+                tonnerRequest.CustomerId = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]); ;
                 tonnerRequest.RequestNo = "";
-                tonnerRequest.RequestDateTime = System.DateTime.Now;
+                tonnerRequest.RequestDateTime = DateTime.Now;
                 tonnerRequest.isCustomerEntry = true;
-                tonnerRequest.CallStatusId = 8;
-                tonnerRequest.A3BWMeterReading = int.Parse(txtA3BWMeterReading.Text.Trim());
-                tonnerRequest.A4BWMeterReading = int.Parse(txtA4BWMeterReading.Text.Trim());
-                tonnerRequest.A3CLMeterReading = int.Parse(txtA3CLMeterReading.Text.Trim());
-                tonnerRequest.A4CLMeterReading = int.Parse(txtA4CLMeterReading.Text.Trim());
-
+                tonnerRequest.CallStatusId = (int)CallStatusType.TonerRequestInQueue;
+                if (txtA3BWMeterReading.Text.Trim() == string.Empty)
+                    tonnerRequest.A3BWMeterReading = null;
+                else
+                    tonnerRequest.A3BWMeterReading = int.Parse(txtA3BWMeterReading.Text.Trim());
+                if (txtA4BWMeterReading.Text.Trim() == string.Empty)
+                    tonnerRequest.A4BWMeterReading = null;
+                else
+                    tonnerRequest.A4BWMeterReading = int.Parse(txtA4BWMeterReading.Text.Trim());
+                if (txtA3CLMeterReading.Text.Trim() == string.Empty)
+                    tonnerRequest.A3CLMeterReading = null;
+                else
+                    tonnerRequest.A3CLMeterReading = int.Parse(txtA3CLMeterReading.Text.Trim());
+                if (txtA4CLMeterReading.Text.Trim() == string.Empty)
+                    tonnerRequest.A4CLMeterReading = null;
+                else
+                    tonnerRequest.A4CLMeterReading = int.Parse(txtA4CLMeterReading.Text.Trim());
                 tonnerRequest.Remarks = txtRequest.Text.Trim();
-                tonnerRequest.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                tonnerRequest.SpareIds.Add(SpareId);
+                tonnerRequest.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]);
 
-                DataTable dt = objTonnerRequest.Service_TonerRequest_Save(tonnerRequest);
-
-                if (dt.Rows.Count > 0)
+                foreach (GridViewRow toner in gvTonner.Rows)
                 {
-                    LoadTonnerRequest();
-                    LoadCustomerPurchaseList();
-                    txtA3BWMeterReading.Text = "";
-                    txtA3CLMeterReading.Text = "";
-                    txtA4BWMeterReading.Text = "";
-                    txtA4CLMeterReading.Text = "";
-                    txtRequest.Text = "";
+                    if (((CheckBox)toner.FindControl("chk1")).Checked)
+                    {
+                        tonnerRequest.SpareIds.Add(new TonerIdQuantity
+                        {
+                            TonerId = long.Parse(gvTonner.DataKeys[toner.RowIndex].Values[0].ToString()),
+                            Quantity = int.Parse(((TextBox)toner.FindControl("txtRequisiteQty")).Text)
+                        });
+                    }
+                }
+
+                if (txtA3BWMeterReading.Text.Trim() == string.Empty)
+                    serviceBook.A3BWMeterReading = null;
+                else
+                    serviceBook.A3BWMeterReading = int.Parse(txtA3BWMeterReading.Text.Trim());
+                if (txtA4BWMeterReading.Text.Trim() == string.Empty)
+                    serviceBook.A4BWMeterReading = null;
+                else
+                    serviceBook.A4BWMeterReading = int.Parse(txtA4BWMeterReading.Text.Trim());
+                if (txtA3CLMeterReading.Text.Trim() == string.Empty)
+                    serviceBook.A3CLMeterReading = null;
+                else
+                    serviceBook.A3CLMeterReading = int.Parse(txtA3CLMeterReading.Text.Trim());
+                if (txtA4CLMeterReading.Text.Trim() == string.Empty)
+                    serviceBook.A4CLMeterReading = null;
+                else
+                    serviceBook.A4CLMeterReading = int.Parse(txtA4CLMeterReading.Text.Trim());
+
+                DataTable dtTonnerRequest = objTonnerRequest.Service_TonerRequest_Save(tonnerRequest);
+                bool isTonerLowYield = objTonnerRequest.Service_TonerLowYieldCheck(tonnerRequest);
+                int meterUpdateResponse = objServiceBook.Service_MeterReading_Update(serviceBook);
+
+                if (dtTonnerRequest.Rows.Count > 0 && meterUpdateResponse > 0)
+                {
+                    string message = "Toner request received. Your request no : " + dtTonnerRequest.Rows[0]["TonnerRequestNo"].ToString() + ". ";
+
+                    /* Checking whether machine is in contract or not*/
+                    Business.Service.Contract objContract = new Business.Service.Contract();
+                    int approvalResponse = Approval_Save(tonnerRequest, dtTonnerRequest, isTonerLowYield);
+
+                    if (!objContract.Service_MachineIsInContractCheck(CustomerPurchaseId) || isTonerLowYield) //Out of Contract AND Low Yield
+                    {
+                        if (approvalResponse > 0)
+                        {
+                            //Appending low toner warning
+                            message += Server.HtmlDecode("<span style='color:red'>Warning: Your request is under verification</span>");
+                            //SentNotification(objServiceBook, dtTonnerRequest);
+                        }
+                    }
+                    ResetControls(dtTonnerRequest);
                     Message.IsSuccess = true;
-                    Message.Text = "Toner request received. Your Request No : " + dt.Rows[0]["TonnerRequestNo"].ToString() + ". " + dt.Rows[0]["Msg"].ToString();
+                    Message.Text = message;
                 }
                 else
                 {
@@ -208,25 +255,61 @@ namespace WebAppAegisCRM.Service
             }
         }
 
-        protected void chk1_CheckedChanged(object sender, EventArgs e)
+        private void ResetControls(DataTable dtTonnerRequest)
         {
-            CheckBox chk1 = (CheckBox)sender;
-            GridViewRow gv = (GridViewRow)chk1.NamingContainer;
-            foreach (GridViewRow gvr in gvTonner.Rows)
-            {
-                if (gvr != gv)
-                {
-                    ((CheckBox)gvr.FindControl("chk1")).Checked = false;
-                }
-            }
-            if (chk1.Checked)
-            {
-                SpareId = Int64.Parse(gvTonner.DataKeys[gv.RowIndex].Values[0].ToString());
-            }
-            else
-                SpareId = 0;
+            LoadTonnerRequest();
+            LoadCustomerPurchaseList();
+
+            gvTonner.DataSource = null;
+            gvTonner.DataBind();
+
+            TonnerRequestId = Convert.ToInt32(dtTonnerRequest.Rows[0]["TonnerRequestId"].ToString());
+            txtA3BWMeterReading.Text = "";
+            txtA4BWMeterReading.Text = "";
+            txtA3CLMeterReading.Text = "";
+            txtA4CLMeterReading.Text = "";
+            txtRequest.Text = "";
         }
 
+        private static int Approval_Save(Entity.Service.TonerRequest tonnerRequest, DataTable dtTonnerRequest, bool isLowYield)
+        {
+            int approvalResponse = 0;
+            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+            Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
+
+            using (DataTable dtApproval = new DataTable())
+            {
+                dtApproval.Columns.Add("ApprovalId");
+                dtApproval.Columns.Add("ServiceBookId");
+                dtApproval.Columns.Add("ItemId");
+                dtApproval.Columns.Add("ApprovalStatus");
+                dtApproval.Columns.Add("IsLowYield");
+                dtApproval.Columns.Add("CallStatus");
+                dtApproval.Columns.Add("RespondBy");
+                dtApproval.Columns.Add("Comment");
+                dtApproval.Columns.Add("RequisiteQty");
+                foreach (TonerIdQuantity item in tonnerRequest.SpareIds)
+                {
+                    DataRow drApprovalItem = dtApproval.NewRow();
+                    drApprovalItem["ApprovalId"] = 0;
+                    drApprovalItem["ServiceBookId"] = dtTonnerRequest.Rows[0]["ServiceBookId"].ToString();
+                    drApprovalItem["ItemId"] = item.TonerId;
+                    drApprovalItem["ApprovalStatus"] = (isLowYield) ? (int)ApprovalStatus.None : (int)ApprovalStatus.Approved;
+                    drApprovalItem["IsLowYield"] = isLowYield;
+                    drApprovalItem["CallStatus"] = (isLowYield) ? (int)CallStatusType.TonerOpenForApproval : (int)CallStatusType.TonerRequestInQueue;
+                    drApprovalItem["RespondBy"] = string.Empty;
+                    drApprovalItem["Comment"] = (isLowYield) ? "NEED TONER APPROVAL" : "AUTO APPROVED";
+                    drApprovalItem["RequisiteQty"] = item.Quantity;
+                    dtApproval.Rows.Add(drApprovalItem);
+                    dtApproval.AcceptChanges();
+                }
+                serviceBook.ApprovalItems = dtApproval;
+                serviceBook.ApprovalItems.AcceptChanges();
+                approvalResponse = objServiceBook.Service_ServiceBookDetailsApproval_Save(serviceBook);
+                return approvalResponse;
+            }
+        }
+        
         protected void chk_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chk = (CheckBox)sender;
@@ -241,20 +324,23 @@ namespace WebAppAegisCRM.Service
 
             if (chk.Checked)
             {
-                //ContractTypeId = int.Parse(gvPurchase.DataKeys[gv.RowIndex].Values[1].ToString());
-                ContractTypeId = 0;
-
                 Business.Service.TonerRequest ObjBl = new Business.Service.TonerRequest();
-                DataTable dt = ObjBl.Service_Toner_GetAllByCustomerId(Int64.Parse(gvPurchase.DataKeys[gv.RowIndex].Values[0].ToString()));
+                DataTable dt = ObjBl.Service_Toner_GetAllByCustomerId(long.Parse(gvPurchase.DataKeys[gv.RowIndex].Values[0].ToString()));
                 if (dt != null)
                 {
                     gvTonner.DataSource = dt;
                     gvTonner.DataBind();
                 }
+
+                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                DataSet dsLastMeterReading = objServiceBook.Service_GetLastMeterReadingByCustomerPurchaseId(Int64.Parse(gvPurchase.DataKeys[gv.RowIndex].Values[0].ToString()));
+                lblA3BWLastMeterReading.Text = dsLastMeterReading.Tables[0].Rows[0]["A3BWLastMeterReading"].ToString();
+                lblA3ClLastMeterReading.Text = dsLastMeterReading.Tables[0].Rows[0]["A3CLLastMeterReading"].ToString();
+                lblA4BWLastMeterReading.Text = dsLastMeterReading.Tables[0].Rows[0]["A4BWLastMeterReading"].ToString();
+                lblA4ClLastMeterReading.Text = dsLastMeterReading.Tables[0].Rows[0]["A4CLLastMeterReading"].ToString();
             }
             else
             {
-                ContractTypeId = 0;
                 gvTonner.DataBind();
             }
         }

@@ -174,10 +174,13 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Toner" DataField="SpareName" />
-                                                <%--<asp:BoundField HeaderText="A3 B/W Last Meter Reading" DataField="A3BWLastMeterReading" />
-                                                <asp:BoundField HeaderText="A4 B/W Last Meter Reading" DataField="A4BWLastMeterReading" />
-                                                <asp:BoundField HeaderText="A3 CL Last Meter Reading" DataField="A3CLLastMeterReading" />
-                                                <asp:BoundField HeaderText="A4 CL Last Meter Reading" DataField="A4CLLastMeterReading" />--%>
+                                                <asp:BoundField HeaderText="Yield" DataField="Yield" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>Quantity</HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                             </Columns>
                                             <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                             <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
@@ -197,22 +200,22 @@
                                     <div class="form-group has-error">
                                         Last A3 B/W Meter Reading:
                                         <asp:Label ID="lblA3BWLastMeterReading" runat="server" CssClass="form-control"></asp:Label>
-                                    </div>                                                     
-                                </div>                                                         
-                                <div class="col-lg-2">                                         
-                                    <div class="form-group has-error">                         
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group has-error">
                                         Last A4 B/W Reading:                             
                                         <asp:Label ID="lblA4BWLastMeterReading" runat="server" CssClass="form-control"></asp:Label>
-                                    </div>                                                     
-                                </div>                                                         
-                                <div class="col-lg-2">                                         
-                                    <div class="form-group has-error">                         
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group has-error">
                                         Last A3 CL Reading:                              
                                         <asp:Label ID="lblA3ClLastMeterReading" runat="server" CssClass="form-control"></asp:Label>
-                                    </div>                                                     
-                                </div>                                                         
-                                <div class="col-lg-2">                                         
-                                    <div class="form-group has-error">                         
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group has-error">
                                         Last A4 CL Reading:                              
                                         <asp:Label ID="lblA4ClLastMeterReading" runat="server" CssClass="form-control"></asp:Label>
                                     </div>
@@ -258,7 +261,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
                                         Request Date:
-                                        <asp:TextBox ID="txtRequestDate" runat="server" CssClass="form-control" style="background:#fff" disabled></asp:TextBox>
+                                        <asp:TextBox ID="txtRequestDate" runat="server" CssClass="form-control" Style="background: #fff" disabled></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtRequestDate"
                                             Format="dd MMM yyyy" Enabled="True">
                                         </asp:CalendarExtender>

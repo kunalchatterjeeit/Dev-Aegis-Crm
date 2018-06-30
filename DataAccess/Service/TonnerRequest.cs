@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using DataAccess.Common;
+using Entity.Service;
 
 namespace DataAccess.Service
 {
@@ -46,7 +47,8 @@ namespace DataAccess.Service
                             sqlCommand.Parameters.AddWithValue("@A4CLMeterReading", DBNull.Value);
                         else
                             sqlCommand.Parameters.AddWithValue("@A4CLMeterReading", tonerRequest.A4CLMeterReading);
-                        sqlCommand.Parameters.AddWithValue("@SpareId", tonerRequest.SpareIds.FirstOrDefault()); //Passing the first spareId
+                        sqlCommand.Parameters.AddWithValue("@SpareId", tonerRequest.SpareIds.FirstOrDefault().TonerId); //Passing the first spareId
+                        sqlCommand.Parameters.AddWithValue("@TonerQty", tonerRequest.SpareIds.FirstOrDefault().Quantity); //Passing the first spareId
                         if (tonerRequest.Remarks == "")
                             sqlCommand.Parameters.AddWithValue("@Remarks", DBNull.Value);
                         else
@@ -73,7 +75,8 @@ namespace DataAccess.Service
                                 sqlCommand.CommandType = CommandType.StoredProcedure;
                                 sqlCommand.Parameters.AddWithValue("@TonerRequestValueId", tonerRequest.TonerRequestValueId);
                                 sqlCommand.Parameters.AddWithValue("@TonerRequestId", response.Rows[0]["TonnerRequestId"].ToString());
-                                sqlCommand.Parameters.AddWithValue("@TonerId", tonerRequest.SpareIds[spareIndex]);
+                                sqlCommand.Parameters.AddWithValue("@TonerId", tonerRequest.SpareIds[spareIndex].TonerId);
+                                sqlCommand.Parameters.AddWithValue("@TonerQty", tonerRequest.SpareIds[spareIndex].Quantity);
                                 if (sqlConnection.State == ConnectionState.Closed)
                                     sqlConnection.Open();
                                 sqlCommand.ExecuteNonQuery();
@@ -266,7 +269,7 @@ namespace DataAccess.Service
         public static bool Service_TonerLowYieldCheck(Entity.Service.TonerRequest tonerRequest)
         {
             bool retValue = false;
-            foreach (Int64 spareId in tonerRequest.SpareIds)
+            foreach (TonerIdQuantity toner in tonerRequest.SpareIds)
             {
                 using (DataTable dt = new DataTable())
                 {
@@ -278,7 +281,8 @@ namespace DataAccess.Service
                             sqlCommand.CommandType = CommandType.StoredProcedure;
                             sqlCommand.CommandText = "usp_Service_TonerLowYieldCheck";
                             sqlCommand.Parameters.AddWithValue("@CustomerPurchaseId", tonerRequest.CustomerPurchaseId);
-                            sqlCommand.Parameters.AddWithValue("@TonerId", spareId);
+                            sqlCommand.Parameters.AddWithValue("@TonerId", toner.TonerId);
+                            sqlCommand.Parameters.AddWithValue("@TonerQuantity", toner.Quantity);
                             if (tonerRequest.A3BWMeterReading == null)
                                 sqlCommand.Parameters.AddWithValue("@A3BWCurrentMeterReading", 0);
                             else
