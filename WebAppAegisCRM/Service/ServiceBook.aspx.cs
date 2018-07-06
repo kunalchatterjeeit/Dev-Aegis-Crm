@@ -61,21 +61,61 @@ namespace WebAppAegisCRM.Service
         #endregion
 
         #region USER DEFINED FUNCTIONS
+        private bool ValidateMeterReadingDocket()
+        {
+            if (string.IsNullOrEmpty(txtA3BWCurrentMeterReading.Text.Trim()))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please enter A3 B/W meter reading.";
+                MessageDocket.Show = true;
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtA4BWCurrentMeterReading.Text.Trim()))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please enter A4 B/W meter reading.";
+                MessageDocket.Show = true;
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtA3CLCurrentMeterReading.Text.Trim()))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please enter A3 CL meter reading.";
+                MessageDocket.Show = true;
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtA4CLCurrentMeterReading.Text.Trim()))
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please enter A4 CL meter reading.";
+                MessageDocket.Show = true;
+                return false;
+            }
+            return true;
+        }
         private bool ValidateDocket()
         {
             MessageDocket.Show = false;
             bool retValue = false;
 
-            if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString() && Business.Common.Context.SpareRequisition.Rows.Count == 0)
+            if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString()
+                || ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForConsumables).ToString())
             {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Please select spare requisition.";
-                MessageDocket.Show = true;
-                return retValue = false;
-            }
-            else if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString() && Business.Common.Context.SpareRequisition.Rows.Count > 0)
-            {
-                return retValue = true;
+                if (!ValidateMeterReadingDocket())
+                {
+                    return retValue = false;
+                }
+                else if (Business.Common.Context.SpareRequisition.Rows.Count == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please submit requisition for spare.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                else
+                {
+                    return retValue = true;
+                }
             }
 
             if (Convert.ToDateTime(txtInDate.Text.Trim()).Date > System.DateTime.Now.Date)
@@ -148,34 +188,14 @@ namespace WebAppAegisCRM.Service
                 }
             }
 
-            if (Request.QueryString["action"] != null && !Request.QueryString["action"].Equals("callin"))
+            if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
             {
-                if (string.IsNullOrEmpty(txtA3BWCurrentMeterReading.Text.Trim()))
+                retValue = true;
+            }
+            else
+            {
+                if (!ValidateMeterReadingDocket())
                 {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please enter A3 B/W meter reading.";
-                    MessageDocket.Show = true;
-                    return retValue = false;
-                }
-                if (string.IsNullOrEmpty(txtA4BWCurrentMeterReading.Text.Trim()))
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please enter A4 B/W meter reading.";
-                    MessageDocket.Show = true;
-                    return retValue = false;
-                }
-                if (string.IsNullOrEmpty(txtA3CLCurrentMeterReading.Text.Trim()))
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please enter A3 CL meter reading.";
-                    MessageDocket.Show = true;
-                    return retValue = false;
-                }
-                if (string.IsNullOrEmpty(txtA4CLCurrentMeterReading.Text.Trim()))
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please enter A4 CL meter reading.";
-                    MessageDocket.Show = true;
                     return retValue = false;
                 }
 
@@ -259,7 +279,7 @@ namespace WebAppAegisCRM.Service
             {
                 isTonerSelected = true;
             }
-            else if(ddlCurrentTonnerRequestCallStatus.SelectedValue == ((int)CallStatusType.TonerRejected).ToString())
+            else if (ddlCurrentTonnerRequestCallStatus.SelectedValue == ((int)CallStatusType.TonerRejected).ToString())
             {
                 isTonerSelected = true;
             }

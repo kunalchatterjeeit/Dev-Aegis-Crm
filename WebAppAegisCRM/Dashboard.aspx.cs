@@ -48,7 +48,7 @@ namespace WebAppAegisCRM
             DataTable dt = objDocket.Service_Docket_GetAll(docket);
             using (DataView dv = new DataView(dt))
             {
-                dv.RowFilter = "CallStatusId IN (1,12)"; //REQUEST IN QUEUE && RESPONSE GIVEN
+                dv.RowFilter = "CallStatusId NOT IN (11,6)"; //DOCKET CLOSE && FUNCTIONAL
                 gvDocket.DataSource = dv.ToTable();
                 gvDocket.DataBind();
             }
@@ -75,7 +75,7 @@ namespace WebAppAegisCRM
             DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonerRequest).Tables[0];
             using (DataView dv = new DataView(dt))
             {
-                dv.RowFilter = "CallStatusId IN (7,13)"; //REQUEST IN QUEUE && RESPONSE GIVEN
+                dv.RowFilter = "CallStatusId NOT IN (9,10)"; //DELIVERED && REJECTED
                 gvTonnerRequest.DataSource = dv.ToTable();
 
                 gvTonnerRequest.DataBind();
@@ -164,15 +164,34 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorDocket = e.Row.FindControl("anchorDocket") as HtmlContainerControl;
                 anchorDocket.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_QUICK_LINK_PERMISSION);
 
+                //Call Attending
                 if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
                     anchorCallIn.Attributes["style"] = "display:none";
                     e.Row.Attributes["style"] = "background-color: #C6F2C6";
                 }
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+
+                //Call Status wise row color
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
                 {
-                    e.Row.Attributes["style"] = "background-color: #FFF39E";
+                    e.Row.Attributes["style"] = "background-color: #FF8787";
+                }
+                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #A7FC94";
+                }
+                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSpares).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #8DF1FC";
+                }
+                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #8DF1FC";
+                } 
+                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #F7B3FC";
                 }
             }
         }
@@ -184,9 +203,14 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorToner = e.Row.FindControl("anchorToner") as HtmlContainerControl;
                 anchorToner.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TONNER_QUICK_LINK_PERMISSION);
 
-                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
+                //Call Status wise row color
+                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString())
                 {
-                    e.Row.Attributes["style"] = "background-color: #fff39e";
+                    e.Row.Attributes["style"] = "background-color: #FF8787";
+                }
+                else if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
+                {
+                    e.Row.Attributes["style"] = "background-color: #A7FC94";
                 }
             }
         }

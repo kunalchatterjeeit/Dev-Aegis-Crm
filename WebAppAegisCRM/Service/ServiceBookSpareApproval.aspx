@@ -100,7 +100,11 @@
                                                 <asp:BoundField HeaderText="A4BW" DataField="A4BWMeterReading" />
                                                 <asp:BoundField HeaderText="A4CL" DataField="A4CLMeterReading" />
                                                 <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
-                                                <asp:BoundField HeaderText="Log Date" DataField="RequestDateTime" />
+                                                <asp:TemplateField HeaderText="Log Date">
+                                                    <ItemTemplate>
+                                                        <%# Convert.ToDateTime(Eval("RequestDateTime")).ToString("dd/MM/yy") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Approval Status">
                                                     <ItemTemplate>
                                                         <%# (Eval("ApprovalStatus").ToString()=="2")?"Rejected":(Eval("ApprovalStatus").ToString()=="1")?"Approved":"Pending" %>

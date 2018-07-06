@@ -99,7 +99,7 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
+                                            <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() + " | "+ Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
                                                 <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -149,7 +149,7 @@
                                     <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
                                     <asp:TemplateField>
                                         <ItemTemplate>
-                                            <span id="anchorToner" runat="server"><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
+                                            <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
                                                 <img src="images/go_icon.gif" width="13px" /></a></span>
                                         </ItemTemplate>
                                     </asp:TemplateField>
@@ -210,7 +210,7 @@
                                             <%#  (gvExpiringSoon.PageIndex * gvExpiringSoon.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
-                                     <asp:TemplateField HeaderText="Expire on">
+                                    <asp:TemplateField HeaderText="Expire on">
                                         <ItemTemplate>
                                             <%# Convert.ToDateTime(Eval("ContractEndDate")).ToString("dd/MM/yy") %>
                                         </ItemTemplate>
