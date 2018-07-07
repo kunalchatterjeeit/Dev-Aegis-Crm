@@ -98,6 +98,14 @@ namespace WebAppAegisCRM.Service
             MessageDocket.Show = false;
             bool retValue = false;
 
+            if (ddlCurrentCallStatusDocket.SelectedIndex == 0)
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Please select current call status.";
+                MessageDocket.Show = true;
+                return retValue = false;
+            }
+
             if (ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForSpares).ToString()
                 || ddlCurrentCallStatusDocket.SelectedValue == ((int)CallStatusType.DocketOpenForConsumables).ToString())
             {
@@ -657,6 +665,10 @@ namespace WebAppAegisCRM.Service
             ddlOutTimeHH.SelectedValue = DateTime.Now.ToString("hh");
             ddlOutTimeMM.SelectedValue = DateTime.Now.ToString("mm");
             ddlOutTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            txtA3BWCurrentMeterReading.Text = "0";
+            txtA4BWCurrentMeterReading.Text = "0";
+            txtA3CLCurrentMeterReading.Text = "0";
+            txtA4CLCurrentMeterReading.Text = "0";
         }
         protected void ClearTonnerControls()
         {
@@ -948,10 +960,14 @@ namespace WebAppAegisCRM.Service
                         ddlOutTimeMM.SelectedValue = Convert.ToDateTime(dsService.Tables[0].Rows[0]["OutTime"].ToString()).ToString("mm");
                         ddlOutTimeTT.SelectedValue = Convert.ToDateTime(dsService.Tables[0].Rows[0]["OutTime"].ToString()).ToString("tt");
                     }
-                    txtA3BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3BWMeterReading"] != null) ? dsService.Tables[0].Rows[0]["A3BWMeterReading"].ToString() : string.Empty;
-                    txtA4BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4BWMeterReading"] != null) ? dsService.Tables[0].Rows[0]["A4BWMeterReading"].ToString() : string.Empty;
-                    txtA3CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3CLMeterReading"] != null) ? dsService.Tables[0].Rows[0]["A3CLMeterReading"].ToString() : string.Empty;
-                    txtA4CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4CLMeterReading"] != null) ? dsService.Tables[0].Rows[0]["A4CLMeterReading"].ToString() : string.Empty;
+                    txtA3BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3BWMeterReading"] != null
+                        && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["A3BWMeterReading"].ToString())) ? dsService.Tables[0].Rows[0]["A3BWMeterReading"].ToString() : "0";
+                    txtA4BWCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4BWMeterReading"] != null
+                        && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["A4BWMeterReading"].ToString())) ? dsService.Tables[0].Rows[0]["A4BWMeterReading"].ToString() : "0";
+                    txtA3CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A3CLMeterReading"] != null
+                        && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["A3CLMeterReading"].ToString())) ? dsService.Tables[0].Rows[0]["A3CLMeterReading"].ToString() : "0";
+                    txtA4CLCurrentMeterReading.Text = (dsService.Tables[0].Rows[0]["A4CLMeterReading"] != null
+                        && !string.IsNullOrEmpty(dsService.Tables[0].Rows[0]["A4CLMeterReading"].ToString())) ? dsService.Tables[0].Rows[0]["A4CLMeterReading"].ToString() : "0";
                     ddlServiceEngineer.SelectedValue = (dsService.Tables[0].Rows[0]["EmployeeId_FK"] != null) ? dsService.Tables[0].Rows[0]["EmployeeId_FK"].ToString() : "0";
                     ddlProblemObserved.SelectedValue = (dsService.Tables[0].Rows[0]["ProblemObserved"] != null) ? dsService.Tables[0].Rows[0]["ProblemObserved"].ToString() : "0";
                     ddlDocketDiagnosis.SelectedValue = (dsService.Tables[0].Rows[0]["Diagonosis"] != null) ? dsService.Tables[0].Rows[0]["Diagonosis"].ToString() : "0";

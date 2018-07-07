@@ -73,7 +73,7 @@
                             <td>
                                 <h3>CUSTOMER SERVICE REPORT</h3>
                                 <h2>Aegis Solutions</h2>
-                                <h5>232, Jodhpur Gardens, Opp - South City Mall, Kolkata 45<br />
+                                <h5>357/2B, Prince Anwar Shah Road, Kolkata-700068<br />
                                     Contact No - 8335810009, Email - info@aegissolutions.in</h5>
                             </td>
                             <td style="width: 20%">
@@ -101,6 +101,8 @@
                             </th>
                             <th>OUT TIME
                             </th>
+                            <th>ENGINEER
+                            </th>
                             <th>STATUS
                             </th>
                         </tr>
@@ -121,6 +123,8 @@
                                     <td><%# Eval("OutDate") %>
                                     </td>
                                     <td><%# Eval("OutTime") %>
+                                    </td>
+                                    <td><%# Eval("EmployeeName") %>
                                     </td>
                                     <td><%# Eval("ProblemStatus") %>
                                     </td>
