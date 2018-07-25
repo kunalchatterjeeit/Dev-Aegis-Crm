@@ -165,13 +165,26 @@ namespace WebAppAegisCRM
                 anchorDocket.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_QUICK_LINK_PERMISSION);
 
                 //Call Attending
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["IsCallAttended"].ToString().Equals("1"))
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallOut"].ToString().Equals("1"))
+                {
+                    HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
+                    anchorCallIn.Attributes["style"] = "display:none";
+                    HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
+                    anchorCallOut.Attributes["style"] = "display:none";
+                    e.Row.Attributes["style"] = "background-color: #C6F2C6";
+                }
+                else if(((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
                     anchorCallIn.Attributes["style"] = "display:none";
                     e.Row.Attributes["style"] = "background-color: #C6F2C6";
                 }
-
+                else
+                {
+                    HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
+                    anchorCallOut.Attributes["style"] = "display:none";
+                }
+                
                 //Call Status wise row color
                 if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
                 {

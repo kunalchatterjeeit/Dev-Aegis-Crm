@@ -58,6 +58,19 @@
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
+                            Control Panel
+                        </div>
+                        <div class="panel-body">
+                            <asp:CheckBoxList ID="ChkControlPanel" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckListBox_SelectedIndexChanged">
+                                <asp:ListItem Value="600" Text="&nbsp;&nbsp;&nbsp;CONTROL PANEL"></asp:ListItem>
+                                <asp:ListItem Value="601" Text="&nbsp;&nbsp;&nbsp;SERVICE CALL ATTENDANCE MANAGER"></asp:ListItem>
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
                             Settings
                         </div>
                         <div class="panel-body">
@@ -86,6 +99,7 @@
                                 <asp:ListItem Value="202" Text="&nbsp;&nbsp;&nbsp;MANAGE ROLE ACCESS"></asp:ListItem>
                                 <asp:ListItem Value="203" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT EMPLOYEE"></asp:ListItem>
                                 <asp:ListItem Value="204" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT LOYALTY POINT REASON"></asp:ListItem>
+                                <asp:ListItem Value="205" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE LOYALTY POINT"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

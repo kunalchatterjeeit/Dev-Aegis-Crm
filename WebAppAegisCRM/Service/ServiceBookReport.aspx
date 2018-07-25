@@ -151,16 +151,20 @@
                                                 GridLines="None" Style="text-align: left" AllowPaging="True" OnPageIndexChanging="gvServiceDocket_PageIndexChanging">
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Docket Id" DataField="CallId" />
-                                                    <asp:BoundField HeaderText="Call Date" DataField="CallDate" />
-                                                    <asp:BoundField HeaderText="Call Time" DataField="CallTime" />
+                                                    <asp:TemplateField HeaderText="Call Date" ItemStyle-HorizontalAlign="Left">
+                                                        <ItemTemplate>
+                                                            <%# Convert.ToDateTime(Eval("CallDate")).ToString("dd/MM/yy") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField HeaderText="Call Time" DataField="CallTime" ItemStyle-Width="60px"/>
                                                     <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
                                                     <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                                     <asp:BoundField HeaderText="Problem Observed" DataField="ProblemObserved" />
-                                                    <asp:BoundField HeaderText="In Time" DataField="EngIn" />
-                                                    <asp:BoundField HeaderText="Out Time" DataField="EngOut" />
+                                                    <asp:BoundField HeaderText="In Time" DataField="EngIn" ItemStyle-Width="60px"/>
+                                                    <asp:BoundField HeaderText="Out Time" DataField="EngOut" ItemStyle-Width="60px"/>
                                                     <asp:TemplateField HeaderText="Response Time" ItemStyle-HorizontalAlign="Left">
                                                         <ItemTemplate>
-                                                            <%# CalculateTimings(Convert.ToInt32(Eval("ResponseTime")))%>
+                                                            <%# (Eval("ResponseTime")!= DBNull.Value)?CalculateTimings(Convert.ToInt32(Eval("ResponseTime"))):"00:00" %>
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Left" />
                                                     </asp:TemplateField>

@@ -49,6 +49,8 @@ namespace WebAppAegisCRM.HR
                     ChkListService.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
                 else if (ChkListReport.Items.FindByValue(dr["PermissionId"].ToString()) != null)
                     ChkListReport.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
+                else if (ChkControlPanel.Items.FindByValue(dr["PermissionId"].ToString()) != null)
+                    ChkControlPanel.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
             }
         }
 

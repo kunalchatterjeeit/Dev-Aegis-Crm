@@ -10,16 +10,16 @@
 namespace WebAppAegisCRM.HR {
     
     
-    public partial class RoleAccessLevel {
+    public partial class EmployeeLoyaltyPoint {
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
         /// UpdateProgress1 control.
@@ -40,66 +40,48 @@ namespace WebAppAegisCRM.HR {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// ddlRole control.
+        /// ddlMonth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRole;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMonth;
         
         /// <summary>
-        /// ChkControlPanel control.
+        /// ddlYear control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkControlPanel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
         
         /// <summary>
-        /// ChkLstSettings control.
+        /// btnSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkLstSettings;
+        protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// ChkListHR control.
+        /// Message1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListHR;
+        protected global::WebAppAegisCRM.UserControl.Message Message1;
         
         /// <summary>
-        /// ChkListInventory control.
+        /// gvEmployeePoint control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListInventory;
-        
-        /// <summary>
-        /// ChkListService control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListService;
-        
-        /// <summary>
-        /// ChkListReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListReport;
+        protected global::System.Web.UI.WebControls.GridView gvEmployeePoint;
     }
 }

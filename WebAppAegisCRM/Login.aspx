@@ -47,7 +47,8 @@
                         </div>
                         <br />
                         <center>
-                            <img src="../images/Aegis_CRM_Logo.png" height="90px" alt="WELCOME TO AEGIS CRM" />
+                            <img src="../images/HRMS1.png" height="90px" alt="AEGIS HR" />
+                            <img src="../images/Aegis_CRM_Logo2.png" height="90px" alt="WELCOME TO AEGIS CRM" />
                         </center>
                         <br />
                         <asp:UpdatePanel ID="UpdatePanel1" runat="server">

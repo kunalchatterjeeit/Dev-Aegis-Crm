@@ -16,6 +16,10 @@ namespace WebAppAegisCRM
 
             if (!IsPostBack)
             {
+                //CONTROL PANEL
+                liControlPanel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CONTROLPANEL);
+                liServiceCallAttendanceManager.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICECALLATTENDANCEMANAGER);
+
                 //SETTING
                 liSettings.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SETTINGS);
                 liAddEditCity.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITCITY);
@@ -31,6 +35,7 @@ namespace WebAppAegisCRM
                 liAddEditRole.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITROLE);
                 liManageRoleAccess.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGEROLEACCESS);
                 liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
+                liEmployeeLoyaltyPoint.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEELOYALTYPOINT);
 
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);

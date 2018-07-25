@@ -49,6 +49,7 @@
     <Compile Include="Common\ContractType.cs" />
     <Compile Include="Common\CryptographyMode.cs" />
     <Compile Include="Common\LoginStatus.cs" />
+    <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleMaster.cs" />
     <Compile Include="HR\Utility.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Service\Docket.cs" />
     <Compile Include="Service\ProblemMasters.cs" />
     <Compile Include="Service\ServiceBook.cs" />
+    <Compile Include="Service\ServiceCallAttendance.cs" />
     <Compile Include="Service\TonnerRequest.cs" />
   </ItemGroup>
   <ItemGroup />

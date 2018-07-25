@@ -40,6 +40,24 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// liControlPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liControlPanel;
+        
+        /// <summary>
+        /// liServiceCallAttendanceManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liServiceCallAttendanceManager;
+        
+        /// <summary>
         /// liSettings control.
         /// </summary>
         /// <remarks>
@@ -191,6 +209,15 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLoyaltyPointReasonMaster;
+        
+        /// <summary>
+        /// liEmployeeLoyaltyPoint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEmployeeLoyaltyPoint;
         
         /// <summary>
         /// liInventory control.

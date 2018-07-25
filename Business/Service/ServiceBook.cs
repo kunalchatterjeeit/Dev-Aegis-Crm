@@ -121,5 +121,25 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_ServiceBookDetailsApproval_GetById(serviceBookId, itemId);
         }
+
+        public DataSet Service_ServiceCallAttendance_GetAll(int engineerId, DateTime fromDate, DateTime toDate)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceCallAttendance_GetAll(engineerId, fromDate, toDate);
+        }
+
+        public int Service_CallAttendance_Save(ServiceCallAttendance serviceCallAttendance)
+        {
+            return DataAccess.Service.ServiceBook.Service_CallAttendance_Save(serviceCallAttendance);
+        }
+
+        public int Service_CallAttendance_Edit(ServiceCallAttendance serviceCallAttendance)
+        {
+            return DataAccess.Service.ServiceBook.Service_CallAttendance_Edit(serviceCallAttendance);
+        }
+
+        public int Service_CallAttendance_Delete(long serviceCallAttendanceId)
+        {
+            return DataAccess.Service.ServiceBook.Service_CallAttendance_Delete(serviceCallAttendanceId);
+        }
     }
 }

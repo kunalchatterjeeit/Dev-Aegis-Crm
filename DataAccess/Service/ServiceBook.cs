@@ -32,11 +32,11 @@ namespace DataAccess.Service
                     cmd.Parameters.AddWithValue("@CallType", serviceBook.CallType);
                     cmd.Parameters.AddWithValue("@EmployeeId_FK", serviceBook.EmployeeId_FK);
                     cmd.Parameters.AddWithValue("@Remarks", serviceBook.Remarks);
-                    cmd.Parameters.AddWithValue("@InTime", serviceBook.InTime);
-                    if (serviceBook.OutTime == DateTime.MinValue)
-                        cmd.Parameters.AddWithValue("@OutTime", DBNull.Value);
-                    else
-                        cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
+                    //cmd.Parameters.AddWithValue("@InTime", serviceBook.InTime);
+                    //if (serviceBook.OutTime == DateTime.MinValue)
+                    //    cmd.Parameters.AddWithValue("@OutTime", DBNull.Value);
+                    //else
+                    //    cmd.Parameters.AddWithValue("@OutTime", serviceBook.OutTime);
                     cmd.Parameters.AddWithValue("@Diagnosis", serviceBook.Diagnosis);
                     cmd.Parameters.AddWithValue("@ActionTaken", serviceBook.ActionTaken);
                     cmd.Parameters.AddWithValue("@CallStatusId", serviceBook.CallStatusId);
@@ -777,6 +777,138 @@ namespace DataAccess.Service
                 }
                 return ds;
             }
+        }
+
+        public static DataSet Service_ServiceCallAttendance_GetAll(int engineerId, DateTime fromDate, DateTime toDate)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        if (engineerId == 0)
+                            cmd.Parameters.AddWithValue("@EngineerId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EngineerId", engineerId);
+                        if (fromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                        if (toDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", toDate);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceCallAttendance_GetAll";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
+
+        public static int Service_CallAttendance_Save(ServiceCallAttendance serviceCallAttendance)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceCallAttendance_Save";
+
+                        cmd.Parameters.AddWithValue("@ServiceCallAttendanceId", serviceCallAttendance.ServiceCallAttendanceId);
+                        cmd.Parameters.AddWithValue("@ServiceBookId", serviceCallAttendance.ServiceBookId);
+                        if (serviceCallAttendance.InTime != DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@InTime", serviceCallAttendance.InTime);
+                        else
+                            cmd.Parameters.AddWithValue("@InTime", DBNull.Value);
+                        if (serviceCallAttendance.OutTime != DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@OutTime", serviceCallAttendance.OutTime);
+                        else
+                            cmd.Parameters.AddWithValue("@OutTime", DBNull.Value);
+                        cmd.Parameters.AddWithValue("@EmployeeId", serviceCallAttendance.EmployeeId);
+                        cmd.Parameters.AddWithValue("@Status", serviceCallAttendance.Status);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Service_CallAttendance_Edit(ServiceCallAttendance serviceCallAttendance)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceCallAttendance_Edit";
+
+                        cmd.Parameters.AddWithValue("@ServiceCallAttendanceId", serviceCallAttendance.ServiceCallAttendanceId);
+                        if (serviceCallAttendance.InTime != DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@InTime", serviceCallAttendance.InTime);
+                        else
+                            cmd.Parameters.AddWithValue("@InTime", DBNull.Value);
+                        if (serviceCallAttendance.OutTime != DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@OutTime", serviceCallAttendance.OutTime);
+                        else
+                            cmd.Parameters.AddWithValue("@OutTime", DBNull.Value);
+                        if (serviceCallAttendance.CallStatusId != 0)
+                            cmd.Parameters.AddWithValue("@CallStatusId", serviceCallAttendance.CallStatusId);
+                        else
+                            cmd.Parameters.AddWithValue("@CallStatusId", DBNull.Value);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Service_CallAttendance_Delete(long serviceCallAttendanceId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ServiceCallAttendance_Delete";
+
+                        cmd.Parameters.AddWithValue("@ServiceCallAttendanceId", serviceCallAttendanceId);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
         }
     }
 }

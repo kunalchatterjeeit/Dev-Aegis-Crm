@@ -219,9 +219,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="clearfix"></div>
-                                <div class="col-lg-3">
+                            <div class="row" style="display:none">
+                                <div class="clearfix"></div>  
+                                <div class="col-lg-3" style="display:none">
                                     <div class="form-group has-error">
                                         In Time :
                                         <div class="form-control">
@@ -238,7 +238,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-3" style="display:none">
                                     <div class="form-group has-error">
                                         Out Time :
                                         <div class="form-control">
@@ -253,13 +253,6 @@
                                             <asp:DropDownList ID="ddlOutTimeTT" runat="server">
                                             </asp:DropDownList>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group has-error">
-                                        Current Call Status :
-                                        <asp:DropDownList ID="ddlCurrentCallStatusDocket" CssClass="form-control" runat="server">
-                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -322,7 +315,14 @@
                                         <asp:Button ID="btnCallTransfer" runat="server" Text="Call Transfer" OnClientClick="OpenWindow('CallTransfer.aspx')" CssClass="btn btn-outline btn-info pull-left" Style="width: 100%" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Current Call Status :
+                                        <asp:DropDownList ID="ddlCurrentCallStatusDocket" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Problem Observed :
                                         <asp:DropDownList ID="ddlProblemObserved" runat="server" CssClass="form-control">

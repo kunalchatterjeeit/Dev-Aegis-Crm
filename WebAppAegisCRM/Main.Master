@@ -70,7 +70,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo.png"  height="45px"/></a>
+                <img src="../images/HRMS1.png" height="40px" alt="AEGIS HR" style="margin:5px"/>
+                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px"/></a>                
             </div>
             <!-- /.navbar-header -->
          
@@ -278,6 +279,15 @@
                         <li>
                             <a href="../Dashboard.aspx"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                        <li  id="liControlPanel" runat="server">
+                            <a href="#"><i class="fa fa-shield fa-fw"></i> Control Panel<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="liServiceCallAttendanceManager" runat="server">
+                                    <a href="../ControlPanel/CallAttendanceManager.aspx">Service Call Attendance Manager</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li  id="liSettings" runat="server">
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -331,6 +341,9 @@
                                 </li>
                                 <li id="liLoyaltyPointReasonMaster" runat="server">
                                     <a href="../HR/LoyaltyPointReasonMaster.aspx">Add/Edit Loyalty Point Reason</a>
+                                </li>
+                                <li id="liEmployeeLoyaltyPoint" runat="server">
+                                    <a href="../HR/EmployeeLoyaltyPoint.aspx">Employee Loyalty Point List</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

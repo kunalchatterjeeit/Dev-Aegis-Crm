@@ -163,19 +163,22 @@ namespace WebAppAegisCRM.Service
                 return retValue = false;
             }
 
-            if (ddlInTimeHH.SelectedIndex == 0)
+            if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout")))
             {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Please select In Time HH";
-                MessageDocket.Show = true;
-                return retValue = false;
-            }
-            else if (ddlInTimeMM.SelectedIndex == 0)
-            {
-                MessageDocket.IsSuccess = false;
-                MessageDocket.Text = "Please select In Time MM";
-                MessageDocket.Show = true;
-                return retValue = false;
+                if (ddlInTimeHH.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select In Time HH";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
+                else if (ddlInTimeMM.SelectedIndex == 0)
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please select In Time MM";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
             }
 
             if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")))
@@ -196,7 +199,7 @@ namespace WebAppAegisCRM.Service
                 }
             }
 
-            if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
+            if (Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin") || Request.QueryString["action"].Equals("callout")))
             {
                 retValue = true;
             }
@@ -300,6 +303,22 @@ namespace WebAppAegisCRM.Service
             }
 
             return retValue;
+        }
+        private void EmployeeCallLogin(object sender, EventArgs e)
+        {
+            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
+            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
+            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            ddlCurrentCallStatusDocket.SelectedValue = (ddlCurrentCallStatusDocket.SelectedIndex == 0) ? ((int)CallStatusType.DocketRequestInQueue).ToString() : ddlCurrentCallStatusDocket.SelectedValue;
+            btnDocketClose_Click(sender, e);
+        }
+        private void EmployeeCallLogout(object sender, EventArgs e)
+        {
+            ddlOutTimeHH.SelectedValue = DateTime.Now.ToString("hh");
+            ddlOutTimeMM.SelectedValue = DateTime.Now.ToString("mm");
+            ddlOutTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            //ddlCurrentCallStatusDocket.SelectedValue = ((int)CallStatusType.DocketRequestInQueue).ToString();
+            btnDocketClose_Click(sender, e);
         }
         private bool ValidateAssociatedEngineer()
         {
@@ -429,8 +448,7 @@ namespace WebAppAegisCRM.Service
                 ddlDocketCallStatus.DataValueField = "CallStatusId";
                 ddlDocketCallStatus.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlDocketCallStatus.Items.Insert(0, li);
+            ddlDocketCallStatus.InsertSelect();
             //ddlDocketCallStatus.SelectedIndex = 1;
         }
         protected void LoadProblemObserved()
@@ -753,8 +771,8 @@ namespace WebAppAegisCRM.Service
             serviceBook.EmployeeId_FK = int.Parse(ddlServiceEngineer.SelectedValue);
             serviceBook.Remarks = txtRemarks.Text.Trim();
             //Has problem check
-            serviceBook.InTime = Convert.ToDateTime(txtInDate.Text + " " + ddlInTimeHH.SelectedValue + ":" + ddlInTimeMM.SelectedValue + ":00" + " " + ddlInTimeTT.SelectedValue);
-            serviceBook.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
+            //serviceBook.InTime = Convert.ToDateTime(txtInDate.Text + " " + ddlInTimeHH.SelectedValue + ":" + ddlInTimeMM.SelectedValue + ":00" + " " + ddlInTimeTT.SelectedValue);
+            //serviceBook.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
             serviceBook.Diagnosis = ddlDocketDiagnosis.SelectedValue.Trim();
             serviceBook.ActionTaken = ddlDocketActionTaken.SelectedValue.Trim();
             serviceBook.CallStatusId = int.Parse(ddlCurrentCallStatusDocket.SelectedValue);
@@ -974,6 +992,7 @@ namespace WebAppAegisCRM.Service
                     ddlDocketActionTaken.SelectedValue = (dsService.Tables[0].Rows[0]["ActionTaken"] != null) ? dsService.Tables[0].Rows[0]["ActionTaken"].ToString() : "0";
                     txtRemarks.Text = (dsService.Tables[0].Rows[0]["Remarks"] != null) ? dsService.Tables[0].Rows[0]["Remarks"].ToString() : string.Empty;
                     txtCustomerFeedback.Text = (dsService.Tables[0].Rows[0]["CustomerFeedback"] != null) ? dsService.Tables[0].Rows[0]["CustomerFeedback"].ToString() : string.Empty;
+                    ddlCurrentCallStatusDocket.SelectedValue = (dsService.Tables[0].Rows[0]["ProblemStatus"] != null) ? dsService.Tables[0].Rows[0]["ProblemStatus"].ToString() : "0";
                     Business.Common.Context.ServiceBookId = (dsService.Tables[0].Rows[0]["ServiceBookId"] != null) ? Convert.ToInt64(dsService.Tables[0].Rows[0]["ServiceBookId"].ToString()) : 0;
                 }
             }
@@ -1096,11 +1115,11 @@ namespace WebAppAegisCRM.Service
 
                         if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
                         {
-                            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
-                            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
-                            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
-                            ddlCurrentCallStatusDocket.SelectedValue = ((int)CallStatusType.DocketRequestInQueue).ToString();
-                            btnDocketClose_Click(sender, e);
+                            EmployeeCallLogin(sender, e);
+                        }
+                        else if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout"))
+                        {
+                            EmployeeCallLogout(sender, e);
                         }
                     }
                 }
@@ -1327,6 +1346,7 @@ namespace WebAppAegisCRM.Service
             {
                 Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
                 Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
+                ServiceCallAttendance serviceCallAttendance = new ServiceCallAttendance();
 
                 using (DataTable dtSpare = new DataTable())
                 {
@@ -1350,11 +1370,17 @@ namespace WebAppAegisCRM.Service
 
                 long serviceBookId = objServiceBook.Service_ServiceBook_Save(serviceBook);
 
-
-                if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
+                if (Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin") || Request.QueryString["action"].Equals("callout")))
                 {
                     if (serviceBookId > 0)
                     {
+                        serviceCallAttendance.EmployeeId = serviceBook.EmployeeId_FK;
+                        serviceCallAttendance.ServiceBookId = serviceBookId;
+                        serviceCallAttendance.InTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout")) ? DateTime.MinValue : DateTime.Now;
+                        serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : DateTime.Now;
+                        serviceCallAttendance.Status = 1;
+                        objServiceBook.Service_CallAttendance_Save(serviceCallAttendance);
+
                         Response.Redirect(HttpContext.Current.Request.UrlReferrer.AbsoluteUri);
                     }
                     else

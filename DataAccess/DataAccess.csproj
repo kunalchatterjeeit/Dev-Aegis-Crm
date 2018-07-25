@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Kunal.Exception">
-      <HintPath>..\..\..\..\Downloads\Kunal.Exception.dll</HintPath>
+      <HintPath>..\..\..\..\Users\kunal\Desktop\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -53,6 +53,7 @@
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAddress.cs" />
     <Compile Include="Customer\CustomerContactDetails.cs" />
+    <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleAccessLevel.cs" />

@@ -7,6 +7,10 @@ namespace Entity.HR
 {
     public static class Utility
     {
+        //Control Panel
+        public const string CONTROLPANEL = "600";
+        public const string SERVICECALLATTENDANCEMANAGER = "601";
+
         //Settings
         public const string SETTINGS = "100";
         public const string ADDEDITCITY = "101";
@@ -23,6 +27,7 @@ namespace Entity.HR
         public const string MANAGEROLEACCESS = "202";
         public const string ADDEDITEMPLOYEE = "203";
         public const string ADDEDITLOYALTYPOINTREASONMASTER = "204";
+        public const string EMPLOYEELOYALTYPOINT = "205";
 
 
         //Inventory
