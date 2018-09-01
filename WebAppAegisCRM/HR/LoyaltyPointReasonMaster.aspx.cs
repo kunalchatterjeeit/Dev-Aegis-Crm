@@ -92,7 +92,7 @@ namespace WebAppAegisCRM.HR
         protected void gvLoyaltyReason_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvLoyaltyReason.PageIndex = e.NewPageIndex;
-            DesignationMaster_GetAll();
+            LoadLoyaltyPointReasonMaster();
         }
 
         protected void gvLoyaltyReason_RowCommand(object sender, GridViewCommandEventArgs e)
