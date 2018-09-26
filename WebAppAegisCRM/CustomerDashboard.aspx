@@ -134,17 +134,18 @@
                 </div>
                 <div class="row">
                 <div class="col-lg-6">
-                    <div class="panel-default">
+                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             Machine List
                         </div>
-                        <asp:GridView ID="gvMachineList" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%" 
-                                 class="table table-striped" Style="text-align: left"
-                                 OnPageIndexChanging="gvMachineList_PageIndexChanging" PageSize="5" AllowPaging="true"
+                        <asp:GridView ID="gvMachineList" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%" 
+                                  Style="text-align: left"
+                                  PageSize="5" AllowPaging="True"
                                  OnRowDataBound="gvMachineList_RowDataBound">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:BoundField HeaderText="SN." DataField="sn" />
+                                <asp:BoundField DataField="model" HeaderText="Model" />
                                 <asp:BoundField HeaderText="Machine Id" DataField="machine_id" />
                                 <asp:BoundField HeaderText="Serial No." DataField="serial_no" />
                             </Columns>

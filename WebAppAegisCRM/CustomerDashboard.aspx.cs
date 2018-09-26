@@ -8,11 +8,14 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Entity.Purchase;
 
 namespace WebAppAegisCRM
 {
     public partial class CustomerDashboard : System.Web.UI.Page
     {
+        private Entity.Purchase.Purchase purchase;
+
         public int CustomerMasterId
         {
             get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
@@ -26,9 +29,28 @@ namespace WebAppAegisCRM
                 Response.Redirect("CustomerLogout.aspx");
             }
             CustomerMasterId = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]);
-            LoadPieChart();
+            if (!IsPostBack)
+            {
+                MachineList();
+            }
+                LoadPieChart();
         }
 
+        protected void MachineList()
+        {
+            Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
+            Entity.Purchase.Purchase Purchase = new Entity.Purchase.Purchase();
+
+            DataTable ds = objPurchase.Purchase_GetAll(purchase);
+            {
+                gvMachineList.DataSource = ds;
+                gvMachineList.DataBind();
+            }
+
+            
+
+
+        }
         #region User Defined Funtions
         protected void LoadPieChart()
         {
