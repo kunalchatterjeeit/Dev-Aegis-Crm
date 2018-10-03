@@ -9,48 +9,63 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Entity.Purchase;
+using System.Data.SqlClient;
+
 
 namespace WebAppAegisCRM
 {
     public partial class CustomerDashboard : System.Web.UI.Page
     {
-        private Entity.Purchase.Purchase purchase;
+        // private Entity.Purchase.Purchase purchase;
+      
 
         public int CustomerMasterId
         {
             get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
             set { ViewState["CustomerMasterId"] = value; }
         }
-
-        protected void Page_Load(object sender, EventArgs e)
+        public int purchase
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
+            set { ViewState["CustomerMasterId"] = value; }
+        }
+        protected void Page_Load(object sender, EventArgs e)
+
+        {
+            
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("CustomerLogout.aspx");
             }
             CustomerMasterId = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]);
             if (!IsPostBack)
             {
-                MachineList();
+                LoadMachineList();
             }
-                LoadPieChart();
+          
+               LoadPieChart();
         }
 
-        protected void MachineList()
+        protected void LoadMachineList()
         {
-            Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
-            Entity.Purchase.Purchase Purchase = new Entity.Purchase.Purchase();
+            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+            Entity.Service.ServiceBook servicebook = new Entity.Service.ServiceBook();
+           // servicebook.ModelId =0;
+            servicebook.MachineId = "";
+            servicebook.FromDate = DateTime.MinValue;
+            servicebook.ToDate = DateTime.MinValue;
 
-            DataTable ds = objPurchase.Purchase_GetAll(purchase);
+            DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(servicebook);
+            
+            using (DataView dv = new DataView(dt))
             {
-                gvMachineList.DataSource = ds;
+              
+                gvMachineList.DataSource = dv.ToTable();
                 gvMachineList.DataBind();
             }
-
-            
-
-
+          
         }
+
         #region User Defined Funtions
         protected void LoadPieChart()
         {

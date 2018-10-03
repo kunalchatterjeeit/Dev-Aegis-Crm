@@ -194,7 +194,7 @@
                                                 <td>Installation Date</td>
                                                 <td>
                                                     <asp:TextBox ID="txtInstallationDate" CssClass="form-control" runat="server"></asp:TextBox>
-                                                    <asp:CalendarExtender ID="txtInstallationDate_CalendarExtender" runat="server" Enabled="True"
+                                 `                   <asp:CalendarExtender ID="txtInstallationDate_CalendarExtender" runat="server" Enabled="True"
                                                         Format="dd MMM yyyy" TargetControlID="txtInstallationDate">
                                                     </asp:CalendarExtender>
                                                 </td>

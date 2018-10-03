@@ -6,7 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Business.Common;
+using System.Web.UI.HtmlControls;
 using Entity.Common;
+using Entity.Service;
 
 namespace WebAppAegisCRM.Customer
 {
@@ -72,7 +74,7 @@ namespace WebAppAegisCRM.Customer
                 gvCustomerMaster.DataSource = dt;
             else
                 gvCustomerMaster.DataSource = null;
-            gvCustomerMaster.DataBind();
+                 gvCustomerMaster.DataBind();
         }
         protected void GetAllCustomer()
         {
@@ -459,10 +461,69 @@ namespace WebAppAegisCRM.Customer
                 ModalPopupExtender1.Show();
             }
         }
-
-        protected void gvContractList_RowCommand(object sender, GridViewCommandEventArgs e)
+        /* protected void gvContractList_RowCommand(object sender, GridViewRowEventArgs e)
+         {
+             DateTime Stock;
+             if (e.Row.RowType == DataControlRowType.DataRow)
+             {
+                 Stock = Convert.ToDateTime(DataBinder.Eval(e.Row.DataItem, "gvContractList.Rows[3].Text"));
+                 if (Stock < DateTime.Now)
+                     e.Row.BackColor = System.Drawing.Color.FromName("#FF8F8F");
+                 else if (Stock.Date == DateTime.Now.Date)
+                 {
+                     e.Row.BackColor = System.Drawing.Color.FromName("#d2d261");
+                 }
+                 else
+                 {
+                     e.Row.BackColor = System.Drawing.Color.FromName("");
+                 }
+             }
+         }*/
+        protected void gvContractList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+            if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEnd"].ToString()) >= DateTime.Now)
+            {
+                e.Row.Attributes["style"] = "background-color: #ce261a"; //red
+            }
+            else if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEnd"].ToString()) >= DateTime.Now.AddMonths(1))
+            {
+                e.Row.Attributes["style"] = "background-color: #d1cc51"; //change color yellow
+            }
+
+        }
+protected void gvContractList_RowCommand(object sender, GridViewCommandEventArgs e)
+        {   
             ClearControlForContract();
+            /*  for (int i = 0; i < gvContractList.Rows.Count; i++)
+              {
+                  // int start = Convert.ToInt32(gvContractList.Rows[i].Cells[3].Text);
+                  string end = Convert.ToString(gvContractList.Rows[i].Cells[4].Text);
+                  string date = DateTime.Today.ToString("dd-MM-yyyy");
+
+                  if ()
+                  {
+                      gvContractList.Rows[i].BackColor = System.Drawing.Color.Red;
+
+                  }
+                  else
+                  { 
+                      gvContractList.Rows[i].BackColor = System.Drawing.Color.Green;
+                  }
+              }*/
+           /* if (((DataTable)(gvContractList.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
+            {
+                HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
+                anchorCallIn.Attributes["style"] = "display:none";
+                e.Row.Attributes["style"] = "background-color: #C6F2C6";
+            }
+            else
+            {
+                HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
+                anchorCallOut.Attributes["style"] = "display:none";
+            }*/
+
+
+
             if (e.CommandName == "View")
             {
                 //CustomerMasterId = int.Parse(e.CommandArgument.ToString());                
@@ -489,6 +550,7 @@ namespace WebAppAegisCRM.Customer
                 Message1.Show = true;
             }
             ModalPopupExtender2.Show();
+
         }
 
         private void LoadContractDetail(int contractId)
