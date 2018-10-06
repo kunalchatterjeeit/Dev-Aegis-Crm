@@ -98,7 +98,9 @@ namespace WebAppAegisCRM.Service
             MessageDocket.Show = false;
             bool retValue = false;
 
-            if (ddlCurrentCallStatusDocket.SelectedIndex == 0)
+            if (!(Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketOpenForApproval).ToString())
+                || (Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketResponseGiven).ToString())))
+                && ddlCurrentCallStatusDocket.SelectedIndex == 0)
             {
                 MessageDocket.IsSuccess = false;
                 MessageDocket.Text = "Please select current call status.";
@@ -775,7 +777,15 @@ namespace WebAppAegisCRM.Service
             //serviceBook.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
             serviceBook.Diagnosis = ddlDocketDiagnosis.SelectedValue.Trim();
             serviceBook.ActionTaken = ddlDocketActionTaken.SelectedValue.Trim();
-            serviceBook.CallStatusId = int.Parse(ddlCurrentCallStatusDocket.SelectedValue);
+            if ((Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketOpenForApproval).ToString())
+                || (Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketResponseGiven).ToString()))))//dropdown does not have this two status in list
+            {
+                serviceBook.CallStatusId = int.Parse(Business.Common.Context.CallStatus);
+            }
+            else
+            {
+                serviceBook.CallStatusId = int.Parse(ddlCurrentCallStatusDocket.SelectedValue);
+            }
             serviceBook.CustomerFeedback = txtCustomerFeedback.Text.Trim();
             serviceBook.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
             serviceBook.ProblemObserved = ddlProblemObserved.SelectedValue.Trim();
@@ -992,6 +1002,7 @@ namespace WebAppAegisCRM.Service
                     ddlDocketActionTaken.SelectedValue = (dsService.Tables[0].Rows[0]["ActionTaken"] != null) ? dsService.Tables[0].Rows[0]["ActionTaken"].ToString() : "0";
                     txtRemarks.Text = (dsService.Tables[0].Rows[0]["Remarks"] != null) ? dsService.Tables[0].Rows[0]["Remarks"].ToString() : string.Empty;
                     txtCustomerFeedback.Text = (dsService.Tables[0].Rows[0]["CustomerFeedback"] != null) ? dsService.Tables[0].Rows[0]["CustomerFeedback"].ToString() : string.Empty;
+                    Business.Common.Context.CallStatus = (dsService.Tables[0].Rows[0]["ProblemStatus"] != null) ? dsService.Tables[0].Rows[0]["ProblemStatus"].ToString() : "0";
                     ddlCurrentCallStatusDocket.SelectedValue = (dsService.Tables[0].Rows[0]["ProblemStatus"] != null) ? dsService.Tables[0].Rows[0]["ProblemStatus"].ToString() : "0";
                     Business.Common.Context.ServiceBookId = (dsService.Tables[0].Rows[0]["ServiceBookId"] != null) ? Convert.ToInt64(dsService.Tables[0].Rows[0]["ServiceBookId"].ToString()) : 0;
                 }

@@ -76,6 +76,18 @@ namespace Business.Common
             }
         }
 
+        public static string CallStatus
+        {
+            get
+            {
+                return (HttpContext.Current.Session["CallStatus"] != null) ? HttpContext.Current.Session["CallStatus"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["CallStatus"] = value;
+            }
+        }
+
         public static long ServiceBookId
         {
             get

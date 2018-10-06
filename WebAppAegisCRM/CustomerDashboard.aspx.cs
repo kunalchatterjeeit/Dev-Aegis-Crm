@@ -14,8 +14,6 @@ namespace WebAppAegisCRM
 {
     public partial class CustomerDashboard : System.Web.UI.Page
     {
-        private Entity.Purchase.Purchase purchase;
-
         public int CustomerMasterId
         {
             get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
@@ -39,17 +37,13 @@ namespace WebAppAegisCRM
         protected void MachineList()
         {
             Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
-            Entity.Purchase.Purchase Purchase = new Entity.Purchase.Purchase();
+            Entity.Purchase.Purchase purchase = new Entity.Purchase.Purchase();
 
             DataTable ds = objPurchase.Purchase_GetAll(purchase);
             {
                 gvMachineList.DataSource = ds;
                 gvMachineList.DataBind();
             }
-
-            
-
-
         }
         #region User Defined Funtions
         protected void LoadPieChart()

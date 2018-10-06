@@ -69,58 +69,60 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvDocket" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
-                                AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvDocket_PageIndexChanging" PageSize="5" AllowPaging="true"
-                                OnRowDataBound="gvDocket_RowDataBound">
-                                <Columns>
-                                    <asp:TemplateField>
-                                        <HeaderTemplate>
-                                            SN.
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <%# Container.DataItemIndex+1 %>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Date" DataField="ShortDocketDate" />
-                                    <asp:BoundField HeaderText="Name" DataField="CustomerName" />
-                                    <asp:BoundField HeaderText="Model" DataField="ProductName" />
-                                    <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <span id="anchorCallIn" runat="server" title='<%# string.Concat("CALL ATTEND TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
-                                                <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callin'>
-                                                    <img src="images/intime_icon.png" width="13px" alt="GO" />
-                                                </a>
-                                            </span>
-                                             <span id="anchorCallOut" runat="server" title='<%# string.Concat("CALL OUT TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
-                                                <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callout'>
-                                                    <img src="images/outtime_icon.png" width="13px" alt="GO" />
-                                                </a>
-                                            </span>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() + " | "+ Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
-                                                <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                <EditRowStyle BackColor="#999999" />
-                                <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                <EmptyDataTemplate>
-                                    No Record Found...
-                                </EmptyDataTemplate>
-                            </asp:GridView>
+                        <div style="height: 30vh; overflow: scroll">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvDocket" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
+                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                    class="table table-striped" GridLines="None" Style="text-align: left"
+                                    OnPageIndexChanging="gvDocket_PageIndexChanging" PageSize="5" AllowPaging="false"
+                                    OnRowDataBound="gvDocket_RowDataBound">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Date" DataField="ShortDocketDate" />
+                                        <asp:BoundField HeaderText="Name" DataField="CustomerName" />
+                                        <asp:BoundField HeaderText="Model" DataField="ProductName" />
+                                        <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <span id="anchorCallIn" runat="server" title='<%# string.Concat("CALL ATTEND TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
+                                                    <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callin'>
+                                                        <img src="images/intime_icon.png" width="13px" alt="GO" />
+                                                    </a>
+                                                </span>
+                                                <span id="anchorCallOut" runat="server" title='<%# string.Concat("CALL OUT TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
+                                                    <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callout'>
+                                                        <img src="images/outtime_icon.png" width="13px" alt="GO" />
+                                                    </a>
+                                                </span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() + " | "+ Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
+                                                    <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Record Found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,44 +135,46 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server"
-                                RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
-                                ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" PageSize="5" AllowPaging="true"
-                                OnRowDataBound="gvTonnerRequest_RowDataBound">
-                                <Columns>
-                                    <asp:TemplateField>
-                                        <HeaderTemplate>
-                                            SN.
-                                        </HeaderTemplate>
-                                        <ItemTemplate>
-                                            <%# Container.DataItemIndex+1 %>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField HeaderText="Date" DataField="ShortRequestDate" />
-                                    <asp:BoundField HeaderText="Name" DataField="CustomerName" />
-                                    <asp:BoundField HeaderText="Model" DataField="ProductName" />
-                                    <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
-                                    <asp:TemplateField>
-                                        <ItemTemplate>
-                                            <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
-                                                <img src="images/go_icon.gif" width="13px" /></a></span>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                <EditRowStyle BackColor="#999999" />
-                                <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                <EmptyDataTemplate>
-                                    No Record Found...
-                                </EmptyDataTemplate>
-                            </asp:GridView>
+                        <div style="height: 30vh; overflow: scroll">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server"
+                                    RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
+                                    ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
+                                    OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" PageSize="5" AllowPaging="false"
+                                    OnRowDataBound="gvTonnerRequest_RowDataBound">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Date" DataField="ShortRequestDate" />
+                                        <asp:BoundField HeaderText="Name" DataField="CustomerName" />
+                                        <asp:BoundField HeaderText="Model" DataField="ProductName" />
+                                        <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
+                                                    <img src="images/go_icon.gif" width="13px" /></a></span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Record Found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
+                            </div>
                         </div>
                     </div>
                 </div>
