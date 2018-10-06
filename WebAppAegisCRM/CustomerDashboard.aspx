@@ -132,37 +132,49 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                Machine List
-                            </div>
-                            <asp:GridView ID="gvMachineList" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" Width="100%"
-                                Style="text-align: left"
-                                PageSize="5" AllowPaging="True">
-                                <AlternatingRowStyle BackColor="White" />
-                                <Columns>
-                                    <asp:BoundField HeaderText="SN." DataField="sn" />
-                                    <asp:BoundField DataField="model" HeaderText="Model" />
-                                    <asp:BoundField HeaderText="Machine Id" DataField="machine_id" />
-                                    <asp:BoundField HeaderText="Serial No." DataField="serial_no" />
-                                </Columns>
-                                <EditRowStyle BackColor="#2461BF" />
-                                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#EFF3FB" />
-                                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                            </asp:GridView>
-                        </div>
+             </div>
+             <div class="col-lg-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        Machine List
                     </div>
-                </div>
-            </div>
+                     <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">
+            <asp:GridView ID="gvMachineList" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%">
+                <AlternatingRowStyle BackColor="White" />
+                <Columns>
+                      <asp:TemplateField>
+                                   <HeaderTemplate>
+                                         SN.
+                                  </HeaderTemplate>
+                                 <ItemTemplate>
+                                 <%# Container.DataItemIndex+1 %>
+                                </ItemTemplate>
+                         </asp:TemplateField>
+                    <asp:BoundField DataField="" HeaderText="Model" />
+                     <asp:BoundField DataField="MachineId" HeaderText="Machine Id" />
+                     <asp:BoundField  DataField="" HeaderText="Expire On" />
+                    
+                  
+                   
+                </Columns>
+                <EditRowStyle BackColor="#7C6F57" />
+                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#E3EAEB" />
+                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                <SortedAscendingHeaderStyle BackColor="#246B61" />
+                <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                <SortedDescendingHeaderStyle BackColor="#15524A" />
+            </asp:GridView>
+                            </div>
+                        </div>
+                         </div>
+           </div>
+        </div>
         </div>
     </div>
 </asp:Content>
