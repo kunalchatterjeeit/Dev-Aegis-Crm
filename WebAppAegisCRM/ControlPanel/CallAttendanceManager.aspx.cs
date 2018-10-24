@@ -159,7 +159,7 @@ namespace WebAppAegisCRM.ControlPanel
 
                 LoadTime(ddlInTimeHH, ddlInTimeMM, ddlOutTimeHH, ddlOutTimeMM, ddlInTimeTT, ddlOutTimeTT);
 
-                if (((DataTable)(gvCallAttendance.DataSource)).Rows[0]["InTime"] != null && !string.IsNullOrEmpty(((DataTable)(gvCallAttendance.DataSource)).Rows[0]["InTime"].ToString()))
+                if (((DataTable)(gvCallAttendance.DataSource)).Rows[e.Row.RowIndex]["InTime"] != null && !string.IsNullOrEmpty(((DataTable)(gvCallAttendance.DataSource)).Rows[e.Row.RowIndex]["InTime"].ToString()))
                 {
                     txtInDate.Text = Convert.ToDateTime(((DataTable)(gvCallAttendance.DataSource)).Rows[e.Row.RowIndex]["InTime"].ToString()).ToString("dd MMM yyyy");
 

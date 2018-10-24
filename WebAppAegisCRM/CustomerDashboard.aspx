@@ -97,84 +97,93 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <center>
+    <%--<center>
         <img src="images/welcome.png" style="margin: 3% 0 0 0" />
-    </center>
-    <div class="row" style="margin: 4% 0 0 0">
+    </center>--%>
+    <br />
+    <div class="row">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="panel-default">
-                        <div class="panel-heading">
-                            Average Up Time                     
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="flot-chart">
-                                <div class="flot-chart-content" id="flot-pie-chart"></div>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="panel-default">
-                        <div class="panel-heading">
-                            Response Time                     
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="flot-chart">
-                                <div id="columnchart_values" style="height: 100%; width: 100%"></div>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-             </div>
-             <div class="col-lg-6">
-                <div class="panel panel-yellow">
+            <div class="col-lg-12">
+                <div class="panel panel-success">
                     <div class="panel-heading">
-                        Machine List
+                        Purchased Machine List
                     </div>
-                     <div class="row">
-                    <div class="col-lg-12">
-                        <div class="table-responsive">
-            <asp:GridView ID="gvMachineList" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="100%">
-                <AlternatingRowStyle BackColor="White" />
-                <Columns>
-                      <asp:TemplateField>
-                                   <HeaderTemplate>
-                                         SN.
-                                  </HeaderTemplate>
-                                 <ItemTemplate>
-                                 <%# Container.DataItemIndex+1 %>
-                                </ItemTemplate>
-                         </asp:TemplateField>
-                    <asp:BoundField DataField="" HeaderText="Model" />
-                     <asp:BoundField DataField="MachineId" HeaderText="Machine Id" />
-                     <asp:BoundField  DataField="" HeaderText="Expire On" />
-                    
-                  
-                   
-                </Columns>
-                <EditRowStyle BackColor="#7C6F57" />
-                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#E3EAEB" />
-                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F8FAFA" />
-                <SortedAscendingHeaderStyle BackColor="#246B61" />
-                <SortedDescendingCellStyle BackColor="#D4DFE1" />
-                <SortedDescendingHeaderStyle BackColor="#15524A" />
-            </asp:GridView>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvMachineList" runat="server"
+                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                    class="table table-striped" GridLines="None" Style="text-align: left"
+                                    OnPageIndexChanging="gvMachineList_PageIndexChanging" PageSize="5" AllowPaging="true">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
+                                        <asp:BoundField HeaderText="Brand" DataField="BrandName" />
+                                        <asp:BoundField HeaderText="Model Code" DataField="ProductCode" />
+                                        <asp:BoundField HeaderText="Model Name" DataField="ProductName" />
+                                        <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
+                                        <asp:BoundField HeaderText="Avg Response Time" DataField="AVGResponseTime" ItemStyle-HorizontalAlign="Left" />
+                                        <asp:TemplateField HeaderText="Up Time" ItemStyle-HorizontalAlign="Left">
+                                            <ItemTemplate>
+                                                <%# Eval("UpTime") %>%
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Record Found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
                             </div>
                         </div>
-                         </div>
-           </div>
-        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        Average Up Time                     
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="flot-chart">
+                            <div class="flot-chart-content" id="flot-pie-chart"></div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Response Time                     
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="flot-chart">
+                            <div id="columnchart_values" style="height: 100%; width: 100%"></div>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
         </div>
     </div>
+
 </asp:Content>

@@ -16,9 +16,6 @@ namespace WebAppAegisCRM
 {
     public partial class CustomerDashboard : System.Web.UI.Page
     {
-        // private Entity.Purchase.Purchase purchase;
-      
-
         public int CustomerMasterId
         {
             get { return Convert.ToInt32(ViewState["CustomerMasterId"]); }
@@ -30,40 +27,18 @@ namespace WebAppAegisCRM
             set { ViewState["CustomerMasterId"] = value; }
         }
         protected void Page_Load(object sender, EventArgs e)
-
         {
-            
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("CustomerLogout.aspx");
             }
             CustomerMasterId = int.Parse(HttpContext.Current.User.Identity.Name.Split('|')[(int)Constants.Customer.ID]);
             if (!IsPostBack)
             {
-                LoadMachineList();
+                LoadCustomerPurchaseList();
             }
-          
-               LoadPieChart();
-        }
 
-        protected void LoadMachineList()
-        {
-            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            Entity.Service.ServiceBook servicebook = new Entity.Service.ServiceBook();
-           // servicebook.ModelId =0;
-            servicebook.MachineId = "";
-            servicebook.FromDate = DateTime.MinValue;
-            servicebook.ToDate = DateTime.MinValue;
-
-            DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(servicebook);
-            
-            using (DataView dv = new DataView(dt))
-            {
-              
-                gvMachineList.DataSource = dv.ToTable();
-                gvMachineList.DataBind();
-            }
-          
+            LoadPieChart();
         }
 
         #region User Defined Funtions
@@ -79,6 +54,19 @@ namespace WebAppAegisCRM
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "PieData(" + upTime.ToString() + "," + (100 - upTime).ToString() + ")", true);
         }
+        protected void LoadCustomerPurchaseList()
+        {
+            Business.Customer.Customer objCustomerMaster = new Business.Customer.Customer();
+            Entity.Customer.Customer customerMaster = new Entity.Customer.Customer();
+            gvMachineList.DataSource = objCustomerMaster.CustomerPurchase_GetByCustomerId(CustomerMasterId);
+            gvMachineList.DataBind();
+        }
         #endregion
+
+        protected void gvMachineList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvMachineList.PageIndex = e.NewPageIndex;
+            LoadCustomerPurchaseList();
+        }
     }
 }

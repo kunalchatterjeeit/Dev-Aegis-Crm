@@ -96,10 +96,13 @@
                                                         <img src="images/intime_icon.png" width="13px" alt="GO" />
                                                     </a>
                                                 </span>
-                                                <span id="anchorCallOut" runat="server" title='<%# string.Concat("CALL OUT TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
+                                                <%--<span id="anchorCallOut" runat="server" title='<%# string.Concat("CALL OUT TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
                                                     <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callout'>
                                                         <img src="images/outtime_icon.png" width="13px" alt="GO" />
                                                     </a>
+                                                </span>--%>
+                                                <span id="anchorCallOut" runat="server" title='CALL OUT IS ON SERVICE BOOK SUBMITION'>
+                                                    <img src="images/outtime_icon.png" width="13px" alt="GO" />
                                                 </span>
                                             </ItemTemplate>
                                         </asp:TemplateField>

@@ -63,7 +63,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo.png"  height="45px"/></a>
+                <img src="../images/HRMS1.png" height="40px" alt="AEGIS HR" style="margin:5px"/>
+                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px"/></a>   
             </div>
             <!-- /.navbar-header -->
 

@@ -38,6 +38,18 @@
 <body id="radial-position">
     <form id="form2" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <div class="loading">
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                </div>
+            </div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">

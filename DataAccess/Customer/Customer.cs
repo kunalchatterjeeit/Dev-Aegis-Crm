@@ -282,6 +282,10 @@ namespace DataAccess.Customer
                             customer.MobileNo = (dr["MobileNo"] == DBNull.Value) ? string.Empty : dr["MobileNo"].ToString();
                             customer.AssignEngineer = (dr["AssignEngineer"] == DBNull.Value) ? 0 : int.Parse(dr["AssignEngineer"].ToString());
                             customer.InstallationDate = (dr["InstallationDate"] == DBNull.Value) ? DateTime.MinValue : DateTime.Parse(dr["InstallationDate"].ToString());
+                            customer.A3BWMeterReading = (dr["A3BWLastMeterReading"] == DBNull.Value) ? 0 : Int64.Parse(dr["A3BWLastMeterReading"].ToString());
+                            customer.A3CLMeterReading = (dr["A3CLLastMeterReading"] == DBNull.Value) ? 0 : Int64.Parse(dr["A3CLLastMeterReading"].ToString());
+                            customer.A4BWMeterReading = (dr["A4BWLastMeterReading"] == DBNull.Value) ? 0 : Int64.Parse(dr["A4BWLastMeterReading"].ToString());
+                            customer.A4CLMeterReading = (dr["A4CLLastMeterReading"] == DBNull.Value) ? 0 : Int64.Parse(dr["A4CLLastMeterReading"].ToString());
                         }
                     }
                     con.Close();
