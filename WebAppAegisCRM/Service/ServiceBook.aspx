@@ -305,7 +305,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Assigned Service Engineer :
-                                        <asp:DropDownList ID="ddlServiceEngineer" runat="server" CssClass="form-control">
+                                        <asp:DropDownList ID="ddlServiceEngineer" runat="server" CssClass="form-control" Enabled="false">
                                         </asp:DropDownList>
                                     </div>
                                 </div>

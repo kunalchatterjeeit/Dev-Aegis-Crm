@@ -281,7 +281,17 @@ namespace WebAppAegisCRM.Service
                     MessageDocket.Show = true;
                     return retValue = false;
                 }
+
+                //Checking Call in is there otherwise call out is not possible
+                if (!new Business.Service.ServiceBook().IsCallInPresent(Business.Common.Context.ServiceBookId))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please do call in first.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
             }
+
             if (string.IsNullOrEmpty(Business.Common.Context.Signature)
                 && ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketClose))
             {
