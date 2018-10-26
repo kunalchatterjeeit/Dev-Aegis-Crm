@@ -251,3 +251,6 @@ table.popup-table {
 }
 
 
+.mandatory {
+    color: red;
+}

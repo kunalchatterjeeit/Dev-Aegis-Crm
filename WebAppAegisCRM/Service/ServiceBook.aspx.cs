@@ -70,7 +70,7 @@ namespace WebAppAegisCRM.Service
                 MessageDocket.Show = true;
                 return false;
             }
-            if (string.IsNullOrEmpty(txtA4BWCurrentMeterReading.Text.Trim()))
+            if (string.IsNullOrEmpty(txtA4BWCurrentMeterReading.Text.Trim()) || Int64.Parse(txtA4BWCurrentMeterReading.Text.Trim()) <= 0)
             {
                 MessageDocket.IsSuccess = false;
                 MessageDocket.Text = "Please enter A4 B/W meter reading.";
@@ -91,6 +91,41 @@ namespace WebAppAegisCRM.Service
                 MessageDocket.Show = true;
                 return false;
             }
+
+            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
+            Entity.Customer.Customer customer = objCustomer.CustomerPurchase_GetByCustomerPurchaseId(CustomerPurchaseId);
+            if (customer != null)
+            {
+                if (customer.A3BWMeterReading > Convert.ToInt64(txtA3BWCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Wrong A3 B/W meter reading.";
+                    MessageDocket.Show = true;
+                    return false;
+                }
+                if (customer.A4BWMeterReading > Convert.ToInt64(txtA4BWCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Wrong A4 B/W meter reading.";
+                    MessageDocket.Show = true;
+                    return false;
+                }
+                if (customer.A3CLMeterReading > Convert.ToInt64(txtA3CLCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Wrong A3 CL meter reading.";
+                    MessageDocket.Show = true;
+                    return false;
+                }
+                if (customer.A4CLMeterReading > Convert.ToInt64(txtA4CLCurrentMeterReading.Text.Trim()))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Wrong A4 CL meter reading.";
+                    MessageDocket.Show = true;
+                    return false;
+                }
+            }
+
             return true;
         }
         private bool ValidateDocket()
@@ -165,7 +200,25 @@ namespace WebAppAegisCRM.Service
                 return retValue = false;
             }
 
-            if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout")))
+            //if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout")))
+            //{
+            //    if (ddlInTimeHH.SelectedIndex == 0)
+            //    {
+            //        MessageDocket.IsSuccess = false;
+            //        MessageDocket.Text = "Please select In Time HH";
+            //        MessageDocket.Show = true;
+            //        return retValue = false;
+            //    }
+            //    else if (ddlInTimeMM.SelectedIndex == 0)
+            //    {
+            //        MessageDocket.IsSuccess = false;
+            //        MessageDocket.Text = "Please select In Time MM";
+            //        MessageDocket.Show = true;
+            //        return retValue = false;
+            //    }
+            //}
+
+            if ((Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")))
             {
                 if (ddlInTimeHH.SelectedIndex == 0)
                 {
@@ -185,17 +238,10 @@ namespace WebAppAegisCRM.Service
 
             if (!(Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")))
             {
-                if (ddlOutTimeHH.SelectedIndex == 0)
+                if (ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketRequestInQueue))
                 {
                     MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select Out Time HH";
-                    MessageDocket.Show = true;
-                    return retValue = false;
-                }
-                else if (ddlOutTimeMM.SelectedIndex == 0)
-                {
-                    MessageDocket.IsSuccess = false;
-                    MessageDocket.Text = "Please select Out Time MM";
+                    MessageDocket.Text = "Cannot submit with Request in queue status";
                     MessageDocket.Show = true;
                     return retValue = false;
                 }
@@ -235,7 +281,17 @@ namespace WebAppAegisCRM.Service
                     MessageDocket.Show = true;
                     return retValue = false;
                 }
+
+                //Checking Call in is there otherwise call out is not possible
+                if (!new Business.Service.ServiceBook().IsCallInPresent(Business.Common.Context.ServiceBookId))
+                {
+                    MessageDocket.IsSuccess = false;
+                    MessageDocket.Text = "Please do call in first.";
+                    MessageDocket.Show = true;
+                    return retValue = false;
+                }
             }
+
             if (string.IsNullOrEmpty(Business.Common.Context.Signature)
                 && ddlCurrentCallStatusDocket.SelectedValue == Convert.ToString((int)CallStatusType.DocketClose))
             {
@@ -777,7 +833,8 @@ namespace WebAppAegisCRM.Service
             //serviceBook.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
             serviceBook.Diagnosis = ddlDocketDiagnosis.SelectedValue.Trim();
             serviceBook.ActionTaken = ddlDocketActionTaken.SelectedValue.Trim();
-            if ((Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketOpenForApproval).ToString())
+            if ((Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin")))
+                && (Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketOpenForApproval).ToString())
                 || (Business.Common.Context.CallStatus.Equals(((int)CallStatusType.DocketResponseGiven).ToString()))))//dropdown does not have this two status in list
             {
                 serviceBook.CallStatusId = int.Parse(Business.Common.Context.CallStatus);
@@ -1105,7 +1162,7 @@ namespace WebAppAegisCRM.Service
                             }
                             //TonerRequestId = 0;
                             divCallType.Visible = false;
-                            divTonnerRequest.Visible = false;
+                            //divTonnerRequest.Visible = false;
                         }
                         else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
                         {
@@ -1121,7 +1178,7 @@ namespace WebAppAegisCRM.Service
                             }
                             //DocketId = 0;
                             divCallType.Visible = false;
-                            divDocket.Visible = false;
+                            //divDocket.Visible = false;
                         }
 
                         if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
@@ -1381,25 +1438,13 @@ namespace WebAppAegisCRM.Service
 
                 long serviceBookId = objServiceBook.Service_ServiceBook_Save(serviceBook);
 
-                if (Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin") || Request.QueryString["action"].Equals("callout")))
-                {
-                    if (serviceBookId > 0)
-                    {
-                        serviceCallAttendance.EmployeeId = serviceBook.EmployeeId_FK;
-                        serviceCallAttendance.ServiceBookId = serviceBookId;
-                        serviceCallAttendance.InTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout")) ? DateTime.MinValue : DateTime.Now;
-                        serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : DateTime.Now;
-                        serviceCallAttendance.Status = 1;
-                        objServiceBook.Service_CallAttendance_Save(serviceCallAttendance);
+                CallAttendanceSave(objServiceBook, serviceBook, serviceCallAttendance, serviceBookId);
 
-                        Response.Redirect(HttpContext.Current.Request.UrlReferrer.AbsoluteUri);
-                    }
-                    else
-                    {
-                        MessageDocket.IsSuccess = false;
-                        MessageDocket.Text = "Sorry! unable log In-Time. Please try again.";
-                        MessageDocket.Show = true;
-                    }
+                //Manual call out is removed
+                if (Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin")))
+                //if (Request.QueryString["action"] != null && (Request.QueryString["action"].Equals("callin") || Request.QueryString["action"].Equals("callout")))
+                {
+                    Response.Redirect(HttpContext.Current.Request.UrlReferrer.AbsoluteUri);
                 }
                 else
                 {
@@ -1465,6 +1510,26 @@ namespace WebAppAegisCRM.Service
                     }
                     MessageDocket.Show = true;
                 }
+            }
+        }
+
+        private void CallAttendanceSave(Business.Service.ServiceBook objServiceBook, Entity.Service.ServiceBook serviceBook, ServiceCallAttendance serviceCallAttendance, long serviceBookId)
+        {
+            if (serviceBookId > 0)
+            {
+                serviceCallAttendance.EmployeeId = serviceBook.EmployeeId_FK;
+                serviceCallAttendance.ServiceBookId = serviceBookId;
+                serviceCallAttendance.InTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.Now : DateTime.MinValue;
+                serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : DateTime.Now;
+                serviceCallAttendance.CallStatusId = serviceBook.CallStatusId;
+                serviceCallAttendance.Status = 1;
+                objServiceBook.Service_CallAttendance_Save(serviceCallAttendance);
+            }
+            else
+            {
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = "Sorry! unable log In-Time. Please try again.";
+                MessageDocket.Show = true;
             }
         }
 

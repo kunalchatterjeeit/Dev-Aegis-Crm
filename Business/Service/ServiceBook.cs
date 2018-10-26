@@ -141,5 +141,21 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_CallAttendance_Delete(serviceCallAttendanceId);
         }
+
+        public DataTable Service_ServiceCallAttendanceByServiceBookId(long serviceBookId)
+        {
+            return DataAccess.Service.ServiceBook.Service_ServiceCallAttendanceByServiceBookId(serviceBookId);
+        }
+
+        public bool IsCallInPresent(long serviceBookId)
+        {
+            bool retValue = false;
+            DataTable response = Service_ServiceCallAttendanceByServiceBookId(serviceBookId);
+            if (response != null)
+            {
+                retValue = response.Select("InTime IS NOT NULL AND OutTime IS NULL AND ServiceBookId = " + serviceBookId.ToString()).Any();
+            }
+            return retValue;
+        }
     }
 }

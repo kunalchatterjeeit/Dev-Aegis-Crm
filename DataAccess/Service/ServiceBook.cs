@@ -910,5 +910,34 @@ namespace DataAccess.Service
             }
             return rowsAffacted;
         }
+
+        public static DataTable Service_ServiceCallAttendanceByServiceBookId(long serviceBookId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_ServiceCallAttendanceByServiceBookId";
+
+                            cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

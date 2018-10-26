@@ -6,17 +6,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function validation() {
+            if (document.getElementById("<%=ddlBrand.ClientID %>").selectedIndex == 0) {
+                alert('Select Brand');
+                document.getElementById("<%=ddlBrand.ClientID %>").focus();
+                return false;
+            }
             if (document.getElementById("<%=ddlProduct.ClientID %>").selectedIndex == 0) {
-                alert('Select Product');
+                alert('Select Model');
                 document.getElementById("<%=ddlProduct.ClientID %>").focus();
                 return false;
             }
             if (document.getElementById("<%=txtProductSlNo.ClientID %>").value == '') {
-                alert('Enter Product Serial No.');
+                alert('Enter Model Serial No.');
                 document.getElementById("<%=txtProductSlNo.ClientID %>").focus();
                 return false;
             }
-
+            if (document.getElementById("<%=ddlAssignEngineer.ClientID %>").selectedIndex == 0) {
+                alert('Select Assign Engineer');
+                document.getElementById("<%=ddlAssignEngineer.ClientID %>").focus();
+                return false;
+            }
         }
     </script>
 </asp:Content>
@@ -121,7 +130,7 @@
                                         <legend>Enter model details</legend>
                                         <table class="popup-table">
                                             <tr>
-                                                <td>Machine Id<span class="mandatory">*</span>
+                                                <td>Machine Id <span class="mandatory">*</span>
                                                 </td>
                                                 <td class="has-error">
                                                     <asp:TextBox ID="txtMachineId" runat="server" CssClass="form-control" Enabled="false"
@@ -161,9 +170,9 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Model Sl. No.
+                                                <td>Model Sl. No. <span class="mandatory">*</span>
                                                 </td>
-                                                <td>
+                                                <td class="has-error">
                                                     <asp:TextBox ID="txtProductSlNo" runat="server" CssClass="form-control"></asp:TextBox>
                                                 </td>
                                                 <td>Address
@@ -173,9 +182,9 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Assign Engineer
+                                                <td>Assign Engineer <span class="mandatory">*</span>
                                                 </td>
-                                                <td>
+                                                <td class="has-error">
                                                     <asp:DropDownList ID="ddlAssignEngineer" runat="server" CssClass="form-control">
                                                     </asp:DropDownList>
                                                 </td>
@@ -194,7 +203,7 @@
                                                 <td>Installation Date</td>
                                                 <td>
                                                     <asp:TextBox ID="txtInstallationDate" CssClass="form-control" runat="server"></asp:TextBox>
-                                 `                   <asp:CalendarExtender ID="txtInstallationDate_CalendarExtender" runat="server" Enabled="True"
+                                                    <asp:CalendarExtender ID="txtInstallationDate_CalendarExtender" runat="server" Enabled="True"
                                                         Format="dd MMM yyyy" TargetControlID="txtInstallationDate">
                                                     </asp:CalendarExtender>
                                                 </td>
@@ -436,7 +445,8 @@
                             <ContentTemplate>
                                 <asp:GridView ID="gvContractList" DataKeyNames="ContractId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvContractList_RowCommand">
+                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvContractList_RowCommand"
+                                    OnRowDataBound="gvContractList_RowDataBound">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>

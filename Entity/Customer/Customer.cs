@@ -266,5 +266,9 @@ namespace Entity.Customer
         public DateTime ContractStartDate { get; set; }
         public DateTime ContractEndDate { get; set; }
         public int AssignEngineer { get; set; }
+        public Int64 A3BWMeterReading { get; set; }
+        public Int64 A3CLMeterReading { get; set; }
+        public Int64 A4BWMeterReading { get; set; }
+        public Int64 A4CLMeterReading { get; set; }
     }
 }

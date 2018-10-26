@@ -59,13 +59,16 @@ namespace WebAppAegisCRM
                 Entity.Common.Auth auth = new Auth();
                 employeeMaster = objEmployeeMaster.AuthenticateUser(txtUsername.Text);
 
-             if (employeeMaster != null)
-          
+                if (employeeMaster != null)
+
                 {
                     string passowrd = employeeMaster.Password;
                     string userId = employeeMaster.UserId.ToString();
-                   // if (passowrd.Equals(txtPassword.Text.Trim().EncryptQueryString()))
-                   if(true)
+#if (DEBUG)
+                    if (true)
+#else
+                    if (passowrd.Equals(txtPassword.Text.Trim().EncryptQueryString()))
+#endif
                     {
                         string roles = employeeMaster.Roles;
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
