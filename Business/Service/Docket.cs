@@ -35,5 +35,10 @@ namespace Business.Service
         {
             return DataAccess.Service.Docket.Service_Docket_Delete(docketid);
         }
+
+        public DataTable Service_Docket_GetByCallStatusIds(string callStatusIds, int assignEngineer)
+        {
+            return DataAccess.Service.Docket.Service_Docket_GetByCallStatusIds(callStatusIds, assignEngineer);
+        }
     }
 }

@@ -417,6 +417,9 @@
                                 <li id="liServiceBookReport" runat="server">
                                     <a href="../Service/ServiceBookReport.aspx">Service Book Report</a>
                                 </li>
+                                 <li id="lileave" runat="server">
+                                    <a href="../leave/LeaveApplication.aspx">Take Leave</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -25,7 +25,7 @@ namespace WebAppAegisCRM.Purchase
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 purchase.CreatedBy = 0;
             else
-                purchase.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+            purchase.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
             gvPurchase.DataSource = objPurchase.Purchase_GetAll(purchase);
             gvPurchase.DataBind();
         }

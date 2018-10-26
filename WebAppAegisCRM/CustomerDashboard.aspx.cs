@@ -41,6 +41,7 @@ namespace WebAppAegisCRM
             if (!IsPostBack)
             {
                 LoadMachineList();
+                
             }
           
                LoadPieChart();
@@ -48,23 +49,25 @@ namespace WebAppAegisCRM
 
         protected void LoadMachineList()
         {
-            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            Entity.Service.ServiceBook servicebook = new Entity.Service.ServiceBook();
-           // servicebook.ModelId =0;
-            servicebook.MachineId = "";
-            servicebook.FromDate = DateTime.MinValue;
-            servicebook.ToDate = DateTime.MinValue;
+             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+             Entity.Service.ServiceBook servicebook = new Entity.Service.ServiceBook();
 
-            DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(servicebook);
-            
-            using (DataView dv = new DataView(dt))
-            {
-              
-                gvMachineList.DataSource = dv.ToTable();
-                gvMachineList.DataBind();
-            }
-          
+             
+             servicebook.MachineId = "";
+
+
+             DataTable dt = objServiceBook.Service_ServiceBookDetailsApproval_GetAll(servicebook);
+
+             using (DataView dv = new DataView(dt))
+             {
+
+                 gvMachineList.DataSource = dv.ToTable();
+                 gvMachineList.DataBind();
+             }
+           
+
         }
+      
 
         #region User Defined Funtions
         protected void LoadPieChart()

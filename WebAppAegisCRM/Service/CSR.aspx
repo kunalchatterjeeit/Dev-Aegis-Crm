@@ -77,7 +77,7 @@
                                     Contact No - 8335810009, Email - info@aegissolutions.in</h5>
                             </td>
                             <td style="width: 20%">
-                                <img class="rightimg" src="http://www.aegissolutions.in/Contents/images/logo.png" width="200" />
+                                <img class="rightimg" src="http://aegiscrm.in/images/Aegis_CRM_Logo2.png" width="200" />
                             </td>
                         </tr>
                     </tbody>

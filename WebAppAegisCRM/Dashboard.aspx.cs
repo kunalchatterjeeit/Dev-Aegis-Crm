@@ -33,53 +33,59 @@ namespace WebAppAegisCRM
             Business.Service.Docket objDocket = new Business.Service.Docket();
             Entity.Service.Docket docket = new Entity.Service.Docket();
 
-            //docket.PageIndex = 0;
-            //docket.PageSize = 50;
-            docket.DocketNo = "";
-            docket.CustomerId = 0;
-            docket.ProductId = 0;
-            docket.DocketFromDateTime = DateTime.MinValue;
-            docket.DocketToDateTime = DateTime.MinValue;
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                docket.AssignEngineer = 0;
-            else
-                docket.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+            int assignEngineer = 0;
+            string callStatusIds = string.Empty;
 
-            DataTable dt = objDocket.Service_Docket_GetAll(docket);
-            using (DataView dv = new DataView(dt))
-            {
-                dv.RowFilter = "CallStatusId NOT IN (11,6)"; //DOCKET CLOSE && FUNCTIONAL
-                gvDocket.DataSource = dv.ToTable();
-                gvDocket.DataBind();
-            }
+            callStatusIds = string.Concat(((int)CallStatusType.DocketClose).ToString(), ",", ((int)CallStatusType.DocketFunctional).ToString());//DOCKET CLOSE && FUNCTIONAL
+
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                assignEngineer = 0;
+            else
+                assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
+            DataTable dt = objDocket.Service_Docket_GetByCallStatusIds(callStatusIds, assignEngineer);
+            gvDocket.DataSource = dt;
+            gvDocket.DataBind();
         }
 
         protected void LoadTonnerRequest()
         {
             Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
             Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
+            int assignEngineer = 0;
+            string callStatusIds = string.Empty;
+            callStatusIds = string.Concat(((int)CallStatusType.TonerDelivered).ToString(), ",", ((int)CallStatusType.TonerRejected).ToString());//DELIVERED && REJECTED
 
-            tonerRequest.PageIndex = 0;
-            tonerRequest.PageSize = 50;
-            tonerRequest.RequestNo = "";
-            tonerRequest.CustomerId = 0;
-            tonerRequest.ProductId = 0;
-            tonerRequest.RequestFromDateTime = DateTime.MinValue;
-            tonerRequest.RequestToDateTime = DateTime.MinValue;
-            tonerRequest.CallStatusId = 0;
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                tonerRequest.AssignEngineer = 0;
+                assignEngineer = 0;
             else
-                tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+                assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonerRequest).Tables[0];
-            using (DataView dv = new DataView(dt))
-            {
-                dv.RowFilter = "CallStatusId NOT IN (9,10)"; //DELIVERED && REJECTED
-                gvTonnerRequest.DataSource = dv.ToTable();
+            DataTable dt = objTonnerRequest.usp_Service_TonnerRequest_GetByCallStatusIds(callStatusIds, assignEngineer);
+            gvDocket.DataSource = dt;
+            gvDocket.DataBind();
 
-                gvTonnerRequest.DataBind();
-            }
+            /* tonerRequest.PageIndex = 0;
+             tonerRequest.PageSize = 50;
+             tonerRequest.RequestNo = "";
+             tonerRequest.CustomerId = 0;
+             tonerRequest.ProductId = 0;
+             tonerRequest.RequestFromDateTime = DateTime.MinValue;
+             tonerRequest.RequestToDateTime = DateTime.MinValue;
+             tonerRequest.CallStatusId = 0;
+             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                 tonerRequest.AssignEngineer = 0;
+             else
+                 tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
+             DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonerRequest).Tables[0];
+             using (DataView dv = new DataView(dt))
+             {
+                 dv.RowFilter = "CallStatusId NOT IN (9,10)"; //DELIVERED && REJECTED
+                 gvTonnerRequest.DataSource = dv.ToTable();
+
+                 gvTonnerRequest.DataBind();
+             }*/
         }
 
         protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
@@ -174,7 +180,7 @@ namespace WebAppAegisCRM
                 //    e.Row.Attributes["style"] = "background-color: #C6F2C6";
                 //}
                 //else
-                if(((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
+                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
                     anchorCallIn.Attributes["style"] = "display:none";
@@ -185,7 +191,7 @@ namespace WebAppAegisCRM
                     HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
                     anchorCallOut.Attributes["style"] = "display:none";
                 }
-                
+
                 //Call Status wise row color
                 if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
                 {
@@ -202,7 +208,7 @@ namespace WebAppAegisCRM
                 else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #8DF1FC";
-                } 
+                }
                 else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #F7B3FC";

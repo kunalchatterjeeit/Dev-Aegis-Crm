@@ -137,6 +137,7 @@
     <Content Include="Inventory\ProductSpareMapping.aspx" />
     <Content Include="Inventory\Spare.aspx" />
     <Content Include="Inventory\StockSnap.aspx" />
+    <Content Include="leave\LeaveApplication.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MainLogout.aspx" />
     <Content Include="Purchase\Purchase.aspx" />
@@ -356,6 +357,13 @@
     </Compile>
     <Compile Include="Inventory\StockSnap.aspx.designer.cs">
       <DependentUpon>StockSnap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="leave\LeaveApplication.aspx.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="leave\LeaveApplication.aspx.designer.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
