@@ -45,5 +45,10 @@ namespace Business.Service
         {
             return DataAccess.Service.TonnerRequest.Service_TonerLowYieldCheck(tonerRequest);
         }
+
+        public DataTable Service_Toner_GetByCallStatusIds(string callStatusIds, int assignEngineer)
+        {
+            return DataAccess.Service.TonnerRequest.Service_Toner_GetByCallStatusIds(callStatusIds, assignEngineer);
+        }
     }
 }

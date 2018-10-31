@@ -61,7 +61,7 @@ namespace WebAppAegisCRM
             else
                 assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objTonnerRequest.usp_Service_TonnerRequest_GetByCallStatusIds(callStatusIds, assignEngineer);
+            DataTable dt = objTonnerRequest.Service_Toner_GetByCallStatusIds(callStatusIds, assignEngineer);
             gvDocket.DataSource = dt;
             gvDocket.DataBind();
 
