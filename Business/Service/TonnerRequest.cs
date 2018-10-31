@@ -26,6 +26,11 @@ namespace Business.Service
             return DataAccess.Service.TonnerRequest.Service_TonnerRequest_GetAll(tonnerRequest);
         }
 
+        public DataSet Service_TonnerRequest_GetAllMinimal(Entity.Service.TonerRequest tonnerRequest)
+        {
+            return DataAccess.Service.TonnerRequest.Service_TonnerRequest_GetAllMinimal(tonnerRequest);
+        }
+
         public DataTable Service_TonerRequest_GetLast10()
         {
             return DataAccess.Service.TonnerRequest.Service_TonnerRequest_GetLast10();

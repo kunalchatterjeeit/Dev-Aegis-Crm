@@ -941,6 +941,7 @@ namespace WebAppAegisCRM.Service
             dtAssociatedEngineers.Columns.Add("InTime");
             dtAssociatedEngineers.Columns.Add("OutTime");
             dtAssociatedEngineers.Columns.Add("Remarks");
+            dtAssociatedEngineers.Columns.Add("CallStatus");
 
             foreach (GridViewRow gvr in gvAssociatedEngineers.Rows)
             {
@@ -963,6 +964,7 @@ namespace WebAppAegisCRM.Service
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["InTime"] = Convert.ToDateTime(txtAssociatedInDate.Text + " " + ddlAssociatedInTimeHH.SelectedValue + ":" + ddlAssociatedInTimeMM.SelectedValue + ":00" + " " + ddlAssociatedInTimeTT.SelectedValue).ToString("yyyy-MM-dd hh:mm:ss tt");
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["OutTime"] = Convert.ToDateTime(txtAssociatedOutDate.Text + " " + ddlAssociatedOutTimeHH.SelectedValue + ":" + ddlAssociatedOutTimeMM.SelectedValue + ":00" + " " + ddlAssociatedOutTimeTT.SelectedValue).ToString("yyyy-MM-dd hh:mm:ss tt");
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["Remarks"] = txtAssociatedRemarks.Text.Trim();
+                    dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["CallStatus"] = ddlCurrentCallStatusDocket.SelectedValue.Trim();
                     dtAssociatedEngineers.AcceptChanges();
                 }
             }

@@ -143,7 +143,6 @@
                                 <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server"
                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                    OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" PageSize="5" AllowPaging="false"
                                     OnRowDataBound="gvTonnerRequest_RowDataBound">
                                     <Columns>
                                         <asp:TemplateField>

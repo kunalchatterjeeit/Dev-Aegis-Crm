@@ -154,6 +154,37 @@ namespace DataAccess.Service
             }
         }
 
+        public static DataSet Service_TonnerRequest_GetAllMinimal(Entity.Service.TonerRequest tonerRequest)
+        {
+            using (DataSet response = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@CallStatus", tonerRequest.MultipleCallStatusFilter);
+                        if (tonerRequest.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", tonerRequest.AssignEngineer);
+                        //cmd.InsertPaging(tonerRequest, tonerRequest.TonerRequestId);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_TonnerRequest_GetAllMinimal";
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            if (con.State == ConnectionState.Closed)
+                                con.Open();
+                            da.Fill(response);
+                            con.Close();
+                        }
+                    }
+                    return response;
+                }
+            }
+        }
+
         public static DataTable Service_TonnerRequest_GetLast10()
         {
             using (DataTable response = new DataTable())

@@ -52,40 +52,24 @@ namespace WebAppAegisCRM
         {
             Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
             Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
-            int assignEngineer = 0;
+
             string callStatusIds = string.Empty;
-            callStatusIds = string.Concat(((int)CallStatusType.TonerDelivered).ToString(), ",", ((int)CallStatusType.TonerRejected).ToString());//DELIVERED && REJECTED
-
+            callStatusIds = string.Concat(((int)CallStatusType.TonerOpenForApproval).ToString(),
+                ",",
+                ((int)CallStatusType.TonerRequestInQueue).ToString(),
+                ",",
+                ((int)CallStatusType.TonerResponseGiven).ToString());
+            
+            tonerRequest.MultipleCallStatusFilter = callStatusIds;
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                assignEngineer = 0;
+                tonerRequest.AssignEngineer = 0;
             else
-                assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+                tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objTonnerRequest.usp_Service_TonnerRequest_GetByCallStatusIds(callStatusIds, assignEngineer);
-            gvDocket.DataSource = dt;
-            gvDocket.DataBind();
+            DataTable dt = objTonnerRequest.Service_TonnerRequest_GetAllMinimal(tonerRequest).Tables[0];
 
-            /* tonerRequest.PageIndex = 0;
-             tonerRequest.PageSize = 50;
-             tonerRequest.RequestNo = "";
-             tonerRequest.CustomerId = 0;
-             tonerRequest.ProductId = 0;
-             tonerRequest.RequestFromDateTime = DateTime.MinValue;
-             tonerRequest.RequestToDateTime = DateTime.MinValue;
-             tonerRequest.CallStatusId = 0;
-             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                 tonerRequest.AssignEngineer = 0;
-             else
-                 tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-
-             DataTable dt = objTonnerRequest.Service_TonerRequest_GetAll(tonerRequest).Tables[0];
-             using (DataView dv = new DataView(dt))
-             {
-                 dv.RowFilter = "CallStatusId NOT IN (9,10)"; //DELIVERED && REJECTED
-                 gvTonnerRequest.DataSource = dv.ToTable();
-
-                 gvTonnerRequest.DataBind();
-             }*/
+            gvTonnerRequest.DataSource = dt;
+            gvTonnerRequest.DataBind();
         }
 
         protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
