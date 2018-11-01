@@ -76,7 +76,9 @@
     <Compile Include="Service\CallStatusType.cs" />
     <Compile Include="Service\CallType.cs" />
     <Compile Include="Service\Contract.cs" />
+    <Compile Include="Service\DashBoardElements.cs" />
     <Compile Include="Service\Docket.cs" />
+    <Compile Include="Service\DocketResponse.cs" />
     <Compile Include="Service\ProblemMasters.cs" />
     <Compile Include="Service\ServiceBook.cs" />
     <Compile Include="Service\ServiceCallAttendance.cs" />

@@ -13,39 +13,48 @@ namespace WebAppAegisCRM {
     public partial class Dashboard {
         
         /// <summary>
-        /// gvDocket control.
+        /// ltCallback control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDocket;
+        protected global::System.Web.UI.WebControls.Literal ltCallback;
         
         /// <summary>
-        /// gvTonnerRequest control.
+        /// gvDocketAsync control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTonnerRequest;
+        protected global::System.Web.UI.WebControls.GridView gvDocketAsync;
         
         /// <summary>
-        /// gvExpiringSoon control.
+        /// gvTonnerRequestAsync control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvExpiringSoon;
+        protected global::System.Web.UI.WebControls.GridView gvTonnerRequestAsync;
         
         /// <summary>
-        /// gvExpiredList control.
+        /// gvExpiringSoonAsync control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvExpiredList;
+        protected global::System.Web.UI.WebControls.GridView gvExpiringSoonAsync;
+        
+        /// <summary>
+        /// gvExpiredListAsync control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvExpiredListAsync;
     }
 }

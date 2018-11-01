@@ -116,6 +116,7 @@
     <Content Include="images\edit_button.png" />
     <Content Include="images\Error.png" />
     <Content Include="images\go_icon.gif" />
+    <Content Include="images\gridLoader.gif" />
     <Content Include="images\HRMS1.png" />
     <Content Include="images\intime_icon.png" />
     <Content Include="images\not-available.png" />

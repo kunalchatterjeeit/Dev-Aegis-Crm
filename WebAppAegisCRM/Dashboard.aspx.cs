@@ -8,11 +8,14 @@ using System.Data;
 using System.Web.UI.HtmlControls;
 using Entity.Service;
 using Entity.Common;
+using System.Web.Script.Serialization;
 
 namespace WebAppAegisCRM
 {
-    public partial class Dashboard : System.Web.UI.Page
+    public partial class Dashboard : System.Web.UI.Page, ICallbackEventHandler
     {
+        private DashBoardElements _Callback;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
@@ -20,15 +23,20 @@ namespace WebAppAegisCRM
 
             if (!IsPostBack)
             {
-                LoadDocket();
-                LoadTonnerRequest();
-                LoadContractStatusList(0, gvExpiredList.PageSize, ContractStatusType.None);
+                //LoadDocket();
+                //LoadTonnerRequest();
+                //LoadContractStatusList(0, gvExpiredList.PageSize, ContractStatusType.None);
+            }
+
+            if (!Page.IsCallback)
+            {
+                ltCallback.Text = ClientScript.GetCallbackEventReference(this, "'bindDocketgrid'", "EndGetDocketData", "'asyncgrid1'", false);
             }
 
             LoadPieChart();
         }
 
-        protected void LoadDocket()
+        void LoadDocket()
         {
             Business.Service.Docket objDocket = new Business.Service.Docket();
             Entity.Service.Docket docket = new Entity.Service.Docket();
@@ -44,8 +52,8 @@ namespace WebAppAegisCRM
                 assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
             DataTable dt = objDocket.Service_Docket_GetByCallStatusIds(callStatusIds, assignEngineer);
-            gvDocket.DataSource = dt;
-            gvDocket.DataBind();
+            gvDocketAsync.DataSource = dt;
+            gvDocketAsync.DataBind();
         }
 
         protected void LoadTonnerRequest()
@@ -59,7 +67,7 @@ namespace WebAppAegisCRM
                 ((int)CallStatusType.TonerRequestInQueue).ToString(),
                 ",",
                 ((int)CallStatusType.TonerResponseGiven).ToString());
-            
+
             tonerRequest.MultipleCallStatusFilter = callStatusIds;
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 tonerRequest.AssignEngineer = 0;
@@ -68,8 +76,8 @@ namespace WebAppAegisCRM
 
             DataTable dt = objTonnerRequest.Service_TonnerRequest_GetAllMinimal(tonerRequest).Tables[0];
 
-            gvTonnerRequest.DataSource = dt;
-            gvTonnerRequest.DataBind();
+            gvTonnerRequestAsync.DataSource = dt;
+            gvTonnerRequestAsync.DataBind();
         }
 
         protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
@@ -89,25 +97,25 @@ namespace WebAppAegisCRM
 
             if (ContractStatusType.None == contractType)
             {
-                gvExpiringSoon.DataSource = ds.Tables[0];
-                gvExpiringSoon.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiringSoon.DataBind();
+                gvExpiringSoonAsync.DataSource = ds.Tables[0];
+                gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiringSoonAsync.DataBind();
 
-                gvExpiredList.DataSource = ds.Tables[1];
-                gvExpiredList.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiredList.DataBind();
+                gvExpiredListAsync.DataSource = ds.Tables[1];
+                gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiredListAsync.DataBind();
             }
             else if (ContractStatusType.Expiring == contractType)
             {
-                gvExpiringSoon.DataSource = ds.Tables[0];
-                gvExpiringSoon.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiringSoon.DataBind();
+                gvExpiringSoonAsync.DataSource = ds.Tables[0];
+                gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiringSoonAsync.DataBind();
             }
             else if (ContractStatusType.Expired == contractType)
             {
-                gvExpiredList.DataSource = ds.Tables[1];
-                gvExpiredList.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiredList.DataBind();
+                gvExpiredListAsync.DataSource = ds.Tables[1];
+                gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
+                gvExpiredListAsync.DataBind();
             }
         }
 
@@ -123,31 +131,19 @@ namespace WebAppAegisCRM
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "PieData(" + dt.Rows[0]["ExperingSoon"].ToString() + "," + dt.Rows[0]["Expired"].ToString() + "," + dt.Rows[0]["InContract"].ToString() + "," + dt.Rows[0]["NeverContracted"].ToString() + ")", true);
         }
 
-        protected void gvDocket_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvExpiringSoonAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvDocket.PageIndex = e.NewPageIndex;
-            LoadDocket();
+            gvExpiringSoonAsync.PageIndex = e.NewPageIndex;
+            LoadContractStatusList(e.NewPageIndex, gvExpiringSoonAsync.PageSize, ContractStatusType.Expiring);
         }
 
-        protected void gvTonnerRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        protected void gvExpiredListAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvTonnerRequest.PageIndex = e.NewPageIndex;
-            LoadTonnerRequest();
+            gvExpiredListAsync.PageIndex = e.NewPageIndex;
+            LoadContractStatusList(e.NewPageIndex, gvExpiredListAsync.PageSize, ContractStatusType.Expired);
         }
 
-        protected void gvExpiringSoon_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvExpiringSoon.PageIndex = e.NewPageIndex;
-            LoadContractStatusList(e.NewPageIndex, gvExpiringSoon.PageSize, ContractStatusType.Expiring);
-        }
-
-        protected void gvExpiredList_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvExpiredList.PageIndex = e.NewPageIndex;
-            LoadContractStatusList(e.NewPageIndex, gvExpiredList.PageSize, ContractStatusType.Expired);
-        }
-
-        protected void gvDocket_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvDocketAsync_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -164,7 +160,7 @@ namespace WebAppAegisCRM
                 //    e.Row.Attributes["style"] = "background-color: #C6F2C6";
                 //}
                 //else
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
+                if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
                     anchorCallIn.Attributes["style"] = "display:none";
@@ -177,30 +173,30 @@ namespace WebAppAegisCRM
                 }
 
                 //Call Status wise row color
-                if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
+                if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #FF8787";
                 }
-                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #A7FC94";
                 }
-                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSpares).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSpares).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #8DF1FC";
                 }
-                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #8DF1FC";
                 }
-                else if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex + gvDocket.PageIndex * gvDocket.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #F7B3FC";
                 }
             }
         }
 
-        protected void gvTonnerRequest_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void gvTonnerRequestAsync_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -208,15 +204,51 @@ namespace WebAppAegisCRM
                 anchorToner.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TONNER_QUICK_LINK_PERMISSION);
 
                 //Call Status wise row color
-                if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString())
+                if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequestAsync.PageIndex * gvTonnerRequestAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #FF8787";
                 }
-                else if (((DataTable)(gvTonnerRequest.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
+                else if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequestAsync.PageIndex * gvTonnerRequestAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #A7FC94";
                 }
             }
+        }
+
+        public void RaiseCallbackEvent(string eventArgument)
+        {
+            _Callback = new DashBoardElements();
+            LoadDocket();
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                gvDocketAsync.RenderControl(new HtmlTextWriter(sw));
+                _Callback.DocketList = sw.ToString();
+            }
+
+            LoadTonnerRequest();
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                gvTonnerRequestAsync.RenderControl(new HtmlTextWriter(sw));
+                _Callback.TonerList = sw.ToString();
+            }
+
+            LoadContractStatusList(0, gvExpiredListAsync.PageSize, ContractStatusType.None);
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                gvExpiringSoonAsync.RenderControl(new HtmlTextWriter(sw));
+                _Callback.ExpiringSoonList = sw.ToString();
+            }
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                gvExpiredListAsync.RenderControl(new HtmlTextWriter(sw));
+                _Callback.ExpiredList = sw.ToString();
+            }
+        }
+
+        public string GetCallbackResult()
+        {
+            string json = new JavaScriptSerializer().Serialize(_Callback);
+            return json;
         }
     }
 }
