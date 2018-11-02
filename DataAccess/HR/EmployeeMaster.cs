@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Entity.HR;
 
 namespace DataAccess.HR
 {
@@ -93,6 +94,11 @@ namespace DataAccess.HR
                 }
             }
             return rowsAffacted;
+        }
+
+        public static int LeaveDesignationConfig_Delete(LeaveMaster objElEmployeeMaster)
+        {
+            throw new NotImplementedException();
         }
 
         public static int EmployeeDelete(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
