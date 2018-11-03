@@ -38,6 +38,14 @@ namespace DataAccess.HR
             }
             return retValue;
         }
+
+       
+
+        public static int LeaveDesignationConfig_GetAll(LeaveMaster objLeaveManagement)
+        {
+            throw new NotImplementedException();
+        }
+
         public static DataTable LeaveDesignationConfig_GetAll()
         {
             using (DataTable dt = new DataTable())
@@ -59,7 +67,7 @@ namespace DataAccess.HR
                 return dt;
             }
         }
-        public static int LeaveDesignationConfig_Delete(int LeaveApprovalConfigId)
+        public static int LeaveDesignationConfig_Delete(LeaveMaster objLeaveManagement)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -70,7 +78,7 @@ namespace DataAccess.HR
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_LeaveDesignationConfig_Delete";
 
-                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", LeaveApprovalConfigId);
+                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", objLeaveManagement);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -80,27 +88,7 @@ namespace DataAccess.HR
             }
             return rowsAffacted;
         }
-        public static int LeaveDesignationConfig_Delete(int LeaveApprovalConfigId)
-        {
-            int rowsAffacted = 0;
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveDesignationConfig_Delete";
-
-                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", LeaveApprovalConfigId);
-
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            return rowsAffacted;
-        }
+       
         public static int LeaveApplicationMaster_Save(Entity.HR.LeaveMaster Leave)
         {
             int retValue = 0;
@@ -132,8 +120,12 @@ namespace DataAccess.HR
             }
             return retValue;
         }
+        public static int LeaveApplicationMaster_GetAll(LeaveMaster objleaveapplicationmaster)
+        {
+            throw new NotImplementedException();
+        }
 
-        public static DataTable LeaveApplicationMaster_GetAll()
+        public static DataTable LeaveApplicationMaster_GetAl(LeaveMaster objleaveapplicationmaster)
         {
             using (DataTable dt = new DataTable())
             {
@@ -154,7 +146,7 @@ namespace DataAccess.HR
                 return dt;
             }
         }
-        public static int LeaveApplicationMaster_Delete(int LeaveApplicationId)
+        public static int LeaveApplicationMaster_Delete(LeaveMaster objleaveapplicationmaster)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -165,7 +157,7 @@ namespace DataAccess.HR
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_LeaveApplicationMaster_Delete";
 
-                    cmd.Parameters.AddWithValue("@LeaveApplicationId", LeaveApplicationId);
+                    cmd.Parameters.AddWithValue("@LeaveApplicationId", objleaveapplicationmaster);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
