@@ -27,6 +27,7 @@ namespace Entity.HR
         public int LeaveStatusId { get; set; }
         public int Reason { get; set; }
         public int Attachment { get; set; }
+        public int ApplyDate { get; set; }
 
     }
 

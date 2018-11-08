@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Business.HR
 {
-    class LeaveManagement
+   public class LeaveManagement
     {
         public int LeaveDesignationConfig_Save(Entity.HR.LeaveMaster objLeaveManagement)
         {
