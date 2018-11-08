@@ -1,7 +1,13 @@
-﻿<%@ Page Title="EMPLOYEE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="True"
-    CodeBehind="Employee.aspx.cs" Inherits="WebAppAegisCRM.Employee.Employee" %>
+﻿<%@ Page Title="Leave Application" Language="C#" AutoEventWireup="true" CodeBehind="LeaveApplication.aspx.cs"
+     MasterPageFile="~/Main.Master" Inherits="WebAppAegisCRM.HR.LeaveApplication" %>
+
+
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<script runat="server">
+
+</script>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

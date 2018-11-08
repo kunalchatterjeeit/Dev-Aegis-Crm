@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
-    public partial class LeaveApplication : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+	public partial class LeaveApplication : System.Web.UI.Page
+	{
+		protected void Page_Load(object sender, EventArgs e)
+		{
 
-        }
-    }
+		}
+	}
 }
