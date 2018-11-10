@@ -10,7 +10,7 @@ using System.Configuration;
 using Business.Common;
 
 
-namespace WebAppAegisCRM.HR
+namespace WebAppAegisCRM.LeaveManagement
 {
 	public partial class LeaveApplication : System.Web.UI.Page
 	{
