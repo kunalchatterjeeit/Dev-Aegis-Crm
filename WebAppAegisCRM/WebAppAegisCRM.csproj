@@ -101,6 +101,7 @@
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="HR\LeaveApplication.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
@@ -281,6 +282,13 @@
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HR\LeaveApplication.aspx.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\LeaveApplication.aspx.designer.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
       <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -357,6 +365,12 @@
     </Compile>
     <Compile Include="Inventory\StockSnap.aspx.designer.cs">
       <DependentUpon>StockSnap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="leave\LeaveApplication.aspx.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="leave\LeaveApplication.aspx.designer.cs">
+      <DependentUpon>LeaveApplication.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

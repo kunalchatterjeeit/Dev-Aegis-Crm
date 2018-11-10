@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Entity.HR;
 
 namespace DataAccess.HR
 {
@@ -95,24 +96,14 @@ namespace DataAccess.HR
             return rowsAffacted;
         }
 
-        public static int EmployeeDelete(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
+        public static int LeaveDesignationConfig_GetAll(LeaveMaster objElEmployeeMaster)
         {
-            int rowsAffacted = 0;
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandText = "usp_Customer_Customer_Save";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("", ObjElEmployeeMaster.EmployeeMasterId);
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            return rowsAffacted;
+            throw new NotImplementedException();
+        }
+
+        public static int EmployeeDelete(Entity.HR.EmployeeMaster objElEmployeeMaster)
+        {
+            throw new NotImplementedException();
         }
 
         public static DataTable EmployeeMaster_GetAll(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
