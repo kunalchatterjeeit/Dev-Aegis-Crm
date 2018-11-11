@@ -12,7 +12,7 @@ namespace DataAccess.Common
     {
         public static SqlCommand InsertPaging(this SqlCommand sqlCommand, BaseEntity entity, long primaryId)
         {
-            int pageIndex = (entity.PageIndex < 0) ? 0 : entity.PageIndex * entity.PageSize; //Coming to next page row number
+            int pageIndex = (entity.PageIndex < 0) ? 0 : entity.PageIndex; //Coming to next page row number
 
             pageIndex = (primaryId > 0) ? 0 : pageIndex; //For single record coming blank
 

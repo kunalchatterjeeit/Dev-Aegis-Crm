@@ -1232,7 +1232,7 @@ namespace WebAppAegisCRM.Service
 
         protected void btnTonnerRequestSearch_Click(object sender, EventArgs e)
         {
-            LoadTonnerRequest(0, gvTonnerRequest.PageSize);
+            LoadTonnerRequest(1, gvTonnerRequest.PageSize);
         }
 
         protected void chkDocket_CheckedChanged(object sender, EventArgs e)

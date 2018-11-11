@@ -15,28 +15,26 @@ namespace WebAppAegisCRM
     public partial class Dashboard : System.Web.UI.Page, ICallbackEventHandler
     {
         private DashBoardElements _Callback;
+        private static DashboardEvent _DashboardEvent { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
-
             if (!IsPostBack)
             {
-                //LoadDocket();
-                //LoadTonnerRequest();
-                //LoadContractStatusList(0, gvExpiredList.PageSize, ContractStatusType.None);
+                _DashboardEvent = DashboardEvent.None;
             }
 
             if (!Page.IsCallback)
             {
-                ltCallback.Text = ClientScript.GetCallbackEventReference(this, "'bindDocketgrid'", "EndGetDocketData", "'asyncgrid1'", false);
+                ltCallback.Text = ClientScript.GetCallbackEventReference(this, "'bindDocketgrid'", "EndGetDocketData", "'asyncgrid1'", true);
             }
 
             LoadPieChart();
         }
 
-        void LoadDocket()
+        private void LoadDocket(int pageIndex, int pageSize)
         {
             Business.Service.Docket objDocket = new Business.Service.Docket();
             Entity.Service.Docket docket = new Entity.Service.Docket();
@@ -51,16 +49,26 @@ namespace WebAppAegisCRM
             else
                 assignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objDocket.Service_Docket_GetByCallStatusIds(callStatusIds, assignEngineer);
-            gvDocketAsync.DataSource = dt;
+            docket.CallStatusIds = callStatusIds;
+            docket.AssignEngineer = assignEngineer;
+            docket.PageIndex = pageIndex;
+            docket.PageSize = pageSize;
+
+            DataSet response = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.Docket) ? objDocket.Service_Docket_GetByCallStatusIds(docket) : Business.Common.Context.DocketList;
+            Business.Common.Context.DocketList = response;
+            gvDocketAsync.DataSource = response.Tables[0];
+            gvDocketAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvDocketAsync.DataBind();
+            //lblDocketTotal.Text = string.Concat("Total records: {0}", gvDocketAsync.VirtualItemCount);
         }
 
-        protected void LoadTonnerRequest()
+        private void LoadTonerRequest(int pageIndex, int pageSize)
         {
             Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
             Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
 
+            tonerRequest.PageIndex = pageIndex;
+            tonerRequest.PageSize = pageSize;
             string callStatusIds = string.Empty;
             callStatusIds = string.Concat(((int)CallStatusType.TonerOpenForApproval).ToString(),
                 ",",
@@ -74,10 +82,12 @@ namespace WebAppAegisCRM
             else
                 tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataTable dt = objTonnerRequest.Service_TonnerRequest_GetAllMinimal(tonerRequest).Tables[0];
-
-            gvTonnerRequestAsync.DataSource = dt;
+            DataSet response = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.Toner) ? objTonnerRequest.Service_TonnerRequest_GetAllMinimal(tonerRequest) : Business.Common.Context.TonerList;
+            Business.Common.Context.TonerList = response;
+            gvTonnerRequestAsync.DataSource = response.Tables[0];
+            gvTonnerRequestAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvTonnerRequestAsync.DataBind();
+            //lblTonerTotal.Text = string.Concat("Total records: ", gvTonnerRequestAsync.VirtualItemCount);
         }
 
         protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
@@ -93,7 +103,9 @@ namespace WebAppAegisCRM
                 contract.AssignEngineer = 0;
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataSet ds = objContract.Service_ContractStatusList(contract);
+
+            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList || _DashboardEvent == DashboardEvent.ExpiringList) ? objContract.Service_ContractStatusList(contract) : Business.Common.Context.ContractStatusList;
+            Business.Common.Context.ContractStatusList = ds;
 
             if (ContractStatusType.None == contractType)
             {
@@ -117,6 +129,8 @@ namespace WebAppAegisCRM
                 gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
                 gvExpiredListAsync.DataBind();
             }
+            //lblExpiringTotal.Text = string.Concat("Total records: {0}", gvExpiringSoonAsync.VirtualItemCount);
+            //lblExpiredTotal.Text = string.Concat("Total records: {0}", gvExpiredListAsync.VirtualItemCount);
         }
 
         protected void LoadPieChart()
@@ -134,13 +148,29 @@ namespace WebAppAegisCRM
         protected void gvExpiringSoonAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiringSoonAsync.PageIndex = e.NewPageIndex;
-            LoadContractStatusList(e.NewPageIndex, gvExpiringSoonAsync.PageSize, ContractStatusType.Expiring);
+            //LoadContractStatusList(e.NewPageIndex, gvExpiringSoonAsync.PageSize, ContractStatusType.Expiring);
+            _DashboardEvent = DashboardEvent.ExpiringList;
+        }
+
+        protected void gvDocketAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvDocketAsync.PageIndex = e.NewPageIndex;
+            //LoadDocket(e.NewPageIndex, gvDocketAsync.PageSize);
+            _DashboardEvent = DashboardEvent.Docket;
+        }
+
+        protected void gvTonnerRequestAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvTonnerRequestAsync.PageIndex = e.NewPageIndex;
+            _DashboardEvent = DashboardEvent.Toner;
+            //LoadTonnerRequest(e.NewPageIndex, gvDocketAsync.PageSize);
         }
 
         protected void gvExpiredListAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiredListAsync.PageIndex = e.NewPageIndex;
-            LoadContractStatusList(e.NewPageIndex, gvExpiredListAsync.PageSize, ContractStatusType.Expired);
+            //LoadContractStatusList(e.NewPageIndex, gvExpiredListAsync.PageSize, ContractStatusType.Expired);
+            _DashboardEvent = DashboardEvent.ExpiredList;
         }
 
         protected void gvDocketAsync_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -150,16 +180,6 @@ namespace WebAppAegisCRM
                 HtmlContainerControl anchorDocket = e.Row.FindControl("anchorDocket") as HtmlContainerControl;
                 anchorDocket.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_QUICK_LINK_PERMISSION);
 
-                //Call Attending
-                //if (((DataTable)(gvDocket.DataSource)).Rows[e.Row.RowIndex]["IsCallOut"].ToString().Equals("1"))
-                //{
-                //    HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
-                //    anchorCallIn.Attributes["style"] = "display:none";
-                //    HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
-                //    anchorCallOut.Attributes["style"] = "display:none";
-                //    e.Row.Attributes["style"] = "background-color: #C6F2C6";
-                //}
-                //else
                 if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
                 {
                     HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
@@ -173,23 +193,23 @@ namespace WebAppAegisCRM
                 }
 
                 //Call Status wise row color
-                if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
+                if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForApproval).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #FF8787";
                 }
-                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #A7FC94";
                 }
-                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSpares).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSpares).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #8DF1FC";
                 }
-                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForConsumables).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #8DF1FC";
                 }
-                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex + gvDocketAsync.PageIndex * gvDocketAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
+                else if (((DataTable)(gvDocketAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.DocketOpenForSeniorEngineer).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #F7B3FC";
                 }
@@ -204,11 +224,11 @@ namespace WebAppAegisCRM
                 anchorToner.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TONNER_QUICK_LINK_PERMISSION);
 
                 //Call Status wise row color
-                if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequestAsync.PageIndex * gvTonnerRequestAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString())
+                if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.TonerOpenForApproval).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #FF8787";
                 }
-                else if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex + gvTonnerRequestAsync.PageIndex * gvTonnerRequestAsync.PageSize]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
+                else if (((DataTable)(gvTonnerRequestAsync.DataSource)).Rows[e.Row.RowIndex]["CallStatusId"].ToString() == ((int)CallStatusType.TonerResponseGiven).ToString())
                 {
                     e.Row.Attributes["style"] = "background-color: #A7FC94";
                 }
@@ -218,14 +238,15 @@ namespace WebAppAegisCRM
         public void RaiseCallbackEvent(string eventArgument)
         {
             _Callback = new DashBoardElements();
-            LoadDocket();
+
+            LoadDocket((gvDocketAsync.PageIndex == 0) ? 1 : gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
             using (System.IO.StringWriter sw = new System.IO.StringWriter())
             {
                 gvDocketAsync.RenderControl(new HtmlTextWriter(sw));
                 _Callback.DocketList = sw.ToString();
             }
 
-            LoadTonnerRequest();
+            LoadTonerRequest((gvTonnerRequestAsync.PageIndex == 0) ? 1 : gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
             using (System.IO.StringWriter sw = new System.IO.StringWriter())
             {
                 gvTonnerRequestAsync.RenderControl(new HtmlTextWriter(sw));

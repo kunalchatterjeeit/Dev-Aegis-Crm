@@ -5,6 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
+using DataAccess.Common;
 
 namespace DataAccess.Service
 {
@@ -189,19 +190,20 @@ namespace DataAccess.Service
             return rowsAffacted;
         }
 
-        public static DataTable Service_Docket_GetByCallStatusIds(string callStatusIds, int assignEngineer)
+        public static DataSet Service_Docket_GetByCallStatusIds(Entity.Service.Docket docket)
         {
-            using (DataTable dt = new DataTable())
+            using (DataSet ds = new DataSet())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.Parameters.AddWithValue("@CallStatusId", callStatusIds);
-                        if (assignEngineer == 0)
+                        cmd.Parameters.AddWithValue("@CallStatusId", docket.CallStatusIds);
+                        if (docket.AssignEngineer == 0)
                             cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@AssignEngineer", assignEngineer);
+                            cmd.Parameters.AddWithValue("@AssignEngineer", docket.AssignEngineer);
+                        cmd.InsertPaging(docket, docket.DocketId);
 
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -210,12 +212,12 @@ namespace DataAccess.Service
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            da.Fill(ds);
                         }
                         con.Close();
                     }
                 }
-                return dt;
+                return ds;
             }
         }
     }

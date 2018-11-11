@@ -36,9 +36,9 @@ namespace Business.Service
             return DataAccess.Service.Docket.Service_Docket_Delete(docketid);
         }
 
-        public DataTable Service_Docket_GetByCallStatusIds(string callStatusIds, int assignEngineer)
+        public DataSet Service_Docket_GetByCallStatusIds(Entity.Service.Docket docket)
         {
-            return DataAccess.Service.Docket.Service_Docket_GetByCallStatusIds(callStatusIds, assignEngineer);
+            return DataAccess.Service.Docket.Service_Docket_GetByCallStatusIds(docket);
         }
     }
 }
