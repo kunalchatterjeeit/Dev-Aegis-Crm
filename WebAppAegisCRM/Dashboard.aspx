@@ -92,7 +92,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div style="min-height: 30vh;">
+                        <div style="min-height: 25vh;">
                             <div class="table-responsive" id="gvDocketDiv">
                                 <div class="over" style="position: absolute; width: 100%; height: 100%">
                                     <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
@@ -101,7 +101,7 @@
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                     class="table table-striped" GridLines="None" Style="text-align: left"
                                     OnRowDataBound="gvDocketAsync_RowDataBound" OnPageIndexChanging="gvDocketAsync_PageIndexChanging"
-                                    AllowPaging="true" AllowCustomPaging="true" PageSize="6">
+                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div style="min-height: 30vh;">
+                        <div style="min-height: 25vh;">
                             <div class="table-responsive" id="gvTonerDiv">
                                 <div class="over" style="position: absolute; width: 100%; height: 100%">
                                     <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
@@ -173,7 +173,7 @@
                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
                                     OnRowDataBound="gvTonnerRequestAsync_RowDataBound" OnPageIndexChanging="gvTonnerRequestAsync_PageIndexChanging"
-                                    AllowPaging="true" AllowCustomPaging="true" PageSize="6">
+                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -244,7 +244,7 @@
                             <asp:GridView ID="gvExpiringSoonAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiringSoonAsync_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
+                                OnPageIndexChanging="gvExpiringSoonAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
@@ -301,7 +301,7 @@
                             <asp:GridView ID="gvExpiredListAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiredListAsync_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
+                                OnPageIndexChanging="gvExpiredListAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>

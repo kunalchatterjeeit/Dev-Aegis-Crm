@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Common\City.cs" />
+    <Compile Include="Common\Login.cs" />
     <Compile Include="Customer\Contract.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAddress.cs" />

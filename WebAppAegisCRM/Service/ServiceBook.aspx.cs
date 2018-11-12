@@ -1391,7 +1391,7 @@ namespace WebAppAegisCRM.Service
                     if (readingResponse > 0)
                     {
                         ClearTonnerControls();
-                        LoadTonnerRequest(gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
+                        LoadTonnerRequest((gvTonnerRequest.PageIndex == 0)? 1: gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
                         MessageTonner.IsSuccess = true;
                         MessageTonner.Text = "Response to this Toner Request has been given.";
                     }
