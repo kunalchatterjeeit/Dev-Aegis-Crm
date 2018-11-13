@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Leave Application" Language="C#" AutoEventWireup="true" CodeBehind="LeaveApplication.aspx.cs"
-     MasterPageFile="~/Main.Master" Inherits="WebAppAegisCRM.HR.LeaveApplication" %>
+     MasterPageFile="~/Main.Master" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplication" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 

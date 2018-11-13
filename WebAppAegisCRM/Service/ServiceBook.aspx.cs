@@ -941,6 +941,7 @@ namespace WebAppAegisCRM.Service
             dtAssociatedEngineers.Columns.Add("InTime");
             dtAssociatedEngineers.Columns.Add("OutTime");
             dtAssociatedEngineers.Columns.Add("Remarks");
+            dtAssociatedEngineers.Columns.Add("CallStatus");
 
             foreach (GridViewRow gvr in gvAssociatedEngineers.Rows)
             {
@@ -963,6 +964,7 @@ namespace WebAppAegisCRM.Service
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["InTime"] = Convert.ToDateTime(txtAssociatedInDate.Text + " " + ddlAssociatedInTimeHH.SelectedValue + ":" + ddlAssociatedInTimeMM.SelectedValue + ":00" + " " + ddlAssociatedInTimeTT.SelectedValue).ToString("yyyy-MM-dd hh:mm:ss tt");
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["OutTime"] = Convert.ToDateTime(txtAssociatedOutDate.Text + " " + ddlAssociatedOutTimeHH.SelectedValue + ":" + ddlAssociatedOutTimeMM.SelectedValue + ":00" + " " + ddlAssociatedOutTimeTT.SelectedValue).ToString("yyyy-MM-dd hh:mm:ss tt");
                     dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["Remarks"] = txtAssociatedRemarks.Text.Trim();
+                    dtAssociatedEngineers.Rows[dtAssociatedEngineers.Rows.Count - 1]["CallStatus"] = ddlCurrentCallStatusDocket.SelectedValue.Trim();
                     dtAssociatedEngineers.AcceptChanges();
                 }
             }
@@ -1230,7 +1232,7 @@ namespace WebAppAegisCRM.Service
 
         protected void btnTonnerRequestSearch_Click(object sender, EventArgs e)
         {
-            LoadTonnerRequest(0, gvTonnerRequest.PageSize);
+            LoadTonnerRequest(1, gvTonnerRequest.PageSize);
         }
 
         protected void chkDocket_CheckedChanged(object sender, EventArgs e)
@@ -1389,7 +1391,7 @@ namespace WebAppAegisCRM.Service
                     if (readingResponse > 0)
                     {
                         ClearTonnerControls();
-                        LoadTonnerRequest(gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
+                        LoadTonnerRequest((gvTonnerRequest.PageIndex == 0)? 1: gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
                         MessageTonner.IsSuccess = true;
                         MessageTonner.Text = "Response to this Toner Request has been given.";
                     }

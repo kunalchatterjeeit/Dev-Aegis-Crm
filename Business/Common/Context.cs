@@ -111,5 +111,41 @@ namespace Business.Common
                 HttpContext.Current.Session["SpareRequisition"] = value;
             }
         }
+
+        public static DataSet DocketList
+        {
+            get
+            {
+                return (HttpContext.Current.Session["DocketList"] != null) ? (DataSet)HttpContext.Current.Session["DocketList"] : new DataSet();
+            }
+            set
+            {
+                HttpContext.Current.Session["DocketList"] = value;
+            }
+        }
+
+        public static DataSet TonerList
+        {
+            get
+            {
+                return (HttpContext.Current.Session["TonerList"] != null) ? (DataSet)HttpContext.Current.Session["TonerList"] : new DataSet();
+            }
+            set
+            {
+                HttpContext.Current.Session["TonerList"] = value;
+            }
+        }
+
+        public static DataSet ContractStatusList
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ContractStatusList"] != null) ? (DataSet)HttpContext.Current.Session["ContractStatusList"] : new DataSet();
+            }
+            set
+            {
+                HttpContext.Current.Session["ContractStatusList"] = value;
+            }
+        }
     }
 }

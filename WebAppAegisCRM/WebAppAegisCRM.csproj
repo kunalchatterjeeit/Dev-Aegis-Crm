@@ -101,7 +101,6 @@
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
-    <Content Include="HR\LeaveApplication.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
@@ -118,6 +117,7 @@
     <Content Include="images\edit_button.png" />
     <Content Include="images\Error.png" />
     <Content Include="images\go_icon.gif" />
+    <Content Include="images\gridLoader.gif" />
     <Content Include="images\HRMS1.png" />
     <Content Include="images\intime_icon.png" />
     <Content Include="images\not-available.png" />
@@ -140,8 +140,9 @@
     <Content Include="Inventory\ProductSpareMapping.aspx" />
     <Content Include="Inventory\Spare.aspx" />
     <Content Include="Inventory\StockSnap.aspx" />
-    <Content Include="leave\LeaveApplication.aspx" />
+    <Content Include="LeaveManagement\LeaveApplication.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="logindetails.aspx" />
     <Content Include="MainLogout.aspx" />
     <Content Include="Purchase\Purchase.aspx" />
     <Content Include="Purchase\PurchaseList.aspx" />
@@ -284,13 +285,6 @@
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HR\LeaveApplication.aspx.cs">
-      <DependentUpon>LeaveApplication.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HR\LeaveApplication.aspx.designer.cs">
-      <DependentUpon>LeaveApplication.aspx</DependentUpon>
-    </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
       <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -368,10 +362,11 @@
     <Compile Include="Inventory\StockSnap.aspx.designer.cs">
       <DependentUpon>StockSnap.aspx</DependentUpon>
     </Compile>
-    <Compile Include="leave\LeaveApplication.aspx.cs">
+    <Compile Include="LeaveManagement\LeaveApplication.aspx.cs">
       <DependentUpon>LeaveApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="leave\LeaveApplication.aspx.designer.cs">
+    <Compile Include="LeaveManagement\LeaveApplication.aspx.designer.cs">
       <DependentUpon>LeaveApplication.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
@@ -380,6 +375,13 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logindetails.aspx.cs">
+      <DependentUpon>logindetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logindetails.aspx.designer.cs">
+      <DependentUpon>logindetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main.Master.cs">
       <DependentUpon>Main.Master</DependentUpon>

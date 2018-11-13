@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="AEGIS CRM" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true"
-    CodeBehind="Dashboard.aspx.cs" Inherits="WebAppAegisCRM.Dashboard" %>
+    CodeBehind="Dashboard.aspx.cs" Inherits="WebAppAegisCRM.Dashboard" EnableEventValidation="false" %>
 
 <%@ Import Namespace="Business.Common" %>
 <%@ Import Namespace="Entity.Common" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Morris Charts CSS -->
     <link href="bower_components/morrisjs/morris.css" rel="stylesheet" />
@@ -16,6 +17,17 @@
     <script type="text/javascript" src="bower_components/flot/jquery.flot.resize.js"></script>
     <script type="text/javascript" src="bower_components/flot/jquery.flot.time.js"></script>
     <script type="text/javascript" src="bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <style type="text/css">
+        .over img {
+            margin: 0;
+            background: yellow;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
     <script type="text/javascript">
         //Flot Pie Chart
         function PieData(a, b, c, d) {
@@ -58,6 +70,17 @@
             });
         }
     </script>
+    <script type="text/javascript">
+        function EndGetDocketData(arg) {
+            debugger;
+            document.getElementById("gvDocketDiv").innerHTML = $.parseJSON(arg).DocketList;
+            document.getElementById("gvTonerDiv").innerHTML = $.parseJSON(arg).TonerList;
+            document.getElementById("gvExpiringSoonDiv").innerHTML = $.parseJSON(arg).ExpiringSoonList;
+            document.getElementById("gvExpiredDiv").innerHTML = $.parseJSON(arg).ExpiredList;
+        }
+        setTimeout("<asp:literal runat='server' id='ltCallback' />", 100);
+    </script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
@@ -69,20 +92,23 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div style="height: 30vh; overflow: scroll">
-                            <div class="table-responsive">
-                                <asp:GridView ID="gvDocket" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
+                        <div style="min-height: 25vh;">
+                            <div class="table-responsive" id="gvDocketDiv">
+                                <div class="over" style="position: absolute; width: 100%; height: 100%">
+                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
+                                </div>
+                                <asp:GridView ID="gvDocketAsync" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                     class="table table-striped" GridLines="None" Style="text-align: left"
-                                    OnPageIndexChanging="gvDocket_PageIndexChanging" PageSize="5" AllowPaging="false"
-                                    OnRowDataBound="gvDocket_RowDataBound">
+                                    OnRowDataBound="gvDocketAsync_RowDataBound" OnPageIndexChanging="gvDocketAsync_PageIndexChanging"
+                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
                                                 SN.
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <%# Container.DataItemIndex+1 %>
+                                                <%#  (gvDocketAsync.PageIndex * gvDocketAsync.PageSize) + (Container.DataItemIndex + 1) %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Date" DataField="ShortDocketDate" />
@@ -113,13 +139,13 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
-                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <FooterStyle BackColor="#99CCFF" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                     <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                     <EditRowStyle BackColor="#999999" />
                                     <EmptyDataRowStyle CssClass="EditRowStyle" />
                                     <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ED6" ForeColor="White" HorizontalAlign="Center" Font-Overline="False" Font-Underline="False" />
                                     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                     <EmptyDataTemplate>
                                         No Record Found...
@@ -134,24 +160,27 @@
         <div class="col-lg-6">
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    Toner Requests
+                    Toner Requests 
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div style="height: 30vh; overflow: scroll">
-                            <div class="table-responsive">
-                                <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server"
+                        <div style="min-height: 25vh;">
+                            <div class="table-responsive" id="gvTonerDiv">
+                                <div class="over" style="position: absolute; width: 100%; height: 100%">
+                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
+                                </div>
+                                <asp:GridView ID="gvTonnerRequestAsync" DataKeyNames="TonnerRequestId" runat="server"
                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                    OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" PageSize="5" AllowPaging="false"
-                                    OnRowDataBound="gvTonnerRequest_RowDataBound">
+                                    OnRowDataBound="gvTonnerRequestAsync_RowDataBound" OnPageIndexChanging="gvTonnerRequestAsync_PageIndexChanging"
+                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
                                                 SN.
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <%# Container.DataItemIndex+1 %>
+                                                <%#  (gvTonnerRequestAsync.PageIndex * gvTonnerRequestAsync.PageSize) + (Container.DataItemIndex + 1) %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Date" DataField="ShortRequestDate" />
@@ -165,13 +194,13 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
-                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <FooterStyle BackColor="#99CCFF" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                                     <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
                                     <EditRowStyle BackColor="#999999" />
                                     <EmptyDataRowStyle CssClass="EditRowStyle" />
                                     <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ED6" ForeColor="White" HorizontalAlign="Center" />
                                     <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                     <EmptyDataTemplate>
                                         No Record Found...
@@ -208,18 +237,21 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvExpiringSoon" runat="server" DataKeyNames="CustomerId,ContractId"
+                        <div class="table-responsive" id="gvExpiringSoonDiv" style="min-height: 30vh;">
+                            <div class="over" style="position: absolute; width: 100%; height: 100%; min-height: 20vh;">
+                                <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
+                            </div>
+                            <asp:GridView ID="gvExpiringSoonAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiringSoon_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
+                                OnPageIndexChanging="gvExpiringSoonAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
                                             SN.
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <%#  (gvExpiringSoon.PageIndex * gvExpiringSoon.PageSize) + (Container.DataItemIndex + 1) %>
+                                            <%#  (gvExpiringSoonAsync.PageIndex * gvExpiringSoonAsync.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Expire on">
@@ -262,18 +294,21 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="table-responsive">
-                            <asp:GridView ID="gvExpiredList" runat="server" DataKeyNames="CustomerId,ContractId"
+                        <div class="table-responsive" id="gvExpiredDiv" style="min-height: 30vh;">
+                            <div class="over" style="position: absolute; width: 100%; height: 100%; min-height: 20vh;">
+                                <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
+                            </div>
+                            <asp:GridView ID="gvExpiredListAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                 RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                OnPageIndexChanging="gvExpiredList_PageIndexChanging" PageSize="18" AllowPaging="true" AllowCustomPaging="true">
+                                OnPageIndexChanging="gvExpiredListAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
                                             SN.
                                         </HeaderTemplate>
                                         <ItemTemplate>
-                                            <%#  (gvExpiredList.PageIndex * gvExpiredList.PageSize) + (Container.DataItemIndex + 1) %>
+                                            <%#  (gvExpiredListAsync.PageIndex * gvExpiredListAsync.PageSize) + (Container.DataItemIndex + 1) %>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Expired on">

@@ -179,7 +179,7 @@ namespace WebAppAegisCRM.Employee
                 Image1.ImageUrl = "EmployeeImage\\" + dr.Rows[0]["Image"].ToString();
 
             }
-            catch (Exception ex)
+            catch
             {
 
             }

@@ -57,6 +57,7 @@
     <Compile Include="Common\ControlConfiguration.cs" />
     <Compile Include="Common\ErrorLog.cs" />
     <Compile Include="Common\Helper.cs" />
+    <Compile Include="Common\Login.cs" />
     <Compile Include="Common\MailFunctionality.cs" />
     <Compile Include="Common\PdfConverter.cs" />
     <Compile Include="Common\Settings.cs" />
