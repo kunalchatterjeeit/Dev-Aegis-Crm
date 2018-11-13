@@ -10,7 +10,7 @@ using System.Configuration;
 using Business.Common;
 
 
-namespace WebAppAegisCRM.HR
+namespace WebAppAegisCRM.LeaveManagement
 {
 	public partial class LeaveApplication : System.Web.UI.Page
 	{
@@ -40,7 +40,14 @@ namespace WebAppAegisCRM.HR
             leaveMaster.ApplyDate = (txtLAD.Text.Trim() == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtLAD.Text.Trim());
             leaveMaster.Reason = txtReason.Text.Trim();
             leaveMaster.Attachment = Attachment.Text.Trim();
+            LeaveMaster_GetAll();
 
+        }
+        protected void LeaveMaster_GetAll()
+        {
+            Business.HR.LeaveManagement ObjBelLeaveMaster = new Business.HR.LeaveManagement();
+            Entity.HR.LeaveMaster objleaveMaster = new Entity.HR.LeaveMaster();
+           
         }
         public void CleartextBoxes(Control parent)
         {
@@ -55,6 +62,11 @@ namespace WebAppAegisCRM.HR
                     CleartextBoxes(c);
                 }
             }
+        }
+
+        protected void txtReason_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
