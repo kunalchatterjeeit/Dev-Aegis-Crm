@@ -34,7 +34,7 @@ namespace WebAppAegisCRM.Service
                 LoadCallStatus();
                 LoadCustomer();
                 LoadProduct();
-                LoadTonnerRequest(0, gvTonnerRequest.PageSize);
+                LoadTonnerRequest(1, gvTonnerRequest.PageSize);
             }
         }
 
@@ -114,7 +114,7 @@ namespace WebAppAegisCRM.Service
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadTonnerRequest(0, gvTonnerRequest.PageSize);
+            LoadTonnerRequest((gvTonnerRequest.PageIndex == 0) ? 1 : gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
         }
 
         protected void gvTonnerRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
