@@ -13,6 +13,15 @@ namespace WebAppAegisCRM.HR {
     public partial class LeaveConfig {
         
         /// <summary>
+        /// ddlLeaveTypeId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveTypeId;
+        
+        /// <summary>
         /// txtLeaveFrequency control.
         /// </summary>
         /// <remarks>
@@ -40,31 +49,13 @@ namespace WebAppAegisCRM.HR {
         protected global::System.Web.UI.WebControls.TextBox txtCarryForwardCount;
         
         /// <summary>
-        /// txtEncashable control.
+        /// ckEncashable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEncashable;
-        
-        /// <summary>
-        /// txtCreatedDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCreatedDate;
-        
-        /// <summary>
-        /// txtActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtActive;
+        protected global::System.Web.UI.WebControls.CheckBox ckEncashable;
         
         /// <summary>
         /// btnSave control.

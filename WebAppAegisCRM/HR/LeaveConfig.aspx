@@ -14,48 +14,54 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                      
+                         <div class="col-lg-6">
+                            <div class="form-group has-error">
+                               Leave Type Id
+                                <asp:DropDownList ID="ddlLeaveTypeId" CssClass="form-control" runat="server">
+                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                                    <asp:ListItem Value="1">CL</asp:ListItem>
+                                    <asp:ListItem Value="2">PL</asp:ListItem>
+                                    <asp:ListItem Value="3">ML</asp:ListItem>
+                                    
+                                </asp:DropDownList>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group has-error">
-                                LeaveFrequency
+                                Leave Frequency
                                 <asp:TextBox ID="txtLeaveFrequency" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
+                        <br/>
                         <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Leave Accure Date
                                 <asp:TextBox ID="txtLeaveAccureDate" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
+                        <br/>
                          <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Carry Forward Count
                                 <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
+                        <br/>
                          <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Encashable
-                                <asp:TextBox ID="txtEncashable" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:CheckBox ID="ckEncashable" runat="server" />
                             </div>
                         </div>
-                         <div class="col-lg-6">
-                            <div class="form-group has-error">
-                                CreatedDate
-                                <asp:TextBox ID="txtCreatedDate" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
-                         <div class="col-lg-6">
-                            <div class="form-group has-error">
-                                Active
-                                <asp:TextBox ID="txtActive" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
+                        
+                        
 
                          <div class="col-lg-6">
                             <div class="form-group">
                                 <br />
-                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"/>
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning"/>
+                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"  OnClick="btnSave_Click"/>
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"/>
                             </div>
                         </div>
                        
@@ -63,57 +69,63 @@
                 </div>
             </div>
         </div>
-         <div class="col-lg-4">
+       
+            
+ <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Leave Configuration List
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <center>
-                            <asp:GridView ID="dgvLeaveConfiguration" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="LeaveConfigId" ForeColor="#333333" >
-                                <Columns>
-                                    <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
-                                        <ItemTemplate>
-                                            <%#Container.DataItemIndex+1 %>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="LeaveConfigId" HeaderText="Leave Config Id" />
+                       <asp:GridView ID="dgvLeaveConfiguration"  runat="server"
+                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                            GridLines="None" Style="text-align: left">
+                            <Columns>
+                                <asp:TemplateField>
+                                    <HeaderTemplate>
+                                        SN.
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <%# Container.DataItemIndex+1 %>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                     <asp:BoundField DataField="LeaveConfigId" HeaderText="Leave Config Id" />
+                                     <asp:BoundField DataField="LeaveTypeId" HeaderText="Leave Type" />  
                                      <asp:BoundField DataField="LeaveAccureDate" HeaderText="Leave Accure Date" />
                                      <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
-                                     <asp:BoundField DataField=" Encashable" HeaderText=" Encashable" />
-                                     <asp:BoundField DataField="CreatedDate" HeaderText="CreatedDate" />
-                               
-                                    <asp:TemplateField ItemStyle-Width="15px">
-                                        <ItemTemplate>
-                                            <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"
-                                                Width="15px" Height="15px" CommandArgument='<%# Eval("LeaveConfigId") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField ItemStyle-Width="15px">
-                                        <ItemTemplate>
-                                            <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/Images/delete_button.png"
-                                                CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("RoleId") %>' />
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                </Columns>
-                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                <EditRowStyle BackColor="#999999" />
-                                <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
-                                    LastPageText="Last" />
-                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                <EmptyDataTemplate>
-                                    No Record Found...
-                                </EmptyDataTemplate>
-                            </asp:GridView>
-                        </center>
+                                     <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" />
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
+                                            CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/Images/edit_button.png"
+                                            ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
+                                            CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/images/delete_button.png"
+                                            ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                            <EditRowStyle BackColor="#999999" />
+                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                            <EmptyDataTemplate>
+                                No Record Found...
+                            </EmptyDataTemplate>
+                        </asp:GridView>
                     </div>
-       
-</asp:Content>
+                </div>
+             </div>
+           </div> 
+                
+        </div></asp:Content>
 

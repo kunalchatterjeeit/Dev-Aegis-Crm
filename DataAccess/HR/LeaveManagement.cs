@@ -197,7 +197,7 @@ namespace DataAccess.HR
 
         }
 
-        public static int LeaveConfigurations_GetAll(Entity.HR.LeaveManagement objleaveapplicationmaster)
+        public static int LeaveConfigurations_GetAll(Entity.HR.LeaveManagement ObjbelLeaveConfig)
         {
             throw new NotImplementedException();
         }

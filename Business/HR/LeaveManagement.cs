@@ -45,5 +45,10 @@ namespace Business.HR
         {
             return DataAccess.HR.LeaveManagement.LeaveApplicationMaster_GetAll(objLeaveManagement);
         }
+
+        public DataTable LeaveConfigurations_GetAll(LeaveManagement objbelLeaveConfig)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
