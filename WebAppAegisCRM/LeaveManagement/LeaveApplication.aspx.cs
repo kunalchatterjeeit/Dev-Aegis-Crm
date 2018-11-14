@@ -28,7 +28,7 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Business.HR.LeaveManagement objLeaveMaster = new Business.HR.LeaveManagement();
-            Entity.HR.LeaveMaster leaveMaster = new Entity.HR.LeaveMaster();
+            Entity.HR.LeaveManagement leaveMaster = new Entity.HR.LeaveManagement();
 
 
             leaveMaster.LeaveApplicationId = LeaveApplicationid;
@@ -46,7 +46,7 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void LeaveMaster_GetAll()
         {
             Business.HR.LeaveManagement ObjBelLeaveMaster = new Business.HR.LeaveManagement();
-            Entity.HR.LeaveMaster objleaveMaster = new Entity.HR.LeaveMaster();
+            Entity.HR.LeaveManagement objleaveMaster = new Entity.HR.LeaveManagement();
            
         }
         public void CleartextBoxes(Control parent)

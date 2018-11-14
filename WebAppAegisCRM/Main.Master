@@ -345,6 +345,10 @@
                                 <li id="liEmployeeLoyaltyPoint" runat="server">
                                     <a href="../HR/EmployeeLoyaltyPoint.aspx">Employee Loyalty Point List</a>
                                 </li>
+                                 <li id="liLeaveConfig" runat="server">
+                                    <a href="../HR/LeaveConfig.aspx">Add/Edit Leave Configuration</a>
+                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

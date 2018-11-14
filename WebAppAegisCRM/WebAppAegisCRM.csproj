@@ -101,6 +101,7 @@
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="HR\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
@@ -284,6 +285,13 @@
     </Compile>
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\LeaveConfig.aspx.cs">
+      <DependentUpon>LeaveConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\LeaveConfig.aspx.designer.cs">
+      <DependentUpon>LeaveConfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
       <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>

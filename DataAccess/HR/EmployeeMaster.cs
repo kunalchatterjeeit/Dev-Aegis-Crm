@@ -96,7 +96,7 @@ namespace DataAccess.HR
             return rowsAffacted;
         }
 
-        public static int LeaveDesignationConfig_GetAll(LeaveMaster objElEmployeeMaster)
+        public static int LeaveDesignationConfig_GetAll(Entity.HR.LeaveManagement objElEmployeeMaster)
         {
             throw new NotImplementedException();
         }
