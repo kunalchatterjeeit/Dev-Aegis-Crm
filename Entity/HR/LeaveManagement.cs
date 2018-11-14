@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entity.HR
 {
-    public class LeaveMaster
+    public class LeaveManagement
     {
-        public LeaveMaster()
+        public LeaveManagement()
         { }
 
         public int LeaveDesignationConfigId { get; set; }
@@ -28,6 +28,14 @@ namespace Entity.HR
         public int Reason { get; set; }
         public int Attachment { get; set; }
         public int ApplyDate { get; set; }
+
+        public int LeaveConfigId { get; set; }
+        public int LeaveFrequency { get; set; }
+        public int LeaveAccureDate { get; set; }
+        public int CarryForwardCount { get; set; }
+        public int Encashable { get; set; }
+        public int CreatedDate { get; set; }
+
 
     }
 

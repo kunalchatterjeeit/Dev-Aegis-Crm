@@ -28,7 +28,7 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             Business.HR.LeaveManagement objLeaveMaster = new Business.HR.LeaveManagement();
-            Entity.HR.LeaveMaster leaveMaster = new Entity.HR.LeaveMaster();
+            Entity.HR.LeaveManagement leaveMaster = new Entity.HR.LeaveManagement();
 
 
             leaveMaster.LeaveApplicationId = LeaveApplicationid;
@@ -40,7 +40,14 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveMaster.ApplyDate = (txtLAD.Text.Trim() == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtLAD.Text.Trim());
             leaveMaster.Reason = txtReason.Text.Trim();
             leaveMaster.Attachment = Attachment.Text.Trim();
+            LeaveMaster_GetAll();
 
+        }
+        protected void LeaveMaster_GetAll()
+        {
+            Business.HR.LeaveManagement ObjBelLeaveMaster = new Business.HR.LeaveManagement();
+            Entity.HR.LeaveManagement objleaveMaster = new Entity.HR.LeaveManagement();
+           
         }
         public void CleartextBoxes(Control parent)
         {
@@ -55,6 +62,11 @@ namespace WebAppAegisCRM.LeaveManagement
                     CleartextBoxes(c);
                 }
             }
+        }
+
+        protected void txtReason_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -101,6 +101,7 @@
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="HR\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
@@ -111,6 +112,7 @@
     <Content Include="images\add_to_cart.png" />
     <Content Include="images\Aegis_CRM_Logo2.png" />
     <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\approved.png" />
     <Content Include="images\close-button.png" />
     <Content Include="images\delete_button.png" />
     <Content Include="images\edit_button.png" />
@@ -122,6 +124,7 @@
     <Content Include="images\not-available.png" />
     <Content Include="images\outtime_icon.PNG" />
     <Content Include="images\preloader.gif" />
+    <Content Include="images\Rejected.png" />
     <Content Include="images\searchicon.png" />
     <Content Include="images\Thumbs_down_icon.png" />
     <Content Include="images\Thumbs_up-icon.png" />
@@ -281,6 +284,13 @@
     </Compile>
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\LeaveConfig.aspx.cs">
+      <DependentUpon>LeaveConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\LeaveConfig.aspx.designer.cs">
+      <DependentUpon>LeaveConfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
       <DependentUpon>LoyaltyPointReasonMaster.aspx</DependentUpon>
