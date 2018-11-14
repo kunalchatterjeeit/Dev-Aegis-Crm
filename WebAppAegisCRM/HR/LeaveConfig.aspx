@@ -50,20 +50,20 @@
                                 <asp:TextBox ID="txtActive" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+
+                         <div class="col-lg-6">
                             <div class="form-group">
                                 <br />
-                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"
-                                    OnClick="btnSave_Click" />
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning"
-                                    OnClick="btnCancel_Click" />
+                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"/>
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning"/>
                             </div>
                         </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+         <div class="col-lg-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Leave Configuration List
@@ -72,7 +72,7 @@
                     <div class="table-responsive">
                         <center>
                             <asp:GridView ID="dgvLeaveConfiguration" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="LeaveConfigId" ForeColor="#333333" OnRowCommand="dgvLeaveConfiguration_RowCommand">
+                                GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="LeaveConfigId" ForeColor="#333333" >
                                 <Columns>
                                     <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
                                         <ItemTemplate>
@@ -114,9 +114,6 @@
                             </asp:GridView>
                         </center>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+       
 </asp:Content>
 
