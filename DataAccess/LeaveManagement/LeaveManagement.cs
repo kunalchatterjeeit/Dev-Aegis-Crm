@@ -38,14 +38,7 @@ namespace DataAccess.LeaveManagement
             }
             return retValue;
         }
-
-
-
-        public static int LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public static DataTable LeaveDesignationConfig_GetAll()
         {
             using (DataTable dt = new DataTable())
@@ -195,11 +188,6 @@ namespace DataAccess.LeaveManagement
             }
             return retValue;
 
-        }
-
-        public static int LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement ObjbelLeaveConfig)
-        {
-            throw new NotImplementedException();
         }
 
         public static DataTable LeaveConfigurations_GetAll()

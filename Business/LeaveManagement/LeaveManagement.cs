@@ -13,9 +13,9 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveManagement.LeaveDesignationConfig_Save(objLeaveManagement);
         }
-        public int LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
+        public DataTable LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
-            return DataAccess.LeaveManagement.LeaveManagement.LeaveDesignationConfig_GetAll(objLeaveManagement);
+            return DataAccess.LeaveManagement.LeaveManagement.LeaveDesignationConfig_GetAll();
         }
         public int LeaveDesignationConfig_Delete(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
@@ -43,9 +43,9 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_Save(objLeaveManagement);
         }
-        public int LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
+        public DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
-            return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_GetAll(objLeaveManagement);
+            return DataAccess.LeaveManagement.LeaveManagement.LeaveConfigurations_GetAll();
         }
         public int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {

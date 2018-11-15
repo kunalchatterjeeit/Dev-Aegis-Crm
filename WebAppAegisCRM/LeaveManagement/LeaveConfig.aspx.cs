@@ -13,7 +13,6 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
-
         public int LeaveConfigId
         {
             get { return Convert.ToInt32(ViewState["LeaveConfigId"]); }
@@ -26,13 +25,12 @@ namespace WebAppAegisCRM.LeaveManagement
                 Clear();
             }
         }
-
     
         private void LoadLeaveTypeId()
         {
            
             Business.LeaveManagement.LeaveManagement objLeaveMaster = new Business.LeaveManagement.LeaveManagement();
-            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveManagement(){ });
+            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveManagement());
             ddlLeaveTypeId.DataSource = dtLeaveMaster;
             ddlLeaveTypeId.DataTextField = "LeaveTypeId";
             ddlLeaveTypeId.DataValueField = "LeaveTypeName";
