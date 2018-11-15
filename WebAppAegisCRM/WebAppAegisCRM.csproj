@@ -105,7 +105,7 @@
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
-    <Content Include="HR\LeaveConfig.aspx" />
+    <Content Include="LeaveManagement\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
@@ -290,11 +290,11 @@
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HR\LeaveConfig.aspx.cs">
+    <Compile Include="LeaveManagement\LeaveConfig.aspx.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HR\LeaveConfig.aspx.designer.cs">
+    <Compile Include="LeaveManagement\LeaveConfig.aspx.designer.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
@@ -620,7 +620,6 @@
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
     <Folder Include="js\" />
-    <Folder Include="leave\" />
     <Folder Include="less\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>

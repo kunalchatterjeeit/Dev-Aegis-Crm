@@ -51,7 +51,7 @@
     <Compile Include="Common\DashboardEvent.cs" />
     <Compile Include="Common\LoginStatus.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
-    <Compile Include="HR\LeaveManagement.cs" />
+    <Compile Include="LeaveManagement\LeaveManagement.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleMaster.cs" />
     <Compile Include="HR\Utility.cs" />

@@ -13,7 +13,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
-        
+
         public int LeaveConfigId
         {
             get { return Convert.ToInt32(ViewState["LeaveConfigId"]); }
@@ -29,7 +29,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void LoadLeaveTypeId()
         {
-         
+
         }
         private void Clear()
         {
@@ -39,15 +39,15 @@ namespace WebAppAegisCRM.LeaveManagement
             txtCarryForwardCount.Text = "";
         }
 
-           protected void btnCancel_Click(object sender, EventArgs e)
-            {
-                Clear();
-           }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            Clear();
+        }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.HR.LeaveManagement ObjLeaveConfig = new Business.HR.LeaveManagement();
-            Entity.HR.LeaveManagement LeaveMaster = new Entity.HR.LeaveManagement();
+            Business.LeaveManagement.LeaveManagement ObjLeaveConfig = new Business.LeaveManagement.LeaveManagement();
+            Entity.LeaveManagement.LeaveManagement LeaveMaster = new Entity.LeaveManagement.LeaveManagement();
             LeaveMaster.LeaveConfigId = LeaveConfigId;
             LeaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveTypeId.SelectedValue);
             LeaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
@@ -60,17 +60,17 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void LeaveConfig_GetAll()
         {
-            Business.HR.LeaveManagement ObjbelLeaveConfig = new Business.HR.LeaveManagement();
-            Entity.HR.LeaveManagement lmLeaveMaster = new Entity.HR.LeaveManagement();
-            
+            Business.LeaveManagement.LeaveManagement ObjbelLeaveConfig = new Business.LeaveManagement.LeaveManagement();
+            Entity.LeaveManagement.LeaveManagement lmLeaveMaster = new Entity.LeaveManagement.LeaveManagement();
+
             DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(ObjbelLeaveConfig);
             if (dt.Rows.Count > 0)
                 dgvLeaveConfiguration.DataSource = dt;
             else
                 dgvLeaveConfiguration.DataSource = null;
-                dgvLeaveConfiguration.DataBind();
+            dgvLeaveConfiguration.DataBind();
         }
 
-      
+
     }
 }

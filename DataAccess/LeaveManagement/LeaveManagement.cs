@@ -8,11 +8,11 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Entity.HR;
 
-namespace DataAccess.HR
+namespace DataAccess.LeaveManagement
 {
     public class LeaveManagement
     {
-        public static int LeaveDesignationConfig_Save(Entity.HR.LeaveManagement objLeaveManagement)
+        public static int LeaveDesignationConfig_Save(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -41,7 +41,7 @@ namespace DataAccess.HR
 
 
 
-        public static int LeaveDesignationConfig_GetAll(Entity.HR.LeaveManagement objLeaveManagement)
+        public static int LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
             throw new NotImplementedException();
         }
@@ -67,7 +67,7 @@ namespace DataAccess.HR
                 return dt;
             }
         }
-        public static int LeaveDesignationConfig_Delete(Entity.HR.LeaveManagement objLeaveManagement)
+        public static int LeaveDesignationConfig_Delete(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -89,7 +89,7 @@ namespace DataAccess.HR
             return rowsAffacted;
         }
 
-        public static int LeaveApplicationMaster_Save(Entity.HR.LeaveManagement Leave)
+        public static int LeaveApplicationMaster_Save(Entity.LeaveManagement.LeaveManagement Leave)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -120,7 +120,7 @@ namespace DataAccess.HR
             }
             return retValue;
         }
-        public static int LeaveApplicationMaster_GetAll(Entity.HR.LeaveManagement objleaveapplicationmaster)
+        public static int LeaveApplicationMaster_GetAll(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
             throw new NotImplementedException();
         }
@@ -146,7 +146,7 @@ namespace DataAccess.HR
                 return dt;
             }
         }
-        public static int LeaveApplicationMaster_Delete(Entity.HR.LeaveManagement objleaveapplicationmaster)
+        public static int LeaveApplicationMaster_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -167,7 +167,7 @@ namespace DataAccess.HR
             }
             return rowsAffacted;
         }
-        public static int LeaveConfigurations_Save(Entity.HR.LeaveManagement objLeaveManagement)
+        public static int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -197,7 +197,7 @@ namespace DataAccess.HR
 
         }
 
-        public static int LeaveConfigurations_GetAll(Entity.HR.LeaveManagement ObjbelLeaveConfig)
+        public static int LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement ObjbelLeaveConfig)
         {
             throw new NotImplementedException();
         }
@@ -223,7 +223,7 @@ namespace DataAccess.HR
                 return dt;
             }
         }
-        public static int LeaveConfigurations_Delete(Entity.HR.LeaveManagement objleaveapplicationmaster)
+        public static int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.HR
+namespace Entity.LeaveManagement
 {
     public class LeaveManagement
     {
