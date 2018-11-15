@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -51,8 +52,7 @@ namespace WebAppAegisCRM.Service
                 ddlCallStatus.DataValueField = "CallStatusId";
                 ddlCallStatus.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCallStatus.Items.Insert(0, li);
+            ddlCallStatus.InsertSelect();
         }
         protected void LoadCustomer()
         {
@@ -67,8 +67,7 @@ namespace WebAppAegisCRM.Service
             ddlCustomer.DataTextField = "CustomerName";
             ddlCustomer.DataValueField = "CustomerMasterId";
             ddlCustomer.DataBind();
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCustomer.Items.Insert(0, li);
+            ddlCustomer.InsertSelect();
         }
         private void LoadProduct()
         {
@@ -79,8 +78,7 @@ namespace WebAppAegisCRM.Service
             ddlProduct.DataTextField = "ProductName";
             ddlProduct.DataValueField = "ProductMasterId";
             ddlProduct.DataBind();
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlProduct.Items.Insert(0, li);
+            ddlProduct.InsertSelect();
         }
         protected void LoadTonnerRequest(int pageIndex, int pageSize)
         {

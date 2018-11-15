@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,8 +29,8 @@ namespace WebAppAegisCRM.ControlPanel
                 ddlDocketCallStatus.DataValueField = "CallStatusId";
                 ddlDocketCallStatus.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlDocketCallStatus.Items.Insert(0, li);
+
+            ddlDocketCallStatus.InsertSelect();
         }
         private void LoadTime(DropDownList ddlInHH, DropDownList ddlInMM, DropDownList ddlOutHH, DropDownList ddlOutMM, DropDownList ddlInTT, DropDownList ddlOutTT)
         {

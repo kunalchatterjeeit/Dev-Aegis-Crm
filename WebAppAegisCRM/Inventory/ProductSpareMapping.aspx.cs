@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using Business.Common;
 
 namespace WebAppAegisCRM.Inventory
 {
@@ -34,7 +35,7 @@ namespace WebAppAegisCRM.Inventory
                 ddlProduct.DataValueField = "ProductMasterId";
                 ddlProduct.DataBind();
             }
-            ddlProduct.Items.Insert(0, "--SELECT--");
+            ddlProduct.InsertSelect();
         }
 
         protected void LoadSpare()

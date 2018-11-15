@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Business.Common;
 
-namespace WebAppAegisCRM.HR
+namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {

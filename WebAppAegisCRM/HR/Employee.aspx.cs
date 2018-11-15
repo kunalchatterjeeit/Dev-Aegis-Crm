@@ -124,9 +124,7 @@ namespace WebAppAegisCRM.Employee
                 ddlRole.DataSource = DT;
                 ddlRole.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlRole.Items.Insert(0, li);
+            ddlRole.InsertSelect();
         }
 
         public void CleartextBoxes(Control parent)
@@ -236,9 +234,7 @@ namespace WebAppAegisCRM.Employee
                 ddlRefferencrEmployee.DataSource = dt;
                 ddlRefferencrEmployee.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlRefferencrEmployee.Items.Insert(0, li);
+            ddlRefferencrEmployee.InsertSelect();
         }
 
         protected void DesignationMaster_GetAll()
@@ -252,9 +248,7 @@ namespace WebAppAegisCRM.Employee
                 ddldesignation.DataSource = dt;
                 ddldesignation.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddldesignation.Items.Insert(0, li);
+            ddldesignation.InsertSelect();
         }
 
         protected void BindCity()
@@ -269,10 +263,8 @@ namespace WebAppAegisCRM.Employee
                 ddlPresentCity.DataSource = dt;
                 ddlPresentCity.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCity.Items.Insert(0, li);
-            ddlPresentCity.Items.Insert(0, li);
+            ddlCity.InsertSelect();
+            ddlPresentCity.InsertSelect();
         }
 
         protected void gvEmployeerMaster_SelectedIndexChanged(object sender, EventArgs e)

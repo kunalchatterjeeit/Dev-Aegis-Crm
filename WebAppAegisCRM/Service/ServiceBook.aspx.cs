@@ -571,7 +571,6 @@ namespace WebAppAegisCRM.Service
                 ddlCurrentCallStatusDocket.DataValueField = "CallStatusId";
                 ddlCurrentCallStatusDocket.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
             ddlCurrentCallStatusDocket.InsertSelect();
         }
         protected void LoadTonnerRequestCallStatus()
@@ -586,8 +585,7 @@ namespace WebAppAegisCRM.Service
                 ddlTonnerRequestCallStatus.DataValueField = "CallStatusId";
                 ddlTonnerRequestCallStatus.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlTonnerRequestCallStatus.Items.Insert(0, li);
+            ddlTonnerRequestCallStatus.InsertSelect();
         }
         protected void LoadCurrentTonnerRequestCallStatus()
         {
@@ -603,8 +601,7 @@ namespace WebAppAegisCRM.Service
                 ddlCurrentTonnerRequestCallStatus.DataValueField = "CallStatusId";
                 ddlCurrentTonnerRequestCallStatus.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCurrentTonnerRequestCallStatus.Items.Insert(0, li);
+            ddlCurrentTonnerRequestCallStatus.InsertSelect();
         }
         protected void LoadProduct()
         {
@@ -621,8 +618,7 @@ namespace WebAppAegisCRM.Service
                 ddlTonnerRequestProduct.DataValueField = "ProductMasterId";
                 ddlTonnerRequestProduct.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlTonnerRequestProduct.Items.Insert(0, li);
+            ddlTonnerRequestProduct.InsertSelect();
         }
         protected void LoadCustomer()
         {
@@ -637,8 +633,7 @@ namespace WebAppAegisCRM.Service
             ddlCustomer.DataTextField = "CustomerName";
             ddlCustomer.DataValueField = "CustomerMasterId";
             ddlCustomer.DataBind();
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCustomer.Items.Insert(0, li);
+            ddlCustomer.InsertSelect();
         }
         protected void LoadDocket()
         {
@@ -783,8 +778,7 @@ namespace WebAppAegisCRM.Service
                 ddlServiceEngineer.DataTextField = "EmployeeName";
                 ddlServiceEngineer.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlServiceEngineer.Items.Insert(0, li);
+            ddlServiceEngineer.InsertSelect();
         }
         protected void LoadAssociateEngineersList()
         {
@@ -808,8 +802,7 @@ namespace WebAppAegisCRM.Service
                 ddlTonerServiceEngineer.DataTextField = "EmployeeName";
                 ddlTonerServiceEngineer.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlTonerServiceEngineer.Items.Insert(0, li);
+            ddlTonerServiceEngineer.InsertSelect();
         }
         protected void LoadServiceBookMasterHistory()
         {
