@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppAegisCRM.LeaveManagement {
+namespace WebAppAegisCRM.HR {
     
     
     public partial class LeaveConfig {

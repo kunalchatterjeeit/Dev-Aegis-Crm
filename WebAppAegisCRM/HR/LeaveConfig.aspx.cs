@@ -13,6 +13,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
+        
         public int LeaveConfigId
         {
             get { return Convert.ToInt32(ViewState["LeaveConfigId"]); }
@@ -28,13 +29,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void LoadLeaveTypeId()
         {
-           /* Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
-            DataTable dtVendor = objVendorMaster.GetAll(new Entity.Purchase.Vendor() { CompanyId = 1 });
-            ddlVendor.DataSource = dtVendor;
-            ddlVendor.DataTextField = "VendorMasterName";
-            ddlVendor.DataValueField = "VendorMasterId";
-            ddlVendor.DataBind();
-            ddlVendor.InsertSelect();*/
+         
         }
         private void Clear()
         {
