@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace WebAppAegisCRM.HR
+namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {

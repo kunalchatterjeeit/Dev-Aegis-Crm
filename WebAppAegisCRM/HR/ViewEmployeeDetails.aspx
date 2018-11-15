@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ViewEmoployeeDetails.aspx.cs" Inherits="WebAppAegisCRM.Employee.ViewEmoployeeDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="True" CodeBehind="ViewEmployeeDetails.aspx.cs" Inherits="WebAppAegisCRM.Employee.ViewEmoployeeDetails" %>
 
 <!DOCTYPE html>
 

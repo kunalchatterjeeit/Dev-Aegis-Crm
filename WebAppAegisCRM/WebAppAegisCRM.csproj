@@ -101,11 +101,11 @@
     <Content Include="Global.asax" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
-    <Content Include="HR\LeaveConfig.aspx" />
+    <Content Include="LeaveManagement\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
     <Content Include="HR\RoleMaster.aspx" />
-    <Content Include="HR\ViewEmoployeeDetails.aspx" />
+    <Content Include="HR\ViewEmployeeDetails.aspx" />
     <Content Include="EmailMockup.htm" />
     <Content Include="CSRMockup.html" />
     <Content Include="images\404-Animation.gif" />
@@ -285,11 +285,11 @@
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HR\LeaveConfig.aspx.cs">
+    <Compile Include="LeaveManagement\LeaveConfig.aspx.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HR\LeaveConfig.aspx.designer.cs">
+    <Compile Include="LeaveManagement\LeaveConfig.aspx.designer.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\LoyaltyPointReasonMaster.aspx.cs">
@@ -313,12 +313,12 @@
     <Compile Include="HR\RoleMaster.aspx.designer.cs">
       <DependentUpon>RoleMaster.aspx</DependentUpon>
     </Compile>
-    <Compile Include="HR\ViewEmoployeeDetails.aspx.cs">
-      <DependentUpon>ViewEmoployeeDetails.aspx</DependentUpon>
+    <Compile Include="HR\ViewEmployeeDetails.aspx.cs">
+      <DependentUpon>ViewEmployeeDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="HR\ViewEmoployeeDetails.aspx.designer.cs">
-      <DependentUpon>ViewEmoployeeDetails.aspx</DependentUpon>
+    <Compile Include="HR\ViewEmployeeDetails.aspx.designer.cs">
+      <DependentUpon>ViewEmployeeDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Brand.aspx.cs">
       <DependentUpon>Brand.aspx</DependentUpon>
@@ -610,7 +610,6 @@
     <Folder Include="ErrorLog\" />
     <Folder Include="HR\EmployeeImage\" />
     <Folder Include="js\" />
-    <Folder Include="LeaveManagement\" />
     <Folder Include="less\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -41,9 +42,7 @@ namespace WebAppAegisCRM.Purchase
                 ddlCity.DataSource = dt;
                 ddlCity.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlCity.Items.Insert(0, li);
+            ddlCity.InsertSelect();
         }
 
         private void ClearControl()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -40,9 +41,7 @@ namespace WebAppERPNew.Inventory
             ddlBrand.DataTextField = "BrandName";
             ddlBrand.DataValueField = "BrandId";
             ddlBrand.DataBind();
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlBrand.Items.Insert(0, li);
+            ddlBrand.InsertSelect();
 
         }
         protected void PopulateProduct()
@@ -126,8 +125,7 @@ namespace WebAppERPNew.Inventory
                 ddlProductCategory.DataValueField = "ProductCategoryId";
                 ddlProductCategory.DataBind();
             }
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlProductCategory.Items.Insert(0, li);
+            ddlProductCategory.InsertSelect();
         }
         #endregion
 

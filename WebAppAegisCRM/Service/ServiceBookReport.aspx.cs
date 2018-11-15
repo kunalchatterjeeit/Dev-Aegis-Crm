@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using Entity.Service;
+using Business.Common;
 
 namespace WebAppAegisCRM.Service
 {
@@ -88,9 +89,7 @@ namespace WebAppAegisCRM.Service
                 ddlServiceEngineer.DataTextField = "EmployeeName";
                 ddlServiceEngineer.DataBind();
             }
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlServiceEngineer.Items.Insert(0, li);
+            ddlServiceEngineer.InsertSelect();
 
             if (dt != null && dt.Rows.Count > 0)
             {

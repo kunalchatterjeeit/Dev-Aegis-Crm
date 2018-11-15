@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Leave configuration Master" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
-    Inherits="WebAppAegisCRM.HR.LeaveConfig" MasterPageFile="~/Main.Master" %>
+    Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
 
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

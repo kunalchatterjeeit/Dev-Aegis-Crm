@@ -139,7 +139,7 @@ namespace WebAppAegisCRM.Customer
             ddlProduct.DataTextField = "ProductName";
             ddlProduct.DataValueField = "ProductMasterId";
             ddlProduct.DataBind();
-            ddlProduct.Items.Insert(0, "--Select--");
+            ddlProduct.InsertSelect();
         }
         private void LoadEmployee()
         {
@@ -171,9 +171,7 @@ namespace WebAppAegisCRM.Customer
             ddlContractType.DataTextField = "ContractName";
             ddlContractType.DataValueField = "ContractTypeId";
             ddlContractType.DataBind();
-
-            ListItem li = new ListItem("--SELECT--", "0");
-            ddlContractType.Items.Insert(0, li);
+            ddlContractType.InsertSelect();
         }
         protected void ClearControl()
         {
