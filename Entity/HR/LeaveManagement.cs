@@ -30,12 +30,18 @@ namespace Entity.HR
         public int ApplyDate { get; set; }
 
         public int LeaveConfigId { get; set; }
-        public int LeaveFrequency { get; set; }
-        public int LeaveAccureDate { get; set; }
+        public string LeaveFrequency { get; set; }
+        //public int LeaveAccureDate { get; set; }
         public int CarryForwardCount { get; set; }
         public int Encashable { get; set; }
         public int CreatedDate { get; set; }
 
+        public DateTime LeaveAccureDate = DateTime.MinValue;
+        public DateTime leaveAccureDate
+        {
+            get { return LeaveAccureDate; }
+            set { LeaveAccureDate = value; }
+        }
 
     }
 

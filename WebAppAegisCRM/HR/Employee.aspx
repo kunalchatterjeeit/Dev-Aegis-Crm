@@ -271,7 +271,7 @@
                         <asp:GridView ID="gvEmployeerMaster" DataKeyNames="EmployeeMasterId" runat="server"
                             AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                             GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeerMaster_RowCommand"
-                            HeaderStyle-HorizontalAlign="Center">
+                            HeaderStyle-HorizontalAlign="Center" OnSelectedIndexChanged="gvEmployeerMaster_SelectedIndexChanged">
                             <Columns>
                                 <asp:TemplateField>
                                     <HeaderTemplate>

@@ -266,5 +266,10 @@ namespace WebAppAegisCRM.Employee
             ddlCity.InsertSelect();
             ddlPresentCity.InsertSelect();
         }
+
+        protected void gvEmployeerMaster_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
