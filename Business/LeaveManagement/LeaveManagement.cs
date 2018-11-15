@@ -29,6 +29,12 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_GetAll(objleaveapplicationmaster);
         }
+
+        public DataTable LeaveConfigurations_GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public int LeaveApplicationMaster_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
             return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_Delete(objleaveapplicationmaster);
@@ -49,6 +55,11 @@ namespace Business.LeaveManagement
         public DataTable LeaveConfigurations_GetAll(LeaveManagement objbelLeaveConfig)
         {
             throw new NotImplementedException();
+            return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_GetAll();
         }
+
+
+
+        
     }
 }

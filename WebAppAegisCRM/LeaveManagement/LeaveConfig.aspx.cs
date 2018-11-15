@@ -27,8 +27,18 @@ namespace WebAppAegisCRM.LeaveManagement
             }
         }
 
+    
         private void LoadLeaveTypeId()
         {
+           
+            Business.LeaveManagement.LeaveManagement objLeaveMaster = new Business.LeaveManagement.LeaveManagement();
+            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveManagement(){ });
+            ddlLeaveTypeId.DataSource = dtLeaveMaster;
+            ddlLeaveTypeId.DataTextField = "LeaveTypeId";
+            ddlLeaveTypeId.DataValueField = "LeaveTypeName";
+            ddlLeaveTypeId.DataBind();
+            ddlLeaveTypeId.InsertSelect();
+
 
         }
         private void Clear()
