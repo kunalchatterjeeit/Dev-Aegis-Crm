@@ -25,6 +25,17 @@ namespace WebAppAegisCRM.HR
                 Clear();
             }
         }
+
+        private void LoadLeaveTypeId()
+        {
+           /* Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
+            DataTable dtVendor = objVendorMaster.GetAll(new Entity.Purchase.Vendor() { CompanyId = 1 });
+            ddlVendor.DataSource = dtVendor;
+            ddlVendor.DataTextField = "VendorMasterName";
+            ddlVendor.DataValueField = "VendorMasterId";
+            ddlVendor.DataBind();
+            ddlVendor.InsertSelect();*/
+        }
         private void Clear()
         {
             ddlLeaveTypeId.Text = "";

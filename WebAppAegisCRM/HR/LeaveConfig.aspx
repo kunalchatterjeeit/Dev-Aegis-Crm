@@ -1,8 +1,13 @@
 ﻿<%@ Page Title="Leave configuration Master" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
     Inherits="WebAppAegisCRM.HR.LeaveConfig" MasterPageFile="~/Main.Master" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     
     
     <br />
@@ -38,6 +43,9 @@
                             <div class="form-group has-error">
                                 Leave Accure Date
                                 <asp:TextBox ID="txtLeaveAccureDate" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
+                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
+                                         </asp:CalendarExtender>
                             </div>
                         </div>
                         <br/>
