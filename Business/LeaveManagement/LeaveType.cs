@@ -10,15 +10,15 @@ namespace Business.LeaveManagement
 {
     public class LeaveType
     {
-        public int LeaveType_Save(Entity.LeaveManagement.LeaveType objLeaveType)
+        public int LeaveTypeSave(Entity.LeaveManagement.LeaveType objLeaveType)
         {
             return DataAccess.LeaveManagement.LeaveType.LeaveType_Save(objLeaveType);
         }
-        public DataTable LeaveType_GetAll(Entity.LeaveManagement.LeaveType objLeaveType)
+        public DataTable LeaveTypeGetAll(Entity.LeaveManagement.LeaveType objLeaveType)
         {
             return DataAccess.LeaveManagement.LeaveType.LeaveType_GetAll();
         }
-        public int LeaveType_Delete(Entity.LeaveManagement.LeaveType objLeaveType)
+        public int LeaveTypeDelete(Entity.LeaveManagement.LeaveType objLeaveType)
         {
             return DataAccess.LeaveManagement.LeaveType.LeaveType_Delete(objLeaveType);
         }

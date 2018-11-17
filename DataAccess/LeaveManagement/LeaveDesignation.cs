@@ -7,13 +7,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using Entity.HR;
-
 namespace DataAccess.LeaveManagement
 {
-    public class LeaveApplicationMaster
+   public class LeaveDesignation
     {
-       
-        public static int LeaveApplicationMaster_Save(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
+        public static int LeaveDesignationConfig_Save(Entity.LeaveManagement.LeaveDesignation objLeaveDesignation)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -22,19 +20,14 @@ namespace DataAccess.LeaveManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveApplicationMaster_Save";
+                    cmd.CommandText = "usp_HR_LeaveDesignationConfig_Save";
 
-                    cmd.Parameters.AddWithValue("@LeaveApplicationId", objLeaveApplicationMaster.LeaveApplicationId);
-                    cmd.Parameters.AddWithValue("@LeaveApplicationNumber", objLeaveApplicationMaster.LeaveApplicationNumber);
-                    cmd.Parameters.AddWithValue("@RequestorId", objLeaveApplicationMaster.RequestorId);
-                    cmd.Parameters.AddWithValue("@LeaveTypeId", objLeaveApplicationMaster.LeaveTypeId);
-                    cmd.Parameters.AddWithValue("@LeaveAccumulationTypeId", objLeaveApplicationMaster.LeaveAccumulationTypeId);
-                    cmd.Parameters.AddWithValue("@FromDate", objLeaveApplicationMaster.FromDate);
-                    cmd.Parameters.AddWithValue("@ToDate", objLeaveApplicationMaster.ToDate);
-                    cmd.Parameters.AddWithValue("@LeaveStatusId", objLeaveApplicationMaster.LeaveStatusId);
-                    cmd.Parameters.AddWithValue("@Reason", objLeaveApplicationMaster.Reason);
-                    cmd.Parameters.AddWithValue("@Attachment", objLeaveApplicationMaster.Attachment);
-
+                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", objLeaveDesignation.LeaveDesignationConfigId);
+                    cmd.Parameters.AddWithValue("@LeaveTypeId", objLeaveDesignation.LeaveTypeId);
+                    cmd.Parameters.AddWithValue("@DesignationId", objLeaveDesignation.DesignationId);
+                    cmd.Parameters.AddWithValue("@LeaveCount", objLeaveDesignation.LeaveCount);
+                    // cmd.Parameters.AddWithValue("@CreateDate", Leave.CreateDate);
+                    cmd.Parameters.AddWithValue("@Active", objLeaveDesignation.Active);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -44,12 +37,8 @@ namespace DataAccess.LeaveManagement
             }
             return retValue;
         }
-        public static int LeaveApplicationMaster_GetAll(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
-        {
-            throw new NotImplementedException();
-        }
 
-        public static DataTable LeaveApplicationMaster_GetAll()
+        public static DataTable LeaveDesignationConfig_GetAll()
         {
             using (DataTable dt = new DataTable())
             {
@@ -59,7 +48,7 @@ namespace DataAccess.LeaveManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_LeaveApplicationMaster_GetAll";
+                        cmd.CommandText = "usp_HR_LeaveDesignationConfig_GetAll";
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);
@@ -70,7 +59,7 @@ namespace DataAccess.LeaveManagement
                 return dt;
             }
         }
-        public static int LeaveApplicationMaster_Delete(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
+        public static int LeaveDesignationConfig_Delete(Entity.LeaveManagement.LeaveDesignation objLeaveDesignation)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -79,9 +68,9 @@ namespace DataAccess.LeaveManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveApplicationMaster_Delete";
+                    cmd.CommandText = "usp_HR_LeaveDesignationConfig_Delete";
 
-                    cmd.Parameters.AddWithValue("@LeaveApplicationId", objLeaveApplicationMaster);
+                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", objLeaveDesignation);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -91,11 +80,6 @@ namespace DataAccess.LeaveManagement
             }
             return rowsAffacted;
         }
-
-
-
-
-
 
     }
 }

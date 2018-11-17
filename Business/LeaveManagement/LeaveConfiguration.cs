@@ -9,15 +9,15 @@ namespace Business.LeaveManagement
 {
     public class LeaveConfiguration
     {
-        public int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
+        public int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_Save(objLeaveManagement);
         }
-        public DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement lmLeaveConfig)
+        public DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_GetAll(lmLeaveConfig);
         }
-        public int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
+        public int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_Delete(objLeaveManagement);
         }

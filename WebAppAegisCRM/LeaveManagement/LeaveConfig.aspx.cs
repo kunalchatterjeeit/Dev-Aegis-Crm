@@ -31,7 +31,7 @@ namespace WebAppAegisCRM.LeaveManagement
         {
            
             Business.LeaveManagement.LeaveConfiguration objLeaveMaster = new Business.LeaveManagement.LeaveConfiguration();
-            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveManagement());
+            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveConfiguration());
             ddlLeaveTypeId.DataSource = dtLeaveMaster;
             ddlLeaveTypeId.DataTextField = "LeaveTypeId";
             ddlLeaveTypeId.DataValueField = "LeaveTypeName";
@@ -56,7 +56,7 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void btnSave_Click(object sender, EventArgs e)
         {
             Business.LeaveManagement.LeaveConfiguration ObjLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveManagement LeaveMaster = new Entity.LeaveManagement.LeaveManagement();
+            Entity.LeaveManagement.LeaveConfiguration LeaveMaster = new Entity.LeaveManagement.LeaveConfiguration();
             LeaveMaster.LeaveConfigId = LeaveConfigId;
             LeaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveTypeId.SelectedValue);
             LeaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
@@ -71,7 +71,7 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void LeaveConfig_GetAll()
         {
             Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveManagement lmLeaveConfig = new Entity.LeaveManagement.LeaveManagement();
+            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
 
             DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
             if (dt.Rows.Count > 0)

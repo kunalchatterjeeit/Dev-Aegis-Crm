@@ -9,17 +9,18 @@ namespace Business.LeaveManagement
 {
     public class LeaveApplicationMaster
     {
-        public int LeaveApplicationMaster_Save(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
+        public int LeaveApplicationMasterSave(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
         {
-            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Save(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Save(objLeaveApplicationMaster);
         }
-        public int LeaveApplicationMaster_GetAll(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
+        public DataTable LeaveApplicationMasterGetAll(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
         {
-            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_GetAll(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_GetAll();
         }
-        public int LeaveApplicationMaster_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
+        public int LeaveApplicationMasterDelete(Entity.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster)
         {
-            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Delete(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Delete(objLeaveApplicationMaster);
         }
+
     }
 }

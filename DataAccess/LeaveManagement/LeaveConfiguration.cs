@@ -11,7 +11,7 @@ namespace DataAccess.LeaveManagement
 {
    public class LeaveConfiguration
     {
-        public static int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
+        public static int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -41,7 +41,7 @@ namespace DataAccess.LeaveManagement
 
         }
 
-        public static DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveManagement lmLeaveConfig)
+        public static DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
         {
             using (DataTable dt = new DataTable())
             {
@@ -62,7 +62,7 @@ namespace DataAccess.LeaveManagement
                 return dt;
             }
         }
-        public static int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
+        public static int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveConfiguration objleaveapplicationmaster)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))

@@ -51,7 +51,8 @@
     <Compile Include="Common\DashboardEvent.cs" />
     <Compile Include="Common\LoginStatus.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
-    <Compile Include="LeaveManagement\LeaveManagement.cs" />
+    <Compile Include="LeaveManagement\LeaveApplicationMaster.cs" />
+    <Compile Include="LeaveManagement\LeaveConfiguration.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleMaster.cs" />
     <Compile Include="HR\Utility.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Inventory\ProductCategory.cs" />
     <Compile Include="Inventory\ProductMaster.cs" />
     <Compile Include="Inventory\SpareMaster.cs" />
+    <Compile Include="LeaveManagement\LeaveDesignation.cs" />
     <Compile Include="LeaveManagement\LeaveStatus.cs" />
     <Compile Include="LeaveManagement\LeaveType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
