@@ -1,15 +1,12 @@
-﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
+﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs"
     Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
-
-
-
+<%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
-    
-    
     <br />
     <div class="row">
         <div class="col-lg-12">
@@ -19,16 +16,11 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                      
-                         <div class="col-lg-6">
+
+                        <div class="col-lg-6">
                             <div class="form-group has-error">
-                               Leave Type Id
-                                <asp:DropDownList ID="ddlLeaveTypeId" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
-                                    <asp:ListItem Value="1">CL</asp:ListItem>
-                                    <asp:ListItem Value="2">PL</asp:ListItem>
-                                    <asp:ListItem Value="3">ML</asp:ListItem>
-                                    
+                                Leave Type
+                                <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
                                 </asp:DropDownList>
                             </div>
                         </div>
@@ -38,59 +30,52 @@
                                 <asp:TextBox ID="txtLeaveFrequency" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
-                        <br/>
+                        <br />
                         <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Leave Accure Date
                                 <asp:TextBox ID="txtLeaveAccureDate" CssClass="form-control" runat="server"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
-                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
-                                         </asp:CalendarExtender>
-
-                                
-
-
+                                    Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
+                                </asp:CalendarExtender>
                             </div>
                         </div>
-                        <br/>
-                         <div class="col-lg-6">
+                        <br />
+                        <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Carry Forward Count
                                 <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
-                        <br/>
-                         <div class="col-lg-6">
+                        <br />
+                        <div class="col-lg-12">
                             <div class="form-group has-error">
                                 Encashable
                                 <asp:CheckBox ID="ckEncashable" runat="server" />
                             </div>
                         </div>
-                        
-                        
-
-                         <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <br />
-                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"  OnClick="btnSave_Click"/>
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"/>
+                                <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                             </div>
+                        </div>                        
+                        <div class="col-lg-4">
+                            <uc3:Message ID="Message" runat="server" />
                         </div>
-                       
                     </div>
                 </div>
             </div>
         </div>
-       
-            
- <div class="col-lg-12">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Leave Configuration List
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                       <asp:GridView ID="dgvLeaveConfiguration"  runat="server"
+                        <asp:GridView ID="dgvLeaveConfiguration" runat="server"
                             AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                             GridLines="None" Style="text-align: left">
                             <Columns>
@@ -102,11 +87,10 @@
                                         <%# Container.DataItemIndex+1 %>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                     <asp:BoundField DataField="LeaveConfigId" HeaderText="Leave Config Id" />
-                                     <asp:BoundField DataField="LeaveTypeId" HeaderText="Leave Type" />  
-                                     <asp:BoundField DataField="LeaveAccureDate" HeaderText="Leave Accure Date" />
-                                     <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
-                                     <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" />
+                                <asp:BoundField DataField="LeaveTypeId" HeaderText="Leave Type" />
+                                <asp:BoundField DataField="LeaveAccureDate" HeaderText="Leave Accure Date" />
+                                <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
+                                <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" />
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
@@ -136,8 +120,8 @@
                         </asp:GridView>
                     </div>
                 </div>
-             </div>
-           </div> 
-                
-        </div></asp:Content>
+            </div>
+        </div>
+    </div>
+</asp:Content>
 

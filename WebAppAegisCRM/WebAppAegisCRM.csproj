@@ -91,7 +91,7 @@
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="dist\css\custom-popup.css" />
-    <Content Include="dist\css\custom.css" />
+    <Content Include="dist\css\custom15112018.css" />
     <Content Include="dist\css\sb-admin-2.css" />
     <Content Include="dist\css\signature-pad.css" />
     <Content Include="dist\css\timeline.css" />
@@ -105,6 +105,8 @@
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\login_background.jpg" />
     <Content Include="LeaveManagement\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />

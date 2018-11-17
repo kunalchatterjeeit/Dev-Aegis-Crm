@@ -18,34 +18,49 @@ namespace WebAppAegisCRM.LeaveManagement
             get { return Convert.ToInt32(ViewState["LeaveConfigId"]); }
             set { ViewState["LeaveConfigId"] = value; }
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                Clear();
-                
+                LoadLeaveType();
+                LeaveConfig_GetAll();
+                Message.Show = false;
             }
         }
-    
-        private void LoadLeaveTypeId()
+
+        private void LoadLeaveType()
         {
-           
-            Business.LeaveManagement.LeaveConfiguration objLeaveMaster = new Business.LeaveManagement.LeaveConfiguration();
-            DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveConfiguration());
-            ddlLeaveTypeId.DataSource = dtLeaveMaster;
-            ddlLeaveTypeId.DataTextField = "LeaveTypeId";
-            ddlLeaveTypeId.DataValueField = "LeaveTypeName";
-            ddlLeaveTypeId.DataBind();
-            ddlLeaveTypeId.InsertSelect();
-
-
+            Business.LeaveManagement.LeaveType objLeaveType = new Business.LeaveManagement.LeaveType();
+            DataTable dtLeaveMaster = objLeaveType.LeaveTypeGetAll(new Entity.LeaveManagement.LeaveType());
+            if (dtLeaveMaster != null)
+            {
+                ddlLeaveType.DataSource = dtLeaveMaster;
+                ddlLeaveType.DataTextField = "LeaveTypeName";
+                ddlLeaveType.DataValueField = "LeaveTypeId";
+                ddlLeaveType.DataBind();
+            }
+            ddlLeaveType.InsertSelect();
         }
+
+        private void LeaveConfig_GetAll()
+        {
+            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
+
+            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
+
+            dgvLeaveConfiguration.DataSource = dt;
+            dgvLeaveConfiguration.DataBind();
+        }
+
         private void Clear()
         {
-            ddlLeaveTypeId.Text = "";
+            ddlLeaveType.SelectedIndex = 0;
             txtLeaveFrequency.Text = "";
             txtLeaveAccureDate.Text = "";
             txtCarryForwardCount.Text = "";
+            Message.Show = false;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -55,32 +70,27 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveConfiguration ObjLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration LeaveMaster = new Entity.LeaveManagement.LeaveConfiguration();
-            LeaveMaster.LeaveConfigId = LeaveConfigId;
-            LeaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveTypeId.SelectedValue);
-            LeaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
-            LeaveMaster.leaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
-            LeaveMaster.CarryForwardCount = Convert.ToInt16(txtCarryForwardCount.Text.Trim());
-            Clear();
-
-            Business.LeaveManagement.LeaveConfiguration obj = new Business.LeaveManagement.LeaveConfiguration();
-
-        }
-
-        protected void LeaveConfig_GetAll()
-        {
-            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
-
-            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
-            if (dt.Rows.Count > 0)
-                dgvLeaveConfiguration.DataSource = dt;
+            Business.LeaveManagement.LeaveConfiguration objLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration leaveMaster = new Entity.LeaveManagement.LeaveConfiguration();
+            leaveMaster.LeaveConfigId = LeaveConfigId;
+            leaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveType.SelectedValue);
+            leaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
+            leaveMaster.leaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
+            leaveMaster.CarryForwardCount = Convert.ToInt16(txtCarryForwardCount.Text.Trim());
+            int response = objLeaveConfig.LeaveConfigurations_Save(leaveMaster);
+            if (response > 0)
+            {
+                Clear();
+                LeaveConfig_GetAll();
+                Message.IsSuccess = true;
+                Message.Text = "Saved Successfully";
+            }
             else
-                dgvLeaveConfiguration.DataSource = null;
-            dgvLeaveConfiguration.DataBind();
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Role Name Exists";
+            }
+            Message.Show = true;
         }
-
-
     }
 }

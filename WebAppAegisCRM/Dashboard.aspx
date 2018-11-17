@@ -112,9 +112,27 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Date" DataField="ShortDocketDate" />
-                                        <asp:BoundField HeaderText="Name" DataField="CustomerName" />
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                Name
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <span title='<%# Eval("CustomerName") %>'>
+                                                    <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                </span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:BoundField HeaderText="Model" DataField="ProductName" />
-                                        <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                CP
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                 <span title='<%# Eval("ContactPerson") %>'>
+                                                    <%# (Eval("ContactPerson").ToString().Length>20)?Eval("ContactPerson").ToString().Substring(0,20)+"...":Eval("ContactPerson").ToString() %>
+                                                </span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <span id="anchorCallIn" runat="server" title='<%# string.Concat("CALL ATTEND TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
@@ -184,9 +202,27 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Date" DataField="ShortRequestDate" />
-                                        <asp:BoundField HeaderText="Name" DataField="CustomerName" />
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                Name
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <span title='<%# Eval("CustomerName") %>'>
+                                                    <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                </span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:BoundField HeaderText="Model" DataField="ProductName" />
-                                        <asp:BoundField HeaderText="CP" DataField="ContactPerson" />
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                CP
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                 <span title='<%# Eval("ContactPerson") %>'>
+                                                    <%# (Eval("ContactPerson").ToString().Length>20)?Eval("ContactPerson").ToString().Substring(0,20)+"...":Eval("ContactPerson").ToString() %>
+                                                </span>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>

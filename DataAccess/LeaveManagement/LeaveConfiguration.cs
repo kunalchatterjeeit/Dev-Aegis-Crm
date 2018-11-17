@@ -21,15 +21,12 @@ namespace DataAccess.LeaveManagement
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_LeaveConfig_Save";
-
                     cmd.Parameters.AddWithValue("@LeaveConfigId", objLeaveManagement.LeaveConfigId);
                     cmd.Parameters.AddWithValue("@LeaveTypeId", objLeaveManagement.LeaveTypeId);
                     cmd.Parameters.AddWithValue("@LeaveFrequency", objLeaveManagement.LeaveFrequency);
                     cmd.Parameters.AddWithValue("@LeaveAccureDate", objLeaveManagement.LeaveAccureDate);
-                    cmd.Parameters.AddWithValue("CarryForwardCount", objLeaveManagement.CarryForwardCount);
+                    cmd.Parameters.AddWithValue("@CarryForwardCount", objLeaveManagement.CarryForwardCount);
                     cmd.Parameters.AddWithValue("@Encashable", objLeaveManagement.Encashable);
-                    cmd.Parameters.AddWithValue("@CreatedDate", objLeaveManagement.CreatedDate);
-                    cmd.Parameters.AddWithValue("@Active", objLeaveManagement.Active);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
