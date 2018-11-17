@@ -23,6 +23,7 @@ namespace WebAppAegisCRM.LeaveManagement
             if (!IsPostBack)
             {
                 Clear();
+                
             }
         }
     

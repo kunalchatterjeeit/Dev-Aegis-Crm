@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Leave configuration Master" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
+﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
     Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -46,6 +46,10 @@
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
                                             Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
                                          </asp:CalendarExtender>
+
+                                
+
+
                             </div>
                         </div>
                         <br/>

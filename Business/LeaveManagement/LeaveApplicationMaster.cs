@@ -11,15 +11,15 @@ namespace Business.LeaveManagement
     {
         public int LeaveApplicationMaster_Save(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
-            return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_Save(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Save(objleaveapplicationmaster);
         }
         public int LeaveApplicationMaster_GetAll(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
-            return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_GetAll(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_GetAll(objleaveapplicationmaster);
         }
         public int LeaveApplicationMaster_Delete(Entity.LeaveManagement.LeaveManagement objleaveapplicationmaster)
         {
-            return DataAccess.LeaveManagement.LeaveManagement.LeaveApplicationMaster_Delete(objleaveapplicationmaster);
+            return DataAccess.LeaveManagement.LeaveApplicationMaster.LeaveApplicationMaster_Delete(objleaveapplicationmaster);
         }
     }
 }

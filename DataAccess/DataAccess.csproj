@@ -56,8 +56,8 @@
     <Compile Include="Customer\CustomerContactDetails.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
+    <Compile Include="LeaveManagement\LeaveApplicationMaster.cs" />
     <Compile Include="LeaveManagement\LeaveConfiguration.cs" />
-    <Compile Include="LeaveManagement\LeaveManagement.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleAccessLevel.cs" />
     <Compile Include="HR\RoleMaster.cs" />

@@ -10,7 +10,7 @@ using Entity.HR;
 
 namespace DataAccess.LeaveManagement
 {
-    public class LeaveManagement
+    public class LeaveApplicationMaster
     {
         public static int LeaveDesignationConfig_Save(Entity.LeaveManagement.LeaveManagement objLeaveManagement)
         {
@@ -38,7 +38,7 @@ namespace DataAccess.LeaveManagement
             }
             return retValue;
         }
-        
+
         public static DataTable LeaveDesignationConfig_GetAll()
         {
             using (DataTable dt = new DataTable())
@@ -160,13 +160,11 @@ namespace DataAccess.LeaveManagement
             }
             return rowsAffacted;
         }
-       
-
-       
 
 
-            
+
+
+
+
     }
 }
-
-
