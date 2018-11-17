@@ -29,7 +29,7 @@ namespace WebAppAegisCRM.LeaveManagement
         private void LoadLeaveTypeId()
         {
            
-            Business.LeaveManagement.LeaveManagement objLeaveMaster = new Business.LeaveManagement.LeaveManagement();
+            Business.LeaveManagement.LeaveConfiguration objLeaveMaster = new Business.LeaveManagement.LeaveConfiguration();
             DataTable dtLeaveMaster = objLeaveMaster.LeaveConfigurations_GetAll(new Entity.LeaveManagement.LeaveManagement());
             ddlLeaveTypeId.DataSource = dtLeaveMaster;
             ddlLeaveTypeId.DataTextField = "LeaveTypeId";
@@ -54,7 +54,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveManagement ObjLeaveConfig = new Business.LeaveManagement.LeaveManagement();
+            Business.LeaveManagement.LeaveConfiguration ObjLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
             Entity.LeaveManagement.LeaveManagement LeaveMaster = new Entity.LeaveManagement.LeaveManagement();
             LeaveMaster.LeaveConfigId = LeaveConfigId;
             LeaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveTypeId.SelectedValue);
@@ -63,15 +63,16 @@ namespace WebAppAegisCRM.LeaveManagement
             LeaveMaster.CarryForwardCount = Convert.ToInt16(txtCarryForwardCount.Text.Trim());
             Clear();
 
+            Business.LeaveManagement.LeaveConfiguration obj = new Business.LeaveManagement.LeaveConfiguration();
 
         }
 
         protected void LeaveConfig_GetAll()
         {
-            Business.LeaveManagement.LeaveManagement ObjbelLeaveConfig = new Business.LeaveManagement.LeaveManagement();
-            Entity.LeaveManagement.LeaveManagement lmLeaveMaster = new Entity.LeaveManagement.LeaveManagement();
+            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveManagement lmLeaveConfig = new Entity.LeaveManagement.LeaveManagement();
 
-            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(ObjbelLeaveConfig);
+            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
             if (dt.Rows.Count > 0)
                 dgvLeaveConfiguration.DataSource = dt;
             else
