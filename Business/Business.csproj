@@ -80,6 +80,8 @@
     <Compile Include="Inventory\ProductMaster.cs" />
     <Compile Include="Inventory\SpareMaster.cs" />
     <Compile Include="Inventory\Stock.cs" />
+    <Compile Include="LeaveManagement\LeaveStatus.cs" />
+    <Compile Include="LeaveManagement\LeaveType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purchase\Purchase.cs" />
     <Compile Include="Purchase\PurchaseRequisition.cs" />
