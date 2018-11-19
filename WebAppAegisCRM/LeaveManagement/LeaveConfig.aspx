@@ -1,7 +1,8 @@
 ﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs" 
-    Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
+    Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master"  %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 
 
 
@@ -17,7 +18,13 @@
                 <div class="panel-heading">
                     Add/Edit Leave Configuration
                 </div>
+
                 <div class="panel-body">
+                     <div class="row">
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message" runat="server" />
+                                </div>
+                            </div>
                     <div class="row">
                       
                          <div class="col-lg-6">
@@ -56,7 +63,7 @@
                          <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Carry Forward Count
-                                <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtCarryForwardCount"  CssClass="form-control" runat="server" MaxLength="3" onkeypress="if(event.keyCode<48 || event.keyCode>57)event.returnValue=false;"></asp:TextBox>
                             </div>
                         </div>
                         <br/>

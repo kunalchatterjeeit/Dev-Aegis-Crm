@@ -22,6 +22,15 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
+        /// Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebAppAegisCRM.UserControl.Message Message;
+        
+        /// <summary>
         /// ddlLeaveTypeId control.
         /// </summary>
         /// <remarks>

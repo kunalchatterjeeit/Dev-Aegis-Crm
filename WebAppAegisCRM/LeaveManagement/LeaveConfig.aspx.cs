@@ -63,8 +63,8 @@ namespace WebAppAegisCRM.LeaveManagement
             LeaveMaster.leaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
             LeaveMaster.CarryForwardCount = Convert.ToInt16(txtCarryForwardCount.Text.Trim());
             Clear();
+            LeaveConfig_GetAll();
 
-            Business.LeaveManagement.LeaveConfiguration obj = new Business.LeaveManagement.LeaveConfiguration();
 
         }
 
@@ -78,7 +78,38 @@ namespace WebAppAegisCRM.LeaveManagement
                 dgvLeaveConfiguration.DataSource = dt;
             else
                 dgvLeaveConfiguration.DataSource = null;
-            dgvLeaveConfiguration.DataBind();
+                dgvLeaveConfiguration.DataBind();
+        }
+
+        private bool Validation()
+        {
+            bool retValue = true;
+
+            if (retValue && string.IsNullOrEmpty(txtLeaveAccureDate.Text.Trim()))
+            {
+                retValue = false;
+                Message.Text = "Please enter LeaveAccure Date.";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+
+            if (retValue && ddlLeaveTypeId.SelectedIndex == 0)
+            {
+                retValue = false;
+                Message.Text = "Please select Leave Type.";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+            if(retValue && string.IsNullOrEmpty(txtCarryForwardCount.Text.Trim()))
+            {
+                retValue = false;
+                Message.Text = "Please Add Carry Forward Count ";
+                retValue = true;
+            }
+
+           
+
+            return retValue;
         }
 
 

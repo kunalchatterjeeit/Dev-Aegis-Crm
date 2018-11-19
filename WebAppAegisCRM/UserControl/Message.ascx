@@ -8,4 +8,5 @@
     font-size: 10pt; padding: 5px 2px 5px 30px; color: #ED1410; width: 90%; position: relative;
     margin: 0px 30px 20px 0px">
     <img src="../images/Error.png" alt="ERROR" style="margin-bottom: 3px" />
-    <asp:Label ID="lblError" runat="server" Style="margin: 0px 15px"></asp:Label></span>
+    <asp:Label
+        l ID="lblError" runat="server" Style="margin: 0px 15px"></asp:Label></span>
