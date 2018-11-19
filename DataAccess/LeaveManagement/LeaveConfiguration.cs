@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using Entity.LeaveManagement;
 
 namespace DataAccess.LeaveManagement
 {
@@ -38,6 +39,32 @@ namespace DataAccess.LeaveManagement
 
         }
 
+        public static DataTable LeaveConfigurations_ById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_HR_EmployeeMaster_ById";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@EmployeeMasterId", objLeaveManagement.LeaveConfigId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
         public static DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
         {
             using (DataTable dt = new DataTable())
@@ -59,7 +86,7 @@ namespace DataAccess.LeaveManagement
                 return dt;
             }
         }
-        public static int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveConfiguration objleaveapplicationmaster)
+        public static int LeaveConfigurations_Delete(int leaveConfigId)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -70,7 +97,7 @@ namespace DataAccess.LeaveManagement
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_LeaveConfig_Delete";
 
-                    cmd.Parameters.AddWithValue("@LeaveConfigId", objleaveapplicationmaster);
+                    cmd.Parameters.AddWithValue("@LeaveConfigId", leaveConfigId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();

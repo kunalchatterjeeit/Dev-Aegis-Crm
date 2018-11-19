@@ -43,6 +43,51 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlLeaveType.InsertSelect();
         }
 
+      
+
+       
+
+        protected void gvLeaveConfig_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "E")
+            {
+                LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
+                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+
+
+
+                txtLeaveFrequency.Text = row.Cells[2].Text;
+                txtLeaveAccureDate.Text = row.Cells[4].Text;
+                txtCarryForwardCount.Text = row.Cells[3].Text;
+                Message.Show = false;
+                btnSave.Text = "Update";
+                Message.Text = "Updated";
+            }
+            else
+            {
+                if (e.CommandName == "D")
+                {
+                    Business.LeaveManagement.LeaveConfiguration objLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+                    LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
+                    int RowsAffected = objLeaveConfig.LeaveConfigurations_Delete(LeaveConfigId);
+                    if (RowsAffected > 0)
+                    {
+                        LoadLeaveType();
+                        LeaveConfig_GetAll();
+                        Message.Show = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.Show = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+
+                }
+            }
+           
+        }
         private void LeaveConfig_GetAll()
         {
             Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
@@ -88,7 +133,7 @@ namespace WebAppAegisCRM.LeaveManagement
             else
             {
                 Message.IsSuccess = false;
-                Message.Text = "Role Name Exists";
+                Message.Text = "Exists";
             }
             Message.Show = true;
         }

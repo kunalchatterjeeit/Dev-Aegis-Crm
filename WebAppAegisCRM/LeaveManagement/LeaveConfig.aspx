@@ -77,7 +77,7 @@
                     <div class="table-responsive">
                         <asp:GridView ID="dgvLeaveConfiguration" runat="server"
                             AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                            GridLines="None" Style="text-align: left">
+                            GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveConfig_RowCommand">
                             <Columns>
                                 <asp:TemplateField>
                                     <HeaderTemplate>
