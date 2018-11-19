@@ -22,22 +22,13 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// Message control.
+        /// ddlLeaveType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebAppAegisCRM.UserControl.Message Message;
-        
-        /// <summary>
-        /// ddlLeaveTypeId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveTypeId;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveType;
         
         /// <summary>
         /// txtLeaveFrequency control.
@@ -101,6 +92,15 @@ namespace WebAppAegisCRM.LeaveManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
+        /// Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
         /// dgvLeaveConfiguration control.
