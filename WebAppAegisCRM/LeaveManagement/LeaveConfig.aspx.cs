@@ -55,13 +55,16 @@ namespace WebAppAegisCRM.LeaveManagement
                 GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
 
 
-
-                txtLeaveFrequency.Text = row.Cells[2].Text;
-                txtLeaveAccureDate.Text = row.Cells[4].Text;
-                txtCarryForwardCount.Text = row.Cells[3].Text;
+                
+                txtLeaveAccureDate.Text = (Convert.ToDateTime(row.Cells[4].Text).ToString("dd MMM yyyy"));
+                txtCarryForwardCount.Text =(Convert.ToDecimal(row.Cells[3].Text).ToString());
                 Message.Show = false;
                 btnSave.Text = "Update";
-                Message.Text = "Updated";
+               
+
+
+
+
             }
             else
             {
@@ -121,7 +124,7 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveType.SelectedValue);
             leaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
             leaveMaster.leaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
-            leaveMaster.CarryForwardCount = Convert.ToInt16(txtCarryForwardCount.Text.Trim());
+            leaveMaster.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text);
             int response = objLeaveConfig.LeaveConfigurations_Save(leaveMaster);
             if (response > 0)
             {

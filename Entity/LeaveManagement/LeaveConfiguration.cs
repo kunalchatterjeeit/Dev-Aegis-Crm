@@ -21,7 +21,7 @@ namespace Entity.LeaveManagement
 
         public int LeaveConfigId { get; set; }
         public string LeaveFrequency { get; set; }
-        public int CarryForwardCount { get; set; }
+        public decimal CarryForwardCount { get; set; }
         public int Encashable { get; set; }
        
 
