@@ -43,27 +43,45 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlLeaveType.InsertSelect();
         }
 
-      
+        protected void FetchLeaveConfigById(Int16 LeaveConfigId)
+        {
+            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
+            lmLeaveConfig.LeaveConfigId = LeaveConfigId;
+            DataTable dt = ObjbelLeaveConfig.FetchLeaveConfigById(lmLeaveConfig);
+            if (dt.Rows.Count > 0)
+           {
 
-       
+                ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
+               
+
+                txtLeaveFrequency.Text = dt.Rows[0]["LeaveFrequency"].ToString();
+                txtLeaveAccureDate.Text = dt.Rows[0]["LeaveAccureDate"].ToString();
+                txtCarryForwardCount.Text = dt.Rows[0]["CarryForwardCount"].ToString();
+            }
+        }
+
+
 
         protected void gvLeaveConfig_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            /*   if (e.CommandName == "E")
+               {
+                   LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
+                   GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+
+
+
+                   txtLeaveAccureDate.Text = (Convert.ToDateTime(row.Cells[4].Text).ToString("dd MMM yyyy"));
+                   txtCarryForwardCount.Text =(Convert.ToDecimal(row.Cells[3].Text).ToString());
+                   Message.Show = false;
+                   btnSave.Text = "Update";
+               }*/
             if (e.CommandName == "E")
             {
+                // LeaveConfigId = Convert.ToInt64(e.CommandArgument.ToString());
                 LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
-                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-
-
-                
-                txtLeaveAccureDate.Text = (Convert.ToDateTime(row.Cells[4].Text).ToString("dd MMM yyyy"));
-                txtCarryForwardCount.Text =(Convert.ToDecimal(row.Cells[3].Text).ToString());
-                Message.Show = false;
-                btnSave.Text = "Update";
-               
-
-
-
+                FetchLeaveConfigById(LeaveConfigId);
 
             }
             else

@@ -17,13 +17,13 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_GetAll(lmLeaveConfig);
         }
-       /* public int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        /*public int LeaveConfigurations_Delete(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_Delete(objLeaveManagement);
         }*/
-        public DataTable LeaveConfigurations_ById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        public DataTable FetchLeaveConfigById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
-            return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_ById(objLeaveManagement);
+            return DataAccess.LeaveManagement.LeaveConfiguration.FetchLeaveConfigById(objLeaveManagement);
         }
 
         public int LeaveConfigurations_Delete(int leaveConfigId)
