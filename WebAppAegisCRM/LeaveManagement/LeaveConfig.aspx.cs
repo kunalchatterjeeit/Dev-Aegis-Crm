@@ -15,7 +15,7 @@ namespace WebAppAegisCRM.LeaveManagement
     {
         public int LeaveConfigId
         {
-            get { return Convert.ToInt32(ViewState["LeaveConfigId"]); }
+            get { return Convert.ToInt16(ViewState["LeaveConfigId"]); }
             set { ViewState["LeaveConfigId"] = value; }
         }
 
@@ -43,7 +43,7 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlLeaveType.InsertSelect();
         }
 
-        protected void FetchLeaveConfigById(Int16 LeaveConfigId)
+        protected void FetchLeaveConfigById(Int32 LeaveConfigId)
         {
             Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
             Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
@@ -65,21 +65,8 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void gvLeaveConfig_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            /*   if (e.CommandName == "E")
-               {
-                   LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
-                   GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-
-
-
-                   txtLeaveAccureDate.Text = (Convert.ToDateTime(row.Cells[4].Text).ToString("dd MMM yyyy"));
-                   txtCarryForwardCount.Text =(Convert.ToDecimal(row.Cells[3].Text).ToString());
-                   Message.Show = false;
-                   btnSave.Text = "Update";
-               }*/
             if (e.CommandName == "E")
             {
-                // LeaveConfigId = Convert.ToInt64(e.CommandArgument.ToString());
                 LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
                 FetchLeaveConfigById(LeaveConfigId);
 
