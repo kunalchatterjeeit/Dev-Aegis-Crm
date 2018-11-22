@@ -351,7 +351,7 @@
                                     <a href="../HR/LeaveConfig.aspx">Add/Edit Leave Configuration</a>
                                 </li>
                                  <li id="liLeaveType" runat="server">
-                                    <a href="../HR/LeaveType.aspx">Add/Edit Leave Type</a>
+                                    <a href="../HR/LeaveApply.aspx">Add/Edit Leave Apply</a>
                                 </li>
                                 
                             </ul>
