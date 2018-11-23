@@ -45,7 +45,7 @@
                         <div class="col-lg-12" id="calender" style="margin-left:180px;">
                              <div class="form-group has-error">
                         <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Names="Verdana" MultiSelectedDates="true" OnDayRender="Calendar1_DayRender"
-                            Font-Size="9pt" ForeColor="Black" Height="250px" NextPrevFormat="ShortMonth" Width="755px" OnSelectionChanged="Calendar1_SelectionChanged" SelectedDate="2018-11-22" SelectionMode="Day">
+                            Font-Size="9pt" ForeColor="Black" Height="250px" NextPrevFormat="ShortMonth" Width="755px" OnSelectionChanged="Calendar1_SelectionChanged"  SelectionMode="Day">
                             <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
                             <DayStyle BackColor="#CCCCCC" />
                             <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />

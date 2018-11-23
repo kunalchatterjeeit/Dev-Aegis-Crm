@@ -63,7 +63,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 e.Cell.ForeColor = System.Drawing.Color.Red;
                 e.Cell.Font.Strikeout = true;
             }
-            if (e.Day.IsSelected == true)
+             if (e.Day.IsSelected == true)
             {
                 list.Add(e.Day.Date);
             }
@@ -75,36 +75,8 @@ namespace WebAppAegisCRM.LeaveManagement
        
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
-            // lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
 
-            // lbToDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-
-            //   DateTime a  = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-
-            // calendar1.AllowMultipleSelect = true;
-
-            // lbFromDate.Text = Calendar1.SelectedDates[0].ToShortDateString();
-
-            // lbTotalCount.Text = Calendar1.SelectedDates[Calendar1.SelectedDates.Count - 1].ToShortDateString();
-
-            ////////////////////////////
-            // for(int i=0;i<=Calendar1.SelectedDates.Count;i++)
-            //  {
-            //      lbTotalCount.Text += Calendar1.SelectedDates[Calendar1.SelectedDates.Count - 1].ToShortDateString();
-            // }
-            /////////////////////////////////
-          //  if (Session["SelectedDates"] != null)
-          /*  {
-                List<DateTime> newList = (List<DateTime>)Session["SelectedDates"];
-                foreach (DateTime dt in newList)
-                {
-                    Calendar1.SelectedDates.Add(dt);
-                }
-                list.Clear();
-
-            }*/
-
-            if (Session["SelectedDates"] != null)
+           if (Session["SelectedDates"] != null)
             {
 
                 List<DateTime> newList = (List<DateTime>)Session["SelectedDates"];
@@ -116,48 +88,17 @@ namespace WebAppAegisCRM.LeaveManagement
                     }
                     else
                     {
-                        Calendar1.SelectedDates.Add(dt);
+                         Calendar1.SelectedDates.Add(dt);
                         lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
                         lbToDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
+
+                        DateTime rangeStart = Convert.ToDateTime(lbFromDate.Text.Trim());
+                        DateTime rangeEnd = Convert.ToDateTime(lbFromDate.Text.Trim());
+                        TimeSpan TotalCount = rangeEnd - rangeStart;
+                        
                     }
                 }
             }
-
-
-
-
-            //lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-            // DateTime rangeStart = Convert.ToDateTime(lbFromDate.Text.Trim());
-
-
-
-            // DateTime rangeStart = new DateTime(2018, 11, 7);
-            //
-            // lbFromDate.Text = rangeStart.ToString("dd-MMM-yyyy");
-            //lbToDate.Text = rangeEnd.ToString("dd-MMM-yyyy");
-            //TimeSpan TotalCount = rangeEnd - rangeStart;
-            //lbTotalCount.Text = TotalCount.ToString("dd");
-
-            /* if (e.Day.Date < rangeStart || e.Day.Date > rangeEnd)
-             {
-                 e.Day.IsSelectable = false;
-                 e.Cell.ForeColor = System.Drawing.Color.Gray;
-
-             }*/
-
-
-            /*  DateTime df = new DateTime(2018, 11, 7);
-              DateTime temp = df;
-
-              while (temp < df)
-              {
-                  temp = temp.AddDays(1);
-                  // do something with inbetween date here...
-              }*/
-
-
-
-
         }
       
     }
