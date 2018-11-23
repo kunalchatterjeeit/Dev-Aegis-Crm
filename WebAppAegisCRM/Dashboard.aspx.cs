@@ -239,11 +239,14 @@ namespace WebAppAegisCRM
         {
             _Callback = new DashBoardElements();
 
-            LoadDocket(gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
-            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST))
             {
-                gvDocketAsync.RenderControl(new HtmlTextWriter(sw));
-                _Callback.DocketList = sw.ToString();
+                LoadDocket(gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
+                using (System.IO.StringWriter sw = new System.IO.StringWriter())
+                {
+                    gvDocketAsync.RenderControl(new HtmlTextWriter(sw));
+                    _Callback.DocketList = sw.ToString();
+                }
             }
 
             LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
