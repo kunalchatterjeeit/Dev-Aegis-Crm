@@ -39,7 +39,7 @@ namespace DataAccess.LeaveManagement
 
         }
 
-        public static DataTable LeaveConfigurations_ById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        public static DataTable FetchLeaveConfigById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
         {
             using (DataTable dt = new DataTable())
             {
@@ -48,9 +48,9 @@ namespace DataAccess.LeaveManagement
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.Connection = con;
-                        cmd.CommandText = "usp_HR_EmployeeMaster_ById";
+                        cmd.CommandText = "usp_HR_LeaveConfig_GetById";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@EmployeeMasterId", objLeaveManagement.LeaveConfigId);
+                        cmd.Parameters.AddWithValue("@LeaveConfigId", objLeaveManagement.LeaveConfigId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
 
