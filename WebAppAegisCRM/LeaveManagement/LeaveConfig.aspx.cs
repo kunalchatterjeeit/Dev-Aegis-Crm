@@ -1,32 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 using Business.Common;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
-        public int LeaveConfigId
+        private int LeaveConfigId
         {
             get { return Convert.ToInt16(ViewState["LeaveConfigId"]); }
             set { ViewState["LeaveConfigId"] = value; }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                LoadLeaveType();
-                LeaveConfig_GetAll();
-                Message.Show = false;
-            }
         }
 
         private void LoadLeaveType()
@@ -43,25 +27,51 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlLeaveType.InsertSelect();
         }
 
-        protected void FetchLeaveConfigById(Int32 LeaveConfigId)
+        private void LeaveConfig_GetAll()
+        {
+            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
+
+            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
+
+            dgvLeaveConfiguration.DataSource = dt;
+            dgvLeaveConfiguration.DataBind();
+        }
+
+        private void Clear()
+        {
+            LeaveConfigId = 0;
+            ddlLeaveType.SelectedIndex = 0;
+            txtLeaveFrequency.Text = "";
+            txtLeaveAccureDate.Text = "";
+            txtCarryForwardCount.Text = "";
+            Message.Show = false;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                LoadLeaveType();
+                LeaveConfig_GetAll();
+                Message.Show = false;
+            }
+        }
+
+        protected void FetchLeaveConfigById(int LeaveConfigId)
         {
             Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
             Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
             lmLeaveConfig.LeaveConfigId = LeaveConfigId;
             DataTable dt = ObjbelLeaveConfig.FetchLeaveConfigById(lmLeaveConfig);
             if (dt.Rows.Count > 0)
-           {
-
+            {
                 ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
-               
-
                 txtLeaveFrequency.Text = dt.Rows[0]["LeaveFrequency"].ToString();
                 txtLeaveAccureDate.Text = dt.Rows[0]["LeaveAccureDate"].ToString();
                 txtCarryForwardCount.Text = dt.Rows[0]["CarryForwardCount"].ToString();
             }
         }
-
-
 
         protected void gvLeaveConfig_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -69,7 +79,6 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
                 FetchLeaveConfigById(LeaveConfigId);
-
             }
             else
             {
@@ -91,29 +100,8 @@ namespace WebAppAegisCRM.LeaveManagement
                         Message.Text = "Data Dependency Exists";
                     }
                     Message.Show = true;
-
                 }
             }
-           
-        }
-        private void LeaveConfig_GetAll()
-        {
-            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
-
-            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
-
-            dgvLeaveConfiguration.DataSource = dt;
-            dgvLeaveConfiguration.DataBind();
-        }
-
-        private void Clear()
-        {
-            ddlLeaveType.SelectedIndex = 0;
-            txtLeaveFrequency.Text = "";
-            txtLeaveAccureDate.Text = "";
-            txtCarryForwardCount.Text = "";
-            Message.Show = false;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
