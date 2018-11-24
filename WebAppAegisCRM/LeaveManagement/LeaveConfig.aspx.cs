@@ -116,7 +116,7 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveMaster.LeaveConfigId = LeaveConfigId;
             leaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveType.SelectedValue);
             leaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
-            leaveMaster.leaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
+            leaveMaster.LeaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
             leaveMaster.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text);
             int response = objLeaveConfig.LeaveConfigurations_Save(leaveMaster);
             if (response > 0)
