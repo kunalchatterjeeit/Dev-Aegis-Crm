@@ -15,16 +15,27 @@ using System.Threading;
 
 
 
+
+
+
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApply : System.Web.UI.Page
     {
+        public int LeaveApplyId
+        {
+            get { return Convert.ToInt16(ViewState["LeaveApplyId"]); }
+            set { ViewState["LeaveApplyId"] = value;
+         
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadLeaveType();
+                Business.Common.Context.SelectedDates.Clear();
             }
 
 
@@ -46,10 +57,13 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+
+           
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Business.Common.Context.SelectedDates.Clear();
             Calendar1.SelectedDates.Clear();
         }
 
@@ -61,13 +75,17 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 e.Day.IsSelectable = false;
                 e.Cell.ForeColor = System.Drawing.Color.Red;
+                e.Cell.Font.Bold = true;
                 e.Cell.Font.Strikeout = true;
+                
             }
-             if (e.Day.IsSelected == true)
+            if (Business.Common.Context.SelectedDates.Any())
             {
-                list.Add(e.Day.Date);
+                foreach (DateTime dt in Business.Common.Context.SelectedDates)
+                {
+                    Calendar1.SelectedDates.Add(dt);
+                }
             }
-            Session["SelectedDates"] = list;
 
 
         }
@@ -76,30 +94,62 @@ namespace WebAppAegisCRM.LeaveManagement
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
 
-           if (Session["SelectedDates"] != null)
+            /* if (Session["SelectedDates"] != null)
+              {
+
+                  List<DateTime> newList = (List<DateTime>)Session["SelectedDates"];
+                  foreach (DateTime dt in newList)
+                  {
+                      if (Calendar1.SelectedDates.Contains(dt) || Calendar1.SelectedDate == dt)
+                      {
+                          Calendar1.SelectedDates.Remove(dt);
+                      }
+                      else
+                      {
+                           Calendar1.SelectedDates.Add(dt);
+                          lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
+                          lbToDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
+
+                          DateTime rangeStart = Convert.ToDateTime(lbFromDate.Text.Trim());
+                          DateTime rangeEnd = Convert.ToDateTime(lbFromDate.Text.Trim());
+                          TimeSpan TotalCount = rangeEnd - rangeStart;
+
+                      }
+                  }
+
+              }*/
+            Calendar calender = ((Calendar)sender);
+
+            if (calender.ValidateContinueSelection())
             {
-
-                List<DateTime> newList = (List<DateTime>)Session["SelectedDates"];
-                foreach (DateTime dt in newList)
+                if (!Business.Common.Context.SelectedDates.Contains(calender.SelectedDate))
                 {
-                    if (Calendar1.SelectedDates.Contains(dt) || Calendar1.SelectedDate == dt)
-                    {
-                        Calendar1.SelectedDates.Remove(dt);
-                    }
-                    else
-                    {
-                         Calendar1.SelectedDates.Add(dt);
-                        lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-                        lbToDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-
-                        DateTime rangeStart = Convert.ToDateTime(lbFromDate.Text.Trim());
-                        DateTime rangeEnd = Convert.ToDateTime(lbFromDate.Text.Trim());
-                        TimeSpan TotalCount = rangeEnd - rangeStart;
-                        
-                    }
+                    List<DateTime> lists = Business.Common.Context.SelectedDates;
+                    lists.Add(calender.SelectedDate);
+                    Business.Common.Context.SelectedDates = lists;
                 }
             }
+            else
+            {
+                Business.Common.Context.SelectedDates.Clear();
+                calender.SelectedDates.Clear();
+            }
+
+
+            if (Business.Common.Context.SelectedDates.Any())
+            {
+                lbFromDate.Text = Business.Common.Context.SelectedDates.Min().ToString("dd MMM yyyy");
+                lbToDate.Text = Business.Common.Context.SelectedDates.Max().ToString("dd MMM yyyy");
+                lbTotalCount.Text = ((Business.Common.Context.SelectedDates.Max() - Business.Common.Context.SelectedDates.Min()).TotalDays + 1).ToString();
+            }
+            else
+            {
+                lbFromDate.Text = string.Empty;
+                lbToDate.Text = string.Empty;
+                lbTotalCount.Text = string.Empty;
+            }
         }
-      
+    }
+
     }
 }
