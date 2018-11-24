@@ -33,18 +33,11 @@
                         <br />
                         <div class="col-lg-6">
                             <div class="form-group has-error">
-                                Leave Accure Date
-                                <asp:TextBox ID="txtLeaveAccureDate" CssClass="form-control" runat="server"></asp:TextBox>
+                                Leave Accrue Date
+                                <asp:TextBox ID="txtLeaveAccurueDate" CssClass="form-control" runat="server"></asp:TextBox>
                                 <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
                                     Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
                                 </asp:CalendarExtender>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="col-lg-6">
-                            <div class="form-group has-error">
-                                Carry Forward Count
-                                <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
                         <br />

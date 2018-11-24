@@ -7,10 +7,10 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
-        private int LeaveConfigId
+        private int LeaveConfigurationId
         {
-            get { return Convert.ToInt16(ViewState["LeaveConfigId"]); }
-            set { ViewState["LeaveConfigId"] = value; }
+            get { return Convert.ToInt32(ViewState["LeaveConfigurationId"]); }
+            set { ViewState["LeaveConfigurationId"] = value; }
         }
 
         private void LoadLeaveType()
@@ -29,10 +29,10 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void LeaveConfig_GetAll()
         {
-            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
+            Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
 
-            DataTable dt = ObjbelLeaveConfig.LeaveConfigurations_GetAll(lmLeaveConfig);
+            DataTable dt = objLeaveConfiguration.LeaveConfigurations_GetAll(leaveConfiguration);
 
             dgvLeaveConfiguration.DataSource = dt;
             dgvLeaveConfiguration.DataBind();
@@ -40,11 +40,10 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void Clear()
         {
-            LeaveConfigId = 0;
+            LeaveConfigurationId = 0;
             ddlLeaveType.SelectedIndex = 0;
             txtLeaveFrequency.Text = "";
-            txtLeaveAccureDate.Text = "";
-            txtCarryForwardCount.Text = "";
+            txtLeaveAccurueDate.Text = "";
             Message.Show = false;
         }
 
@@ -60,16 +59,15 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void FetchLeaveConfigById(int LeaveConfigId)
         {
-            Business.LeaveManagement.LeaveConfiguration ObjbelLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig = new Entity.LeaveManagement.LeaveConfiguration();
-            lmLeaveConfig.LeaveConfigId = LeaveConfigId;
-            DataTable dt = ObjbelLeaveConfig.FetchLeaveConfigById(lmLeaveConfig);
+            Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
+            leaveConfiguration.LeaveConfigId = LeaveConfigId;
+            DataTable dt = objLeaveConfiguration.FetchLeaveConfigById(leaveConfiguration);
             if (dt.Rows.Count > 0)
             {
                 ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
                 txtLeaveFrequency.Text = dt.Rows[0]["LeaveFrequency"].ToString();
-                txtLeaveAccureDate.Text = dt.Rows[0]["LeaveAccureDate"].ToString();
-                txtCarryForwardCount.Text = dt.Rows[0]["CarryForwardCount"].ToString();
+                txtLeaveAccurueDate.Text = dt.Rows[0]["LeaveAccureDate"].ToString();
             }
         }
 
@@ -77,16 +75,16 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             if (e.CommandName == "E")
             {
-                LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
-                FetchLeaveConfigById(LeaveConfigId);
+                LeaveConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                FetchLeaveConfigById(LeaveConfigurationId);
             }
             else
             {
                 if (e.CommandName == "D")
                 {
-                    Business.LeaveManagement.LeaveConfiguration objLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-                    LeaveConfigId = Convert.ToInt16(e.CommandArgument.ToString());
-                    int RowsAffected = objLeaveConfig.LeaveConfigurations_Delete(LeaveConfigId);
+                    Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+                    LeaveConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                    int RowsAffected = objLeaveConfiguration.LeaveConfigurations_Delete(LeaveConfigurationId);
                     if (RowsAffected > 0)
                     {
                         LoadLeaveType();
@@ -111,14 +109,13 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveConfiguration objLeaveConfig = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration leaveMaster = new Entity.LeaveManagement.LeaveConfiguration();
-            leaveMaster.LeaveConfigId = LeaveConfigId;
-            leaveMaster.LeaveTypeId = Convert.ToInt16(ddlLeaveType.SelectedValue);
-            leaveMaster.LeaveFrequency = txtLeaveFrequency.Text.Trim();
-            leaveMaster.LeaveAccureDate = Convert.ToDateTime(txtLeaveAccureDate.Text.Trim());
-            leaveMaster.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text);
-            int response = objLeaveConfig.LeaveConfigurations_Save(leaveMaster);
+            Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+            Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
+            leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
+            leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+            leaveConfiguration.LeaveFrequency = txtLeaveFrequency.Text.Trim();
+            leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccurueDate.Text.Trim());
+            int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
             if (response > 0)
             {
                 Clear();
