@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using Entity.LeaveManagement;
-
+using Entity.HR;
 namespace DataAccess.LeaveManagement
 {
-   public class LeaveConfiguration
+   public class LeaveDesignationWiseConfiguration
     {
-        public static int LeaveConfigurations_Save(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        public static int LeaveDesignationConfig_Save(Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -21,12 +20,13 @@ namespace DataAccess.LeaveManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveConfig_Save";
-                    cmd.Parameters.AddWithValue("@LeaveConfigId", objLeaveManagement.LeaveConfigId);
-                    cmd.Parameters.AddWithValue("@LeaveTypeId", objLeaveManagement.LeaveTypeId);
-                    cmd.Parameters.AddWithValue("@LeaveFrequency", objLeaveManagement.LeaveFrequency);
-                    cmd.Parameters.AddWithValue("@LeaveAccrueDate", objLeaveManagement.LeaveAccrueDate);
-                    cmd.Parameters.AddWithValue("@Encashable", objLeaveManagement.Encashable);
+                    cmd.CommandText = "usp_HR_LeaveDesignationConfig_Save";
+
+                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", leaveDesignationWiseConfiguration.LeaveDesignationConfigId);
+                    cmd.Parameters.AddWithValue("@LeaveTypeId", leaveDesignationWiseConfiguration.LeaveTypeId);
+                    cmd.Parameters.AddWithValue("@DesignationId", leaveDesignationWiseConfiguration.DesignationId);
+                    cmd.Parameters.AddWithValue("@LeaveCount", leaveDesignationWiseConfiguration.LeaveCount);
+                    cmd.Parameters.AddWithValue("@CarryForwardCount", leaveDesignationWiseConfiguration.CarryForwardCount);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -35,10 +35,31 @@ namespace DataAccess.LeaveManagement
                 }
             }
             return retValue;
-
         }
 
-        public static DataTable FetchLeaveConfigById(Entity.LeaveManagement.LeaveConfiguration objLeaveManagement)
+        public static int LeaveDesignationConfig_Delete(int leaveDesignationWiseConfigurationId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_HR_LeaveDesignationConfig_Delete";
+
+                    cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", leaveDesignationWiseConfigurationId);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable LeaveDesignationConfig_GetById(int leaveDesignationWiseConfigurationId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -47,9 +68,9 @@ namespace DataAccess.LeaveManagement
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.Connection = con;
-                        cmd.CommandText = "usp_HR_LeaveConfig_GetById";
+                        cmd.CommandText = "usp_HR_LeaveDesignationConfig_GetById";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@LeaveConfigId", objLeaveManagement.LeaveConfigId);
+                        cmd.Parameters.AddWithValue("@LeaveDesignationConfigId", leaveDesignationWiseConfigurationId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
 
@@ -64,7 +85,7 @@ namespace DataAccess.LeaveManagement
             }
         }
 
-        public static DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
+        public static DataTable LeaveDesignationConfig_GetAll()
         {
             using (DataTable dt = new DataTable())
             {
@@ -74,7 +95,7 @@ namespace DataAccess.LeaveManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_LeaveConfig_GetAll";
+                        cmd.CommandText = "usp_HR_LeaveDesignationConfig_GetAll";
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);
@@ -85,28 +106,5 @@ namespace DataAccess.LeaveManagement
                 return dt;
             }
         }
-
-        public static int LeaveConfigurations_Delete(int leaveConfigId)
-        {
-            int rowsAffacted = 0;
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-            {
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveConfig_Delete";
-
-                    cmd.Parameters.AddWithValue("@LeaveConfigId", leaveConfigId);
-
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            return rowsAffacted;
-        }
-
     }
 }

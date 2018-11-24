@@ -1,8 +1,8 @@
-﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs"
-    Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
+﻿<%@ Page Title="LEAVE DESIGNATION CONFIGURATION" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveDesignationConfiguration.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveDesignationConfiguration" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,39 +26,35 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Leave Configuration
+                            Add/Edit Leave Configuration Designation Wise
                         </div>
                         <div class="panel-body">
                             <div class="row">
-
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Type
-                                <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
-                                </asp:DropDownList>
+                                        <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Leave Frequency
-                                <asp:TextBox ID="txtLeaveFrequency" CssClass="form-control" runat="server"></asp:TextBox>
+                                        Designation
+                                        <asp:DropDownList ID="ddlDesignation" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group has-error">
+                                        Leave Total
+                                        <asp:TextBox ID="txtLeaveCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>
                                 <br />
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Leave Accrue Date
-                                <asp:TextBox ID="txtLeaveAccurueDate" CssClass="form-control" runat="server"></asp:TextBox>
-                                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
-                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
-                                        </asp:CalendarExtender>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="col-lg-12">
-                                    <div class="form-group has-error">
-                                        Encashable
-                                <asp:CheckBox ID="ckEncashable" runat="server" />
+                                        Carry Forward Amount
+                                        <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -78,13 +74,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Leave Configuration List
+                            Leave Configuration Designation Wise List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <asp:GridView ID="dgvLeaveConfiguration" runat="server"
+                                <asp:GridView ID="gvLeaveDesignationConfiguration" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveConfig_RowCommand">
+                                    GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveDesignationConfiguration_RowCommand">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -94,21 +90,22 @@
                                                 <%# Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="LeaveTypeId" HeaderText="Leave Type" />
-                                        <asp:BoundField DataField="LeaveAccureDate" HeaderText="Leave Accure Date" />
+                                        <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
+                                        <asp:BoundField DataField="DesignationName" HeaderText="Designation" />
+                                        <asp:BoundField DataField="LeaveCount" HeaderText="Leave Amount" />
                                         <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
-                                        <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" />
+                                        <asp:BoundField DataField="CreateDate" HeaderText="Created Date" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/Images/edit_button.png"
+                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/Images/edit_button.png"
                                                     ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/images/delete_button.png"
+                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/images/delete_button.png"
                                                     ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
@@ -133,4 +130,3 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
-

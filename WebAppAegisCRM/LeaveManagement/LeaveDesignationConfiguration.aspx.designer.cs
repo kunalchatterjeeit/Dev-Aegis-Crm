@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.LeaveManagement {
     
     
-    public partial class LeaveConfig {
+    public partial class LeaveDesignationConfiguration {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -49,40 +49,31 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeaveType;
         
         /// <summary>
-        /// txtLeaveFrequency control.
+        /// ddlDesignation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeaveFrequency;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDesignation;
         
         /// <summary>
-        /// txtLeaveAccurueDate control.
+        /// txtLeaveCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeaveAccurueDate;
+        protected global::System.Web.UI.WebControls.TextBox txtLeaveCount;
         
         /// <summary>
-        /// CalendarExtender1 control.
+        /// txtCarryForwardCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
-        /// <summary>
-        /// ckEncashable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckEncashable;
+        protected global::System.Web.UI.WebControls.TextBox txtCarryForwardCount;
         
         /// <summary>
         /// btnSave control.
@@ -112,12 +103,12 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// dgvLeaveConfiguration control.
+        /// gvLeaveDesignationConfiguration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvLeaveConfiguration;
+        protected global::System.Web.UI.WebControls.GridView gvLeaveDesignationConfiguration;
     }
 }

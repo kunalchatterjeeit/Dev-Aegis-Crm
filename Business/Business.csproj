@@ -79,7 +79,7 @@
     <Compile Include="Inventory\ProductMaster.cs" />
     <Compile Include="Inventory\SpareMaster.cs" />
     <Compile Include="Inventory\Stock.cs" />
-    <Compile Include="LeaveManagement\LeaveDesignation.cs" />
+    <Compile Include="LeaveManagement\LeaveDesignationWiseConfiguration.cs" />
     <Compile Include="LeaveManagement\LeaveStatus.cs" />
     <Compile Include="LeaveManagement\LeaveType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

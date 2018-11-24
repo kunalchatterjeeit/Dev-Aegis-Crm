@@ -6,21 +6,15 @@ using System.Threading.Tasks;
 
 namespace Entity.LeaveManagement
 {
-    public class LeaveDesignation
+    public class LeaveDesignationWiseConfiguration
     {
         public int LeaveDesignationConfigId { get; set; }
         public decimal LeaveCount { get; set; }
         public string Active { get; set; }
         public int DesignationId { get; set; }
         public int LeaveTypeId { get; set; }
-
-        // public int CreatedDate { get; set; }
-       
-        public DateTime CreatedDate
-        {
-            get { return CreatedDate; }
-            set { CreatedDate = value; }
-        }
+        public decimal CarryForwardCount { get; set; }       
+        public DateTime CreatedDate { get; set; }
     }
 
 }
