@@ -10,28 +10,14 @@ namespace Entity.LeaveManagement
     {
         public LeaveConfiguration()
         { }
-
        
         public string Active { get; set; }
         public int CreatedDate { get; set; }
-
-
-
         public int LeaveTypeId { get; set; }
-
         public int LeaveConfigId { get; set; }
         public string LeaveFrequency { get; set; }
-        public decimal CarryForwardCount { get; set; }
         public int Encashable { get; set; }
-       
-
-        public DateTime LeaveAccureDate = DateTime.MinValue;
-        public DateTime leaveAccureDate
-        {
-            get { return LeaveAccureDate; }
-            set { LeaveAccureDate = value; }
-        }
-
+        public DateTime LeaveAccrueDate { get; set; }
     }
 
 }

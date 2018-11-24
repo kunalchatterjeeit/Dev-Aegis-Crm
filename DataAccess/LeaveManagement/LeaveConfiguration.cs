@@ -25,8 +25,7 @@ namespace DataAccess.LeaveManagement
                     cmd.Parameters.AddWithValue("@LeaveConfigId", objLeaveManagement.LeaveConfigId);
                     cmd.Parameters.AddWithValue("@LeaveTypeId", objLeaveManagement.LeaveTypeId);
                     cmd.Parameters.AddWithValue("@LeaveFrequency", objLeaveManagement.LeaveFrequency);
-                    cmd.Parameters.AddWithValue("@LeaveAccureDate", objLeaveManagement.LeaveAccureDate);
-                    cmd.Parameters.AddWithValue("@CarryForwardCount", objLeaveManagement.CarryForwardCount);
+                    cmd.Parameters.AddWithValue("@LeaveAccrueDate", objLeaveManagement.LeaveAccrueDate);
                     cmd.Parameters.AddWithValue("@Encashable", objLeaveManagement.Encashable);
 
                     if (con.State == ConnectionState.Closed)
