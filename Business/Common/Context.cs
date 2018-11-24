@@ -1,5 +1,6 @@
 ﻿using Entity.Service;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web;
 
@@ -145,6 +146,18 @@ namespace Business.Common
             set
             {
                 HttpContext.Current.Session["ContractStatusList"] = value;
+            }
+        }
+
+        public static List<DateTime> SelectedDates
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedDates"] != null) ? (List<DateTime>)HttpContext.Current.Session["SelectedDates"] : new List<DateTime>();
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedDates"] = value;
             }
         }
     }

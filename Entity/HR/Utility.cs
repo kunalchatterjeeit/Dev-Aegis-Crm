@@ -64,5 +64,8 @@ namespace Entity.HR
         public const string TONER_REQUEST_LIST = "504";
         public const string DOCKET_LIST = "505";
         public const string SERVICE_BOOK_LIST = "506";
+
+        //Dashboard Settings
+        public const string DASHBOARD_DOCKET_LIST = "10001";
     }
 }

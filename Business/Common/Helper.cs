@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.IO;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Business.Common
 {
@@ -71,7 +72,7 @@ namespace Business.Common
                     hashmd5.Clear();
                 }
             }
-            else if(CryptographyMode.Padding == cryptographyMode)
+            else if (CryptographyMode.Padding == cryptographyMode)
             {
                 //if hashing was not implemented get the byte code of the key
                 keyArray = UTF8Encoding.UTF8.GetBytes(key);
@@ -137,6 +138,17 @@ namespace Business.Common
                 }
             }
             return cipherText;
+        }
+
+        public static bool ValidateContinueSelection(this Calendar calender)
+        {
+            bool retValue = false;
+
+            if (Context.SelectedDates.Any())
+                retValue = (calender.SelectedDate - Context.SelectedDates.Min()).TotalDays == Context.SelectedDates.Count;
+            else
+                retValue = true;
+            return retValue;
         }
     }
 }

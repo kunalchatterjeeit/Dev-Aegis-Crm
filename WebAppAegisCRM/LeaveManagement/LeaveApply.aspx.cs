@@ -15,21 +15,10 @@ using System.Threading;
 
 
 
-
-
-
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApply : System.Web.UI.Page
     {
-        public int LeaveApplyId
-        {
-            get { return Convert.ToInt16(ViewState["LeaveApplyId"]); }
-            set { ViewState["LeaveApplyId"] = value;
-         
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -37,9 +26,8 @@ namespace WebAppAegisCRM.LeaveManagement
                 LoadLeaveType();
                 Business.Common.Context.SelectedDates.Clear();
             }
-
-
         }
+
         private void LoadLeaveType()
         {
             Business.LeaveManagement.LeaveType objLeaveType = new Business.LeaveManagement.LeaveType();
@@ -53,12 +41,9 @@ namespace WebAppAegisCRM.LeaveManagement
             }
             ddlLeaveType.InsertSelect();
         }
-        public static List<DateTime> list = new List<DateTime>();
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
-           
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -67,17 +52,13 @@ namespace WebAppAegisCRM.LeaveManagement
             Calendar1.SelectedDates.Clear();
         }
 
-
-
         public void Calendar1_DayRender(object sender, DayRenderEventArgs e)
         {
             if (e.Day.Date < DateTime.Now.Date)
             {
                 e.Day.IsSelectable = false;
                 e.Cell.ForeColor = System.Drawing.Color.Red;
-                e.Cell.Font.Bold = true;
                 e.Cell.Font.Strikeout = true;
-                
             }
             if (Business.Common.Context.SelectedDates.Any())
             {
@@ -86,38 +67,10 @@ namespace WebAppAegisCRM.LeaveManagement
                     Calendar1.SelectedDates.Add(dt);
                 }
             }
-
-
         }
 
-       
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
-
-            /* if (Session["SelectedDates"] != null)
-              {
-
-                  List<DateTime> newList = (List<DateTime>)Session["SelectedDates"];
-                  foreach (DateTime dt in newList)
-                  {
-                      if (Calendar1.SelectedDates.Contains(dt) || Calendar1.SelectedDate == dt)
-                      {
-                          Calendar1.SelectedDates.Remove(dt);
-                      }
-                      else
-                      {
-                           Calendar1.SelectedDates.Add(dt);
-                          lbFromDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-                          lbToDate.Text = Calendar1.SelectedDate.ToString("dd-MMM-yyyy");
-
-                          DateTime rangeStart = Convert.ToDateTime(lbFromDate.Text.Trim());
-                          DateTime rangeEnd = Convert.ToDateTime(lbFromDate.Text.Trim());
-                          TimeSpan TotalCount = rangeEnd - rangeStart;
-
-                      }
-                  }
-
-              }*/
             Calendar calender = ((Calendar)sender);
 
             if (calender.ValidateContinueSelection())
@@ -149,7 +102,5 @@ namespace WebAppAegisCRM.LeaveManagement
                 lbTotalCount.Text = string.Empty;
             }
         }
-    }
-
     }
 }
