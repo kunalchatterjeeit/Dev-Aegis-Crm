@@ -172,6 +172,7 @@
     <Content Include="Service\EmployeeDocket.aspx" />
     <Content Include="Service\EmployeeTonnerRequest.aspx" />
     <Content Include="Service\ServiceBook.aspx" />
+    <Content Include="Service\ServiceBookHistory.aspx" />
     <Content Include="Service\ServiceBookReport.aspx" />
     <Content Include="Service\ServiceBookSpareApproval.aspx" />
     <Content Include="Service\ServiceChallan.aspx" />
@@ -179,6 +180,7 @@
     <Content Include="Service\SpareRequisition.aspx" />
     <Content Include="Service\TonerApproval.aspx" />
     <Content Include="Service\TonnerRequestList.aspx" />
+    <Content Include="Settings\UserSettings.aspx" />
     <Content Include="UserControl\Message.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -557,6 +559,13 @@
     <Compile Include="Service\ServiceBook.aspx.designer.cs">
       <DependentUpon>ServiceBook.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Service\ServiceBookHistory.aspx.cs">
+      <DependentUpon>ServiceBookHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Service\ServiceBookHistory.aspx.designer.cs">
+      <DependentUpon>ServiceBookHistory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Service\ServiceBookReport.aspx.cs">
       <DependentUpon>ServiceBookReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -605,6 +614,13 @@
     </Compile>
     <Compile Include="Service\TonnerRequestList.aspx.designer.cs">
       <DependentUpon>TonnerRequestList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\UserSettings.aspx.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Settings\UserSettings.aspx.designer.cs">
+      <DependentUpon>UserSettings.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\Message.ascx.cs">
       <DependentUpon>Message.ascx</DependentUpon>

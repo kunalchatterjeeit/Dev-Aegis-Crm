@@ -804,16 +804,7 @@ namespace WebAppAegisCRM.Service
             }
             ddlTonerServiceEngineer.InsertSelect();
         }
-        protected void LoadServiceBookMasterHistory()
-        {
-            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            DataTable dt = objServiceBook.ServiceBookMasterHistory_GetAllByCallId(DocketId, 2);
-            if (dt != null)
-            {
-                gvDocketClosingHistory.DataSource = dt;
-                gvDocketClosingHistory.DataBind();
-            }
-        }
+       
         private Entity.Service.ServiceBook AssignningValuesToModel(Entity.Service.ServiceBook serviceBook, DataTable dtSpare, DataTable dtAssociatedEngineers)
         {
             serviceBook.ServiceBookId = Business.Common.Context.ServiceBookId;
@@ -1252,17 +1243,15 @@ namespace WebAppAegisCRM.Service
                     DocketId = long.Parse(gvDocket.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
                     Business.Common.Context.CallId = DocketId;
                     Business.Common.Context.CallType = CallType.Docket;
+                    Business.Common.Context.DocketNo = gvDocket.Rows[gridViewRow.RowIndex].Cells[2].Text;
                     lblProblem.Text = gridViewRow.Cells[8].Text;
                     divDocketClosing.Visible = true;
-                    divDocketClosingHistory.Visible = true;
-                    LoadServiceBookMasterHistory();
                     Service_ServiceBookMaster_GetByCallId(DocketId, CallType.Docket);
                     Service_AssociatedEngineers_GetByCallId(DocketId, CallType.Docket);
                 }
                 else
                 {
                     divDocketClosing.Visible = false;
-                    divDocketClosingHistory.Visible = false;
                 }
 
                 if (gvDocket.DataKeys[gridViewRow.RowIndex].Values != null && gvDocket.DataKeys[gridViewRow.RowIndex].Values.Count > 1)
@@ -1486,7 +1475,6 @@ namespace WebAppAegisCRM.Service
                                     SentMail();
                                     LoadDocket();
                                     ClearDocketControls();
-                                    LoadServiceBookMasterHistory();
                                     MessageDocket.IsSuccess = true;
                                     MessageDocket.Text = "Docket response successfully given.";
                                 }

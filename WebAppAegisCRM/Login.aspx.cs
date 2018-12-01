@@ -60,7 +60,6 @@ namespace WebAppAegisCRM
                 employeeMaster = objEmployeeMaster.AuthenticateUser(txtUsername.Text);
 
                 if (employeeMaster != null)
-
                 {
                     string passowrd = employeeMaster.Password;
                     string userId = employeeMaster.UserId.ToString();
@@ -71,6 +70,9 @@ namespace WebAppAegisCRM
 #endif
                     {
                         string roles = employeeMaster.Roles;
+                        string userSettings = new Business.Settings.UserSettings().GetByUserId(Convert.ToInt32(userId)).Tables[0].Rows[0]["UserSettings"].ToString();
+                        roles = string.Concat(roles, userSettings);
+
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                                                                        1,
                                                                        userId,

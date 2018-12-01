@@ -22,6 +22,24 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.WebControls.Literal ltCallback;
         
         /// <summary>
+        /// DocketListDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DocketListDiv;
+        
+        /// <summary>
+        /// btnDocketListClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDocketListClose;
+        
+        /// <summary>
         /// gvDocketAsync control.
         /// </summary>
         /// <remarks>
@@ -29,6 +47,24 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvDocketAsync;
+        
+        /// <summary>
+        /// TonerListDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TonerListDiv;
+        
+        /// <summary>
+        /// btnTonerListClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTonerListClose;
         
         /// <summary>
         /// gvTonnerRequestAsync control.
@@ -40,6 +76,42 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.WebControls.GridView gvTonnerRequestAsync;
         
         /// <summary>
+        /// ChartDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ChartDiv;
+        
+        /// <summary>
+        /// btnChartClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnChartClose;
+        
+        /// <summary>
+        /// ExpiringListDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ExpiringListDiv;
+        
+        /// <summary>
+        /// btnExpiringClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExpiringClose;
+        
+        /// <summary>
         /// gvExpiringSoonAsync control.
         /// </summary>
         /// <remarks>
@@ -47,6 +119,24 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvExpiringSoonAsync;
+        
+        /// <summary>
+        /// ExpiredListDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ExpiredListDiv;
+        
+        /// <summary>
+        /// btnExpiredClose control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExpiredClose;
         
         /// <summary>
         /// gvExpiredListAsync control.

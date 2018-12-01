@@ -436,6 +436,15 @@ namespace WebAppAegisCRM.Service {
         protected global::WebAppAegisCRM.UserControl.Message MessageDocket;
         
         /// <summary>
+        /// btnViewHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewHistory;
+        
+        /// <summary>
         /// btnSpareRequisition control.
         /// </summary>
         /// <remarks>
@@ -461,24 +470,6 @@ namespace WebAppAegisCRM.Service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDocketClose;
-        
-        /// <summary>
-        /// divDocketClosingHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDocketClosingHistory;
-        
-        /// <summary>
-        /// gvDocketClosingHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDocketClosingHistory;
         
         /// <summary>
         /// divTonnerRequest control.

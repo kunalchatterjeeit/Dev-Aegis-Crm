@@ -456,64 +456,26 @@
                                 <input type="hidden" id="signature" runat="server" />--%>
                             <div class="clearfix">
                             </div>
-                            <div class="col-lg-12" id="buttonSection">
+                            <div class="col-lg-12">
                                 <br />
                                 <uc3:Message ID="MessageDocket" runat="server" />
-                                <asp:Button ID="btnSpareRequisition" runat="server" Text="Spare Requisition" OnClientClick="OpenWindow('SpareRequisition.aspx')" class="btn btn-outline btn-warning extra-margin pull-right" Style="width: 100%" />
-                                <asp:Button ID="btnServiceChallan" runat="server" Text="Proceed to Challan & Signature" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-success extra-margin pull-right" Style="width: 100%" />
+                            </div>
+                            <div class="col-lg-3">
+                                <asp:Button ID="btnViewHistory" runat="server" Text="History" OnClientClick="OpenWindow('ServiceBookHistory.aspx')" class="btn btn-outline btn-default extra-margin pull-right" Style="width: 100%" />
+                            </div>
+                            <div class="col-lg-3" id="buttonSection">
+                                <asp:Button ID="btnSpareRequisition" runat="server" Text="Spare Requisition" OnClientClick="OpenWindow('SpareRequisition.aspx')" class="btn btn-outline  btn-info extra-margin pull-right" Style="width: 100%" />
+                            </div>
+                            <div class="col-lg-3">
+                                <asp:Button ID="btnServiceChallan" runat="server" Text="Proceed to Challan & Signature" OnClientClick="OpenWindow('ServiceChallan.aspx')" class="btn btn-outline btn-warning extra-margin pull-right" Style="width: 100%" />
+                            </div>
+                            <div class="col-lg-3">
                                 <asp:Button ID="btnDocketClose" runat="server" Text="Submit" class="btn btn-outline btn-success extra-margin pull-right" OnClick="btnDocketClose_Click" Style="width: 100%" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
-            <div class="row" id="divDocketClosingHistory" runat="server" visible="false">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Docket Closing History
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <asp:GridView ID="gvDocketClosingHistory" DataKeyNames="ServiceHistoryId" runat="server"
-                                            AutoGenerateColumns="False" Width="100%" CellPadding="4"
-                                            ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left">
-                                            <Columns>
-                                                <asp:TemplateField>
-                                                    <HeaderTemplate>
-                                                        SN.
-                                                    </HeaderTemplate>
-                                                    <ItemTemplate>
-                                                        <%# Container.DataItemIndex+1 %>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Service Engineer" DataField="EmployeeName" />
-                                                <asp:BoundField HeaderText="In Time" DataField="InTime" DataFormatString="{0: dd MMM yyyy hh:mm tt}" />
-                                                <asp:BoundField HeaderText="Out Time" DataField="OutTime" DataFormatString="{0: dd MMM yyyy hh:mm tt}" />
-                                                <asp:BoundField HeaderText="Action Taken" DataField="ActionTaken" />
-                                                <asp:BoundField HeaderText="Problem Observed" DataField="ProblemObserved" />
-                                            </Columns>
-                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <EditRowStyle BackColor="#999999" />
-                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <EmptyDataTemplate>
-                                                No Record Found...
-                                            </EmptyDataTemplate>
-                                        </asp:GridView>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="row" id="divTonnerRequest" runat="server" visible="false">
                 <div class="col-lg-12">

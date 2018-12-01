@@ -160,5 +160,17 @@ namespace Business.Common
                 HttpContext.Current.Session["SelectedDates"] = value;
             }
         }
+
+        public static string DocketNo
+        {
+            get
+            {
+                return (HttpContext.Current.Session["DocketNo"] != null) ? HttpContext.Current.Session["DocketNo"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["DocketNo"] = value;
+            }
+        }
     }
 }

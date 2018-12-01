@@ -1,16 +1,7 @@
 ﻿using Business.Common;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Service
 {
@@ -22,21 +13,19 @@ namespace WebAppAegisCRM.Service
             {
                 try
                 {
-                    Service_CSR_GetByDocketId(Convert.ToInt64(Request.QueryString["docketno"].ToString()));
+                    Service_CSR_GetByDocketId(Request.QueryString["docketno"].ToString());
                 }
                 catch (Exception ex)
                 {
-                    //Response.Write(ex.Message);
-                    //Business.Common.ErrorLog.MasterErrorLog(Server.MapPath("~") + "/ErrorLog/Errors.txt", ex.Message, HttpContext.Current.User.Identity.Name);
                     ex.WriteException();
                 }
             }
         }
 
-        private void Service_CSR_GetByDocketId(Int64 docketNo)
+        private void Service_CSR_GetByDocketId(string docketNo)
         {
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            DataSet ds = objServiceBook.Service_CSR_GetByDocketId(docketNo);
+            DataSet ds = objServiceBook.Service_CSR_GetByDocketNo(docketNo);
 
             if (ds != null)
             {
@@ -76,7 +65,7 @@ namespace WebAppAegisCRM.Service
                 }
             }
         }
-        
+
         public override void VerifyRenderingInServerForm(Control control)
         {
         }

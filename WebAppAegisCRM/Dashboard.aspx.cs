@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -31,7 +29,16 @@ namespace WebAppAegisCRM
                 ltCallback.Text = ClientScript.GetCallbackEventReference(this, "'bindDocketgrid'", "EndGetDocketData", "'asyncgrid1'", true);
             }
 
-            LoadPieChart();
+            DocketListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
+            TonerListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_TONER_LIST);
+            ChartDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART);
+            ExpiringListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST);
+            ExpiredListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
+
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART))
+            {
+                LoadPieChart();
+            }
         }
 
         private void LoadDocket(int pageIndex, int pageSize)
@@ -107,7 +114,9 @@ namespace WebAppAegisCRM
             DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList || _DashboardEvent == DashboardEvent.ExpiringList) ? objContract.Service_ContractStatusList(contract) : Business.Common.Context.ContractStatusList;
             Business.Common.Context.ContractStatusList = ds;
 
-            if (ContractStatusType.None == contractType)
+            if (ContractStatusType.None == contractType
+                && (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST)
+                || HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST)))
             {
                 gvExpiringSoonAsync.DataSource = ds.Tables[0];
                 gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
@@ -117,20 +126,20 @@ namespace WebAppAegisCRM
                 gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
                 gvExpiredListAsync.DataBind();
             }
-            else if (ContractStatusType.Expiring == contractType)
+            else if (ContractStatusType.Expiring == contractType
+                && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST))
             {
                 gvExpiringSoonAsync.DataSource = ds.Tables[0];
                 gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
                 gvExpiringSoonAsync.DataBind();
             }
-            else if (ContractStatusType.Expired == contractType)
+            else if (ContractStatusType.Expired == contractType
+                && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST))
             {
                 gvExpiredListAsync.DataSource = ds.Tables[1];
                 gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
                 gvExpiredListAsync.DataBind();
             }
-            //lblExpiringTotal.Text = string.Concat("Total records: {0}", gvExpiringSoonAsync.VirtualItemCount);
-            //lblExpiredTotal.Text = string.Concat("Total records: {0}", gvExpiredListAsync.VirtualItemCount);
         }
 
         protected void LoadPieChart()
@@ -249,23 +258,32 @@ namespace WebAppAegisCRM
                 }
             }
 
-            LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
-            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_TONER_LIST))
             {
-                gvTonnerRequestAsync.RenderControl(new HtmlTextWriter(sw));
-                _Callback.TonerList = sw.ToString();
+                LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
+                using (System.IO.StringWriter sw = new System.IO.StringWriter())
+                {
+                    gvTonnerRequestAsync.RenderControl(new HtmlTextWriter(sw));
+                    _Callback.TonerList = sw.ToString();
+                }
             }
 
             LoadContractStatusList(0, gvExpiredListAsync.PageSize, ContractStatusType.None);
-            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST))
             {
-                gvExpiringSoonAsync.RenderControl(new HtmlTextWriter(sw));
-                _Callback.ExpiringSoonList = sw.ToString();
+                using (System.IO.StringWriter sw = new System.IO.StringWriter())
+                {
+                    gvExpiringSoonAsync.RenderControl(new HtmlTextWriter(sw));
+                    _Callback.ExpiringSoonList = sw.ToString();
+                }
             }
-            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST))
             {
-                gvExpiredListAsync.RenderControl(new HtmlTextWriter(sw));
-                _Callback.ExpiredList = sw.ToString();
+                using (System.IO.StringWriter sw = new System.IO.StringWriter())
+                {
+                    gvExpiredListAsync.RenderControl(new HtmlTextWriter(sw));
+                    _Callback.ExpiredList = sw.ToString();
+                }
             }
         }
 
@@ -273,6 +291,54 @@ namespace WebAppAegisCRM
         {
             string json = new JavaScriptSerializer().Serialize(_Callback);
             return json;
+        }
+
+        protected void btnDivClose_Click(object sender, EventArgs e)
+        {
+            int settingValue = 0;
+            string settingName = string.Empty;
+            int userId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
+            Button btnClose = (Button)sender;
+            switch (btnClose.ID)
+            {
+                case "btnDocketListClose":
+                    settingName = "DOCKET_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
+                    break;
+                case "btnTonerListClose":
+                    settingName = "TONER_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_TONER_LIST);
+                    break;
+                case "btnChartClose":
+                    settingName = "CONTRACT_STATUS_CHART";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART);
+                    break;
+                case "btnExpiringClose":
+                    settingName = "CONTRACT_EXPIRING_SOON_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST);
+                    break;
+                case "btnExpiredClose":
+                    settingName = "CONTRACT_EXPIRED_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
+                    break;
+            }
+
+            SaveSettings(userId, settingName , settingValue , false);
+            Response.Redirect(Request.RawUrl);
+        }
+
+        private void SaveSettings(int userId, string settingName, int settingValue, bool IsChecked)
+        {
+            Business.Settings.UserSettings objUserSettings = new Business.Settings.UserSettings();
+            Entity.Settings.UserSettings userSettings = new Entity.Settings.UserSettings()
+            {
+                IsActive = IsChecked,
+                SettingName = settingName,
+                SettingValue = settingValue,
+                UserId = userId
+            };
+            objUserSettings.Save(userSettings);
         }
     }
 }

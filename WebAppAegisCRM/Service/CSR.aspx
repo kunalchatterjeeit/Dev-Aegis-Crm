@@ -144,7 +144,7 @@
                             <th>MACHINE MODEL
                             </th>
                             <th>
-                                <asp:Label ID="lblMachineModel" runat="server" Text="1R2320L"></asp:Label>
+                                <asp:Label ID="lblMachineModel" runat="server" Text=""></asp:Label>
                             </th>
                         </tr>
                     </thead>
@@ -153,7 +153,7 @@
                             <th>A3 BW
                             </th>
                             <td>
-                                <asp:Label ID="lblA3BW" runat="server" Text="388459"></asp:Label>
+                                <asp:Label ID="lblA3BW" runat="server" Text=""></asp:Label>
                             </td>
                             <th>MACHINE ID
                             </th>
@@ -165,7 +165,7 @@
                             <th>A4 BW
                             </th>
                             <td>
-                                <asp:Label ID="lblA4BW" runat="server" Text="15789"></asp:Label>
+                                <asp:Label ID="lblA4BW" runat="server" Text=""></asp:Label>
                             </td>
                             <th>MACHINE SL NO
                             </th>
@@ -194,7 +194,7 @@
                             <th>DOCKET TYPE
                             </th>
                             <td>
-                                <asp:Label ID="lblDocketType" runat="server" Text="CM"></asp:Label>
+                                <asp:Label ID="lblDocketType" runat="server" Text=""></asp:Label>
                             </td>
                         </tr>
                     </tbody>
@@ -215,13 +215,13 @@
                     <tbody>
                         <tr>
                             <td>
-                                <asp:Label ID="lblComplaint" runat="server" Text="1/2 print"></asp:Label>
+                                <asp:Label ID="lblComplaint" runat="server" Text=""></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblDiagonosis" runat="server" Text="Due to ID card copy mode on"></asp:Label>
+                                <asp:Label ID="lblDiagonosis" runat="server" Text=""></asp:Label>
                             </td>
                             <td>
-                                <asp:Label ID="lblAction" runat="server" Text="Rectified the prohlem Machine is  working ok."></asp:Label>
+                                <asp:Label ID="lblAction" runat="server" Text=""></asp:Label>
                             </td>
                         </tr>
                     </tbody>

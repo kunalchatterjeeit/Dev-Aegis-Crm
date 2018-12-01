@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
@@ -175,7 +172,7 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataTable ServiceBookMasterHistory_GetAllByCallId(Int64 callId, int callType)
+        public static DataTable ServiceBookMasterHistory_GetAllByCallId(long callId, int callType)
         {
             using (DataTable dt = new DataTable())
             {
@@ -214,6 +211,7 @@ namespace DataAccess.Service
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "USP_Service_ServiceBook_GetAll";
+
                         cmd.Parameters.AddWithValue("@CallType", calltype);
 
                         if (serviceBook.CustomerId == 0)
@@ -387,7 +385,7 @@ namespace DataAccess.Service
             return rowsAffacted;
         }
 
-        public static DataSet Service_CSR_GetByDocketId(Int64 docketNo)
+        public static DataSet Service_CSR_GetByDocketNo(string docketNo)
         {
             using (DataSet ds = new DataSet())
             {
@@ -399,7 +397,7 @@ namespace DataAccess.Service
 
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_Service_CSR_GetByDocketId";
+                        cmd.CommandText = "usp_Service_CSR_GetByDocketNo";
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -439,7 +437,7 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataSet Service_GetLastMeterReadingByCustomerPurchaseId(Int64 customerPurchaseId)
+        public static DataSet Service_GetLastMeterReadingByCustomerPurchaseId(long customerPurchaseId)
         {
             using (DataSet ds = new DataSet())
             {
@@ -465,7 +463,7 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataTable GetSpareInventory_ByProductId(Int64 productId, int assetLocationId)
+        public static DataTable GetSpareInventory_ByProductId(long productId, int assetLocationId)
         {
             using (DataTable dt = new DataTable())
             {

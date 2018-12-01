@@ -80,6 +80,7 @@
     <Compile Include="Service\ProblemMasters.cs" />
     <Compile Include="Service\ServiceBook.cs" />
     <Compile Include="Service\TonnerRequest.cs" />
+    <Compile Include="Settings\UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj">

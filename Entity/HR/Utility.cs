@@ -67,5 +67,9 @@ namespace Entity.HR
 
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";
+        public const string DASHBOARD_TONER_LIST = "10002";
+        public const string DASHBOARD_CONTRACT_STATUS_CHART = "10003";
+        public const string DASHBOARD_CONTRACT_EXPIRING_LIST = "10004";
+        public const string DASHBOARD_CONTRACT_EXPIRED_LIST = "10005";
     }
 }

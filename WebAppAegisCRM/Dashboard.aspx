@@ -72,23 +72,32 @@
     </script>
     <script type="text/javascript">
         function EndGetDocketData(arg) {
-            debugger;
-            document.getElementById("gvDocketDiv").innerHTML = $.parseJSON(arg).DocketList;
-            document.getElementById("gvTonerDiv").innerHTML = $.parseJSON(arg).TonerList;
-            document.getElementById("gvExpiringSoonDiv").innerHTML = $.parseJSON(arg).ExpiringSoonList;
-            document.getElementById("gvExpiredDiv").innerHTML = $.parseJSON(arg).ExpiredList;
+            if (document.getElementById("gvDocketDiv") != null)
+                document.getElementById("gvDocketDiv").innerHTML = $.parseJSON(arg).DocketList;
+            if (document.getElementById("gvTonerDiv") != null)
+                document.getElementById("gvTonerDiv").innerHTML = $.parseJSON(arg).TonerList;
+            if (document.getElementById("gvExpiringSoonDiv") != null)
+                document.getElementById("gvExpiringSoonDiv").innerHTML = $.parseJSON(arg).ExpiringSoonList;
+            if (document.getElementById("gvExpiredDiv") != null)
+                document.getElementById("gvExpiredDiv").innerHTML = $.parseJSON(arg).ExpiredList;
         }
         setTimeout("<asp:literal runat='server' id='ltCallback' />", 100);
     </script>
-
+    <script type="text/javascript">
+        function showSuccessDivClose()
+        {
+            alert('Settings change will take effect from next login. To change user settings goto User Settings page.')
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6" id="DocketListDiv" runat="server">
             <div class="panel panel-danger">
                 <div class="panel-heading">
-                    Dockets
+                    <asp:Button ID="btnDocketListClose" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()" />
+                    &nbsp;&nbsp;&nbsp;Dockets
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -128,7 +137,7 @@
                                                 CP
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                 <span title='<%# Eval("ContactPerson") %>'>
+                                                <span title='<%# Eval("ContactPerson") %>'>
                                                     <%# (Eval("ContactPerson").ToString().Length>20)?Eval("ContactPerson").ToString().Substring(0,20)+"...":Eval("ContactPerson").ToString() %>
                                                 </span>
                                             </ItemTemplate>
@@ -175,10 +184,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6" id="TonerListDiv" runat="server">
             <div class="panel panel-warning">
                 <div class="panel-heading">
-                    Toner Requests 
+                    <asp:Button ID="btnTonerListClose" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()"/>
+                    &nbsp;&nbsp;&nbsp;Toner Requests 
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -218,7 +228,7 @@
                                                 CP
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                 <span title='<%# Eval("ContactPerson") %>'>
+                                                <span title='<%# Eval("ContactPerson") %>'>
                                                     <%# (Eval("ContactPerson").ToString().Length>20)?Eval("ContactPerson").ToString().Substring(0,20)+"...":Eval("ContactPerson").ToString() %>
                                                 </span>
                                             </ItemTemplate>
@@ -250,10 +260,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-6" id="ChartDiv" runat="server">
             <div class="panel panel-green">
                 <div class="panel-heading">
-                    Contract Status                      
+                    <asp:Button ID="btnChartClose" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()"/>
+                    &nbsp;&nbsp;&nbsp;Contract Status                      
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -266,10 +277,11 @@
             <!-- /.panel -->
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="ExpiringListDiv" runat="server">
             <div class="panel panel-yellow">
                 <div class="panel-heading">
-                    Contracts Expiring Soon
+                    <asp:Button ID="btnExpiringClose" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()"/>
+                    &nbsp;&nbsp;&nbsp;Contracts Expiring Soon
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -323,10 +335,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" id="ExpiredListDiv" runat="server">
             <div class="panel panel-red">
                 <div class="panel-heading">
-                    Contracts Expired
+                    <asp:Button ID="btnExpiredClose" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()"/>
+                    &nbsp;&nbsp;&nbsp;Contracts Expired
                 </div>
                 <div class="row">
                     <div class="col-lg-12">

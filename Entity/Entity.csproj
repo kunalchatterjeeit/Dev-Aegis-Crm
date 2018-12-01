@@ -89,6 +89,7 @@
     <Compile Include="Service\ServiceBook.cs" />
     <Compile Include="Service\ServiceCallAttendance.cs" />
     <Compile Include="Service\TonnerRequest.cs" />
+    <Compile Include="Settings\UserSettings.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

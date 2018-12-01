@@ -1,9 +1,7 @@
 ﻿using Business.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -17,6 +15,7 @@ namespace WebAppAegisCRM.Service
             get { return Convert.ToInt32(ViewState["EmployeeId"]); }
             set { ViewState["EmployeeId"] = value; }
         }
+
         protected void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -28,6 +27,32 @@ namespace WebAppAegisCRM.Service
             else
                 gvEmployeerMaster.DataSource = null;
             gvEmployeerMaster.DataBind();
+        }
+
+        private bool ValidateCallTransfer()
+        {
+            bool retValue = false;
+
+            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+            DataSet dsServiceMaster = objServiceBook.Service_ServiceBookMaster_GetByCallId(Business.Common.Context.CallId, Business.Common.Context.CallType);
+            if (dsServiceMaster != null)
+            {
+                DataTable dtServiceCallAttendance = objServiceBook.Service_ServiceCallAttendanceByServiceBookId(Convert.ToInt64(dsServiceMaster.Tables[0].Rows[0]["ServiceBookId"].ToString()));
+                if (dtServiceCallAttendance != null)
+                {
+                    if (dtServiceCallAttendance.Select("OutTime is NULL").Any())
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Call Transfer is not allowed while Call Checked In.";
+                        retValue = false;
+                    }
+                    else
+                    {
+                        retValue = true;
+                    }
+                }
+            }
+            return retValue;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -53,29 +78,32 @@ namespace WebAppAegisCRM.Service
             ((RadioButton)row.FindControl("rbtnSelect")).Checked = true;
 
             EmployeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[row.RowIndex].Values[0].ToString());
-            
+
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-                Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
-                serviceBook.EmployeeId_FK = EmployeeId;
-                serviceBook.CallId = Business.Common.Context.CallId;
-                serviceBook.CallType = (int)Business.Common.Context.CallType;
-                serviceBook.Remarks = txtTransferReason.Text.Trim();
-                serviceBook.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                int response = objServiceBook.Service_CallTransfer_Save(serviceBook);
-                if (response > 0)
+                if (ValidateCallTransfer())
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alertUser", "refreshAndClose();", true);
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Sorry! cannot tranfer call. Please refresh this page and try again..";
+                    Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                    Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
+                    serviceBook.EmployeeId_FK = EmployeeId;
+                    serviceBook.CallId = Business.Common.Context.CallId;
+                    serviceBook.CallType = (int)Business.Common.Context.CallType;
+                    serviceBook.Remarks = txtTransferReason.Text.Trim();
+                    serviceBook.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    int response = objServiceBook.Service_CallTransfer_Save(serviceBook);
+                    if (response > 0)
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alertUser", "refreshAndClose();", true);
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Sorry! cannot tranfer call. Please refresh this page and try again..";
+                    }
                 }
             }
             catch (Exception ex)

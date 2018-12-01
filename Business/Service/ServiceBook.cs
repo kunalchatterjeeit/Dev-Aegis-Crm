@@ -42,7 +42,7 @@ namespace Business.Service
             return DataAccess.Service.ServiceBook.Service_Tonner_GetByTonnerRequestId(tonnerRequestId);
         }
 
-        public DataTable ServiceBookMasterHistory_GetAllByCallId(Int64 callId, int callType)
+        public DataTable ServiceBookMasterHistory_GetAllByCallId(long callId, int callType)
         {
             return DataAccess.Service.ServiceBook.ServiceBookMasterHistory_GetAllByCallId(callId, callType);
         }
@@ -72,9 +72,9 @@ namespace Business.Service
             return DataAccess.Service.ServiceBook.Service_MeterReading_Update(serviceBook);
         }
 
-        public DataSet Service_CSR_GetByDocketId(Int64 docketNo)
+        public DataSet Service_CSR_GetByDocketNo(string docketNo)
         {
-            return DataAccess.Service.ServiceBook.Service_CSR_GetByDocketId(docketNo);
+            return DataAccess.Service.ServiceBook.Service_CSR_GetByDocketNo(docketNo);
         }
 
         public DataSet Service_Challan_GetByTonerRequestNo(string requestNo)
