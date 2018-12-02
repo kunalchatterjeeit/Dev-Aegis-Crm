@@ -1119,13 +1119,13 @@ namespace WebAppAegisCRM.Service
         #region SYSTEM DEFINED FUNCTIONS
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("~/MainLogout.aspx");
+            }
+
             if (!IsPostBack)
             {
-                if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                {
-                    Response.Redirect("~/MainLogout.aspx");
-                }
-
                 LoadFunctions();
                 //Checking Auto Fetch functionality conditions
                 if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)

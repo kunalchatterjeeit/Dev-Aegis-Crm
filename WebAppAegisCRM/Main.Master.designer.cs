@@ -238,6 +238,42 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveType;
         
         /// <summary>
+        /// liLeaveManagement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveManagement;
+        
+        /// <summary>
+        /// li2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li2;
+        
+        /// <summary>
+        /// li3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li3;
+        
+        /// <summary>
+        /// li4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li4;
+        
+        /// <summary>
         /// liInventory control.
         /// </summary>
         /// <remarks>

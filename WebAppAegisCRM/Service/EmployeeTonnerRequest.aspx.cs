@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
-using System.Collections.ObjectModel;
 using Entity.Service;
 using Business.Common;
 
@@ -60,6 +56,11 @@ namespace WebAppAegisCRM.Service
         {
             try
             {
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                {
+                    Response.Redirect("~/MainLogout.aspx");
+                }
+
                 if (!IsPostBack)
                 {
                     Message.Show = false;
@@ -81,7 +82,7 @@ namespace WebAppAegisCRM.Service
             gvPurchase.DataSource = objCustomerMaster.CustomerPurchase_GetByCustomerId(CustomerMasterId);
             gvPurchase.DataBind();
         }
-        protected void LoadCustomerforSearch()
+        private void LoadCustomerforSearch()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
@@ -95,10 +96,8 @@ namespace WebAppAegisCRM.Service
             else
                 customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            if (dt.Rows.Count > 0)
-                gvCustomerMaster.DataSource = dt;
-            else
-                gvCustomerMaster.DataSource = null;
+
+            gvCustomerMaster.DataSource = dt;
             gvCustomerMaster.DataBind();
         }
         protected bool ComplainValidation()

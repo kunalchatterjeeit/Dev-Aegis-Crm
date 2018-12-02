@@ -303,6 +303,21 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li  id="liLeaveManagement" runat="server">
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Leave Management<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="li2" runat="server">
+                                    <a href="../LeaveManagement/LeaveConfig.aspx">Leave Configuration</a>
+                                </li>
+                                <li id="li3" runat="server">
+                                    <a href="../LeaveManagement/LeaveDesignationConfiguration.aspx">Leave Designation Configuration</a>
+                                </li>
+                                <li id="li4" runat="server">
+                                    <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li id="liInventory" runat="server">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
