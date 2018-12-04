@@ -13,20 +13,25 @@ namespace WebAppAegisCRM.Employee
 {
     public partial class Employee : System.Web.UI.Page
     {
-        public int EmployeeMasterId
+        private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
             set { ViewState["EmployeeMasterId"] = value; }
         }
-        public string Image
+        private string Image
         {
             get { return (ViewState["Image"] != null) ? ViewState["Image"].ToString() : string.Empty; }
             set { ViewState["Image"] = value; }
         }
-        public string EmployeePassword
+        private string EmployeePassword
         {
             get { return (ViewState["EmployeePassword"] != null) ? ViewState["EmployeePassword"].ToString() : string.Empty; }
             set { ViewState["EmployeePassword"] = value; }
+        }
+        private long LeaveEmployeeWiseApprovalConfigId
+        {
+            get { return Convert.ToInt64(ViewState["LeaveEmployeeWiseApprovalConfigId"]); }
+            set { ViewState["LeaveEmployeeWiseApprovalConfigId"] = value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -102,17 +107,28 @@ namespace WebAppAegisCRM.Employee
             }
         }
 
-        protected void EmployeeMaster_GetAll()
+        private void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
             ObjElEmployeeMaster.CompanyId_FK = 1;
             DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
-            if (dt.Rows.Count > 0)
-                gvEmployeerMaster.DataSource = dt;
-            else
-                gvEmployeerMaster.DataSource = null;
+            gvEmployeerMaster.DataSource = dt;
             gvEmployeerMaster.DataBind();
+        }
+
+        private void LoadApprover()
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            DataTable dtApprover = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+
+            ddlApproverEngineer.DataSource = dtApprover;
+            ddlApproverEngineer.DataTextField = "EmployeeName";
+            ddlApproverEngineer.DataValueField = "EmployeeMasterId";
+            ddlApproverEngineer.DataBind();
+            ddlApproverEngineer.InsertSelect();
         }
 
         private void LoadRoleList()
@@ -125,6 +141,17 @@ namespace WebAppAegisCRM.Employee
                 ddlRole.DataBind();
             }
             ddlRole.InsertSelect();
+        }
+
+        private void LeaveEmployeeWiseApprovalConfiguration_GetAll()
+        {
+            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+            Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+
+            leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
+            DataTable dt = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(leaveApprovalConfiguration);
+            gvApproverDetails.DataSource = dt;
+            gvApproverDetails.DataBind();
         }
 
         public void CleartextBoxes(Control parent)
@@ -142,7 +169,7 @@ namespace WebAppAegisCRM.Employee
             }
         }
 
-        protected void EmployeeMaster_ById(int Id)
+        private void EmployeeMaster_ById(int Id)
         {
             try
             {
@@ -220,9 +247,17 @@ namespace WebAppAegisCRM.Employee
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
                 }
             }
+            else if (e.CommandName == "Leave")
+            {
+                EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
+                LoadApprover();
+                LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                TabContainer1.ActiveTab = AddApproval;
+                ModalPopupExtender1.Show();
+            }
         }
 
-        protected void EmployeeMaster_GetAll_ReferenceEmployee()
+        private void EmployeeMaster_GetAll_ReferenceEmployee()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
@@ -237,7 +272,7 @@ namespace WebAppAegisCRM.Employee
             ddlRefferencrEmployee.InsertSelect();
         }
 
-        protected void DesignationMaster_GetAll()
+        private void DesignationMaster_GetAll()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
@@ -251,7 +286,7 @@ namespace WebAppAegisCRM.Employee
             ddldesignation.InsertSelect();
         }
 
-        protected void BindCity()
+        private void BindCity()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             DataTable dt = objEmployeeMaster.City_GetAll();
@@ -270,6 +305,80 @@ namespace WebAppAegisCRM.Employee
         protected void gvEmployeerMaster_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void gvApproverDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            LeaveEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
+
+            if (e.CommandName == "E")
+            {
+                LeaveEmployeeWiseApprovalConfiguration_GetById();
+            }
+            else if (e.CommandName == "D")
+            {
+                Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+                Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+                leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
+                int response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Delete(LeaveEmployeeWiseApprovalConfigId);
+                if (response > 0)
+                {
+                    CleartextBoxes(this);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
+                    LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                    LeaveEmployeeWiseApprovalConfigId = 0;
+                    TabContainer1.ActiveTab = ApprovalDetails;
+                    ModalPopupExtender1.Show();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                }
+            }
+        }
+
+        protected void btnTSave_Click(object sender, EventArgs e)
+        {
+            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+            Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+
+            leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
+            leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
+            leaveApprovalConfiguration.ApproverId = Convert.ToInt32(ddlApproverEngineer.SelectedValue);
+            leaveApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
+            leaveApprovalConfiguration.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+            int response = 0;
+            response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Save(leaveApprovalConfiguration);
+            if (response > 0)
+            {
+                CleartextBoxes(this);
+                ddlApproverEngineer.SelectedIndex = 0;
+                ddlApprovalLevel.SelectedIndex = 0;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Save Succesfully....');", true);
+                LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                LeaveEmployeeWiseApprovalConfigId = 0;
+                TabContainer1.ActiveTab = ApprovalDetails;
+                ModalPopupExtender1.Show();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Can not Save!!!....');", true);
+            }
+        }
+
+        private void LeaveEmployeeWiseApprovalConfiguration_GetById()
+        {
+            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+            Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+            leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
+            DataTable dt = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(leaveApprovalConfiguration);
+            if (dt != null && dt.AsEnumerable().Any())
+            {
+                ddlApproverEngineer.SelectedValue = dt.Rows[0]["ApproverId"].ToString();
+                ddlApprovalLevel.SelectedValue = dt.Rows[0]["ApprovalLevel"].ToString();
+            }
+            TabContainer1.ActiveTab = AddApproval;
+            ModalPopupExtender1.Show();
         }
     }
 }

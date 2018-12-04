@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Leave configuration" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs"
+﻿<%@ Page Title="LEAVE CONFIGURATION" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs"
     Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -30,45 +30,44 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Type
-                                <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
-                                </asp:DropDownList>
+                                        <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Frequency
-                                <asp:TextBox ID="txtLeaveFrequency" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtLeaveFrequency" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>
-                                <br />
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Accrue Date
-                                <asp:TextBox ID="txtLeaveAccurueDate" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtLeaveAccrueDate" CssClass="form-control" runat="server"></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
-                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccureDate">
+                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccrueDate">
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
-                                <br />
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Encashable
-                                <asp:CheckBox ID="ckEncashable" runat="server" />
+                                        <div class="checkbox">
+                                            <label class="btn btn-danger">
+                                                <asp:CheckBox ID="ckEncashable" runat="server" Text="Encashable" />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <br />
                                         <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
@@ -94,10 +93,10 @@
                                                 <%# Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="LeaveTypeId" HeaderText="Leave Type" />
-                                        <asp:BoundField DataField="LeaveAccureDate" HeaderText="Leave Accure Date" />
-                                        <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
-                                        <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" />
+                                        <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
+                                        <asp:BoundField DataField="LeaveAccrueDate" HeaderText="Leave Accure Date" />
+                                        <asp:BoundField DataField="LeaveFrequency" HeaderText="Leave Frequency" />
+                                        <asp:BoundField DataField="Encashable" HeaderText="Encashable" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"

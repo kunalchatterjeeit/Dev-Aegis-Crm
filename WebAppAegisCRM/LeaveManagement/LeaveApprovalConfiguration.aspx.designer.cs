@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.LeaveManagement {
     
     
-    public partial class LeaveConfig {
+    public partial class LeaveApprovalConfiguration {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -40,49 +40,31 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// ddlLeaveType control.
+        /// ddlRequestorDesignation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestorDesignation;
         
         /// <summary>
-        /// txtLeaveFrequency control.
+        /// ddlApproverDesignation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeaveFrequency;
+        protected global::System.Web.UI.WebControls.DropDownList ddlApproverDesignation;
         
         /// <summary>
-        /// txtLeaveAccrueDate control.
+        /// ddlApprovalLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeaveAccrueDate;
-        
-        /// <summary>
-        /// CalendarExtender1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
-        /// <summary>
-        /// ckEncashable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckEncashable;
+        protected global::System.Web.UI.WebControls.DropDownList ddlApprovalLevel;
         
         /// <summary>
         /// btnSave control.
@@ -112,12 +94,12 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// dgvLeaveConfiguration control.
+        /// gvLeaveApprovalConfiguration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvLeaveConfiguration;
+        protected global::System.Web.UI.WebControls.GridView gvLeaveApprovalConfiguration;
     }
 }

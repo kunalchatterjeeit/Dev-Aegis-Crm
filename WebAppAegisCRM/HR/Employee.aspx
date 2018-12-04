@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="EMPLOYEE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="True"
-    CodeBehind="Employee.aspx.cs" Inherits="WebAppAegisCRM.Emplo
-    yee.Employee" %>
+    CodeBehind="Employee.aspx.cs" Inherits="WebAppAegisCRM.Employee.Employee" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -13,7 +12,7 @@
             var MobileNo = document.getElementById("<%=txtMobileNo.ClientID%>").value.trim();
 
             var PAdress = document.getElementById("<%=txtpAddress.ClientID%>").value.trim();
-           // var PhoneNumber = document.getElementById("<%=txtofficialPhoneNo.ClientID%>").value.trim();
+            // var PhoneNumber = document.getElementById("<%=txtofficialPhoneNo.ClientID%>").value.trim();
             var Pin = document.getElementById("<%=txtPin.ClientID%>").value.trim();
             var City = document.getElementById("<%=ddlCity.ClientID%>").selectedIndex;
             var Religion = document.getElementById('<%=ddlReligion.ClientID%>').selectedIndex;
@@ -25,7 +24,7 @@
             var Password = document.getElementById("<%=txtPassword.ClientID%>").value.trim();
 
             if (CustomerName == "" || DOB == "" || EmailId == "" || MobileNo == "" || PAdress == ""
-            || Pin == "" || City == 0 || Religion == "" || 
+            || Pin == "" || City == 0 || Religion == "" ||
              CustomerType == 0 || MaratialStatus == 0 || GenderId == 0) {
                 alert("Enter All Madnatery Field");
                 return false;
@@ -235,7 +234,7 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 Password:
-                                <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server" ></asp:TextBox>
+                                <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -284,13 +283,19 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <img src='EmployeeImage/<%# Eval("Image") %>' alt="Not found" width="100px" />
+                                        <img src='<%# Eval("Image") %>' alt="Not found" width="100px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField HeaderText="Code" DataField="EmployeeCode" />
                                 <asp:BoundField HeaderText="Name" DataField="EmployeeName" />
                                 <asp:BoundField HeaderText="Mobile" DataField="PersonalMobileNo" />
                                 <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("EmployeeMasterId") %>'
+                                            CommandName="Leave">Leave Settings</asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField>
                                     <ItemTemplate>
                                         <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
@@ -323,4 +328,113 @@
             </div>
         </div>
     </div>
+    <a id="lnkLeave" runat="server"></a>
+    <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
+        runat="server" TargetControlID="lnkLeave" PopupControlID="Panel1" CancelControlID="imgbtn">
+    </asp:ModalPopupExtender>
+    <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
+        <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">
+            <asp:TabContainer ID="TabContainer1" runat="server" Width="100%" CssClass="MyTabStyle"
+                ActiveTabIndex="1">
+                <asp:TabPanel ID="AddApproval" runat="server">
+                    <HeaderTemplate>
+                        Leave Approval Settings
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <div class="accountInfo" style="width: 100%; float: left">
+                            <br />
+                            <fieldset class="login">
+                                <legend>Enter approval details</legend>
+                                <table class="popup-table">
+                                    <tr>
+                                        <td>Approver<span class="mandatory">*</span>
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="ddlApproverEngineer" runat="server" CssClass="form-control">
+                                            </asp:DropDownList>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Approval Level <span class="mandatory">*</span>
+                                        </td>
+                                        <td>
+                                            <asp:DropDownList ID="ddlApprovalLevel" CssClass="form-control" runat="server">
+                                                <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                                <asp:ListItem Value="1">1</asp:ListItem>
+                                                <asp:ListItem Value="2">2</asp:ListItem>
+                                                <asp:ListItem Value="3">3</asp:ListItem>
+                                                <asp:ListItem Value="4">4</asp:ListItem>
+                                                <asp:ListItem Value="5">5</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <asp:Button ID="btnTSave" runat="server" Text="Save" OnClick="btnTSave_Click" CssClass="btn btn-outline btn-success pull-right" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </ContentTemplate>
+                </asp:TabPanel>
+                <asp:TabPanel ID="ApprovalDetails" runat="server">
+                    <HeaderTemplate>
+                        Approver List
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <br />
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvApproverDetails" DataKeyNames="LeaveEmployeeWiseApprovalConfigId" runat="server"
+                                    OnRowCommand="gvApproverDetails_RowCommand" AutoGenerateColumns="False" Width="100%"
+                                    CellPadding="4" ForeColor="#333333" GridLines="None" Style="text-align: left">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Approver Name" DataField="ApproverName" />
+                                        <asp:BoundField HeaderText="Level" DataField="ApprovalLevel" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
+                                                    CommandArgument='<%#Eval("LeaveEmployeeWiseApprovalConfigId") %>' ImageUrl="~/Images/edit_button.png"
+                                                    ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="btnDelete" runat="server" CommandName="D" ImageUrl="~/Images/delete_button.png"
+                                                    CommandArgument='<%#Eval("LeaveEmployeeWiseApprovalConfigId") %>' Width="20px" Height="20px"
+                                                    OnClientClick="return confirm('Are You Sure?');" />
+                                            </ItemTemplate>
+                                            <HeaderStyle Width="25px" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField></asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Record Found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:TabPanel>
+            </asp:TabContainer>
+        </asp:Panel>
+        <img id="imgbtn" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
+    </asp:Panel>
 </asp:Content>

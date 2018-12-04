@@ -16,7 +16,7 @@ namespace Entity.LeaveManagement
         public int LeaveTypeId { get; set; }
         public int LeaveConfigId { get; set; }
         public string LeaveFrequency { get; set; }
-        public int Encashable { get; set; }
+        public bool Encashable { get; set; }
         public DateTime LeaveAccrueDate { get; set; }
     }
 

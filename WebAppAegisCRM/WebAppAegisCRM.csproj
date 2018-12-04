@@ -104,8 +104,11 @@
     <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
     <Content Include="images\favicon.ico" />
+    <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
+    <Content Include="images\male-avatar.png" />
     <Content Include="LeaveManagement\LeaveApply.aspx" />
+    <Content Include="LeaveManagement\LeaveApprovalConfiguration.aspx" />
     <Content Include="LeaveManagement\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
@@ -293,6 +296,13 @@
     </Compile>
     <Compile Include="LeaveManagement\LeaveApply.aspx.designer.cs">
       <DependentUpon>LeaveApply.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveApprovalConfiguration.aspx.cs">
+      <DependentUpon>LeaveApprovalConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveApprovalConfiguration.aspx.designer.cs">
+      <DependentUpon>LeaveApprovalConfiguration.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\LeaveConfig.aspx.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>

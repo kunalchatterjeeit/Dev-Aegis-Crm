@@ -52,6 +52,7 @@
     <Compile Include="Common\LoginStatus.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="LeaveManagement\LeaveApplicationMaster.cs" />
+    <Compile Include="LeaveManagement\LeaveApprovalConfiguration.cs" />
     <Compile Include="LeaveManagement\LeaveConfiguration.cs" />
     <Compile Include="HR\LoyaltyPointReasonMaster.cs" />
     <Compile Include="HR\RoleMaster.cs" />

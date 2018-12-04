@@ -43,7 +43,7 @@ namespace WebAppAegisCRM.LeaveManagement
             LeaveConfigurationId = 0;
             ddlLeaveType.SelectedIndex = 0;
             txtLeaveFrequency.Text = "";
-            txtLeaveAccurueDate.Text = "";
+            txtLeaveAccrueDate.Text = "";
             Message.Show = false;
         }
 
@@ -67,7 +67,8 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
                 txtLeaveFrequency.Text = dt.Rows[0]["LeaveFrequency"].ToString();
-                txtLeaveAccurueDate.Text = dt.Rows[0]["LeaveAccureDate"].ToString();
+                txtLeaveAccrueDate.Text = Convert.ToDateTime(dt.Rows[0]["LeaveAccrueDate"]).ToString("dd MMM yyyy");
+                ckEncashable.Checked = Convert.ToBoolean(dt.Rows[0]["Encashable"].ToString());
             }
         }
 
@@ -114,7 +115,8 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
             leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
             leaveConfiguration.LeaveFrequency = txtLeaveFrequency.Text.Trim();
-            leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccurueDate.Text.Trim());
+            leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
+            leaveConfiguration.Encashable = ckEncashable.Checked;
             int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
             if (response > 0)
             {

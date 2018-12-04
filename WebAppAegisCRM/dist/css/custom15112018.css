@@ -188,63 +188,64 @@ table.popup-table {
 
 .divWaiting {
     position: fixed;
-        top: 0;
-        left: 0;
-        background-color: black;
-        z-index: 1000;
-        opacity: 0.8;
-        filter: alpha(opacity=80);
-        -moz-opacity: 0.8;
-        min-height: 100%;
-        width: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    z-index: 1000;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    min-height: 100%;
+    width: 100%;
 }
+
 .loading {
-            position: absolute;
-            top: 45%;
-            left: 46%;
-        }
+    position: absolute;
+    top: 45%;
+    left: 46%;
+}
 
-        .loading-bar {
-            display: inline-block;
-            width: 14px;
-            height: 48px;
-            border-radius: 4px;
-            animation: loading 1s ease-in-out infinite;
-        }
+.loading-bar {
+    display: inline-block;
+    width: 14px;
+    height: 48px;
+    border-radius: 4px;
+    animation: loading 1s ease-in-out infinite;
+}
 
-            .loading-bar:nth-child(1) {
-                background-color: #3498db;
-                animation-delay: 0;
-            }
+    .loading-bar:nth-child(1) {
+        background-color: #3498db;
+        animation-delay: 0;
+    }
 
-            .loading-bar:nth-child(2) {
-                background-color: #c0392b;
-                animation-delay: 0.09s;
-            }
+    .loading-bar:nth-child(2) {
+        background-color: #c0392b;
+        animation-delay: 0.09s;
+    }
 
-            .loading-bar:nth-child(3) {
-                background-color: #f1c40f;
-                animation-delay: .18s;
-            }
+    .loading-bar:nth-child(3) {
+        background-color: #f1c40f;
+        animation-delay: .18s;
+    }
 
-            .loading-bar:nth-child(4) {
-                background-color: #27ae60;
-                animation-delay: .27s;
-            }
+    .loading-bar:nth-child(4) {
+        background-color: #27ae60;
+        animation-delay: .27s;
+    }
 
-        @keyframes loading {
-            0% {
-                transform: scale(1);
-            }
+@keyframes loading {
+    0% {
+        transform: scale(1);
+    }
 
-            20% {
-                transform: scale(1, 2.2);
-            }
+    20% {
+        transform: scale(1, 2.2);
+    }
 
-            40% {
-                transform: scale(1);
-            }
-        }
+    40% {
+        transform: scale(1);
+    }
+}
 
 .red {
     color: red;
@@ -256,35 +257,47 @@ table.popup-table {
 }
 
 .container-login100 {
-  width: 100%;  
-  min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  z-index: 1;  
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
 }
 
-.container-login100::before {
-  content: "";
-  display: block;
-  position: absolute;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(255,255,255,0.9);
+    .container-login100::before {
+        content: "";
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(255,255,255,0.9);
+    }
+
+.checkbox .btn, .checkbox-inline .btn {
+    padding-left: 2em;
+    min-width: 8em;
 }
 
+.checkbox label, .checkbox-inline label {
+    text-align: left;
+    padding-left: 0.5em;
+    padding-top: 0.4em;
+}
 
+.checkbox input[type="checkbox"] {
+    float: none;
+}

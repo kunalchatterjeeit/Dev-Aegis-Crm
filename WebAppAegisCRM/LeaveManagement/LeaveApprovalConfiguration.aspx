@@ -1,4 +1,4 @@
-﻿<%@ Page Title="LEAVE DESIGNATION CONFIGURATION" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveDesignationConfiguration.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveDesignationConfiguration" %>
+﻿<%@ Page Title="LEAVE APPROVAL CONFIGURATION" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApprovalConfiguration.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApprovalConfiguration" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -26,45 +26,44 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Leave Configuration Designation Wise
+                            Add/Edit Leave Approval Configuration
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Leave Type
-                                        <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
+                                        Requestor Designation
+                                        <asp:DropDownList ID="ddlRequestorDesignation" CssClass="form-control" runat="server">
                                         </asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group has-error">
-                                        Designation
-                                        <asp:DropDownList ID="ddlDesignation" CssClass="form-control" runat="server">
-                                        </asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group has-error">
-                                        Leave Total
-                                        <asp:TextBox ID="txtLeaveCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="col-lg-6">
-                                    <div class="form-group has-error">
-                                        Carry Forward Amount
-                                        <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
+                                    <div class="form-group has-error">
+                                        Approver Designation
+                                        <asp:DropDownList ID="ddlApproverDesignation" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group has-error">
+                                        Approval Level
+                                         <asp:DropDownList ID="ddlApprovalLevel" CssClass="form-control" runat="server">
+                                             <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                             <asp:ListItem Value="1">1</asp:ListItem>
+                                             <asp:ListItem Value="2">2</asp:ListItem>
+                                             <asp:ListItem Value="3">3</asp:ListItem>
+                                             <asp:ListItem Value="4">4</asp:ListItem>
+                                             <asp:ListItem Value="5">5</asp:ListItem>
+                                         </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <br />
                                         <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
@@ -74,13 +73,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Leave Configuration Designation Wise List
+                            Leave Approval Configuration List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <asp:GridView ID="gvLeaveDesignationConfiguration" runat="server"
+                                <asp:GridView ID="gvLeaveApprovalConfiguration" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveDesignationConfiguration_RowCommand">
+                                    GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveApprovalConfiguration_RowCommand">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -90,21 +89,20 @@
                                                 <%# Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
-                                        <asp:BoundField DataField="DesignationName" HeaderText="Designation" />
-                                        <asp:BoundField DataField="LeaveCount" HeaderText="Leave Total" />
-                                        <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
+                                        <asp:BoundField DataField="RequestorDesignation" HeaderText="Requestor Designation" />
+                                        <asp:BoundField DataField="ApproverDesignation" HeaderText="Approver Designation" />
+                                        <asp:BoundField DataField="ApproverLevel" HeaderText="Approval Level" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/Images/edit_button.png"
+                                                    CommandArgument='<%# Eval("LeaveApprovalConfigId") %>' ImageUrl="~/Images/edit_button.png"
                                                     ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/images/delete_button.png"
+                                                    CommandArgument='<%# Eval("LeaveApprovalConfigId") %>' ImageUrl="~/images/delete_button.png"
                                                     ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
                                             </ItemTemplate>
                                         </asp:TemplateField>

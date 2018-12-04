@@ -312,6 +312,9 @@
                                 <li id="li3" runat="server">
                                     <a href="../LeaveManagement/LeaveDesignationConfiguration.aspx">Leave Designation Configuration</a>
                                 </li>
+                                 <li id="li1" runat="server">
+                                    <a href="../LeaveManagement/LeaveApprovalConfiguration.aspx">Leave Approval Configuration</a>
+                                </li>
                                 <li id="li4" runat="server">
                                     <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
                                 </li>
