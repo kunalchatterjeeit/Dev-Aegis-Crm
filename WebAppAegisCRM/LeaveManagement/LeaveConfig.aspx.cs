@@ -29,10 +29,9 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void LeaveConfig_GetAll()
         {
-            Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
             Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
 
-            DataTable dt = objLeaveConfiguration.LeaveConfigurations_GetAll(leaveConfiguration);
+            DataTable dt = Business.LeaveManagement.LeaveConfiguration.LeaveConfigurations_GetAll(leaveConfiguration);
 
             dgvLeaveConfiguration.DataSource = dt;
             dgvLeaveConfiguration.DataBind();

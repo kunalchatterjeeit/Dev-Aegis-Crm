@@ -107,6 +107,23 @@
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
+                            Leave Management
+                        </div>
+                        <div class="panel-body">
+                            <asp:CheckBoxList ID="chkListLeaveManagement" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckListBox_SelectedIndexChanged">
+                                <asp:ListItem Value="700" Text="&nbsp;&nbsp;&nbsp;LEAVE MANAGEMENT"></asp:ListItem>
+                                <asp:ListItem Value="701" Text="&nbsp;&nbsp;&nbsp;LEAVE CONFIGURATION"></asp:ListItem>
+                                <asp:ListItem Value="702" Text="&nbsp;&nbsp;&nbsp;LEAVE DESIGNATION CONFIGURATION"></asp:ListItem>
+                                <asp:ListItem Value="703" Text="&nbsp;&nbsp;&nbsp;APPLY LEAVE"></asp:ListItem>
+                                <asp:ListItem Value="704" Text="&nbsp;&nbsp;&nbsp;LEAVE APPROVE"></asp:ListItem>
+                                <asp:ListItem Value="705" Text="&nbsp;&nbsp;&nbsp;LEAVE APPLICATION LIST"></asp:ListItem>
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
                             Inventory
                         </div>
                         <div class="panel-body">
@@ -128,9 +145,7 @@
                             </asp:CheckBoxList>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
+                </div>            
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">

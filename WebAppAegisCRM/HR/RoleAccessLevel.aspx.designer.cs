@@ -76,6 +76,15 @@ namespace WebAppAegisCRM.HR {
         protected global::System.Web.UI.WebControls.CheckBoxList ChkListHR;
         
         /// <summary>
+        /// chkListLeaveManagement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList chkListLeaveManagement;
+        
+        /// <summary>
         /// ChkListInventory control.
         /// </summary>
         /// <remarks>

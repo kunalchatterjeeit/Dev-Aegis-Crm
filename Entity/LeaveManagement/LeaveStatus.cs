@@ -9,9 +9,9 @@ namespace Entity.LeaveManagement
     public class LeaveStatus
     {
         public int LeaveStatusId { get; set; }
-        
+
         public string LeaveStatusName { get; set; }
-        
-             public string LeaveStatusDescription { get; set; }
+
+        public string LeaveStatusDescription { get; set; }
     }
 }

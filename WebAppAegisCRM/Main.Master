@@ -293,30 +293,29 @@
                                 <li id="liEmployeeLoyaltyPoint" runat="server">
                                     <a href="../HR/EmployeeLoyaltyPoint.aspx">Employee Loyalty Point List</a>
                                 </li>
-                                 <li id="liLeaveConfig" runat="server">
-                                    <a href="../HR/LeaveConfig.aspx">Add/Edit Leave Configuration</a>
-                                </li>
-                                 <li id="liLeaveType" runat="server">
-                                    <a href="../HR/LeaveApply.aspx">Add/Edit Leave Apply</a>
-                                </li>
-                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li  id="liLeaveManagement" runat="server">
                             <a href="#"><i class="fa fa-user fa-fw"></i> Leave Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="li2" runat="server">
+                                <li id="liLeaveConfiguration" runat="server">
                                     <a href="../LeaveManagement/LeaveConfig.aspx">Leave Configuration</a>
                                 </li>
-                                <li id="li3" runat="server">
+                                <li id="liLeaveDesignationConfiguration" runat="server">
                                     <a href="../LeaveManagement/LeaveDesignationConfiguration.aspx">Leave Designation Configuration</a>
                                 </li>
-                                 <li id="li1" runat="server">
+                                 <%--<li id="li1" runat="server">
                                     <a href="../LeaveManagement/LeaveApprovalConfiguration.aspx">Leave Approval Configuration</a>
-                                </li>
-                                <li id="li4" runat="server">
+                                </li>--%>
+                                <li id="liLeaveApply" runat="server">
                                     <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
+                                </li>
+                                <li id="liLeaveApprove" runat="server">
+                                    <a href="../LeaveManagement/LeaveApprove.aspx">Leave Approve</a>
+                                </li>
+                                 <li id="liLeaveApplicationList" runat="server">
+                                    <a href="../LeaveManagement/LeaveApplicationList.aspx">Leave Application List</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

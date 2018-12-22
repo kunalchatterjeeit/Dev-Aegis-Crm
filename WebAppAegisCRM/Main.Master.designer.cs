@@ -220,24 +220,6 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEmployeeLoyaltyPoint;
         
         /// <summary>
-        /// liLeaveConfig control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveConfig;
-        
-        /// <summary>
-        /// liLeaveType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveType;
-        
-        /// <summary>
         /// liLeaveManagement control.
         /// </summary>
         /// <remarks>
@@ -247,40 +229,49 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveManagement;
         
         /// <summary>
-        /// li2 control.
+        /// liLeaveConfiguration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveConfiguration;
         
         /// <summary>
-        /// li3 control.
+        /// liLeaveDesignationConfiguration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li3;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveDesignationConfiguration;
         
         /// <summary>
-        /// li1 control.
+        /// liLeaveApply control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveApply;
         
         /// <summary>
-        /// li4 control.
+        /// liLeaveApprove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li4;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveApprove;
+        
+        /// <summary>
+        /// liLeaveApplicationList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveApplicationList;
         
         /// <summary>
         /// liInventory control.

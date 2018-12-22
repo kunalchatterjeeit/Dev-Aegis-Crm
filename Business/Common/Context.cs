@@ -172,5 +172,17 @@ namespace Business.Common
                 HttpContext.Current.Session["DocketNo"] = value;
             }
         }
+
+        public static int LeaveApplicationId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["LeaveApplicationId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["LeaveApplicationId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["LeaveApplicationId"] = value;
+            }
+        }
     }
 }

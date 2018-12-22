@@ -65,6 +65,14 @@ namespace Entity.HR
         public const string DOCKET_LIST = "505";
         public const string SERVICE_BOOK_LIST = "506";
 
+        //LeaveManagement
+        public const string LEAVE_MANAGEMENT = "700";
+        public const string LEAVE_CONFIGURATION = "701";
+        public const string LEAVE_DESIGNATION_CONFIGURATION = "702";
+        public const string LEAVE_APPLY = "703";
+        public const string LEAVE_APPROVE = "704";
+        public const string LEAVE_APPLICATION_LIST = "705";
+
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";
         public const string DASHBOARD_TONER_LIST = "10002";

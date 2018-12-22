@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Data;
 
 namespace Business.LeaveManagement
 {
@@ -13,7 +8,7 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_Save(objLeaveManagement);
         }
-        public DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
+        public static DataTable LeaveConfigurations_GetAll(Entity.LeaveManagement.LeaveConfiguration lmLeaveConfig)
         {
             return DataAccess.LeaveManagement.LeaveConfiguration.LeaveConfigurations_GetAll(lmLeaveConfig);
         }

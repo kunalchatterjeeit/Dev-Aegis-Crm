@@ -251,6 +251,13 @@
                                 </asp:DropDownList>
                             </div>
                         </div>
+                        <div class="col-lg-4">
+                            <div class="form-group has-error">
+                                Reporting:
+                                <asp:DropDownList ID="ddlReporting" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-outline btn-success"
                                 OnClick="btnSubmit_Click" OnClientClick="return ValidationForSave();" />

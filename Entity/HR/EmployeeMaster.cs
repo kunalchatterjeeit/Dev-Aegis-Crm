@@ -227,5 +227,6 @@ namespace Entity.HR
         }
 
         public int RoleId { get; set; }
+        public int ReportingEmployeeId { get; set; }
     }
 }

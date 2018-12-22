@@ -9,7 +9,7 @@ using System.Configuration;
 using Entity.HR;
 namespace DataAccess.LeaveManagement
 {
-   public class LeaveDesignationWiseConfiguration
+    public class LeaveDesignationWiseConfiguration
     {
         public static int LeaveDesignationConfig_Save(Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration)
         {
@@ -85,7 +85,7 @@ namespace DataAccess.LeaveManagement
             }
         }
 
-        public static DataTable LeaveDesignationConfig_GetAll()
+        public static DataTable LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration)
         {
             using (DataTable dt = new DataTable())
             {
@@ -96,6 +96,14 @@ namespace DataAccess.LeaveManagement
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_HR_LeaveDesignationConfig_GetAll";
+                        if (leaveDesignationWiseConfiguration.LeaveTypeId == 0)
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", leaveDesignationWiseConfiguration.LeaveTypeId);
+                        if (leaveDesignationWiseConfiguration.DesignationId == 0)
+                            cmd.Parameters.AddWithValue("@DesignationId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@DesignationId", leaveDesignationWiseConfiguration.DesignationId);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);

@@ -11,7 +11,7 @@ namespace DataAccess.HR
 {
     public class EmployeeMaster
     {
-        public static int EmployeeSave(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
+        public static int Employee_Save(Entity.HR.EmployeeMaster employeeMaster)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -21,57 +21,58 @@ namespace DataAccess.HR
                     cmd.Connection = con;
                     cmd.CommandText = "usp_HR_Employee_Save";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@EmployeeMasterId", ObjElEmployeeMaster.EmployeeMasterId);
-                    cmd.Parameters.AddWithValue("@EmployeeMasterName", ObjElEmployeeMaster.EmployeeName);
-                    if (ObjElEmployeeMaster.Image == "")
+                    cmd.Parameters.AddWithValue("@EmployeeMasterId", employeeMaster.EmployeeMasterId);
+                    cmd.Parameters.AddWithValue("@EmployeeMasterName", employeeMaster.EmployeeName);
+                    if (employeeMaster.Image == "")
                         cmd.Parameters.AddWithValue("@Image", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@Image", ObjElEmployeeMaster.Image);
-                    cmd.Parameters.AddWithValue("@GenderId", ObjElEmployeeMaster.GenderId);
-                    cmd.Parameters.AddWithValue("@DOB", ObjElEmployeeMaster.DOB);
-                    cmd.Parameters.AddWithValue("@MaritalStatus", ObjElEmployeeMaster.MaritalStatus);
-                    if (ObjElEmployeeMaster.DOM == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@Image", employeeMaster.Image);
+                    cmd.Parameters.AddWithValue("@GenderId", employeeMaster.GenderId);
+                    cmd.Parameters.AddWithValue("@DOB", employeeMaster.DOB);
+                    cmd.Parameters.AddWithValue("@MaritalStatus", employeeMaster.MaritalStatus);
+                    if (employeeMaster.DOM == DateTime.MinValue)
                         cmd.Parameters.AddWithValue("@DOM", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@DOM", ObjElEmployeeMaster.DOM);
-                    cmd.Parameters.AddWithValue("@ReligionId_FK", ObjElEmployeeMaster.ReligionId_FK);
-                    cmd.Parameters.AddWithValue("@BloodGroup", ObjElEmployeeMaster.BloodGroup);
-                    cmd.Parameters.AddWithValue("@PersonalMobileNo", ObjElEmployeeMaster.PersonalMobileNo);
-                    cmd.Parameters.AddWithValue("@OfficeMobileNo", ObjElEmployeeMaster.OfficeMobileNo);
-                    cmd.Parameters.AddWithValue("@PersonalEmailId", ObjElEmployeeMaster.PersonalEmailId);
-                    cmd.Parameters.AddWithValue("@OfficeEmailId", ObjElEmployeeMaster.OfficeEmailId);
-                    if (ObjElEmployeeMaster.ReferenceEmployeeId == 0)
+                        cmd.Parameters.AddWithValue("@DOM", employeeMaster.DOM);
+                    cmd.Parameters.AddWithValue("@ReligionId_FK", employeeMaster.ReligionId_FK);
+                    cmd.Parameters.AddWithValue("@BloodGroup", employeeMaster.BloodGroup);
+                    cmd.Parameters.AddWithValue("@PersonalMobileNo", employeeMaster.PersonalMobileNo);
+                    cmd.Parameters.AddWithValue("@OfficeMobileNo", employeeMaster.OfficeMobileNo);
+                    cmd.Parameters.AddWithValue("@PersonalEmailId", employeeMaster.PersonalEmailId);
+                    cmd.Parameters.AddWithValue("@OfficeEmailId", employeeMaster.OfficeEmailId);
+                    if (employeeMaster.ReferenceEmployeeId == 0)
                         cmd.Parameters.AddWithValue("@ReferenceEmployeeId", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@ReferenceEmployeeId", ObjElEmployeeMaster.ReferenceEmployeeId);
-                    cmd.Parameters.AddWithValue("@pAddress", ObjElEmployeeMaster.PAddress);
-                    cmd.Parameters.AddWithValue("@pCityId", ObjElEmployeeMaster.PCityId_FK);
-                    cmd.Parameters.AddWithValue("@pPIN", ObjElEmployeeMaster.PPIN);
-                    cmd.Parameters.AddWithValue("@UserId", ObjElEmployeeMaster.UserId);
-                    cmd.Parameters.AddWithValue("@EmployeeJobId", ObjElEmployeeMaster.EmployeeJobId);
-                    cmd.Parameters.AddWithValue("@DesignationMasterId_FK", ObjElEmployeeMaster.DesignationMasterId_FK);
-                    if (ObjElEmployeeMaster.DOJ == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@ReferenceEmployeeId", employeeMaster.ReferenceEmployeeId);
+                    cmd.Parameters.AddWithValue("@pAddress", employeeMaster.PAddress);
+                    cmd.Parameters.AddWithValue("@pCityId", employeeMaster.PCityId_FK);
+                    cmd.Parameters.AddWithValue("@pPIN", employeeMaster.PPIN);
+                    cmd.Parameters.AddWithValue("@UserId", employeeMaster.UserId);
+                    cmd.Parameters.AddWithValue("@EmployeeJobId", employeeMaster.EmployeeJobId);
+                    cmd.Parameters.AddWithValue("@DesignationMasterId_FK", employeeMaster.DesignationMasterId_FK);
+                    if (employeeMaster.DOJ == DateTime.MinValue)
                         cmd.Parameters.AddWithValue("@DOJ", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@DOJ", ObjElEmployeeMaster.DOJ);
-                    cmd.Parameters.AddWithValue("@JobTypeId", ObjElEmployeeMaster.ReferenceEmployeeId);
-                    cmd.Parameters.AddWithValue("@EmployeeCode", ObjElEmployeeMaster.EmployeeCode);
-                    cmd.Parameters.AddWithValue("@Password", ObjElEmployeeMaster.Password);
-                    if (ObjElEmployeeMaster.TAddress == "")
+                        cmd.Parameters.AddWithValue("@DOJ", employeeMaster.DOJ);
+                    cmd.Parameters.AddWithValue("@JobTypeId", employeeMaster.ReferenceEmployeeId);
+                    cmd.Parameters.AddWithValue("@EmployeeCode", employeeMaster.EmployeeCode);
+                    cmd.Parameters.AddWithValue("@Password", employeeMaster.Password);
+                    if (employeeMaster.TAddress == "")
                         cmd.Parameters.AddWithValue("@tAddress", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@tAddress", ObjElEmployeeMaster.TAddress);
-                    if (ObjElEmployeeMaster.TCityId_FK == 0)
+                        cmd.Parameters.AddWithValue("@tAddress", employeeMaster.TAddress);
+                    if (employeeMaster.TCityId_FK == 0)
                         cmd.Parameters.AddWithValue("@tCityId", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@tCityId", ObjElEmployeeMaster.TCityId_FK);
-                    if (ObjElEmployeeMaster.TPIN == "")
+                        cmd.Parameters.AddWithValue("@tCityId", employeeMaster.TCityId_FK);
+                    if (employeeMaster.TPIN == "")
                         cmd.Parameters.AddWithValue("@tPIN", DBNull.Value);
                     else
-                        cmd.Parameters.AddWithValue("@tPIN", ObjElEmployeeMaster.TPIN);
-                    cmd.Parameters.AddWithValue("@CompanyId_FK", ObjElEmployeeMaster.CompanyId_FK);
+                        cmd.Parameters.AddWithValue("@tPIN", employeeMaster.TPIN);
+                    cmd.Parameters.AddWithValue("@CompanyId_FK", employeeMaster.CompanyId_FK);
 
-                    cmd.Parameters.AddWithValue("@RoleId", ObjElEmployeeMaster.RoleId);
+                    cmd.Parameters.AddWithValue("@RoleId", employeeMaster.RoleId);
+                    cmd.Parameters.AddWithValue("@ReportingEmployeeId", employeeMaster.ReportingEmployeeId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -83,8 +84,8 @@ namespace DataAccess.HR
                             {
                                 da.Fill(dt);
                             }
-                            rowsAffacted = (ObjElEmployeeMaster.EmployeeMasterId > 0) ?
-                                ObjElEmployeeMaster.EmployeeMasterId : int.Parse(dt.Rows[0]["EmployeeMasterId"].ToString());
+                            rowsAffacted = (employeeMaster.EmployeeMasterId > 0) ?
+                                employeeMaster.EmployeeMasterId : int.Parse(dt.Rows[0]["EmployeeMasterId"].ToString());
                         }
                     }
                     catch

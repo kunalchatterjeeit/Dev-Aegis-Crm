@@ -33,6 +33,14 @@ namespace WebAppAegisCRM
                 liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
                 liEmployeeLoyaltyPoint.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEELOYALTYPOINT);
 
+                //LEAVE MANAGEMENT
+                liLeaveApplicationList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_APPLICATION_LIST);
+                liLeaveApply.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_APPLY);
+                liLeaveApprove.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_APPROVE);
+                liLeaveConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_CONFIGURATION);
+                liLeaveDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_DESIGNATION_CONFIGURATION);
+                liLeaveManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_MANAGEMENT);
+
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);
                 liPurchaseEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.PURCHASE_ENTRY);

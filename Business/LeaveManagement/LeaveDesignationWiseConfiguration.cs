@@ -13,9 +13,9 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveDesignationWiseConfiguration.LeaveDesignationConfig_Save(objLeaveDesignation);
         }
-        public DataTable LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignation)
+        public DataTable LeaveDesignationConfig_GetAll(Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration)
         {
-            return DataAccess.LeaveManagement.LeaveDesignationWiseConfiguration.LeaveDesignationConfig_GetAll();
+            return DataAccess.LeaveManagement.LeaveDesignationWiseConfiguration.LeaveDesignationConfig_GetAll(leaveDesignationWiseConfiguration);
         }
         public int LeaveDesignationConfig_Delete(int leaveDesignationWiseConfigurationId)
         {

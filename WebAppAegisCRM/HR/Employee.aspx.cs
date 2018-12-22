@@ -41,6 +41,7 @@ namespace WebAppAegisCRM.Employee
                 LoadRoleList();
                 EmployeeMaster_GetAll();
                 EmployeeMaster_GetAll_ReferenceEmployee();
+                EmployeeMaster_GetAll_Reporting();
                 DesignationMaster_GetAll();
                 BindCity();
             }
@@ -84,26 +85,26 @@ namespace WebAppAegisCRM.Employee
             employeeMaster.TCityId_FK = (ddlPresentCity.SelectedIndex == 0) ? 0 : Convert.ToInt32(ddlPresentCity.SelectedValue);
             employeeMaster.TPIN = txtpresentpin.Text.Trim();
             employeeMaster.RoleId = int.Parse(ddlRole.SelectedValue);
-            int i = 0;
-            i = objEmployeeMaster.EmployeeSave(employeeMaster);
-            if (i > 0)
+            employeeMaster.ReportingEmployeeId = Convert.ToInt32(ddlReporting.SelectedValue);
+
+            int employeeId = 0;
+            employeeId = objEmployeeMaster.Employee_Save(employeeMaster);
+            if (employeeId > 0)
             {
                 if (FileUpload1.HasFile)
-                    FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + i.ToString() + employeeMaster.Image);
-
+                    FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeId.ToString() + employeeMaster.Image);
                 CleartextBoxes(this);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Save Succesfully....');", true);
                 EmployeeMaster_GetAll();
                 EmployeeMaster_GetAll_ReferenceEmployee();
+                EmployeeMaster_GetAll_Reporting();
                 DesignationMaster_GetAll();
                 BindCity();
                 EmployeeMasterId = 0;
-
             }
             else
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Can not Save!!!....');", true);
-
             }
         }
 
@@ -115,6 +116,20 @@ namespace WebAppAegisCRM.Employee
             DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
             gvEmployeerMaster.DataSource = dt;
             gvEmployeerMaster.DataBind();
+        }
+
+        private void EmployeeMaster_GetAll_Reporting()
+        {
+            Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
+            ObjElEmployeeMaster.CompanyId_FK = 1;
+            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+
+            ddlReporting.DataSource = dt;
+            ddlReporting.DataTextField = "EmployeeName";
+            ddlReporting.DataValueField = "EmployeeMasterId";
+            ddlReporting.DataBind();
+            ddlReporting.InsertSelect();
         }
 
         private void LoadApprover()
@@ -176,33 +191,33 @@ namespace WebAppAegisCRM.Employee
                 Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                 Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
                 employeeMaster.EmployeeMasterId = Id;
-                DataTable dr = objEmployeeMaster.EmployeeMaster_ById(employeeMaster);
+                DataTable dtEmployeeMaster = objEmployeeMaster.EmployeeMaster_ById(employeeMaster);
 
-                txtemployeename.Text = dr.Rows[0]["EmployeeName"].ToString();
-                Image = dr.Rows[0]["Image"].ToString();
-                ddlgenderid.SelectedValue = dr.Rows[0]["GenderId"].ToString();
-                txtdateofbirth.Text = (dr.Rows[0]["DOB"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dr.Rows[0]["DOB"].ToString()).ToString("dd MMM yyyy");
-                ddlMaritalStatus.SelectedValue = dr.Rows[0]["MaritalStatus"].ToString();
-                txtdom.Text = (dr.Rows[0]["DOM"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dr.Rows[0]["DOM"].ToString()).ToString("dd MMM yyyy");
-                ddlReligion.SelectedValue = dr.Rows[0]["ReligionId_FK"].ToString();
-                txtbloodgroup.Text = dr.Rows[0]["BloodGroup"].ToString();
-                txtMobileNo.Text = dr.Rows[0]["PersonalMobileNo"].ToString();
-                txtofficialPhoneNo.Text = dr.Rows[0]["OfficeMobileNo"].ToString();
-                txtpersonalEmailId.Text = dr.Rows[0]["PersonalEmailId"].ToString();
-                txtofficialEmailId.Text = dr.Rows[0]["OfficeEmailId"].ToString();
-                ddlRefferencrEmployee.SelectedValue = (dr.Rows[0]["ReferenceEmployeeId"] == DBNull.Value) ? "0" : dr.Rows[0]["ReferenceEmployeeId"].ToString();
-                txtpAddress.Text = dr.Rows[0]["pAddress"].ToString();
-                ddlCity.SelectedValue = dr.Rows[0]["pCityId_FK"].ToString();
-                txtPin.Text = dr.Rows[0]["pPIN"].ToString();
-                ddldesignation.SelectedValue = (dr.Rows[0]["DesignationMasterId_FK"] == DBNull.Value) ? "0" : dr.Rows[0]["DesignationMasterId_FK"].ToString();
-                txtDOJ.Text = (dr.Rows[0]["DOJ"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dr.Rows[0]["DOJ"].ToString()).ToString("dd MMM yyyy");
-                EmployeePassword = dr.Rows[0]["Password"].ToString();
-                txtpresentaddress.Text = dr.Rows[0]["tAddress"].ToString();
-                ddlPresentCity.SelectedValue = (dr.Rows[0]["tCityId_FK"] == DBNull.Value) ? "0" : dr.Rows[0]["tCityId_FK"].ToString();
-                txtpresentpin.Text = dr.Rows[0]["tPINMasterId"].ToString();
-                ddlRole.SelectedValue = dr.Rows[0]["UserRole_RoleId"].ToString();
-                Image1.ImageUrl = "EmployeeImage\\" + dr.Rows[0]["Image"].ToString();
-
+                txtemployeename.Text = dtEmployeeMaster.Rows[0]["EmployeeName"].ToString();
+                Image = dtEmployeeMaster.Rows[0]["Image"].ToString();
+                ddlgenderid.SelectedValue = dtEmployeeMaster.Rows[0]["GenderId"].ToString();
+                txtdateofbirth.Text = (dtEmployeeMaster.Rows[0]["DOB"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dtEmployeeMaster.Rows[0]["DOB"].ToString()).ToString("dd MMM yyyy");
+                ddlMaritalStatus.SelectedValue = dtEmployeeMaster.Rows[0]["MaritalStatus"].ToString();
+                txtdom.Text = (dtEmployeeMaster.Rows[0]["DOM"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dtEmployeeMaster.Rows[0]["DOM"].ToString()).ToString("dd MMM yyyy");
+                ddlReligion.SelectedValue = dtEmployeeMaster.Rows[0]["ReligionId_FK"].ToString();
+                txtbloodgroup.Text = dtEmployeeMaster.Rows[0]["BloodGroup"].ToString();
+                txtMobileNo.Text = dtEmployeeMaster.Rows[0]["PersonalMobileNo"].ToString();
+                txtofficialPhoneNo.Text = dtEmployeeMaster.Rows[0]["OfficeMobileNo"].ToString();
+                txtpersonalEmailId.Text = dtEmployeeMaster.Rows[0]["PersonalEmailId"].ToString();
+                txtofficialEmailId.Text = dtEmployeeMaster.Rows[0]["OfficeEmailId"].ToString();
+                ddlRefferencrEmployee.SelectedValue = (dtEmployeeMaster.Rows[0]["ReferenceEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReferenceEmployeeId"].ToString();
+                txtpAddress.Text = dtEmployeeMaster.Rows[0]["pAddress"].ToString();
+                ddlCity.SelectedValue = dtEmployeeMaster.Rows[0]["pCityId_FK"].ToString();
+                txtPin.Text = dtEmployeeMaster.Rows[0]["pPIN"].ToString();
+                ddldesignation.SelectedValue = (dtEmployeeMaster.Rows[0]["DesignationMasterId_FK"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["DesignationMasterId_FK"].ToString();
+                txtDOJ.Text = (dtEmployeeMaster.Rows[0]["DOJ"] == DBNull.Value) ? string.Empty : Convert.ToDateTime(dtEmployeeMaster.Rows[0]["DOJ"].ToString()).ToString("dd MMM yyyy");
+                EmployeePassword = dtEmployeeMaster.Rows[0]["Password"].ToString();
+                txtpresentaddress.Text = dtEmployeeMaster.Rows[0]["tAddress"].ToString();
+                ddlPresentCity.SelectedValue = (dtEmployeeMaster.Rows[0]["tCityId_FK"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["tCityId_FK"].ToString();
+                txtpresentpin.Text = dtEmployeeMaster.Rows[0]["tPINMasterId"].ToString();
+                ddlRole.SelectedValue = dtEmployeeMaster.Rows[0]["UserRole_RoleId"].ToString();
+                Image1.ImageUrl = "EmployeeImage\\" + dtEmployeeMaster.Rows[0]["Image"].ToString();
+                ddlReporting.SelectedValue = (dtEmployeeMaster.Rows[0]["ReportingEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReportingEmployeeId"].ToString();
             }
             catch
             {
@@ -238,6 +253,7 @@ namespace WebAppAegisCRM.Employee
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
                     EmployeeMaster_GetAll();
                     EmployeeMaster_GetAll_ReferenceEmployee();
+                    EmployeeMaster_GetAll_Reporting();
                     DesignationMaster_GetAll();
                     BindCity();
                     EmployeeMasterId = 0;

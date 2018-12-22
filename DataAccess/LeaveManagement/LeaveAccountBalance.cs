@@ -4,10 +4,9 @@ using System.Configuration;
 
 namespace DataAccess.LeaveManagement
 {
-    public class LeaveStatus
+    public static class LeaveAccountBalance
     {
-
-        public static int LeaveStatus_Save(Entity.LeaveManagement.LeaveStatus objLeaveStatus)
+        public static int LeaveAccountBalance_Save(int employeeId, int leaveTypeId)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -17,10 +16,9 @@ namespace DataAccess.LeaveManagement
 
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveStatus_Save";
-                    cmd.Parameters.AddWithValue("@LeaveStatusId", objLeaveStatus.LeaveStatusId);
-                    cmd.Parameters.AddWithValue("@LeaveStatusName", objLeaveStatus.LeaveStatusName);
-                    cmd.Parameters.AddWithValue("@LeaveStatusDescription", objLeaveStatus.LeaveStatusDescription);
+                    cmd.CommandText = "usp_HR_LeaveAccountBalance_Save";
+                    cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                    cmd.Parameters.AddWithValue("@LeaveTypeId", leaveTypeId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -31,7 +29,7 @@ namespace DataAccess.LeaveManagement
             return retValue;
         }
 
-        public static DataTable LeaveStatus_GetAll()
+        public static DataTable LeaveAccountBalance_ByEmployeeId(int employeeId, int leaveTypeId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -41,7 +39,10 @@ namespace DataAccess.LeaveManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_LeaveStatus_GetAll";
+                        cmd.CommandText = "usp_HR_LeaveAccountBalance_ByEmployeeId";
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@LeaveTypeId", leaveTypeId);
+
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);
@@ -53,26 +54,30 @@ namespace DataAccess.LeaveManagement
             }
         }
 
-        public static int LeaveStatus_Delete(Entity.LeaveManagement.LeaveStatus objLeaveStatus)
+        public static int LeaveAccontBalance_Adjust(Entity.LeaveManagement.LeaveAccountBalance leaveAccountBalance)
         {
-            int rowsAffacted = 0;
+            int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
+
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_LeaveStatus_Delete";
-
-                    cmd.Parameters.AddWithValue("LeaveTypeId", objLeaveStatus.LeaveStatusId);
+                    cmd.CommandText = "usp_LeaveAccontBalance_Adjust";
+                    cmd.Parameters.AddWithValue("@EmployeeId", leaveAccountBalance.EmployeeId);
+                    cmd.Parameters.AddWithValue("@LeaveTypeId", leaveAccountBalance.LeaveTypeId);
+                    cmd.Parameters.AddWithValue("@Amount", leaveAccountBalance.Amount);
+                    cmd.Parameters.AddWithValue("@Reason", leaveAccountBalance.Reason);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
+                    retValue = cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
-            return rowsAffacted;
+            return retValue;
         }
+
     }
 }

@@ -9,9 +9,9 @@ namespace Business.HR
    public class EmployeeMaster
     {
            
-        public int EmployeeSave(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
+        public int Employee_Save(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
         {
-            return DataAccess.HR.EmployeeMaster.EmployeeSave(ObjElEmployeeMaster);
+            return DataAccess.HR.EmployeeMaster.Employee_Save(ObjElEmployeeMaster);
         }
 
         public int EmployeeDelete(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
