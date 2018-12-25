@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.LeaveManagement {
     
     
-    public partial class LeaveConfig {
+    public partial class GenerateLeave {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -49,58 +49,40 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlLeaveType;
         
         /// <summary>
-        /// ddlLeaveFrequency control.
+        /// ddlMonths control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveFrequency;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMonths;
         
         /// <summary>
-        /// txtLeaveAccrueDate control.
+        /// ddlQuarters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLeaveAccrueDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlQuarters;
         
         /// <summary>
-        /// CalendarExtender1 control.
+        /// ddlYears control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYears;
         
         /// <summary>
-        /// ckEncashable control.
+        /// btnGenerate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckEncashable;
-        
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
-        
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Button btnGenerate;
         
         /// <summary>
         /// Message control.
@@ -112,12 +94,12 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// dgvLeaveConfiguration control.
+        /// dgvGeneratedLeaveList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgvLeaveConfiguration;
+        protected global::System.Web.UI.WebControls.GridView dgvGeneratedLeaveList;
     }
 }

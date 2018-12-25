@@ -1,8 +1,7 @@
-﻿<%@ Page Title="LEAVE CONFIGURATION" Language="C#" AutoEventWireup="true" CodeBehind="LeaveConfig.aspx.cs"
-    Inherits="WebAppAegisCRM.LeaveManagement.LeaveConfig" MasterPageFile="~/Main.Master" %>
+﻿<%@ Page Title="GENERATE LEAVE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="GenerateLeave.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.GenerateLeave" %>
 
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -26,46 +25,41 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Leave Configuration
+                            Generate Leave
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Type
-                                        <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
+                                        <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlLeaveType_SelectedIndexChanged">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Leave Frequency
-                                         <asp:DropDownList ID="ddlLeaveFrequency" CssClass="form-control" runat="server">
+                                        Months
+                                        <asp:DropDownList ID="ddlMonths" CssClass="form-control" runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Leave Accrue Date
-                                        <asp:TextBox ID="txtLeaveAccrueDate" CssClass="form-control" runat="server"></asp:TextBox>
-                                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
-                                            Format="dd MMM yyyy" TargetControlID="txtLeaveAccrueDate">
-                                        </asp:CalendarExtender>
+                                        Quarters
+                                        <asp:DropDownList ID="ddlQuarters" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        <div class="checkbox">
-                                            <label class="btn btn-danger">
-                                                <asp:CheckBox ID="ckEncashable" runat="server" Text="Encashable" />
-                                            </label>
-                                        </div>
+                                        Years
+                                        <asp:DropDownList ID="ddlYears" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
+                                        <asp:Button ID="btnGenerate" runat="server" Text="GENERATE" class="btn btn-outline btn-success" OnClick="btnGenerate_Click" />
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -78,13 +72,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Leave Configuration List
+                            Generated Leaves List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <asp:GridView ID="dgvLeaveConfiguration" runat="server"
+                                <asp:GridView ID="dgvGeneratedLeaveList" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    GridLines="None" Style="text-align: left" OnRowCommand="gvLeaveConfig_RowCommand">
+                                    GridLines="None" Style="text-align: left">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -133,4 +127,3 @@
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
-

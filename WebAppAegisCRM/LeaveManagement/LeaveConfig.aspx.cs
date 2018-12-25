@@ -2,6 +2,7 @@
 using System.Web.UI.WebControls;
 using System.Data;
 using Business.Common;
+using Entity.Common;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
@@ -11,6 +12,13 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             get { return Convert.ToInt32(ViewState["LeaveConfigurationId"]); }
             set { ViewState["LeaveConfigurationId"] = value; }
+        }
+
+        private void LoadLeaveFrequency()
+        {
+            ddlLeaveFrequency.DataSource = Enum.GetValues(typeof(LeaveFrequencyEnum));
+            ddlLeaveFrequency.DataBind();
+            ddlLeaveFrequency.InsertSelect();
         }
 
         private void LoadLeaveType()
@@ -41,7 +49,7 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             LeaveConfigurationId = 0;
             ddlLeaveType.SelectedIndex = 0;
-            txtLeaveFrequency.Text = "";
+            ddlLeaveFrequency.SelectedIndex = 0;
             txtLeaveAccrueDate.Text = "";
             Message.Show = false;
         }
@@ -52,6 +60,7 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 LoadLeaveType();
                 LeaveConfig_GetAll();
+                LoadLeaveFrequency();
                 Message.Show = false;
             }
         }
@@ -65,7 +74,7 @@ namespace WebAppAegisCRM.LeaveManagement
             if (dt.Rows.Count > 0)
             {
                 ddlLeaveType.SelectedValue = dt.Rows[0]["LeaveTypeId"].ToString();
-                txtLeaveFrequency.Text = dt.Rows[0]["LeaveFrequency"].ToString();
+                ddlLeaveFrequency.SelectedValue = dt.Rows[0]["LeaveFrequency"].ToString();
                 txtLeaveAccrueDate.Text = Convert.ToDateTime(dt.Rows[0]["LeaveAccrueDate"]).ToString("dd MMM yyyy");
                 ckEncashable.Checked = Convert.ToBoolean(dt.Rows[0]["Encashable"].ToString());
             }
@@ -113,7 +122,7 @@ namespace WebAppAegisCRM.LeaveManagement
             Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
             leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
             leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
-            leaveConfiguration.LeaveFrequency = txtLeaveFrequency.Text.Trim();
+            leaveConfiguration.LeaveFrequency = ddlLeaveFrequency.SelectedValue;
             leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
             leaveConfiguration.Encashable = ckEncashable.Checked;
             int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);

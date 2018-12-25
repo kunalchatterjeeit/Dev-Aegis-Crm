@@ -50,9 +50,11 @@
     <Compile Include="Common\CryptographyMode.cs" />
     <Compile Include="Common\DashboardEvent.cs" />
     <Compile Include="Common\LeaveAccumulationEnum.cs" />
+    <Compile Include="Common\LeaveFrequencyEnum.cs" />
     <Compile Include="Common\LeaveStatusEnum.cs" />
     <Compile Include="Common\LeaveTypeEnum.cs" />
     <Compile Include="Common\LoginStatus.cs" />
+    <Compile Include="Common\QuarterlyEnum.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="LeaveManagement\LeaveAccountBalance.cs" />
     <Compile Include="LeaveManagement\LeaveApplicationDetails.cs" />

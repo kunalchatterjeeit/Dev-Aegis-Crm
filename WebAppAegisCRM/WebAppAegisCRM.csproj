@@ -107,6 +107,7 @@
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
+    <Content Include="LeaveManagement\GenerateLeave.aspx" />
     <Content Include="LeaveManagement\LeaveApplicationList.aspx" />
     <Content Include="LeaveManagement\LeaveApply.aspx" />
     <Content Include="LeaveManagement\LeaveApprovalConfiguration.aspx" />
@@ -291,6 +292,13 @@
     </Compile>
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
+      <DependentUpon>GenerateLeave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeaveManagement\GenerateLeave.aspx.designer.cs">
+      <DependentUpon>GenerateLeave.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\LeaveApplicationList.aspx.cs">
       <DependentUpon>LeaveApplicationList.aspx</DependentUpon>
