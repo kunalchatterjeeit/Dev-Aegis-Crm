@@ -21,7 +21,6 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             if (!IsPostBack)
             {
-                DataTable dtAssets = GlobalCache.ExecuteCache<DataTable>(typeof(Business.Inventory.Inventory), "Inventory_GetAll", DateTime.MinValue, DateTime.MinValue);
                 LoadLeaveType();
                 Business.Common.Context.SelectedDates.Clear();
                 Message.Show = false;
