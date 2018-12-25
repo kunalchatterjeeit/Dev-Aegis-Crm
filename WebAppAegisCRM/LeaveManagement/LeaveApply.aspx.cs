@@ -106,6 +106,14 @@ namespace WebAppAegisCRM.LeaveManagement
             DataTable dtEmployee = new Business.HR.EmployeeMaster().EmployeeMaster_ById(new Entity.HR.EmployeeMaster() { EmployeeMasterId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) });
             if (dtEmployee != null && dtEmployee.AsEnumerable().Any())
             {
+                if (dtEmployee.Rows[0]["ReportingEmployeeId"] == DBNull.Value)
+                {
+                    Message.Text = "Please update reporting person.";
+                    Message.IsSuccess = false;
+                    Message.Show = true;
+                    return false;
+                }
+
                 Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration = new Entity.LeaveManagement.LeaveDesignationWiseConfiguration();
                 leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
                 leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(dtEmployee.Rows[0]["DesignationMasterId_FK"].ToString());
