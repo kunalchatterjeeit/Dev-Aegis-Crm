@@ -64,7 +64,7 @@ namespace DataAccess.LeaveManagement
 
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_LeaveAccontBalance_Adjust";
+                    cmd.CommandText = "usp_HR_LeaveAccontBalance_Adjust";
                     cmd.Parameters.AddWithValue("@EmployeeId", leaveAccountBalance.EmployeeId);
                     cmd.Parameters.AddWithValue("@LeaveTypeId", leaveAccountBalance.LeaveTypeId);
                     cmd.Parameters.AddWithValue("@Amount", leaveAccountBalance.Amount);

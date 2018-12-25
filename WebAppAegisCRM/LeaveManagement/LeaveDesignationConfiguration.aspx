@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                        Leave Total
+                                        Leave Total (per frequency)
                                         <asp:TextBox ID="txtLeaveCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
                                     </div>
                                 </div>

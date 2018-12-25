@@ -89,23 +89,11 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
-                                        <asp:BoundField DataField="LeaveAccrueDate" HeaderText="Leave Accure Date" />
-                                        <asp:BoundField DataField="LeaveFrequency" HeaderText="Leave Frequency" />
-                                        <asp:BoundField DataField="Encashable" HeaderText="Encashable" />
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/Images/edit_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/images/delete_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="Month" HeaderText="Month" />
+                                        <asp:BoundField DataField="Quarter" HeaderText="Quarter" />
+                                        <asp:BoundField DataField="Year" HeaderText="Year" />
+                                        <asp:BoundField DataField="TotalDistribution" HeaderText="Total Distribution" />
+                                        <asp:BoundField DataField="ScheduleDateTime" HeaderText="Schedule Date" />
                                     </Columns>
                                     <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
