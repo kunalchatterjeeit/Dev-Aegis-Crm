@@ -24,6 +24,47 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            Available Leaves
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <center>
+                                    <asp:GridView ID="gvLeaveAvailableList" runat="server"
+                                        AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                        GridLines="None" Style="text-align: left">
+                                        <Columns>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    SN.
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# Container.DataItemIndex+1 %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
+                                            <asp:BoundField DataField="Amount" HeaderText="Available" />
+                                        </Columns>
+                                        <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                        <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                        <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                        <EditRowStyle BackColor="#999999" />
+                                        <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                        <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                        <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                        <EmptyDataTemplate>
+                                            No Record Found...
+                                        </EmptyDataTemplate>
+                                    </asp:GridView>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             Apply for Leave
                         </div>
                         <div class="panel-body">
@@ -78,7 +119,7 @@
                                     <div class="form-group has-error">
                                         Reason
                                          <br />
-                                        <asp:TextBox ID="txtReason" runat="server" class="form-control" cols="20" rows="2"></asp:TextBox>
+                                        <asp:TextBox ID="txtReason" runat="server" class="form-control" cols="20" Rows="2"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

@@ -40,6 +40,7 @@ namespace WebAppAegisCRM
                 liLeaveConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_CONFIGURATION);
                 liLeaveDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_DESIGNATION_CONFIGURATION);
                 liLeaveManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_MANAGEMENT);
+                liLeaveGenerate.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_GENERATE);
 
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);

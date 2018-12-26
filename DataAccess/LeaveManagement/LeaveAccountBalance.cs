@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System;
 
 namespace DataAccess.LeaveManagement
 {
@@ -40,7 +41,13 @@ namespace DataAccess.LeaveManagement
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_HR_LeaveAccountBalance_ByEmployeeId";
-                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        if (employeeId == 0)
+                            cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        if(leaveTypeId == 0)
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", DBNull.Value);
+                        else
                         cmd.Parameters.AddWithValue("@LeaveTypeId", leaveTypeId);
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))

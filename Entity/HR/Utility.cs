@@ -72,6 +72,7 @@ namespace Entity.HR
         public const string LEAVE_APPLY = "703";
         public const string LEAVE_APPROVE = "704";
         public const string LEAVE_APPLICATION_LIST = "705";
+        public const string LEAVE_GENERATE = "706";
 
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";

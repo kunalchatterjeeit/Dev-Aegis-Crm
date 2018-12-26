@@ -317,6 +317,9 @@
                                  <li id="liLeaveApplicationList" runat="server">
                                     <a href="../LeaveManagement/LeaveApplicationList.aspx">Leave Application List</a>
                                 </li>
+                                <li id="liLeaveGenerate" runat="server">
+                                    <a href="../LeaveManagement/GenerateLeave.aspx">Generate Leave</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

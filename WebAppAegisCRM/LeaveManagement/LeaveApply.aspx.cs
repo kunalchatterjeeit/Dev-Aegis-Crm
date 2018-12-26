@@ -22,6 +22,7 @@ namespace WebAppAegisCRM.LeaveManagement
             if (!IsPostBack)
             {
                 LoadLeaveType();
+                LeaveAccountBalance_ByEmployeeId();
                 Business.Common.Context.SelectedDates.Clear();
                 Message.Show = false;
             }
@@ -269,6 +270,13 @@ namespace WebAppAegisCRM.LeaveManagement
 
 
             return response;
+        }
+
+        private void LeaveAccountBalance_ByEmployeeId()
+        {
+            Business.LeaveManagement.LeaveAccountBalance objLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance();
+            gvLeaveAvailableList.DataSource = objLeaveAccountBalance.LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), 0);
+            gvLeaveAvailableList.DataBind();
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
