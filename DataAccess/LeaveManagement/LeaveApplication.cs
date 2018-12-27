@@ -10,7 +10,7 @@ using Entity.HR;
 
 namespace DataAccess.LeaveManagement
 {
-    public class LeaveApplicationMaster
+    public class LeaveApplication
     {
 
         public static Entity.LeaveManagement.LeaveApplicationMaster LeaveApplicationMaster_Save(Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster)
@@ -252,6 +252,53 @@ namespace DataAccess.LeaveManagement
                     }
                 }
                 return ds;
+            }
+        }
+        public static DataTable LeaveApplicationDetails_GetByDate(Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_LeaveApplicationDetails_GetByDate";
+
+                        if (leaveApplicationMaster.LeaveApplicationId == 0)
+                            cmd.Parameters.AddWithValue("@LeaveApplicationId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveApplicationId", leaveApplicationMaster.LeaveApplicationId);
+                        if (leaveApplicationMaster.RequestorId == 0)
+                            cmd.Parameters.AddWithValue("@RequestorId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@RequestorId", leaveApplicationMaster.RequestorId);
+                        if (leaveApplicationMaster.LeaveTypeId == 0)
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", leaveApplicationMaster.LeaveTypeId);
+                        if (string.IsNullOrEmpty(leaveApplicationMaster.LeaveStatuses))
+                            cmd.Parameters.AddWithValue("@LeaveStatuses", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveStatuses", leaveApplicationMaster.LeaveStatuses);
+                        if (leaveApplicationMaster.FromLeaveDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromLeaveDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromLeaveDate", leaveApplicationMaster.FromLeaveDate);
+                        if (leaveApplicationMaster.ToLeaveDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToLeaveDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToLeaveDate", leaveApplicationMaster.ToLeaveDate);
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
             }
         }
     }

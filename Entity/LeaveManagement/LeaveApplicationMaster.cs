@@ -23,5 +23,8 @@ namespace Entity.LeaveManagement
         public DateTime ToLeaveStartDate { get; set; }
         public DateTime FromApplyDate { get; set; }
         public DateTime ToApplyDate { get; set; }
+        public DateTime FromLeaveDate { get; set; }
+        public DateTime ToLeaveDate { get; set; }
+        public string LeaveStatuses { get; set; }
     }
 }

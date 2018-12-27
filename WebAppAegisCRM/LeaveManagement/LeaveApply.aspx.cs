@@ -57,7 +57,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
             Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = new Entity.LeaveManagement.LeaveApplicationMaster();
             leaveApplicationMaster.RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-            DataTable dtLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplicationMaster().LeaveApplicationMaster_GetAll(leaveApplicationMaster);
+            DataTable dtLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_GetAll(leaveApplicationMaster);
             if (dtLeaveConfigurations != null && dtLeaveConfigurations.AsEnumerable().Any())
             {
                 DataRow drLeaveConfiguration = dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault();
@@ -71,21 +71,21 @@ namespace WebAppAegisCRM.LeaveManagement
                 }
                 if (dtLeaveApplicationMaster != null && dtLeaveApplicationMaster.AsEnumerable().Any())
                 {
-                    DateTime yearFirstDate = Convert.ToDateTime("01 JAN " + DateTime.Now.Year.ToString());
-                    DateTime yearLastDate = Convert.ToDateTime("31 DEC " + DateTime.Now.Year.ToString());
-                    leaveApplicationMaster.RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                    leaveApplicationMaster.FromLeaveStartDate = yearFirstDate;
-                    leaveApplicationMaster.ToLeaveStartDate = yearLastDate;
-                    leaveApplicationMaster.LeaveStatusId = (int)LeaveStatusEnum.Approved;
-                    DataTable dtLeaveApplicationFrequency = new Business.LeaveManagement.LeaveApplicationMaster().LeaveApplicationMaster_GetAll(leaveApplicationMaster);
-                    int leaveFrequency = (dtLeaveApplicationFrequency != null) ? dtLeaveApplicationFrequency.Rows.Count : 0;
-                    if (Convert.ToInt32(drLeaveConfiguration["LeaveFrequency"].ToString()) <= leaveFrequency)
-                    {
-                        Message.Text = "Max Leave Application Limit reached for this type of leave";
-                        Message.IsSuccess = false;
-                        Message.Show = true;
-                        return false;
-                    }
+                    //DateTime yearFirstDate = Convert.ToDateTime("01 JAN " + DateTime.Now.Year.ToString());
+                    //DateTime yearLastDate = Convert.ToDateTime("31 DEC " + DateTime.Now.Year.ToString());
+                    //leaveApplicationMaster.RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    //leaveApplicationMaster.FromLeaveStartDate = yearFirstDate;
+                    //leaveApplicationMaster.ToLeaveStartDate = yearLastDate;
+                    //leaveApplicationMaster.LeaveStatusId = (int)LeaveStatusEnum.Approved;
+                    //DataTable dtLeaveApplicationFrequency = new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_GetAll(leaveApplicationMaster);
+                    //int leaveFrequency = (dtLeaveApplicationFrequency != null) ? dtLeaveApplicationFrequency.Rows.Count : 0;
+                    //if (Convert.ToInt32(drLeaveConfiguration["LeaveFrequency"].ToString()) <= leaveFrequency)
+                    //{
+                    //    Message.Text = "Max Leave Application Limit reached for this type of leave";
+                    //    Message.IsSuccess = false;
+                    //    Message.Show = true;
+                    //    return false;
+                    //}
                     if (dtLeaveApplicationMaster.Select("LeaveStatusId = " + ((int)LeaveStatusEnum.Pending).ToString()).Any())
                     {
                         Message.Text = "You already have leave approval pending.";
@@ -178,6 +178,22 @@ namespace WebAppAegisCRM.LeaveManagement
                     Message.Show = true;
                     return false;
                 }
+
+                //Checking leave date overlapping
+                DataTable dtLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplication().LeaveApplicationDetails_GetByDate(new Entity.LeaveManagement.LeaveApplicationMaster()
+                {
+                    RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
+                    FromLeaveDate = Convert.ToDateTime(lbFromDate.Text.Trim()),
+                    ToLeaveDate = Convert.ToDateTime(lbToDate.Text.Trim()),
+                    LeaveStatuses = Convert.ToString((int)LeaveStatusEnum.Approved) + "," + Convert.ToString((int)LeaveStatusEnum.Pending)
+                });
+                if (dtLeaveApplicationDetails != null && dtLeaveApplicationDetails.AsEnumerable().Any())
+                {
+                    Message.Text = "Your leave dates are overlapping. Please check your Approved/Pending list.";
+                    Message.IsSuccess = false;
+                    Message.Show = true;
+                    return false;
+                }
             }
             else
             {
@@ -206,7 +222,7 @@ namespace WebAppAegisCRM.LeaveManagement
         private Entity.LeaveManagement.LeaveApplicationMaster LeaveApplicationMaster_Save()
         {
             Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = new Entity.LeaveManagement.LeaveApplicationMaster();
-            Business.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplicationMaster();
+            Business.LeaveManagement.LeaveApplication objLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplication();
 
             leaveApplicationMaster.ApplyDate = DateTime.Now;
             leaveApplicationMaster.FromDate = Convert.ToDateTime(lbFromDate.Text);
@@ -223,7 +239,7 @@ namespace WebAppAegisCRM.LeaveManagement
         private int LeaveApplicationDetails_Save(int leaveApplicationId, DateTime leaveDate)
         {
             Entity.LeaveManagement.LeaveApplicationDetails leaveApplicationDetails = new Entity.LeaveManagement.LeaveApplicationDetails();
-            Business.LeaveManagement.LeaveApplicationMaster objLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplicationMaster();
+            Business.LeaveManagement.LeaveApplication objLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplication();
 
             leaveApplicationDetails.LeaveApplicationDetailId = 0;
             leaveApplicationDetails.LeaveApplicationId = leaveApplicationId;

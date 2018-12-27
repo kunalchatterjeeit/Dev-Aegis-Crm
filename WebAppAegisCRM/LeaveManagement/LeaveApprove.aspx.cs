@@ -23,7 +23,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private void GetLeaveApplicationDetails_ByLeaveApplicationId(int leaveApplicationId)
         {
-            DataSet dsLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplicationMaster().GetLeaveApplicationDetails_ByLeaveApplicationId(leaveApplicationId);
+            DataSet dsLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplication().GetLeaveApplicationDetails_ByLeaveApplicationId(leaveApplicationId);
             if (dsLeaveApplicationDetails != null)
             {
                 lblLeaveApplicationNumber.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveApplicationNumber"].ToString();
@@ -70,7 +70,7 @@ namespace WebAppAegisCRM.LeaveManagement
             Entity.LeaveManagement.LeaveAccountBalance leaveAccountBalance = new Entity.LeaveManagement.LeaveAccountBalance();
             Business.LeaveManagement.LeaveAccountBalance objLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance();
 
-            DataTable dtLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplicationMaster()
+            DataTable dtLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplication()
                 .LeaveApplicationMaster_GetAll(
                 new Entity.LeaveManagement.LeaveApplicationMaster()
                 {
@@ -178,7 +178,7 @@ namespace WebAppAegisCRM.LeaveManagement
                         else
                         {
                             //If final Appoval approved then update status in Master table
-                            new Business.LeaveManagement.LeaveApplicationMaster().LeaveApplicationMaster_Save(
+                            new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_Save(
                                                                                 new Entity.LeaveManagement.LeaveApplicationMaster()
                                                                                 {
                                                                                     LeaveApplicationId = Business.Common.Context.LeaveApplicationId,
@@ -244,7 +244,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     if (response > 0)
                     {
                         //If final Appoval approved then update status in Master table
-                        new Business.LeaveManagement.LeaveApplicationMaster().LeaveApplicationMaster_Save(
+                        new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_Save(
                                                                             new Entity.LeaveManagement.LeaveApplicationMaster()
                                                                             {
                                                                                 LeaveApplicationId = Business.Common.Context.LeaveApplicationId,

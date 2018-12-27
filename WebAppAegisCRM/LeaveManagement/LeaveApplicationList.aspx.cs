@@ -13,7 +13,7 @@ namespace WebAppAegisCRM.LeaveManagement
         private void LeaveApplicationMaster_GetAll()
         {
             DataTable dtLeaveApplicationMaster =
-                new Business.LeaveManagement.LeaveApplicationMaster()
+                new Business.LeaveManagement.LeaveApplication()
                 .LeaveApplicationMaster_GetAll(new Entity.LeaveManagement.LeaveApplicationMaster() {
                     RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
                 });
