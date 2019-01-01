@@ -8,6 +8,7 @@ namespace Entity.LeaveManagement
         public int LeaveTypeId { get; set; }
         public string Month { get; set; }
         public string Quarter { get; set; }
+        public string Half { get; set; }
         public int Year { get; set; }
         public int TotalDistribution { get; set; }
         public DateTime ScheduleDateTime { get; set; }

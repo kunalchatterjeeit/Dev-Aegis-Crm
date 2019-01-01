@@ -41,6 +41,13 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlQuarters.InsertSelect();
         }
 
+        private void LoadHalfYearly()
+        {
+            ddlHalf.DataSource = Enum.GetValues(typeof(HalfYearlyEnum));
+            ddlHalf.DataBind();
+            ddlHalf.InsertSelect();
+        }
+
         private void LoadYears()
         {
             ddlYears.Items.Clear();
@@ -60,6 +67,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 LoadLeaveType();
                 LoadMonths();
                 LoadQuarters();
+                LoadHalfYearly();
                 LoadYears();
                 LeaveGenerateLog_GetAll();
                 Message.Show = false;
@@ -82,6 +90,10 @@ namespace WebAppAegisCRM.LeaveManagement
                         else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.QUARTERLY.ToString())
                         {
                             GenerateQuarterly();
+                        }
+                        else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.HALFYEARLY.ToString())
+                        {
+                            GenerateHalfYearly();
                         }
                         else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.YEARLY.ToString())
                         {
@@ -112,22 +124,32 @@ namespace WebAppAegisCRM.LeaveManagement
                 {
                     if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.MONTHLY.ToString())
                     {
+                        ddlHalf.Enabled = false;
                         ddlQuarters.Enabled = false;
                         ddlMonths.Enabled = true;
                     }
                     else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.QUARTERLY.ToString())
                     {
+                        ddlHalf.Enabled = false;
                         ddlQuarters.Enabled = true;
+                        ddlMonths.Enabled = false;
+                    }
+                    else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.HALFYEARLY.ToString())
+                    {
+                        ddlHalf.Enabled = true;
+                        ddlQuarters.Enabled = false;
                         ddlMonths.Enabled = false;
                     }
                     else
                     {
+                        ddlHalf.Enabled = false;
                         ddlQuarters.Enabled = false;
                         ddlMonths.Enabled = false;
                     }
                 }
                 else
                 {
+                    ddlHalf.Enabled = true;
                     ddlQuarters.Enabled = true;
                     ddlMonths.Enabled = true;
                 }
@@ -163,6 +185,28 @@ namespace WebAppAegisCRM.LeaveManagement
 
             leaveGenerateLog.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
             leaveGenerateLog.Quarter = ddlQuarters.SelectedValue;
+            leaveGenerateLog.Year = Convert.ToInt32(ddlYears.SelectedValue);
+
+            DataTable dtLeaveGenerate = objLeaveGenerateLog.LeaveGenerateLog_GetAll(leaveGenerateLog);
+
+            if (dtLeaveGenerate != null && dtLeaveGenerate.AsEnumerable().Any())
+            {
+                //Leave Type ddlLeaveType.SelectedItem is already generated for ddlQuarters.SelectedItem, ddlYears.SelectedItem
+                return;
+            }
+            //Generate Leave
+            long leaveGenerateLogId = LeaveGenerateLog_Save();
+            int totalCount = Generate();
+            LeaveGenerateLog_Update(leaveGenerateLogId, totalCount);
+        }
+
+        private void GenerateHalfYearly()
+        {
+            Business.LeaveManagement.LeaveGenerateLog objLeaveGenerateLog = new Business.LeaveManagement.LeaveGenerateLog();
+            Entity.LeaveManagement.LeaveGenerateLog leaveGenerateLog = new Entity.LeaveManagement.LeaveGenerateLog();
+
+            leaveGenerateLog.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+            leaveGenerateLog.Half = ddlHalf.SelectedValue;
             leaveGenerateLog.Year = Convert.ToInt32(ddlYears.SelectedValue);
 
             DataTable dtLeaveGenerate = objLeaveGenerateLog.LeaveGenerateLog_GetAll(leaveGenerateLog);
@@ -264,7 +308,7 @@ namespace WebAppAegisCRM.LeaveManagement
                                             LeaveTypeId = leaveTypeId,
                                             Amount = +leaveAmount,
                                             EmployeeId = Convert.ToInt32(drEmployee["EmployeeMasterId"].ToString()),
-                                            Reason = ddlLeaveType.SelectedItem + " IS GENERATED FOR " + ddlMonths.SelectedValue + "_" + ddlQuarters.SelectedValue + "_" + ddlYears.SelectedValue
+                                            Reason = ddlLeaveType.SelectedItem + " IS GENERATED FOR " + ddlMonths.SelectedValue + "_" + ddlQuarters.SelectedValue + "_" + ddlHalf.SelectedValue + "_" + ddlYears.SelectedValue
                                         });
                                         if (response > 0)
                                         {

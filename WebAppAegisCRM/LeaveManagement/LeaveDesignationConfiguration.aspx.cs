@@ -59,6 +59,8 @@ namespace WebAppAegisCRM.LeaveManagement
                 ddlDesignation.Text = dt.Rows[0]["DesignationId"].ToString();
                 txtCarryForwardCount.Text = dt.Rows[0]["CarryForwardCount"].ToString();
                 txtLeaveCount.Text = dt.Rows[0]["LeaveCount"].ToString();
+                txtMinApplyDays.Text = dt.Rows[0]["MinApplyDays"].ToString();
+                txtMaxApplyDays.Text = dt.Rows[0]["MaxApplyDays"].ToString();
             }
         }
 
@@ -69,6 +71,8 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlDesignation.SelectedIndex = 0;
             txtCarryForwardCount.Text = string.Empty;
             txtLeaveCount.Text = string.Empty;
+            txtMinApplyDays.Text = string.Empty;
+            txtMaxApplyDays.Text = string.Empty;
             Message.Show = false;
         }
 
@@ -104,6 +108,8 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
             leaveDesignationWiseConfiguration.LeaveCount = Convert.ToDecimal(txtLeaveCount.Text.Trim());
             leaveDesignationWiseConfiguration.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text.Trim());
+            leaveDesignationWiseConfiguration.MinApplyDays = Convert.ToDecimal(txtMinApplyDays.Text.Trim());
+            leaveDesignationWiseConfiguration.MaxApplyDays = Convert.ToDecimal(txtMaxApplyDays.Text.Trim());
             int response = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_Save(leaveDesignationWiseConfiguration);
             if (response > 0)
             {

@@ -15,6 +15,8 @@ namespace Entity.LeaveManagement
         public int LeaveTypeId { get; set; }
         public decimal CarryForwardCount { get; set; }       
         public DateTime CreatedDate { get; set; }
+        public decimal MinApplyDays { get; set; }
+        public decimal MaxApplyDays { get; set; }
     }
 
 }
