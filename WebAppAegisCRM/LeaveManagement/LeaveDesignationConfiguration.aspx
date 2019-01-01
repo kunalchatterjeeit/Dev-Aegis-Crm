@@ -75,7 +75,7 @@
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>

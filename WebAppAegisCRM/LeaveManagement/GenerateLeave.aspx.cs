@@ -101,8 +101,6 @@ namespace WebAppAegisCRM.LeaveManagement
                         }
                     }
                 }
-                Message.IsSuccess = true;
-                Message.Text = "Processing completed.";
             }
             catch (Exception ex)
             {
@@ -169,13 +167,18 @@ namespace WebAppAegisCRM.LeaveManagement
 
             if (dtLeaveGenerate != null && dtLeaveGenerate.AsEnumerable().Any())
             {
-                //Leave Type ddlLeaveType.SelectedItem is already generated for ddlMonths.SelectedItem, ddlYears.SelectedItem
+                Message.IsSuccess = false;
+                Message.Text = "Leave Type " + ddlLeaveType.SelectedItem + " is already generated for " + ddlMonths.SelectedItem + " " + ddlYears.SelectedItem;
                 return;
             }
             //Generate Leave
             long leaveGenerateLogId = LeaveGenerateLog_Save();
             int totalCount = Generate();
             LeaveGenerateLog_Update(leaveGenerateLogId, totalCount);
+
+            LeaveGenerateLog_GetAll();
+            Message.IsSuccess = true;
+            Message.Text = "Processing completed.";
         }
 
         private void GenerateQuarterly()
@@ -191,13 +194,18 @@ namespace WebAppAegisCRM.LeaveManagement
 
             if (dtLeaveGenerate != null && dtLeaveGenerate.AsEnumerable().Any())
             {
-                //Leave Type ddlLeaveType.SelectedItem is already generated for ddlQuarters.SelectedItem, ddlYears.SelectedItem
+                Message.IsSuccess = false;
+                Message.Text = "Leave Type " + ddlLeaveType.SelectedItem + " is already generated for " + ddlQuarters.SelectedItem + " " + ddlYears.SelectedItem;
                 return;
             }
             //Generate Leave
             long leaveGenerateLogId = LeaveGenerateLog_Save();
             int totalCount = Generate();
             LeaveGenerateLog_Update(leaveGenerateLogId, totalCount);
+
+            LeaveGenerateLog_GetAll();
+            Message.IsSuccess = true;
+            Message.Text = "Processing completed.";
         }
 
         private void GenerateHalfYearly()
@@ -213,13 +221,18 @@ namespace WebAppAegisCRM.LeaveManagement
 
             if (dtLeaveGenerate != null && dtLeaveGenerate.AsEnumerable().Any())
             {
-                //Leave Type ddlLeaveType.SelectedItem is already generated for ddlQuarters.SelectedItem, ddlYears.SelectedItem
+                Message.IsSuccess = false;
+                Message.Text = "Leave Type " + ddlLeaveType.SelectedItem + " is already generated for " + ddlHalf.SelectedItem + " " + ddlYears.SelectedItem;
                 return;
             }
             //Generate Leave
             long leaveGenerateLogId = LeaveGenerateLog_Save();
             int totalCount = Generate();
             LeaveGenerateLog_Update(leaveGenerateLogId, totalCount);
+
+            LeaveGenerateLog_GetAll();
+            Message.IsSuccess = true;
+            Message.Text = "Processing completed.";
         }
 
         private void GenerateYearly()
@@ -234,13 +247,18 @@ namespace WebAppAegisCRM.LeaveManagement
 
             if (dtLeaveGenerate != null && dtLeaveGenerate.AsEnumerable().Any())
             {
-                //Leave Type ddlLeaveType.SelectedItem is already generated for ddlYears.SelectedItem
+                Message.IsSuccess = false;
+                Message.Text = "Leave Type " + ddlLeaveType.SelectedItem + " is already generated for " + ddlYears.SelectedItem;
                 return;
             }
             //Generate Leave
             long leaveGenerateLogId = LeaveGenerateLog_Save();
             int totalCount = Generate();
             LeaveGenerateLog_Update(leaveGenerateLogId, totalCount);
+
+            LeaveGenerateLog_GetAll();
+            Message.IsSuccess = true;
+            Message.Text = "Processing completed.";
         }
 
         private long LeaveGenerateLog_Save()
@@ -252,6 +270,7 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveGenerateLog.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
             leaveGenerateLog.Month = ddlMonths.SelectedValue;
             leaveGenerateLog.Quarter = ddlQuarters.SelectedValue;
+            leaveGenerateLog.Half = ddlHalf.SelectedValue;
             leaveGenerateLog.Year = Convert.ToInt32(ddlYears.SelectedValue);
             leaveGenerateLog.ScheduleDateTime = DateTime.Now;
 

@@ -31,6 +31,10 @@ namespace DataAccess.LeaveManagement
                         cmd.Parameters.AddWithValue("@Quarter", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@Quarter", leaveGenerateLog.Quarter);
+                    if (string.IsNullOrEmpty(leaveGenerateLog.Half))
+                        cmd.Parameters.AddWithValue("@Half", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Half", leaveGenerateLog.Half);
                     if (leaveGenerateLog.Year == 0)
                         cmd.Parameters.AddWithValue("@Year", DBNull.Value);
                     else

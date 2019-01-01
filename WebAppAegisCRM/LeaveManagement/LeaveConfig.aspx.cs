@@ -3,6 +3,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Business.Common;
 using Entity.Common;
+using System.Linq;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
@@ -118,28 +119,70 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
-            Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
-            leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
-            leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
-            leaveConfiguration.LeaveFrequency = ddlLeaveFrequency.SelectedValue;
-            leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
-            leaveConfiguration.Encashable = ckEncashable.Checked;
-            int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
-            if (response > 0)
+            if (LeaveConfigValidate())
             {
-                Clear();
-                LeaveConfig_GetAll();
-                GlobalCache.RemoveAll();
-                Message.IsSuccess = true;
-                Message.Text = "Saved Successfully";
+                Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+                Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
+                leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
+                leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+                leaveConfiguration.LeaveFrequency = ddlLeaveFrequency.SelectedValue;
+                leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
+                leaveConfiguration.Encashable = ckEncashable.Checked;
+                int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
+                if (response > 0)
+                {
+                    Clear();
+                    LeaveConfig_GetAll();
+                    GlobalCache.RemoveAll();
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Exists";
+                }
+                Message.Show = true;
             }
-            else
+        }
+
+        private bool LeaveConfigValidate()
+        {
+            bool retValue = true;
+
+            if (ddlLeaveType.SelectedIndex == 0)
             {
                 Message.IsSuccess = false;
-                Message.Text = "Exists";
+                Message.Text = "Please select Leave Type.";
+                Message.Show = true;
+                return false;
             }
-            Message.Show = true;
+            if (ddlLeaveFrequency.SelectedIndex == 0)
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please select Leave Frequency.";
+                Message.Show = true;
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtLeaveAccrueDate.Text.Trim()))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please select Accrue Date.";
+                Message.Show = true;
+                return false;
+            }
+
+            Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
+            DataTable dt = Business.LeaveManagement.LeaveConfiguration.LeaveConfigurations_GetAll(leaveConfiguration);
+            if (dt != null && dt.AsEnumerable().Any() && dt.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).Any())
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Configuration already exists.";
+                Message.Show = true;
+                return false;
+            }
+
+            return retValue;
         }
     }
 }
