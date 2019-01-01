@@ -130,6 +130,7 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 Clear();
                 LeaveConfig_GetAll();
+                GlobalCache.RemoveAll();
                 Message.IsSuccess = true;
                 Message.Text = "Saved Successfully";
             }
