@@ -27,6 +27,8 @@ namespace DataAccess.LeaveManagement
                     cmd.Parameters.AddWithValue("@DesignationId", leaveDesignationWiseConfiguration.DesignationId);
                     cmd.Parameters.AddWithValue("@LeaveCount", leaveDesignationWiseConfiguration.LeaveCount);
                     cmd.Parameters.AddWithValue("@CarryForwardCount", leaveDesignationWiseConfiguration.CarryForwardCount);
+                    cmd.Parameters.AddWithValue("@MinApplyDays", leaveDesignationWiseConfiguration.MinApplyDays);
+                    cmd.Parameters.AddWithValue("@MaxApplyDays", leaveDesignationWiseConfiguration.MaxApplyDays);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();

@@ -47,14 +47,25 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Leave Total (per frequency)
-                                        <asp:TextBox ID="txtLeaveCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
+                                        <asp:TextBox ID="txtLeaveCount" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <br />
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Carry Forward Amount
-                                        <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server" TextMode="Number"></asp:TextBox>
+                                        <asp:TextBox ID="txtCarryForwardCount" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group has-error">
+                                        Min Apply Days
+                                        <asp:TextBox ID="txtMinApplyDays" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group has-error">
+                                        Max Apply Days
+                                        <asp:TextBox ID="txtMaxApplyDays" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -64,7 +75,7 @@
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
@@ -94,6 +105,8 @@
                                         <asp:BoundField DataField="DesignationName" HeaderText="Designation" />
                                         <asp:BoundField DataField="LeaveCount" HeaderText="Leave Total" />
                                         <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
+                                        <asp:BoundField DataField="MinApplyDays" HeaderText="Min Apply Days" />
+                                        <asp:BoundField DataField="MaxApplyDays" HeaderText="Max Apply Days" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"

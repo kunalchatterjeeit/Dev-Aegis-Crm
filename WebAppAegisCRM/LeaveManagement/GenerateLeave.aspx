@@ -52,6 +52,13 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
+                                        Half
+                                        <asp:DropDownList ID="ddlHalf" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group has-error">
                                         Years
                                         <asp:DropDownList ID="ddlYears" CssClass="form-control" runat="server">
                                         </asp:DropDownList>
@@ -59,10 +66,11 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
+                                        <br />
                                         <asp:Button ID="btnGenerate" runat="server" Text="GENERATE" class="btn btn-outline btn-success" OnClick="btnGenerate_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
@@ -91,6 +99,7 @@
                                         <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
                                         <asp:BoundField DataField="Month" HeaderText="Month" />
                                         <asp:BoundField DataField="Quarter" HeaderText="Quarter" />
+                                        <asp:BoundField DataField="Half" HeaderText="Half" />
                                         <asp:BoundField DataField="Year" HeaderText="Year" />
                                         <asp:BoundField DataField="TotalDistribution" HeaderText="Total Distribution" />
                                         <asp:BoundField DataField="ScheduleDateTime" HeaderText="Schedule Date" />

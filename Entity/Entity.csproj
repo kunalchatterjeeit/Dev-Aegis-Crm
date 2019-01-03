@@ -49,6 +49,7 @@
     <Compile Include="Common\ContractType.cs" />
     <Compile Include="Common\CryptographyMode.cs" />
     <Compile Include="Common\DashboardEvent.cs" />
+    <Compile Include="Common\HalfYearlyEnum.cs" />
     <Compile Include="Common\LeaveAccumulationEnum.cs" />
     <Compile Include="Common\LeaveFrequencyEnum.cs" />
     <Compile Include="Common\LeaveStatusEnum.cs" />

@@ -137,11 +137,17 @@ namespace WebAppAegisCRM.LeaveManagement
 
                     if (response > 0)
                     {
+                        //Fetching Requestor Id
+                        Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = new Entity.LeaveManagement.LeaveApplicationMaster();
+                        Business.LeaveManagement.LeaveApplication objLeaveApplication = new Business.LeaveManagement.LeaveApplication();
+                        leaveApplicationMaster.LeaveApplicationId = Business.Common.Context.LeaveApplicationId;
+                        DataTable dtLeaveApplication = objLeaveApplication.LeaveApplicationMaster_GetAll(leaveApplicationMaster);
+
                         Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
                         DataTable dtLeaveEmployeeWiseApprovalConfiguration = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(
                             new Entity.LeaveManagement.LeaveApprovalConfiguration()
                             {
-                                EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
+                                EmployeeId = (dtLeaveApplication != null && dtLeaveApplication.AsEnumerable().Any()) ? Convert.ToInt32(dtLeaveApplication.Rows[0]["RequestorId"].ToString()) : 0
                             });
 
                         int currentLeaveApproverLevel = 0;
@@ -168,10 +174,10 @@ namespace WebAppAegisCRM.LeaveManagement
                             int approvalResponse = objLeaveApprovalDetails.LeaveApprovalDetails_Save(leaveApprovalDetails);
                             if (approvalResponse > 0)
                             {
+                                LeaveApplicationMaster_GetAll();
                                 MessageSuccess.IsSuccess = true;
                                 MessageSuccess.Text = "Approval moved to next level.";
                                 MessageSuccess.Show = true;
-
                                 ModalPopupExtender1.Hide();
                             }
                         }

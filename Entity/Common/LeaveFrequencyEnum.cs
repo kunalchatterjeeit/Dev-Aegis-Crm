@@ -3,6 +3,7 @@
     public enum LeaveFrequencyEnum
     {
         YEARLY,
+        HALFYEARLY,
         QUARTERLY,
         MONTHLY
     }

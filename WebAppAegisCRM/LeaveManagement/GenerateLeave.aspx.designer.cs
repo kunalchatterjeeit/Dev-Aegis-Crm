@@ -67,6 +67,15 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::System.Web.UI.WebControls.DropDownList ddlQuarters;
         
         /// <summary>
+        /// ddlHalf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlHalf;
+        
+        /// <summary>
         /// ddlYears control.
         /// </summary>
         /// <remarks>
