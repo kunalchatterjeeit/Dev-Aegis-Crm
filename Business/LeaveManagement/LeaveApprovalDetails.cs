@@ -18,5 +18,10 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveApprovalDetails.LeaveApprove(leaveApprovalDetails);
         }
+
+        public DataTable LeaveApprovalDetails_ByRequestorId(int requestorId, int statusId)
+        {
+            return DataAccess.LeaveManagement.LeaveApprovalDetails.LeaveApprovalDetails_ByRequestorId(requestorId, statusId);
+        }
     }
 }

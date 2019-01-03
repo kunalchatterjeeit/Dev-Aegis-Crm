@@ -137,5 +137,32 @@ namespace DataAccess.LeaveManagement
             return retValue;
         }
 
+        public static DataTable LeaveApprovalDetails_ByRequestorId(int requestorId, int statusId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_LeaveApprovalDetails_ByRequestorId";
+                        cmd.Parameters.AddWithValue("@RequestorId", requestorId);
+                        if (statusId == 0)
+                            cmd.Parameters.AddWithValue("@Status", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@Status", statusId);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
     }
 }
