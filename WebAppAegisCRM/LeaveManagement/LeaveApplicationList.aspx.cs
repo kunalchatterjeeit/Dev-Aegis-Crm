@@ -1,4 +1,5 @@
-﻿using Entity.Common;
+﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Data;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             DataTable dtLeaveApplicationMaster =
                 new Business.LeaveManagement.LeaveApplication()
-                .LeaveApplicationMaster_GetAll(new Entity.LeaveManagement.LeaveApplicationMaster() {
+                .LeaveApplicationMaster_GetAll(new Entity.LeaveManagement.LeaveApplicationMaster()
+                {
                     RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
                 });
             gvLeaveApplicationList.DataSource = dtLeaveApplicationMaster;
@@ -40,12 +42,22 @@ namespace WebAppAegisCRM.LeaveManagement
                 }
             }
 
+            if (Convert.ToInt32(dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveStatusId"].ToString()) == (int)LeaveStatusEnum.Pending)
+            {
+                btnCancel.Visible = true;
+                btnFollowup.Visible = true;
+            }
+            else
+            {
+                btnCancel.Visible = false;
+                btnFollowup.Visible = false;
+            }
+
             DataTable dtDates = new DataTable();
             dtDates.Columns.Add("Date");
             dtDates.Columns.Add("Day");
 
             DateTime dateTime = Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString());
-
             while (true)
             {
                 if (Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()).AddDays(1).Date <= dateTime.Date)
@@ -68,6 +80,8 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             if (!IsPostBack)
             {
+                Message.Show = false;
+                MessageSuccess.Show = false;
                 LeaveApplicationMaster_GetAll();
             }
         }
@@ -91,28 +105,53 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
-            DataTable dtLeaveEmployeeWiseApprovalConfiguration = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(
-                new Entity.LeaveManagement.LeaveApprovalConfiguration()
-                {
-                    EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
-                });
-
-            int currentLeaveApproverLevel = 0;
-            if (dtLeaveEmployeeWiseApprovalConfiguration != null
-               && dtLeaveEmployeeWiseApprovalConfiguration.AsEnumerable().Any()
-               && dtLeaveEmployeeWiseApprovalConfiguration.Select("ApproverId = " + HttpContext.Current.User.Identity.Name).Any())
+            try
             {
-                //Fetching the current approver approval level
-                currentLeaveApproverLevel = Convert.ToInt32(dtLeaveEmployeeWiseApprovalConfiguration
-                    .Select("ApproverId = " + HttpContext.Current.User.Identity.Name).FirstOrDefault()["ApprovalLevel"].ToString());
+                DataTable dtApprovalDetails = new Business.LeaveManagement.LeaveApprovalDetails().LeaveApprovalDetails_ByRequestorId(
+                    Convert.ToInt32(HttpContext.Current.User.Identity.Name),
+                    (int)LeaveStatusEnum.Pending);
+
+                if (dtApprovalDetails != null && dtApprovalDetails.AsEnumerable().Any())
+                {
+                    foreach (DataRow drApproval in dtApprovalDetails.Rows)
+                    {
+                        Entity.LeaveManagement.LeaveApprovalDetails leaveApprovalDetails = new Entity.LeaveManagement.LeaveApprovalDetails();
+                        leaveApprovalDetails.ApproverId = Convert.ToInt32(drApproval["ApproverId"].ToString());
+                        leaveApprovalDetails.LeaveApplicationId = Business.Common.Context.LeaveApplicationId;
+                        leaveApprovalDetails.Status = (int)LeaveStatusEnum.Cancelled;
+                        leaveApprovalDetails.Remarks = "CANCELLED BY USER";
+                        int response = new Business.LeaveManagement.LeaveApprovalDetails().LeaveApprove(leaveApprovalDetails);
+                    }
+
+                    //If final all Approvals Cancelled then update status in Master table
+                    new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_Save(
+                                                                        new Entity.LeaveManagement.LeaveApplicationMaster()
+                                                                        {
+                                                                            LeaveApplicationId = Business.Common.Context.LeaveApplicationId,
+                                                                            LeaveStatusId = (int)LeaveStatusEnum.Cancelled
+                                                                        });
+
+
+                    MessageSuccess.IsSuccess = true;
+                    MessageSuccess.Text = "Leave is cancelled.";
+                    MessageSuccess.Show = true;
+                    ModalPopupExtender1.Hide();
+                    LeaveApplicationMaster_GetAll();
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Leave Cancel is not allowed.";
+                    Message.Show = true;
+                }
             }
-                Entity.LeaveManagement.LeaveApprovalDetails leaveApprovalDetails = new Entity.LeaveManagement.LeaveApprovalDetails();
-            leaveApprovalDetails.ApproverId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-            leaveApprovalDetails.LeaveApplicationId = Business.Common.Context.LeaveApplicationId;
-            leaveApprovalDetails.Status = (int)LeaveStatusEnum.Cancelled;
-            leaveApprovalDetails.Remarks = "CANCELLED BY USER";
-            int response = new Business.LeaveManagement.LeaveApprovalDetails().LeaveApprove(leaveApprovalDetails);
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnFollowup_Click(object sender, EventArgs e)

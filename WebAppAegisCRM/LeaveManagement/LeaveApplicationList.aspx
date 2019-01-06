@@ -1,10 +1,11 @@
 ﻿<%@ Page Title="LEAVE APPLICATION LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApplicationList.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplicationList" %>
+
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
         <ProgressTemplate>
@@ -21,50 +22,56 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <uc3:Message ID="MessageSuccess" runat="server" />
-                <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Leave Application List
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <asp:GridView ID="gvLeaveApplicationList" runat="server" AllowPaging="True" PageSize="20"
-                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                            GridLines="None" Style="text-align: left" OnPageIndexChanging="gvLeaveApplicationList_PageIndexChanging" OnRowCommand="gvLeaveApplicationList_RowCommand">
-                            <Columns>
-                                <asp:TemplateField>
-                                    <HeaderTemplate>
-                                        SN.
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <%# Container.DataItemIndex+1 %>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
-                                <asp:BoundField DataField="LeaveApplicationNumber" HeaderText="Application Number" />
-                                <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
-                                <asp:BoundField DataField="FromDate" HeaderText="From" />
-                                <asp:BoundField DataField="ToDate" HeaderText="To" />
-                                <asp:BoundField DataField="LeaveAccumulationTypeName" HeaderText="Accumulation Type" />
-                                <asp:BoundField DataField="LeaveStatusName" HeaderText="Status" />
-                            </Columns>
-                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                            <EditRowStyle BackColor="#999999" />
-                            <EmptyDataRowStyle CssClass="EditRowStyle" />
-                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                            <EmptyDataTemplate>
-                                No Leave Application found...
-                            </EmptyDataTemplate>
-                        </asp:GridView>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Leave Application List
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <asp:GridView ID="gvLeaveApplicationList" runat="server" AllowPaging="True" PageSize="20"
+                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                    GridLines="None" Style="text-align: left" OnPageIndexChanging="gvLeaveApplicationList_PageIndexChanging" 
+                                    OnRowCommand="gvLeaveApplicationList_RowCommand">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="LeaveApplicationNumber" HeaderText="Application Number" />
+                                        <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
+                                        <asp:BoundField DataField="FromDate" HeaderText="From" />
+                                        <asp:BoundField DataField="ToDate" HeaderText="To" />
+                                        <asp:BoundField DataField="LeaveAccumulationTypeName" HeaderText="Accumulation Type" />
+                                        <asp:BoundField DataField="LeaveStatusName" HeaderText="Status" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:Button ID="btnView" runat="server" Text="View" CommandName="View" CommandArgument='<%# Eval("LeaveApplicationId") %>' CssClass="btn btn-outline btn-info" Style="margin: 2px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Leave Application found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
             <a id="lnkLeave" runat="server"></a>
             <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
                 runat="server" TargetControlID="lnkLeave" PopupControlID="Panel1" CancelControlID="imgbtn">
@@ -75,7 +82,7 @@
                         ActiveTabIndex="1">
                         <asp:TabPanel ID="Approval" runat="server">
                             <HeaderTemplate>
-                                Leave Approval 
+                                Leave Details 
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <div class="accountInfo" style="width: 100%; float: left">
@@ -93,7 +100,7 @@
                                                 </td>
                                                 <td>
                                                     <asp:Label ID="lblName" runat="server"></asp:Label>
-                                                </td>                                                
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold">From Date
@@ -119,7 +126,7 @@
                                                     <asp:Label ID="lblLeaveAccumulationType" runat="server"></asp:Label>
                                                 </td>
                                             </tr>
-                                            <tr>                                               
+                                            <tr>
                                                 <td style="font-weight: bold">Total Leave Applied
                                                 </td>
                                                 <td>
@@ -127,7 +134,7 @@
                                                 </td>
                                                 <td style="font-weight: bold">Attachment
                                                 </td>
-                                                <td></td>  
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold">Leave Dates
@@ -170,7 +177,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-outline btn-success pull-left" OnClick="btnCancel_Click" />
+                                                    <asp:Button ID="btnCancel" runat="server" Text="Cancel Leave" CssClass="btn btn-outline btn-danger pull-left" OnClick="btnCancel_Click" />
                                                 </td>
                                                 <td colspan="2">
                                                     <asp:Button ID="btnFollowup" runat="server" Text="Follow up" CssClass="btn btn-outline btn-warning pull-right" OnClick="btnFollowup_Click" />
@@ -183,7 +190,7 @@
                         </asp:TabPanel>
                         <asp:TabPanel ID="ApprovalHistory" runat="server">
                             <HeaderTemplate>
-                                Approval History
+                                Approval Details
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <br />
@@ -225,6 +232,6 @@
                 </asp:Panel>
                 <img id="imgbtn" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
             </asp:Panel>
-            </ContentTemplate>
+        </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

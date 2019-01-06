@@ -35,7 +35,7 @@ namespace WebAppAegisCRM.Service
 
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
             DataSet dsServiceMaster = objServiceBook.Service_ServiceBookMaster_GetByCallId(Business.Common.Context.CallId, Business.Common.Context.CallType);
-            if (dsServiceMaster != null)
+            if (dsServiceMaster != null && dsServiceMaster.Tables.Count > 0 && dsServiceMaster.Tables[0].AsEnumerable().Any())
             {
                 DataTable dtServiceCallAttendance = objServiceBook.Service_ServiceCallAttendanceByServiceBookId(Convert.ToInt64(dsServiceMaster.Tables[0].Rows[0]["ServiceBookId"].ToString()));
                 if (dtServiceCallAttendance != null)
@@ -51,6 +51,10 @@ namespace WebAppAegisCRM.Service
                         retValue = true;
                     }
                 }
+            }
+            else
+            {
+                retValue = true;
             }
             return retValue;
         }
