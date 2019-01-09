@@ -216,12 +216,25 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
             leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
             DataTable dt = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_GetAll(leaveDesignationWiseConfiguration);
-            if (dt != null && dt.AsEnumerable().Any())
+            if (LeaveDesignationWiseConfigurationId == 0)
             {
-                Message.IsSuccess = false;
-                Message.Text = "Designation configuration already exists.";
-                Message.Show = true;
-                return false;
+                if (dt != null && dt.AsEnumerable().Any())
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Designation configuration already exists.";
+                    Message.Show = true;
+                    return false;
+                }
+            }
+            else
+            {
+                if (dt == null || !dt.AsEnumerable().Any())
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Designation configuration does not exists.";
+                    Message.Show = true;
+                    return false;
+                }
             }
             return retValue;
         }

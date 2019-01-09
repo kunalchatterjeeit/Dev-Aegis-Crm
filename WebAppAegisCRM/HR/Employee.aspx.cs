@@ -412,10 +412,10 @@ namespace WebAppAegisCRM.Employee
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
             employeeMaster.EmployeeMasterId = EmployeeMasterId;
-            foreach (ListControl rbtn in rbtnListLeaveStatus.Items)
-            {rbtn.
-                employeeMaster.LeaveActive = ((RadioButton)rbtnListLeaveStatus.Items[0]).Checked ? true : false;
-                    }
+            //foreach (ListControl rbtn in rbtnListLeaveStatus.Items)
+            //{rbtn.
+            //    employeeMaster.LeaveActive = ((RadioButton)rbtnListLeaveStatus.Items[0]).Checked ? true : false;
+            //        }
             objEmployeeMaster.Employee_Save(employeeMaster);
         }
     }
