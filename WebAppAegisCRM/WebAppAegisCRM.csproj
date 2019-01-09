@@ -60,7 +60,7 @@
       <HintPath>..\..\..\..\Users\kunal\Desktop\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Kunal.Exception">
-      <HintPath>..\..\..\..\Users\kunal\Desktop\Kunal.Exception.dll</HintPath>
+      <HintPath>..\AJAX DLL\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -679,6 +679,7 @@
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
     <Folder Include="js\" />
+    <Folder Include="LeaveManagement\LeaveAttachment\" />
     <Folder Include="less\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>

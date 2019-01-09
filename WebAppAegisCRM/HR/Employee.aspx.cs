@@ -218,6 +218,16 @@ namespace WebAppAegisCRM.Employee
                 ddlRole.SelectedValue = dtEmployeeMaster.Rows[0]["UserRole_RoleId"].ToString();
                 Image1.ImageUrl = "EmployeeImage\\" + dtEmployeeMaster.Rows[0]["Image"].ToString();
                 ddlReporting.SelectedValue = (dtEmployeeMaster.Rows[0]["ReportingEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReportingEmployeeId"].ToString();
+                if (dtEmployeeMaster.Rows[0]["LeaveActive"] != DBNull.Value && Convert.ToBoolean(dtEmployeeMaster.Rows[0]["LeaveActive"].ToString()))
+                {
+                    rbtnListLeaveStatus.Items[0].Selected = false;
+                    rbtnListLeaveStatus.Items[1].Selected = true;
+                }
+                else
+                {
+                    rbtnListLeaveStatus.Items[0].Selected = true;
+                    rbtnListLeaveStatus.Items[1].Selected = false;
+                }
             }
             catch
             {
@@ -395,6 +405,18 @@ namespace WebAppAegisCRM.Employee
             }
             TabContainer1.ActiveTab = AddApproval;
             ModalPopupExtender1.Show();
+        }
+
+        protected void rbtnListLeaveStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.EmployeeMasterId = EmployeeMasterId;
+            foreach (ListControl rbtn in rbtnListLeaveStatus.Items)
+            {rbtn.
+                employeeMaster.LeaveActive = ((RadioButton)rbtnListLeaveStatus.Items[0]).Checked ? true : false;
+                    }
+            objEmployeeMaster.Employee_Save(employeeMaster);
         }
     }
 }

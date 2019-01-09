@@ -62,6 +62,14 @@ namespace WebAppAegisCRM.LeaveManagement
             {
                 DataRow drLeaveConfiguration = dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault();
 
+                if (drLeaveConfiguration == null)
+                {
+                    Message.Text = "Leave Configuration not found";
+                    Message.IsSuccess = false;
+                    Message.Show = true;
+                    return false;
+                }
+
                 if (!(DateTime.Now.Date >= Convert.ToDateTime(drLeaveConfiguration["LeaveAccrueDate"].ToString())))
                 {
                     Message.Text = "Leave Not Yet Applicable";
@@ -71,21 +79,6 @@ namespace WebAppAegisCRM.LeaveManagement
                 }
                 if (dtLeaveApplicationMaster != null && dtLeaveApplicationMaster.AsEnumerable().Any())
                 {
-                    //DateTime yearFirstDate = Convert.ToDateTime("01 JAN " + DateTime.Now.Year.ToString());
-                    //DateTime yearLastDate = Convert.ToDateTime("31 DEC " + DateTime.Now.Year.ToString());
-                    //leaveApplicationMaster.RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                    //leaveApplicationMaster.FromLeaveStartDate = yearFirstDate;
-                    //leaveApplicationMaster.ToLeaveStartDate = yearLastDate;
-                    //leaveApplicationMaster.LeaveStatusId = (int)LeaveStatusEnum.Approved;
-                    //DataTable dtLeaveApplicationFrequency = new Business.LeaveManagement.LeaveApplication().LeaveApplicationMaster_GetAll(leaveApplicationMaster);
-                    //int leaveFrequency = (dtLeaveApplicationFrequency != null) ? dtLeaveApplicationFrequency.Rows.Count : 0;
-                    //if (Convert.ToInt32(drLeaveConfiguration["LeaveFrequency"].ToString()) <= leaveFrequency)
-                    //{
-                    //    Message.Text = "Max Leave Application Limit reached for this type of leave";
-                    //    Message.IsSuccess = false;
-                    //    Message.Show = true;
-                    //    return false;
-                    //}
                     if (dtLeaveApplicationMaster.Select("LeaveStatusId = " + ((int)LeaveStatusEnum.Pending).ToString()).Any())
                     {
                         Message.Text = "You already have leave approval pending.";
@@ -232,6 +225,7 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveApplicationMaster.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
             leaveApplicationMaster.Reason = txtReason.Text.Trim();
             leaveApplicationMaster.RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+            leaveApplicationMaster.Attachment = (fileUploadAttachment.HasFile) ? System.IO.Path.GetExtension(fileUploadAttachment.FileName) : string.Empty;
             leaveApplicationMaster = objLeaveApplicationMaster.LeaveApplicationMaster_Save(leaveApplicationMaster);
             return leaveApplicationMaster;
         }
@@ -312,6 +306,9 @@ namespace WebAppAegisCRM.LeaveManagement
                         int approvalResponse = LeaveApprovalDetails_Save(leaveApplicationMaster.LeaveApplicationId);
                         if (approvalResponse > 0)
                         {
+                            if (fileUploadAttachment.HasFile)
+                                fileUploadAttachment.PostedFile.SaveAs(Server.MapPath(" ") + "\\LeaveAttachment\\" + leaveApplicationMaster.LeaveApplicationNumber.ToString() + leaveApplicationMaster.LeaveApplicationNumber);
+
                             Message.IsSuccess = true;
                             Message.Text = "Leave applied successfully.";
                             Message.Show = true;
@@ -348,13 +345,13 @@ namespace WebAppAegisCRM.LeaveManagement
 
         public void Calendar1_DayRender(object sender, DayRenderEventArgs e)
         {
-            if (e.Day.Date < DateTime.Now.Date
-                && (ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.CL).ToString() || ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.PL).ToString()))
-            {
-                e.Day.IsSelectable = false;
-                e.Cell.ForeColor = System.Drawing.Color.Red;
-                e.Cell.Font.Strikeout = true;
-            }
+            //if (e.Day.Date < DateTime.Now.Date
+            //    && (ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.CL).ToString() || ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.PL).ToString()))
+            //{
+            //    e.Day.IsSelectable = false;
+            //    e.Cell.ForeColor = System.Drawing.Color.Red;
+            //    e.Cell.Font.Strikeout = true;
+            //}
             if (Business.Common.Context.SelectedDates.Any())
             {
                 foreach (DateTime dt in Business.Common.Context.SelectedDates)

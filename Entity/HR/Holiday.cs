@@ -19,6 +19,6 @@ namespace Entity.HR
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-
+        public int HolidayYear { get; set; }
     }
 }

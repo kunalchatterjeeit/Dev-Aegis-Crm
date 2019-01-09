@@ -343,6 +343,31 @@
         <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">
             <asp:TabContainer ID="TabContainer1" runat="server" Width="100%" CssClass="MyTabStyle"
                 ActiveTabIndex="1">
+                <asp:TabPanel ID="TabPanel1" runat="server">
+                    <HeaderTemplate>
+                        Leave Approval Settings
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                        <div class="accountInfo" style="width: 100%; float: left">
+                            <br />
+                            <fieldset class="login">
+                                <legend>Settings</legend>
+                                <table class="popup-table">
+                                    <tr>
+                                        <td>Leave is 
+                                        </td>
+                                        <td>
+                                            <asp:RadioButtonList ID="rbtnListLeaveStatus" runat="server" OnSelectedIndexChanged="rbtnListLeaveStatus_SelectedIndexChanged">
+                                                <asp:ListItem Value="true">Activated</asp:ListItem>
+                                                <asp:ListItem Value="false">Blocked</asp:ListItem>
+                                            </asp:RadioButtonList>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                        </div>
+                    </ContentTemplate>
+                </asp:TabPanel>
                 <asp:TabPanel ID="AddApproval" runat="server">
                     <HeaderTemplate>
                         Leave Approval Settings

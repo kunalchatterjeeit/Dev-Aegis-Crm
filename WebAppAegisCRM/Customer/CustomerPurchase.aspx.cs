@@ -462,16 +462,23 @@ namespace WebAppAegisCRM.Customer
         
         protected void gvContractList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEndDate"].ToString()) <= DateTime.Now)
+                if (e.Row.RowType == DataControlRowType.DataRow)
                 {
-                    e.Row.Attributes["style"] = "background-color: #FF8787"; //red
+                    if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEndDate"].ToString()) <= DateTime.Now)
+                    {
+                        e.Row.Attributes["style"] = "background-color: #FF8787"; //red
+                    }
+                    else if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEndDate"].ToString()) <= DateTime.Now.AddMonths(1))
+                    {
+                        e.Row.Attributes["style"] = "background-color: #fff387"; //change color yellow
+                    }
                 }
-                else if (Convert.ToDateTime(((DataTable)((gvContractList.DataSource))).Rows[e.Row.RowIndex]["ContractEndDate"].ToString()) <= DateTime.Now.AddMonths(1))
-                {
-                    e.Row.Attributes["style"] = "background-color: #fff387"; //change color yellow
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
             }
         }
 

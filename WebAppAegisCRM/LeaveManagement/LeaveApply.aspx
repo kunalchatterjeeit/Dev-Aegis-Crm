@@ -122,6 +122,13 @@
                                         <asp:TextBox ID="txtReason" runat="server" class="form-control" cols="20" Rows="2"></asp:TextBox>
                                     </div>
                                 </div>
+                                 <div class="col-lg-12">
+                                    <div class="form-group">
+                                        Attachment
+                                         <br />
+                                        <asp:FileUpload ID="fileUploadAttachment" runat="server" />
+                                    </div>
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <br />
