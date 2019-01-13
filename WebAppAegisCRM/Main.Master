@@ -293,6 +293,12 @@
                                 <li id="liEmployeeLoyaltyPoint" runat="server">
                                     <a href="../HR/EmployeeLoyaltyPoint.aspx">Employee Loyalty Point List</a>
                                 </li>
+                                <li id="liHolidayProfile" runat="server">
+                                    <a href="../HR/HolidayProfile.aspx">Add/Edit Holiday Profile</a>
+                                </li>
+                                <li id="liHoliday" runat="server">
+                                    <a href="../HR/Holiday.aspx">Add/Edit Holiday</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

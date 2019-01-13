@@ -28,6 +28,9 @@ namespace Entity.HR
         public const string ADDEDITEMPLOYEE = "203";
         public const string ADDEDITLOYALTYPOINTREASONMASTER = "204";
         public const string EMPLOYEELOYALTYPOINT = "205";
+        public const string HOLIDAY_PROFILE = "206";
+        public const string HOLIDAY = "207";
+
 
 
         //Inventory

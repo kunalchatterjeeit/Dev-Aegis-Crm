@@ -68,6 +68,7 @@
     <Compile Include="Customer\CustomerContactDetails.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
+    <Compile Include="HR\Holiday.cs" />
     <Compile Include="HR\HolidayProfile.cs" />
     <Compile Include="LeaveManagement\LeaveAccountBalance.cs" />
     <Compile Include="LeaveManagement\LeaveApplication.cs" />
