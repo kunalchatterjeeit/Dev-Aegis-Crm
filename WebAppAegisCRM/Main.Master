@@ -299,6 +299,9 @@
                                 <li id="liHoliday" runat="server">
                                     <a href="../HR/Holiday.aspx">Add/Edit Holiday</a>
                                 </li>
+                                <li id="liEmployeeHolidayProfileMapping" runat="server">
+                                    <a href="../HR/EmployeeHolidayProfileMapping.aspx">Employee Holiday Profile Mapping</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

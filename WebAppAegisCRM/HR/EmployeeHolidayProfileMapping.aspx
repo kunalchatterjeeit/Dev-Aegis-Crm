@@ -1,7 +1,8 @@
-﻿<%@ Page Title="HOLIDAY SETTINGS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Holiday.aspx.cs" Inherits="WebAppAegisCRM.HR.Holiday" %>
+﻿<%@ Page Title="EMPLOYEE HOLIDAY PROFILE MAPPING" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="EmployeeHolidayProfileMapping.aspx.cs" Inherits="WebAppAegisCRM.HR.EmployeeHolidayProfileMapping" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -25,7 +26,7 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Holiday
+                            Mapping Details
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -38,32 +39,10 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group has-error">
-                                        Holiday Name
-                                <asp:TextBox ID="txtHolidayName" CssClass="form-control" runat="server"></asp:TextBox>
+                                        Employee:
+                                <asp:DropDownList ID="ddlEmployee" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        Holiday Description
-                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group has-error">
-                                        Holiday Date
-                                <asp:TextBox ID="txtHolidayDate" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtHolidayDate"
-                                            Format="dd MMM yyyy" Enabled="True">
-                                        </asp:CalendarExtender>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group has-error">
-                                        <asp:CheckBox ID="chkShowNow" runat="server" Text="Show now in list" Checked="true" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -74,6 +53,9 @@
                                             OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message" runat="server" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -81,13 +63,13 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Holiday List
+                            Employee Holiday Profile Mapping List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <center>
-                                    <asp:GridView ID="gvHoliday" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="HolidayId" ForeColor="#333333" OnRowCommand="gvHoliday_RowCommand">
+                                    <asp:GridView ID="gvEmployeeHolidayProfileMapping" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="EmployeeHolidayProfileMappingId" ForeColor="#333333" OnRowCommand="gvEmployeeHolidayProfileMapping_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
                                                 <ItemTemplate>
@@ -95,19 +77,17 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="HolidayProfileName" HeaderText="Holiday Profile" />
-                                            <asp:BoundField DataField="HolidayName" HeaderText="Holiday Name" />
-                                            <asp:BoundField DataField="HolidayDate" HeaderText="Holiday Date" />
-                                            <asp:BoundField DataField="Show" HeaderText="Show in list" />
+                                            <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"
-                                                        Width="15px" Height="15px" CommandArgument='<%# Eval("HolidayId") %>' />
+                                                        Width="15px" Height="15px" CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/Images/delete_button.png"
-                                                        CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("HolidayId") %>' />
+                                                        CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>

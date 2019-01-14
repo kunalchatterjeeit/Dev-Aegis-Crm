@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.HR {
     
     
-    public partial class Holiday {
+    public partial class EmployeeHolidayProfileMapping {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -49,58 +49,13 @@ namespace WebAppAegisCRM.HR {
         protected global::System.Web.UI.WebControls.DropDownList ddlHolidayProfile;
         
         /// <summary>
-        /// txtHolidayName control.
+        /// ddlEmployee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHolidayName;
-        
-        /// <summary>
-        /// txtDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
-        
-        /// <summary>
-        /// txtHolidayDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHolidayDate;
-        
-        /// <summary>
-        /// CalendarExtender5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender5;
-        
-        /// <summary>
-        /// chkShowNow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkShowNow;
-        
-        /// <summary>
-        /// Message control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebAppAegisCRM.UserControl.Message Message;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
         
         /// <summary>
         /// btnSave control.
@@ -121,12 +76,21 @@ namespace WebAppAegisCRM.HR {
         protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// gvHoliday control.
+        /// Message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvHoliday;
+        protected global::WebAppAegisCRM.UserControl.Message Message;
+        
+        /// <summary>
+        /// gvEmployeeHolidayProfileMapping control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEmployeeHolidayProfileMapping;
     }
 }

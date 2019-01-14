@@ -34,6 +34,7 @@ namespace WebAppAegisCRM
                 liEmployeeLoyaltyPoint.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEELOYALTYPOINT);
                 liHolidayProfile.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HOLIDAY_PROFILE);
                 liHoliday.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HOLIDAY);
+                liEmployeeHolidayProfileMapping.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_HOLIDAY_PROFILE_MAPPING);
 
                 //LEAVE MANAGEMENT
                 liLeaveApplicationList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_APPLICATION_LIST);
