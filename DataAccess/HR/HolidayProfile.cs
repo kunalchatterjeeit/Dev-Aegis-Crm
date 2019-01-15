@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -100,6 +101,103 @@ namespace DataAccess.HR
                 }
             }
             return rowsAffacted;
+        }
+
+        public static int EmployeeHolidayProfileMapping_Save(Entity.HR.EmployeeHolidayProfileMapping employeeHolidayProfileMapping)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_EmployeeHolidayProfileMapping_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeHolidayProfileMappingId", employeeHolidayProfileMapping.EmployeeHolidayProfileMappingId);
+                    cmd.Parameters.AddWithValue("@HolidayProfileId", employeeHolidayProfileMapping.HolidayProfileId);
+                    cmd.Parameters.AddWithValue("@EmployeeId", employeeHolidayProfileMapping.EmployeeId);
+                    cmd.Parameters.AddWithValue("@Active", employeeHolidayProfileMapping.Active);
+                    cmd.Parameters.AddWithValue("@CreatedBy", employeeHolidayProfileMapping.CreatedBy);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable EmployeeHolidayProfileMapping_GetById(int employeeHolidayProfileMappingId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_EmployeeHolidayProfileMapping_GetById";
+                        cmd.Parameters.AddWithValue("@EmployeeHolidayProfileMappingId", employeeHolidayProfileMappingId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static int EmployeeHolidayProfileMapping_Delete(int employeeHolidayProfileMappingId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_EmployeeHolidayProfileMapping_delete";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeHolidayProfileMappingId", employeeHolidayProfileMappingId);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable EmployeeHolidayProfileMapping_GetAll(Entity.HR.EmployeeHolidayProfileMapping employeeHolidayProfileMapping)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_EmployeeHolidayProfileMapping_GetAll";
+                        if (employeeHolidayProfileMapping.HolidayProfileId == 0)
+                            cmd.Parameters.AddWithValue("@HolidayProfileId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@HolidayProfileId", employeeHolidayProfileMapping.HolidayProfileId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
         }
     }
 }

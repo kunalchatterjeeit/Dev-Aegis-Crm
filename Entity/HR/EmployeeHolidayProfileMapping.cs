@@ -8,6 +8,7 @@ namespace Entity.HR
         {
 
         }
+        public int EmployeeHolidayProfileMappingId { get; set; }
         public int EmployeeId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

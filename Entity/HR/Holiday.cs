@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entity.HR
 {
@@ -20,5 +16,6 @@ namespace Entity.HR
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int HolidayYear { get; set; }
+        public bool Show { get; set; }
     }
 }

@@ -103,6 +103,10 @@
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="HR\Holiday.aspx" />
+    <Content Include="HR\EmployeeHolidayProfileMapping.aspx" />
+    <Content Include="HR\HolidayList.aspx" />
+    <Content Include="HR\HolidayProfile.aspx" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
@@ -200,6 +204,7 @@
     <Content Include="WebServices\WebServiceChart.asmx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\HR\EmployeeHolidayProfileMapping.cs" />
     <Compile Include="Common\City.aspx.cs">
       <DependentUpon>City.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -293,6 +298,34 @@
     </Compile>
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Holiday.aspx.cs">
+      <DependentUpon>Holiday.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Holiday.aspx.designer.cs">
+      <DependentUpon>Holiday.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\EmployeeHolidayProfileMapping.aspx.cs">
+      <DependentUpon>EmployeeHolidayProfileMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\EmployeeHolidayProfileMapping.aspx.designer.cs">
+      <DependentUpon>EmployeeHolidayProfileMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\HolidayList.aspx.cs">
+      <DependentUpon>HolidayList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\HolidayList.aspx.designer.cs">
+      <DependentUpon>HolidayList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\HolidayProfile.aspx.cs">
+      <DependentUpon>HolidayProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\HolidayProfile.aspx.designer.cs">
+      <DependentUpon>HolidayProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>

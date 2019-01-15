@@ -79,12 +79,12 @@ namespace DataAccess.HR
                     cmd.Connection = con;
                     cmd.CommandText = "usp_HR_Holiday_Save";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@HolidayId", holiday.HolidayProfileName);
+                    cmd.Parameters.AddWithValue("@HolidayId", holiday.HolidayId);
                     cmd.Parameters.AddWithValue("@HolidayProfileId", holiday.HolidayProfileId);
                     cmd.Parameters.AddWithValue("@HolidayName", holiday.HolidayName);
                     cmd.Parameters.AddWithValue("@HolidayDate", holiday.HolidayDate);
                     cmd.Parameters.AddWithValue("@HolidayDescription", holiday.HolidayDescription);
-                    cmd.Parameters.AddWithValue("@Active", holiday.Active);
+                    cmd.Parameters.AddWithValue("@Show", holiday.Show);
                     cmd.Parameters.AddWithValue("@CreatedBy", holiday.CreatedBy);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -95,7 +95,7 @@ namespace DataAccess.HR
             return rowsAffacted;
         }
 
-        public static int Holiday_Delete(int holidayProfileId)
+        public static int Holiday_Delete(int holidayId)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -105,7 +105,7 @@ namespace DataAccess.HR
                     cmd.Connection = con;
                     cmd.CommandText = "usp_HR_Holiday_Delete";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@HolidayProfileId", holidayProfileId);
+                    cmd.Parameters.AddWithValue("@HolidayId", holidayId);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

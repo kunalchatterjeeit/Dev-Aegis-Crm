@@ -24,5 +24,21 @@ namespace Business.HR
         {
             return DataAccess.HR.HolidayProfile.HolidayProfile_Delete(holidayProfileId);
         }
+        public int EmployeeHolidayProfileMapping_Save(Entity.HR.EmployeeHolidayProfileMapping employeeHolidayProfileMapping)
+        {
+            return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_Save(employeeHolidayProfileMapping);
+        }
+        public DataTable EmployeeHolidayProfileMapping_GetById(int employeeHolidayProfileMappingId)
+        {
+            return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_GetById(employeeHolidayProfileMappingId);
+        }
+        public int EmployeeHolidayProfileMapping_Delete(int employeeHolidayProfileMappingId)
+        {
+            return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_Delete(employeeHolidayProfileMappingId);
+        }
+        public DataTable EmployeeHolidayProfileMapping_GetAll(Entity.HR.EmployeeHolidayProfileMapping employeeHolidayProfileMapping)
+        {
+            return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_GetAll(employeeHolidayProfileMapping);
+        }
     }
 }
