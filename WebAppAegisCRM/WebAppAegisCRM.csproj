@@ -112,6 +112,7 @@
     <Content Include="LeaveManagement\LeaveApply.aspx" />
     <Content Include="LeaveManagement\LeaveApprovalConfiguration.aspx" />
     <Content Include="LeaveManagement\LeaveApprove.aspx" />
+    <Content Include="LeaveManagement\LeaveCanlendar.aspx" />
     <Content Include="LeaveManagement\LeaveConfig.aspx" />
     <Content Include="HR\LoyaltyPointReasonMaster.aspx" />
     <Content Include="HR\RoleAccessLevel.aspx" />
@@ -327,6 +328,13 @@
     </Compile>
     <Compile Include="LeaveManagement\LeaveApprove.aspx.designer.cs">
       <DependentUpon>LeaveApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveCanlendar.aspx.cs">
+      <DependentUpon>LeaveCanlendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveCanlendar.aspx.designer.cs">
+      <DependentUpon>LeaveCanlendar.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\LeaveConfig.aspx.cs">
       <DependentUpon>LeaveConfig.aspx</DependentUpon>

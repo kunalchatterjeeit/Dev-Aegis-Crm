@@ -307,7 +307,7 @@ namespace WebAppAegisCRM.LeaveManagement
                         if (approvalResponse > 0)
                         {
                             if (fileUploadAttachment.HasFile)
-                                fileUploadAttachment.PostedFile.SaveAs(Server.MapPath(" ") + "\\LeaveAttachment\\" + leaveApplicationMaster.LeaveApplicationNumber.ToString() + leaveApplicationMaster.LeaveApplicationNumber);
+                                fileUploadAttachment.PostedFile.SaveAs(Server.MapPath(" ") + "\\LeaveAttachment\\" + leaveApplicationMaster.LeaveApplicationNumber.ToString() + leaveApplicationMaster.Attachment);
 
                             Message.IsSuccess = true;
                             Message.Text = "Leave applied successfully.";
@@ -352,6 +352,12 @@ namespace WebAppAegisCRM.LeaveManagement
             //    e.Cell.ForeColor = System.Drawing.Color.Red;
             //    e.Cell.Font.Strikeout = true;
             //}
+
+            if (e.Day.Date == DateTime.Now.Date)
+            {
+                e.Cell.Text = e.Day.DayNumberText + "\nHello";
+            }
+
             if (Business.Common.Context.SelectedDates.Any())
             {
                 foreach (DateTime dt in Business.Common.Context.SelectedDates)

@@ -3,6 +3,7 @@ using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -33,6 +34,18 @@ namespace WebAppAegisCRM.LeaveManagement
                 lblToDate.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblLeaveAccumulationType.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"].ToString();
                 lblTotalLeaveCount.Text = ((Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()) - Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString())).TotalDays + 1).ToString();
+                hdnAttachmentName.Value = (dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"] != null) ? dsLeaveApplicationDetails.Tables[0].Rows[0]["Attachment"].ToString() : string.Empty;
+
+                if (string.IsNullOrEmpty(hdnAttachmentName.Value))
+                {
+                    lnkBtnAttachment.Enabled = false;
+                    lnkBtnAttachment.Text = "No attachment";
+                }
+                else
+                {
+                    lnkBtnAttachment.Enabled = true;
+                    lnkBtnAttachment.Text = "Click to download";
+                }
 
                 if (dsLeaveApplicationDetails.Tables.Count > 1)
                 {
@@ -284,6 +297,31 @@ namespace WebAppAegisCRM.LeaveManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+            }
+        }
+
+        protected void lnkBtnAttachment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkDownload = lnkBtnAttachment;
+                ScriptManager.GetCurrent(this).RegisterPostBackControl(lnkDownload);
+                string FileName = hdnAttachmentName.Value;
+                string OriginalFileName = hdnAttachmentName.Value;
+                string FilePath = Server.MapPath(" ") + "\\LeaveAttachment\\" + hdnAttachmentName.Value;
+                FileInfo file = new FileInfo(FilePath);
+                if (file.Exists)
+                {
+                    Response.ContentType = ContentType;
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + OriginalFileName);
+                    Response.Headers.Set("Cache-Control", "private, max-age=0");
+                    Response.WriteFile(FilePath);
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                // do nothing
             }
         }
     }

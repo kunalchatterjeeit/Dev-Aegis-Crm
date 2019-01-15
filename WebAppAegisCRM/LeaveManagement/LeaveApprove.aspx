@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
-    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
+    <%--<asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
         <ProgressTemplate>
             <div class="divWaiting">
                 <div class="loading">
@@ -18,9 +18,9 @@
                 </div>
             </div>
         </ProgressTemplate>
-    </asp:UpdateProgress>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
+    </asp:UpdateProgress>--%>
+   <%-- <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>--%>
             <uc3:Message ID="MessageSuccess" runat="server" />
             <div class="row">
                 <div class="col-lg-12">
@@ -133,7 +133,10 @@
                                                 </td>
                                                 <td style="font-weight: bold">Attachment
                                                 </td>
-                                                <td></td>  
+                                                <td>
+                                                    <asp:HiddenField ID="hdnAttachmentName" runat="server" />
+                                                    <asp:LinkButton ID="lnkBtnAttachment" runat="server" OnClick="lnkBtnAttachment_Click">click to download</asp:LinkButton>
+                                                </td>  
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold">Leave Dates
@@ -238,6 +241,6 @@
                 </asp:Panel>
                 <img id="imgbtn" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
             </asp:Panel>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+        <%--</ContentTemplate>
+    </asp:UpdatePanel>--%>
 </asp:Content>
