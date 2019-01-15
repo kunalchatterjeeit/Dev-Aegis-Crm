@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Data;
 
 namespace WebAppAegisCRM.HR
 {
@@ -11,7 +7,18 @@ namespace WebAppAegisCRM.HR
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LoadHolidayList();
+        }
 
+        private void LoadHolidayList()
+        {
+            Business.HR.Holiday objHoliday = new Business.HR.Holiday();
+            DataTable dt = objHoliday.Holiday_GetAll(new Entity.HR.Holiday());
+            if (dt != null)
+            {
+                gvHoliday.DataSource = dt.Select("Show = 1").CopyToDataTable();
+                gvHoliday.DataBind();
+            }
         }
     }
 }

@@ -319,7 +319,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     Response.End();
                 }
             }
-            catch (Exception ex)
+            catch 
             {
                 // do nothing
             }

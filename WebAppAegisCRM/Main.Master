@@ -208,10 +208,16 @@
                     <!-- /.dropdown-tasks -->
                 </li>--%>
                 <!-- /.dropdown -->
+                <li id="liHolidayList" runat="server" class="dropdown">
+                    <a class="dropdown-toggle" href="../HR/HolidayList.aspx">
+                        <i class="fa fa-list fa-fw" title="Holiday List"></i> 
+                    </a> 
+                    <!-- /.dropdown-alerts -->
+                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="../Settings/UserSettings.aspx">
                         <i class="fa fa-cogs fa-fw" title="Change Settings"></i> 
-                    </a>                    
+                    </a>
                     <!-- /.dropdown-alerts -->
                 </li>
                 <!-- /.dropdown -->

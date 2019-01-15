@@ -2,8 +2,10 @@
 using Entity.Common;
 using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.LeaveManagement
@@ -156,5 +158,30 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void btnFollowup_Click(object sender, EventArgs e)
         { }
+
+        protected void lnkBtnAttachment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkDownload = lnkBtnAttachment;
+                ScriptManager.GetCurrent(this).RegisterPostBackControl(lnkDownload);
+                string FileName = hdnAttachmentName.Value;
+                string OriginalFileName = hdnAttachmentName.Value;
+                string FilePath = Server.MapPath(" ") + "\\LeaveAttachment\\" + hdnAttachmentName.Value;
+                FileInfo file = new FileInfo(FilePath);
+                if (file.Exists)
+                {
+                    Response.ContentType = ContentType;
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + OriginalFileName);
+                    Response.Headers.Set("Cache-Control", "private, max-age=0");
+                    Response.WriteFile(FilePath);
+                    Response.End();
+                }
+            }
+            catch 
+            {
+                // do nothing
+            }
+        }
     }
 }

@@ -103,6 +103,7 @@
                                 <asp:ListItem Value="206" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT HOLIDAY PROFILE"></asp:ListItem>
                                 <asp:ListItem Value="207" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT HOLIDAY"></asp:ListItem>
                                 <asp:ListItem Value="208" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE HOLIDAY PROFILE MAPPING"></asp:ListItem>
+                                <asp:ListItem Value="209" Text="&nbsp;&nbsp;&nbsp;HOLIDAY LIST"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

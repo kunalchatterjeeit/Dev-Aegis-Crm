@@ -132,9 +132,12 @@
                                                 <td>
                                                     <asp:Label ID="lblTotalLeaveCount" runat="server"></asp:Label>
                                                 </td>
-                                                <td style="font-weight: bold">Attachment
+                                                 <td style="font-weight: bold">Attachment
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    <asp:HiddenField ID="hdnAttachmentName" runat="server" />
+                                                    <asp:LinkButton ID="lnkBtnAttachment" runat="server" OnClick="lnkBtnAttachment_Click">click to download</asp:LinkButton>
+                                                </td>  
                                             </tr>
                                             <tr>
                                                 <td style="font-weight: bold">Leave Dates
