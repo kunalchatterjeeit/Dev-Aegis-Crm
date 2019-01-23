@@ -113,6 +113,7 @@
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
     <Content Include="LeaveManagement\GenerateLeave.aspx" />
+    <Content Include="LeaveManagement\LeaveAdjustment.aspx" />
     <Content Include="LeaveManagement\LeaveApplicationList.aspx" />
     <Content Include="LeaveManagement\LeaveApply.aspx" />
     <Content Include="LeaveManagement\LeaveApprovalConfiguration.aspx" />
@@ -334,6 +335,13 @@
     </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.designer.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveAdjustment.aspx.cs">
+      <DependentUpon>LeaveAdjustment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LeaveManagement\LeaveAdjustment.aspx.designer.cs">
+      <DependentUpon>LeaveAdjustment.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\LeaveApplicationList.aspx.cs">
       <DependentUpon>LeaveApplicationList.aspx</DependentUpon>

@@ -88,7 +88,7 @@ namespace DataAccess.HR
                                 employeeMaster.EmployeeMasterId : int.Parse(dt.Rows[0]["EmployeeMasterId"].ToString());
                         }
                     }
-                    catch
+                    catch(Exception ex)
                     {
                     }
                     con.Close();
@@ -289,6 +289,28 @@ namespace DataAccess.HR
                     cmd.Parameters.AddWithValue("@FailedPassword", auth.FailedPassword);
 
                     cmd.CommandType = CommandType.StoredProcedure;
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int EmployeeLeave_Update(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_EmployeeLeave_Update";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeId", employeeMaster.EmployeeMasterId);
+                    cmd.Parameters.AddWithValue("@LeaveStatus", employeeMaster.LeaveActive);
+
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

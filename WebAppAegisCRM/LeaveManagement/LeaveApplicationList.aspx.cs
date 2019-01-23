@@ -36,6 +36,20 @@ namespace WebAppAegisCRM.LeaveManagement
                 lblToDate.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblLeaveAccumulationType.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"].ToString();
                 lblTotalLeaveCount.Text = ((Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()) - Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString())).TotalDays + 1).ToString();
+                lblReason.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["Reason"].ToString();
+
+                hdnAttachmentName.Value = (dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"] != null) ? dsLeaveApplicationDetails.Tables[0].Rows[0]["Attachment"].ToString() : string.Empty;
+
+                if (string.IsNullOrEmpty(hdnAttachmentName.Value))
+                {
+                    lnkBtnAttachment.Enabled = false;
+                    lnkBtnAttachment.Text = "No attachment";
+                }
+                else
+                {
+                    lnkBtnAttachment.Enabled = true;
+                    lnkBtnAttachment.Text = "Click to download";
+                }
 
                 if (dsLeaveApplicationDetails.Tables.Count > 1)
                 {
@@ -178,7 +192,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     Response.End();
                 }
             }
-            catch 
+            catch(Exception ex)
             {
                 // do nothing
             }

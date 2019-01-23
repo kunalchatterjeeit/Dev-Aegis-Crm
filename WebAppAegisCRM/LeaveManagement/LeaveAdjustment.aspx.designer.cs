@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.LeaveManagement {
     
     
-    public partial class LeaveApplicationList {
+    public partial class LeaveAdjustment {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -22,22 +22,40 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// MessageSuccess control.
+        /// UpdateProgress1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebAppAegisCRM.UserControl.Message MessageSuccess;
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
         
         /// <summary>
-        /// gvLeaveApplicationList control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvLeaveApplicationList;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebAppAegisCRM.UserControl.Message Message;
+        
+        /// <summary>
+        /// gvEmployeerMaster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvEmployeerMaster;
         
         /// <summary>
         /// lnkLeave control.
@@ -85,157 +103,94 @@ namespace WebAppAegisCRM.LeaveManagement {
         protected global::AjaxControlToolkit.TabContainer TabContainer1;
         
         /// <summary>
-        /// Approval control.
+        /// LeaveUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel Approval;
+        protected global::AjaxControlToolkit.TabPanel LeaveUpdate;
         
         /// <summary>
-        /// Message control.
+        /// gvCurrentLeaveBalance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WebAppAegisCRM.UserControl.Message Message;
+        protected global::System.Web.UI.WebControls.GridView gvCurrentLeaveBalance;
         
         /// <summary>
-        /// lblLeaveApplicationNumber control.
+        /// ddlLeaveType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeaveApplicationNumber;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLeaveType;
         
         /// <summary>
-        /// lblName control.
+        /// ddlOperation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOperation;
         
         /// <summary>
-        /// lblFromDate control.
+        /// txtLeaveAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFromDate;
+        protected global::System.Web.UI.WebControls.TextBox txtLeaveAmount;
         
         /// <summary>
-        /// lblToDate control.
+        /// txtComments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblToDate;
+        protected global::System.Web.UI.WebControls.TextBox txtComments;
         
         /// <summary>
-        /// lblLeaveType control.
+        /// btnLeaveAdjust control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeaveType;
+        protected global::System.Web.UI.WebControls.Button btnLeaveAdjust;
         
         /// <summary>
-        /// lblLeaveAccumulationType control.
+        /// Message1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLeaveAccumulationType;
+        protected global::WebAppAegisCRM.UserControl.Message Message1;
         
         /// <summary>
-        /// lblTotalLeaveCount control.
+        /// LeaveDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalLeaveCount;
+        protected global::AjaxControlToolkit.TabPanel LeaveDetails;
         
         /// <summary>
-        /// hdnAttachmentName control.
+        /// gvLeaveBalanceDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnAttachmentName;
-        
-        /// <summary>
-        /// lnkBtnAttachment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBtnAttachment;
-        
-        /// <summary>
-        /// lblReason control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReason;
-        
-        /// <summary>
-        /// gvDates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDates;
-        
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
-        /// btnFollowup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFollowup;
-        
-        /// <summary>
-        /// ApprovalHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel ApprovalHistory;
-        
-        /// <summary>
-        /// gvApprovalHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvApprovalHistory;
+        protected global::System.Web.UI.WebControls.GridView gvLeaveBalanceDetails;
         
         /// <summary>
         /// imgbtn control.

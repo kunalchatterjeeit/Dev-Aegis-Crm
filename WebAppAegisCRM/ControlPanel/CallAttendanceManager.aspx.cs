@@ -107,7 +107,8 @@ namespace WebAppAegisCRM.ControlPanel
                 serviceCallAttendance.ServiceCallAttendanceId = int.Parse(e.CommandArgument.ToString());
                 serviceCallAttendance.CallStatusId = int.Parse(ddlDocketCallStatus.SelectedValue);
                 serviceCallAttendance.InTime = Convert.ToDateTime(txtInDate.Text + " " + ddlInTimeHH.SelectedValue + ":" + ddlInTimeMM.SelectedValue + ":00" + " " + ddlInTimeTT.SelectedValue);
-                serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
+                if (!string.IsNullOrEmpty(txtOutDate.Text.Trim()) && ddlOutTimeHH.SelectedIndex != 0 && ddlOutTimeMM.SelectedIndex != 0)
+                    serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : Convert.ToDateTime(txtOutDate.Text + " " + ddlOutTimeHH.SelectedValue + ":" + ddlOutTimeMM.SelectedValue + ":00" + " " + ddlOutTimeTT.SelectedValue);
 
                 int response = objServiceBook.Service_CallAttendance_Edit(serviceCallAttendance);
                 if (response > 0)

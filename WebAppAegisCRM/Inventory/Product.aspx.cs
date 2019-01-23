@@ -24,7 +24,7 @@ namespace WebAppERPNew.Inventory
         {
             if (!IsPostBack)
             {
-                ClearControl();
+                //ClearControl();
                 Message.Show = false;
 
                 LoadProductMaster();

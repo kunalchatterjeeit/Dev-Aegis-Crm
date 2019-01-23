@@ -146,7 +146,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 }
 
 
-                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), Convert.ToInt32(ddlLeaveType.SelectedValue));
+                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), Convert.ToInt32(ddlLeaveType.SelectedValue)).Tables[0];
                 if (dtLeaveAccountBalance != null && dtLeaveAccountBalance.AsEnumerable().Any())
                 {
                     if (Convert.ToInt32(lbTotalCount.Text.Trim()) > Convert.ToDecimal(dtLeaveAccountBalance.Rows[0]["Amount"].ToString()))
@@ -285,7 +285,7 @@ namespace WebAppAegisCRM.LeaveManagement
         private void LeaveAccountBalance_ByEmployeeId()
         {
             Business.LeaveManagement.LeaveAccountBalance objLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance();
-            gvLeaveAvailableList.DataSource = objLeaveAccountBalance.LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), 0);
+            gvLeaveAvailableList.DataSource = objLeaveAccountBalance.LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), 0).Tables[0];
             gvLeaveAvailableList.DataBind();
         }
 
@@ -353,10 +353,10 @@ namespace WebAppAegisCRM.LeaveManagement
             //    e.Cell.Font.Strikeout = true;
             //}
 
-            if (e.Day.Date == DateTime.Now.Date)
-            {
-                e.Cell.Text = e.Day.DayNumberText + "\nHello";
-            }
+            //if (e.Day.Date == DateTime.Now.Date)
+            //{
+            //    e.Cell.Text = e.Day.DayNumberText + "\nHello";
+            //}
 
             if (Business.Common.Context.SelectedDates.Any())
             {

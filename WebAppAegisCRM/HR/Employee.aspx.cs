@@ -33,6 +33,131 @@ namespace WebAppAegisCRM.Employee
             get { return Convert.ToInt64(ViewState["LeaveEmployeeWiseApprovalConfigId"]); }
             set { ViewState["LeaveEmployeeWiseApprovalConfigId"] = value; }
         }
+        private bool ValidateSave()
+        {
+            if (string.IsNullOrEmpty(txtemployeename.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter employee name";
+                MessageBox.Show = true;
+                txtemployeename.Focus();
+                return false;
+            }
+            if (ddlgenderid.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select gender";
+                MessageBox.Show = true;
+                ddlgenderid.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtdateofbirth.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter date of birth";
+                MessageBox.Show = true;
+                txtdateofbirth.Focus();
+                return false;
+            }
+            if (ddlReligion.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select religion";
+                MessageBox.Show = true;
+                ddlReligion.Focus();
+                return false;
+            }
+            if (ddlMaritalStatus.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select marital status";
+                MessageBox.Show = true;
+                ddlMaritalStatus.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtMobileNo.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter mobile number";
+                MessageBox.Show = true;
+                txtMobileNo.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtpersonalEmailId.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter personal email id";
+                MessageBox.Show = true;
+                txtpersonalEmailId.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtpAddress.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter permanent address";
+                MessageBox.Show = true;
+                txtpAddress.Focus();
+                return false;
+            }
+            if (ddlCity.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select city";
+                MessageBox.Show = true;
+                ddlCity.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtPin.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter PIN";
+                MessageBox.Show = true;
+                txtPin.Focus();
+                return false;
+            }
+            if (ddldesignation.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select designation";
+                MessageBox.Show = true;
+                ddldesignation.Focus();
+                return false;
+            }
+            if (string.IsNullOrEmpty(txtDOJ.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter date of joining";
+                MessageBox.Show = true;
+                txtDOJ.Focus();
+                return false;
+            }
+            if (ddlRole.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select role";
+                MessageBox.Show = true;
+                ddlRole.Focus();
+                return false;
+            }
+            if (ddlReporting.SelectedIndex == 0)
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please select reporting person";
+                MessageBox.Show = true;
+                ddlReporting.Focus();
+                return false;
+            }
+            if (EmployeeMasterId == 0 && string.IsNullOrEmpty(txtPassword.Text.Trim()))
+            {
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = "Please enter password";
+                MessageBox.Show = true;
+                txtPassword.Focus();
+                return false;
+            }
+
+            return true;
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,68 +169,85 @@ namespace WebAppAegisCRM.Employee
                 EmployeeMaster_GetAll_Reporting();
                 DesignationMaster_GetAll();
                 BindCity();
+                MessageBox.Show = false;
+                MessageGeneralLeave.Show = false;
+                MessageLeave.Show = false;
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
-            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
-            employeeMaster.EmployeeMasterId = EmployeeMasterId;
-            employeeMaster.EmployeeName = txtemployeename.Text.Trim();
-            employeeMaster.Image = (FileUpload1.HasFile) ? System.IO.Path.GetExtension(FileUpload1.FileName) : string.Empty;
-            employeeMaster.GenderId = Convert.ToInt16(ddlgenderid.SelectedValue);
-            employeeMaster.DOB = Convert.ToDateTime(txtdateofbirth.Text.Trim());
-            employeeMaster.MaritalStatus = ddlMaritalStatus.SelectedValue;
-            employeeMaster.DOM = (txtdom.Text == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtdom.Text);
-            employeeMaster.NationalityId_FK = 0;
-            employeeMaster.ReligionId_FK = Convert.ToInt16(ddlReligion.SelectedValue);
-            employeeMaster.BloodGroup = txtbloodgroup.Text.Trim();
-            employeeMaster.PersonalMobileNo = txtMobileNo.Text.Trim();
-            employeeMaster.OfficeMobileNo = txtofficialPhoneNo.Text.Trim();
-            employeeMaster.PersonalEmailId = txtpersonalEmailId.Text.Trim();
-            employeeMaster.OfficeEmailId = txtofficialEmailId.Text.Trim();
-            employeeMaster.ReferenceEmployeeId = (ddlRefferencrEmployee.SelectedIndex == 0) ? 0 : Convert.ToInt32(ddlRefferencrEmployee.SelectedValue);
-            employeeMaster.PAddress = txtpAddress.Text.Trim();
-            employeeMaster.PCityId_FK = Convert.ToInt16(ddlCity.SelectedValue);
-            employeeMaster.PPIN = txtPin.Text.Trim();
-            employeeMaster.UserId = 1;
-            employeeMaster.CompanyId_FK = 1;
-            employeeMaster.DesignationMasterId_FK = Convert.ToInt16(ddldesignation.SelectedValue);
-            employeeMaster.DOJ = (txtDOJ.Text.Trim() == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtDOJ.Text.Trim());
-            employeeMaster.EmployeeJobId = 1;
-            if (txtPassword.Text.Trim() == string.Empty)
-                employeeMaster.Password = EmployeePassword;
-            else
-                employeeMaster.Password = txtPassword.Text.Trim().EncryptQueryString();
-            employeeMaster.PANNo = txtPANnumber.Text.Trim();
-
-            employeeMaster.TAddress = txtpresentaddress.Text.Trim();
-            employeeMaster.TCityId_FK = (ddlPresentCity.SelectedIndex == 0) ? 0 : Convert.ToInt32(ddlPresentCity.SelectedValue);
-            employeeMaster.TPIN = txtpresentpin.Text.Trim();
-            employeeMaster.RoleId = int.Parse(ddlRole.SelectedValue);
-            employeeMaster.ReportingEmployeeId = Convert.ToInt32(ddlReporting.SelectedValue);
-
-            int employeeId = 0;
-            employeeId = objEmployeeMaster.Employee_Save(employeeMaster);
-            if (employeeId > 0)
+            try
             {
-                if (FileUpload1.HasFile)
-                    FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeId.ToString() + employeeMaster.Image);
-                CleartextBoxes(this);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Save Succesfully....');", true);
-                EmployeeMaster_GetAll();
-                EmployeeMaster_GetAll_ReferenceEmployee();
-                EmployeeMaster_GetAll_Reporting();
-                DesignationMaster_GetAll();
-                BindCity();
-                EmployeeMasterId = 0;
+                if (ValidateSave())
+                {
+                    Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                    Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+                    employeeMaster.EmployeeMasterId = EmployeeMasterId;
+                    employeeMaster.EmployeeName = txtemployeename.Text.Trim();
+                    employeeMaster.Image = (FileUpload1.HasFile) ? System.IO.Path.GetExtension(FileUpload1.FileName) : string.Empty;
+                    employeeMaster.GenderId = Convert.ToInt16(ddlgenderid.SelectedValue);
+                    employeeMaster.DOB = Convert.ToDateTime(txtdateofbirth.Text.Trim());
+                    employeeMaster.MaritalStatus = ddlMaritalStatus.SelectedValue;
+                    employeeMaster.DOM = (txtdom.Text == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtdom.Text);
+                    employeeMaster.NationalityId_FK = 0;
+                    employeeMaster.ReligionId_FK = Convert.ToInt16(ddlReligion.SelectedValue);
+                    employeeMaster.BloodGroup = txtbloodgroup.Text.Trim();
+                    employeeMaster.PersonalMobileNo = txtMobileNo.Text.Trim();
+                    employeeMaster.OfficeMobileNo = txtofficialPhoneNo.Text.Trim();
+                    employeeMaster.PersonalEmailId = txtpersonalEmailId.Text.Trim();
+                    employeeMaster.OfficeEmailId = txtofficialEmailId.Text.Trim();
+                    employeeMaster.ReferenceEmployeeId = (ddlRefferencrEmployee.SelectedIndex == 0) ? 0 : Convert.ToInt32(ddlRefferencrEmployee.SelectedValue);
+                    employeeMaster.PAddress = txtpAddress.Text.Trim();
+                    employeeMaster.PCityId_FK = Convert.ToInt16(ddlCity.SelectedValue);
+                    employeeMaster.PPIN = txtPin.Text.Trim();
+                    employeeMaster.UserId = 1;
+                    employeeMaster.CompanyId_FK = 1;
+                    employeeMaster.DesignationMasterId_FK = Convert.ToInt16(ddldesignation.SelectedValue);
+                    employeeMaster.DOJ = (txtDOJ.Text.Trim() == string.Empty) ? DateTime.MinValue : Convert.ToDateTime(txtDOJ.Text.Trim());
+                    employeeMaster.EmployeeJobId = 1;
+                    if (txtPassword.Text.Trim() == string.Empty)
+                        employeeMaster.Password = EmployeePassword;
+                    else
+                        employeeMaster.Password = txtPassword.Text.Trim().EncryptQueryString();
+                    employeeMaster.PANNo = txtPANnumber.Text.Trim();
+
+                    employeeMaster.TAddress = txtpresentaddress.Text.Trim();
+                    employeeMaster.TCityId_FK = (ddlPresentCity.SelectedIndex == 0) ? 0 : Convert.ToInt32(ddlPresentCity.SelectedValue);
+                    employeeMaster.TPIN = txtpresentpin.Text.Trim();
+                    employeeMaster.RoleId = int.Parse(ddlRole.SelectedValue);
+                    employeeMaster.ReportingEmployeeId = Convert.ToInt32(ddlReporting.SelectedValue);
+
+                    int employeeId = 0;
+                    employeeId = objEmployeeMaster.Employee_Save(employeeMaster);
+                    if (employeeId > 0)
+                    {
+                        if (FileUpload1.HasFile)
+                            FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeId.ToString() + employeeMaster.Image);
+                        ClearTextBoxes(this);
+                        MessageBox.IsSuccess = true;
+                        MessageBox.Text = "Employee data saved.";
+                        EmployeeMaster_GetAll();
+                        EmployeeMaster_GetAll_ReferenceEmployee();
+                        EmployeeMaster_GetAll_Reporting();
+                        DesignationMaster_GetAll();
+                        BindCity();
+                        EmployeeMasterId = 0;
+                    }
+                    else
+                    {
+                        MessageBox.IsSuccess = false;
+                        MessageBox.Text = "Failed to save data.";
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Can not Save!!!....');", true);
+                ex.WriteException();
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
             }
+            MessageBox.Show = true;
         }
 
         private void EmployeeMaster_GetAll()
@@ -169,7 +311,7 @@ namespace WebAppAegisCRM.Employee
             gvApproverDetails.DataBind();
         }
 
-        public void CleartextBoxes(Control parent)
+        public void ClearTextBoxes(Control parent)
         {
             foreach (Control c in parent.Controls)
             {
@@ -179,7 +321,7 @@ namespace WebAppAegisCRM.Employee
                 }
                 if (c.HasControls())
                 {
-                    CleartextBoxes(c);
+                    ClearTextBoxes(c);
                 }
             }
         }
@@ -220,66 +362,83 @@ namespace WebAppAegisCRM.Employee
                 ddlReporting.SelectedValue = (dtEmployeeMaster.Rows[0]["ReportingEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReportingEmployeeId"].ToString();
                 if (dtEmployeeMaster.Rows[0]["LeaveActive"] != DBNull.Value && Convert.ToBoolean(dtEmployeeMaster.Rows[0]["LeaveActive"].ToString()))
                 {
-                    rbtnListLeaveStatus.Items[0].Selected = false;
-                    rbtnListLeaveStatus.Items[1].Selected = true;
-                }
-                else
-                {
                     rbtnListLeaveStatus.Items[0].Selected = true;
                     rbtnListLeaveStatus.Items[1].Selected = false;
                 }
+                else
+                {
+                    rbtnListLeaveStatus.Items[0].Selected = false;
+                    rbtnListLeaveStatus.Items[1].Selected = true;
+                }
             }
-            catch
+            catch(Exception ex)
             {
-
+                ex.WriteException();
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
             }
         }
 
         protected void btnReset_Click(object sender, EventArgs e)
         {
-            CleartextBoxes(this);
+            ClearTextBoxes(this);
+            MessageBox.Show = false;
+            MessageGeneralLeave.Show = false;
+            MessageLeave.Show = false;
         }
 
         protected void gvEmployeerMaster_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                EmployeeMasterId = Convert.ToInt16(e.CommandArgument.ToString());
-                EmployeeMaster_ById(EmployeeMasterId);
-
-            }
-            else if (e.CommandName == "D")
-            {
-                EmployeeMasterId = Convert.ToInt16(e.CommandArgument.ToString());
-
-                Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
-                Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
-                ObjElEmployeeMaster.EmployeeMasterId = EmployeeMasterId;
-                int i = 0;
-                i = ObjBelEmployeeMaster.DeleteEmployee(ObjElEmployeeMaster);
-                if (i > 0)
+                if (e.CommandName == "E")
                 {
-                    CleartextBoxes(this);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
-                    EmployeeMaster_GetAll();
-                    EmployeeMaster_GetAll_ReferenceEmployee();
-                    EmployeeMaster_GetAll_Reporting();
-                    DesignationMaster_GetAll();
-                    BindCity();
-                    EmployeeMasterId = 0;
+                    EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
+                    EmployeeMaster_ById(EmployeeMasterId);
+
                 }
-                else
+                else if (e.CommandName == "D")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                    EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
+
+                    Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
+                    Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
+                    ObjElEmployeeMaster.EmployeeMasterId = EmployeeMasterId;
+                    int i = 0;
+                    i = ObjBelEmployeeMaster.DeleteEmployee(ObjElEmployeeMaster);
+                    if (i > 0)
+                    {
+                        ClearTextBoxes(this);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
+                        EmployeeMaster_GetAll();
+                        EmployeeMaster_GetAll_ReferenceEmployee();
+                        EmployeeMaster_GetAll_Reporting();
+                        DesignationMaster_GetAll();
+                        BindCity();
+                        EmployeeMasterId = 0;
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                    }
+                }
+                else if (e.CommandName == "Leave")
+                {
+                    EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
+                    LoadApprover();
+                    EmployeeMaster_ById(EmployeeMasterId);
+                    LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                    TabContainer1.ActiveTab = AddApproval;
+                    ModalPopupExtender1.Show();
                 }
             }
-            else if (e.CommandName == "Leave")
+            catch (Exception ex)
             {
-                EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
-                LoadApprover();
-                LeaveEmployeeWiseApprovalConfiguration_GetAll();
-                TabContainer1.ActiveTab = AddApproval;
-                ModalPopupExtender1.Show();
+                ex.WriteException();
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
             }
         }
 
@@ -349,7 +508,7 @@ namespace WebAppAegisCRM.Employee
                 int response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Delete(LeaveEmployeeWiseApprovalConfigId);
                 if (response > 0)
                 {
-                    CleartextBoxes(this);
+                    ClearTextBoxes(this);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
                     LeaveEmployeeWiseApprovalConfiguration_GetAll();
                     LeaveEmployeeWiseApprovalConfigId = 0;
@@ -365,30 +524,49 @@ namespace WebAppAegisCRM.Employee
 
         protected void btnTSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
-            Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+            try
+            {
+                Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+                Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
 
-            leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
-            leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
-            leaveApprovalConfiguration.ApproverId = Convert.ToInt32(ddlApproverEngineer.SelectedValue);
-            leaveApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
-            leaveApprovalConfiguration.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
-            int response = 0;
-            response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Save(leaveApprovalConfiguration);
-            if (response > 0)
-            {
-                CleartextBoxes(this);
-                ddlApproverEngineer.SelectedIndex = 0;
-                ddlApprovalLevel.SelectedIndex = 0;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Save Succesfully....');", true);
-                LeaveEmployeeWiseApprovalConfiguration_GetAll();
-                LeaveEmployeeWiseApprovalConfigId = 0;
-                TabContainer1.ActiveTab = ApprovalDetails;
-                ModalPopupExtender1.Show();
+                leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
+                leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
+                leaveApprovalConfiguration.ApproverId = Convert.ToInt32(ddlApproverEngineer.SelectedValue);
+                leaveApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
+                leaveApprovalConfiguration.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+                int response = 0;
+                response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Save(leaveApprovalConfiguration);
+                if (response > 0)
+                {
+                    ClearTextBoxes(this);
+                    ddlApproverEngineer.SelectedIndex = 0;
+                    ddlApprovalLevel.SelectedIndex = 0;
+                    LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                    LeaveEmployeeWiseApprovalConfigId = 0;
+
+                    MessageLeave.IsSuccess = true;
+                    MessageLeave.Text = "Leave setting updated.";
+
+                    TabContainer1.ActiveTab = AddApproval;
+                    ModalPopupExtender1.Show();
+                }
+                else
+                {
+                    MessageLeave.IsSuccess = false;
+                    MessageLeave.Text = "Failed to save data.";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Can not Save!!!....');", true);
+                ex.WriteException();
+                MessageLeave.IsSuccess = false;
+                MessageLeave.Text = ex.Message;
+            }
+            finally
+            {
+                MessageLeave.Show = true;
+                TabContainer1.ActiveTab = AddApproval;
+                ModalPopupExtender1.Show();
             }
         }
 
@@ -409,14 +587,36 @@ namespace WebAppAegisCRM.Employee
 
         protected void rbtnListLeaveStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
-            employeeMaster.EmployeeMasterId = EmployeeMasterId;
-            //foreach (ListControl rbtn in rbtnListLeaveStatus.Items)
-            //{rbtn.
-            //    employeeMaster.LeaveActive = ((RadioButton)rbtnListLeaveStatus.Items[0]).Checked ? true : false;
-            //        }
-            objEmployeeMaster.Employee_Save(employeeMaster);
+            try
+            {
+                Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+                employeeMaster.EmployeeMasterId = EmployeeMasterId;
+                employeeMaster.LeaveActive = Convert.ToBoolean(rbtnListLeaveStatus.SelectedValue);                
+                int response = objEmployeeMaster.EmployeeLeave_Update(employeeMaster);
+                if (response > 0)
+                {
+                    MessageGeneralLeave.IsSuccess = true;
+                    MessageGeneralLeave.Text = "Settings updated.";
+                }
+                else
+                {
+                    MessageGeneralLeave.IsSuccess = false;
+                    MessageGeneralLeave.Text = "Failed to update settings.";
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                MessageGeneralLeave.IsSuccess = false;
+                MessageGeneralLeave.Text = ex.Message;
+            }
+            finally
+            {
+                MessageGeneralLeave.Show = true;
+                TabContainer1.ActiveTab = LeaveGeneral;
+                ModalPopupExtender1.Show();
+            }
         }
     }
 }

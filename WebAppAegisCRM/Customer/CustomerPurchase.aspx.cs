@@ -148,7 +148,7 @@ namespace WebAppAegisCRM.Customer
 
             employeeMaster.CompanyId_FK = 1;
             DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
-            dt = dt.Select("DesignationMasterId = 1").CopyToDataTable();
+            dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
             ddlAssignEngineer.DataSource = dt;
             ddlAssignEngineer.DataTextField = "EmployeeName";
             ddlAssignEngineer.DataValueField = "EmployeeMasterId";

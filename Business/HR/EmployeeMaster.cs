@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Business.HR
 {
-   public class EmployeeMaster
+    public class EmployeeMaster
     {
-           
+
         public int Employee_Save(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
         {
             return DataAccess.HR.EmployeeMaster.Employee_Save(ObjElEmployeeMaster);
@@ -57,6 +57,11 @@ namespace Business.HR
         public int Login_Save(Entity.Common.Auth auth)
         {
             return DataAccess.HR.EmployeeMaster.Login_Save(auth);
+        }
+
+        public int EmployeeLeave_Update(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            return DataAccess.HR.EmployeeMaster.EmployeeLeave_Update(employeeMaster);
         }
     }
 }

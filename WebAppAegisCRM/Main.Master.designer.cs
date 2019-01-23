@@ -319,6 +319,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveGenerate;
         
         /// <summary>
+        /// liLeaveAdjustment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveAdjustment;
+        
+        /// <summary>
         /// liInventory control.
         /// </summary>
         /// <remarks>

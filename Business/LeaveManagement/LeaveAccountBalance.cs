@@ -7,7 +7,7 @@ namespace Business.LeaveManagement
         public LeaveAccountBalance()
         { }
 
-        public DataTable LeaveAccountBalance_ByEmployeeId(int employeeId, int leaveTypeId)
+        public DataSet LeaveAccountBalance_ByEmployeeId(int employeeId, int leaveTypeId)
         {
             return DataAccess.LeaveManagement.LeaveAccountBalance.LeaveAccountBalance_ByEmployeeId(employeeId, leaveTypeId);
         }

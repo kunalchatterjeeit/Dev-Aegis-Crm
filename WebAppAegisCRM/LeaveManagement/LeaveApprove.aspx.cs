@@ -35,6 +35,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 lblLeaveAccumulationType.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"].ToString();
                 lblTotalLeaveCount.Text = ((Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()) - Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString())).TotalDays + 1).ToString();
                 hdnAttachmentName.Value = (dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"] != null) ? dsLeaveApplicationDetails.Tables[0].Rows[0]["Attachment"].ToString() : string.Empty;
+                lblReason.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["Reason"].ToString();
 
                 if (string.IsNullOrEmpty(hdnAttachmentName.Value))
                 {

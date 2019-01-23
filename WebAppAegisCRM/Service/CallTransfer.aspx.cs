@@ -22,7 +22,7 @@ namespace WebAppAegisCRM.Service
             Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
             ObjElEmployeeMaster.CompanyId_FK = 1;
             DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
-            dt = dt.Select("DesignationMasterId = 1").CopyToDataTable();
+            dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
             if (dt.Rows.Count > 0)
                 gvEmployeerMaster.DataSource = dt;
             else

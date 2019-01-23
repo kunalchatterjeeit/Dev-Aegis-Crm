@@ -160,8 +160,6 @@
                                                     <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
                                                     <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                                     <asp:BoundField HeaderText="Problem Observed" DataField="ProblemObserved" />
-                                                    <asp:BoundField HeaderText="In Time" DataField="EngIn" ItemStyle-Width="60px"/>
-                                                    <asp:BoundField HeaderText="Out Time" DataField="EngOut" ItemStyle-Width="60px"/>
                                                     <asp:TemplateField HeaderText="Response Time" ItemStyle-HorizontalAlign="Left">
                                                         <ItemTemplate>
                                                             <%# (Eval("ResponseTime")!= DBNull.Value)?CalculateTimings(Convert.ToInt32(Eval("ResponseTime"))):"00:00" %>

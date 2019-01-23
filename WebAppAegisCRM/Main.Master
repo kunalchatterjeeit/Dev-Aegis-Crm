@@ -320,9 +320,6 @@
                                 <li id="liLeaveDesignationConfiguration" runat="server">
                                     <a href="../LeaveManagement/LeaveDesignationConfiguration.aspx">Leave Designation Configuration</a>
                                 </li>
-                                 <%--<li id="li1" runat="server">
-                                    <a href="../LeaveManagement/LeaveApprovalConfiguration.aspx">Leave Approval Configuration</a>
-                                </li>--%>
                                 <li id="liLeaveApply" runat="server">
                                     <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
                                 </li>
@@ -334,6 +331,9 @@
                                 </li>
                                 <li id="liLeaveGenerate" runat="server">
                                     <a href="../LeaveManagement/GenerateLeave.aspx">Generate Leave</a>
+                                </li>
+                                 <li id="liLeaveAdjustment" runat="server">
+                                    <a href="../LeaveManagement/LeaveAdjustment.aspx">Leave Adjustment</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

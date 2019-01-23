@@ -30,9 +30,9 @@ namespace DataAccess.LeaveManagement
             return retValue;
         }
 
-        public static DataTable LeaveAccountBalance_ByEmployeeId(int employeeId, int leaveTypeId)
+        public static DataSet LeaveAccountBalance_ByEmployeeId(int employeeId, int leaveTypeId)
         {
-            using (DataTable dt = new DataTable())
+            using (DataSet ds = new DataSet())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
@@ -52,12 +52,12 @@ namespace DataAccess.LeaveManagement
 
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            da.Fill(ds);
                         }
                         con.Close();
                     }
                 }
-                return dt;
+                return ds;
             }
         }
 
