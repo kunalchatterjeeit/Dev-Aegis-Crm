@@ -123,6 +123,7 @@
                                 <asp:ListItem Value="705" Text="&nbsp;&nbsp;&nbsp;LEAVE APPLICATION LIST"></asp:ListItem>
                                 <asp:ListItem Value="706" Text="&nbsp;&nbsp;&nbsp;GENERATE LEAVE"></asp:ListItem>
                                 <asp:ListItem Value="707" Text="&nbsp;&nbsp;&nbsp;LEAVE ADJUSTMENT"></asp:ListItem>
+                                <asp:ListItem Value="708" Text="&nbsp;&nbsp;&nbsp;LEAVE REPORT"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

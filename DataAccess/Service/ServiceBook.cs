@@ -777,7 +777,7 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataSet Service_ServiceCallAttendance_GetAll(int engineerId, DateTime fromDate, DateTime toDate)
+        public static DataSet Service_ServiceCallAttendance_GetAll(Entity.Service.ServiceCallAttendance serviceCallAttendance)
         {
             using (DataSet ds = new DataSet())
             {
@@ -785,18 +785,26 @@ namespace DataAccess.Service
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        if (engineerId == 0)
+                        if (string.IsNullOrEmpty(serviceCallAttendance.RequestNo))
+                            cmd.Parameters.AddWithValue("@DocketNo", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@DocketNo", serviceCallAttendance.RequestNo);
+                        if (string.IsNullOrEmpty(serviceCallAttendance.MachineId))
+                            cmd.Parameters.AddWithValue("@MachineId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@MachineId", serviceCallAttendance.MachineId);
+                        if (serviceCallAttendance.EmployeeId == 0)
                             cmd.Parameters.AddWithValue("@EngineerId", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@EngineerId", engineerId);
-                        if (fromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@EngineerId", serviceCallAttendance.EmployeeId);
+                        if (serviceCallAttendance.FromDate == DateTime.MinValue)
                             cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@FromDate", fromDate);
-                        if (toDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", serviceCallAttendance.FromDate);
+                        if (serviceCallAttendance.ToDate == DateTime.MinValue)
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@ToDate", toDate);
+                            cmd.Parameters.AddWithValue("@ToDate", serviceCallAttendance.ToDate);
 
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;

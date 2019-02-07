@@ -123,6 +123,7 @@
                                 </div>
                                 <div class="col-lg-1">
                                     <div class="form-group">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-outline btn-success" OnClick="btnAdd_Click" OnClientClick="return ValidationItemAdd();" />
                                     </div>
                                 </div>

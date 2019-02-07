@@ -24,14 +24,69 @@
         <ContentTemplate>
             <div class="row">
                 <div class="col-lg-12">
+                    <uc3:Message ID="Message" runat="server" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Search Criteria
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    Docket No :
+                                        <asp:TextBox ID="txtDocketNo" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    Machine Id :
+                                        <asp:TextBox ID="txtMachineId" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    Engineer :
+                                         <asp:DropDownList ID="ddlEngineer" CssClass="form-control" runat="server">
+                                         </asp:DropDownList>
+                                </div>
+                            </div>
+                            <%--<div class="col-lg-3">
+                                <div class="form-group">
+                                    From In Date :
+                                    <asp:TextBox ID="txtFromInDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFromInDate"
+                                        Format="dd MMM yyyy" Enabled="True">
+                                    </asp:CalendarExtender>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    To In Date :
+                                    <asp:TextBox ID="txtToInDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtToInDate"
+                                        Format="dd MMM yyyy" Enabled="True">
+                                    </asp:CalendarExtender>
+                                </div>
+                            </div>--%>
+                            <div class="col-lg-2">
+                                <br />
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClientClick="return ValidationForSave();" OnClick="btnSearch_Click" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Service Call Attendance List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <uc3:Message ID="Message" runat="server" />
-                                <div class="clearfix"></div>
                                 <asp:GridView ID="gvCallAttendance" DataKeyNames="ServiceCallAttendanceId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="True" PageSize="20"
                                     class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvCallAttendance_RowCommand" OnRowDataBound="gvCallAttendance_RowDataBound" OnPageIndexChanging="gvCallAttendance_PageIndexChanging">
@@ -44,7 +99,6 @@
                                                 <%# Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField HeaderText="SB No" DataField="ServiceBookId" />
                                         <asp:BoundField HeaderText="Docket No" DataField="DocketNo" />
                                         <asp:BoundField HeaderText="Engineer" DataField="EmployeeName" />
                                         <asp:BoundField HeaderText="Machine" DataField="MachineId" />

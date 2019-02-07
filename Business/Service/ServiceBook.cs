@@ -122,9 +122,9 @@ namespace Business.Service
             return DataAccess.Service.ServiceBook.Service_ServiceBookDetailsApproval_GetById(serviceBookId, itemId);
         }
 
-        public DataSet Service_ServiceCallAttendance_GetAll(int engineerId, DateTime fromDate, DateTime toDate)
+        public DataSet Service_ServiceCallAttendance_GetAll(Entity.Service.ServiceCallAttendance serviceCallAttendance)
         {
-            return DataAccess.Service.ServiceBook.Service_ServiceCallAttendance_GetAll(engineerId, fromDate, toDate);
+            return DataAccess.Service.ServiceBook.Service_ServiceCallAttendance_GetAll(serviceCallAttendance);
         }
 
         public int Service_CallAttendance_Save(ServiceCallAttendance serviceCallAttendance)

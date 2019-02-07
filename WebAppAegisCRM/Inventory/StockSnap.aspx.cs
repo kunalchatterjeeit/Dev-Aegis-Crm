@@ -16,7 +16,8 @@ namespace WebAppAegisCRM.Inventory
                 dtItem.Columns.Add("ItemName");
 
                 Business.Inventory.Stock objStock = new Business.Inventory.Stock();
-                gvStockSnap.DataSource = objStock.GetStockSnap();
+                string name = (string.IsNullOrEmpty(txtName.Text.Trim())) ? string.Empty : txtName.Text.Trim();
+                gvStockSnap.DataSource = objStock.GetStockSnap(name);
                 gvStockSnap.DataBind();
             }
         }

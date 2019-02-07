@@ -41,5 +41,9 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveApplication.LeaveApplicationDetails_GetByDate(leaveApplicationMaster);
         }
+        public DataSet LeaveApplication_GetAll(Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster)
+        {
+            return DataAccess.LeaveManagement.LeaveApplication.LeaveApplication_GetAll(leaveApplicationMaster);
+        }
     }
 }

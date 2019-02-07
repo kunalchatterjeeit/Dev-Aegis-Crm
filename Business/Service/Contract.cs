@@ -42,5 +42,15 @@ namespace Business.Service
         {
             return DataAccess.Service.Contract.Service_ContractStatusList(contract);
         }
+
+        public DataSet Service_ContractExpiringList(Entity.Service.Contract contract)
+        {
+            return DataAccess.Service.Contract.Service_ContractExpiringList(contract);
+        }
+
+        public DataSet Service_ContractExpiredList(Entity.Service.Contract contract)
+        {
+            return DataAccess.Service.Contract.Service_ContractExpiredList(contract);
+        }
     }
 }

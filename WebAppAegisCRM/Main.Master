@@ -342,7 +342,7 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li id="liPurchaseRequisitionEntry" runat="server">
-                                    <a href="../Purchase/Purchase.aspx">Purchase Requisition Entry</a>
+                                    <a href="../Purchase/PurchaseRequisition.aspx">Purchase Requisition Entry</a>
                                 </li>
                                 <li id="liPurchaseEntry" runat="server">
                                     <a href="../Purchase/Purchase.aspx">Purchase Entry</a>
@@ -406,6 +406,9 @@
                                 </li>
                                 <li id="liServiceBookReport" runat="server">
                                     <a href="../Service/ServiceBookReport.aspx">Service Book Report</a>
+                                </li>
+                                <li id="liLeaveReport" runat="server">
+                                    <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

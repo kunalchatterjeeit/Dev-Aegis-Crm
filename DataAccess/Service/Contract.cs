@@ -286,5 +286,91 @@ namespace DataAccess.Service
                 return dt;
             }
         }
+
+        public static DataSet Service_ContractExpiringList(Entity.Service.Contract contract)
+        {
+            using (DataSet dt = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ContractExpiringList";
+
+                        if (contract.MachineId == "")
+                            cmd.Parameters.AddWithValue("@MachineId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@MachineId", contract.MachineId);
+                        if (contract.FromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", contract.FromDate);
+                        if (contract.ToDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", contract.ToDate);
+                        if (contract.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", contract.AssignEngineer);
+                        cmd.InsertPaging(contract, contract.ContractId);
+
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static DataSet Service_ContractExpiredList(Entity.Service.Contract contract)
+        {
+            using (DataSet dt = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_ContractExpiredList";
+
+                        if (contract.MachineId == "")
+                            cmd.Parameters.AddWithValue("@MachineId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@MachineId", contract.MachineId);
+                        if (contract.FromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", contract.FromDate);
+                        if (contract.ToDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", contract.ToDate);
+                        if (contract.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", contract.AssignEngineer);
+                        cmd.InsertPaging(contract, contract.ContractId);
+
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

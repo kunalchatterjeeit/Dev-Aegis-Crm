@@ -11,9 +11,9 @@ namespace Business.Inventory
     {
         public Stock() { }
 
-        public DataTable GetStockSnap()
+        public DataTable GetStockSnap(string name)
         {
-            return DataAccess.Inventory.Stock.GetStockSnap();
+            return DataAccess.Inventory.Stock.GetStockSnap(name);
         }
     }
 }

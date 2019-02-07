@@ -25,7 +25,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Purchase List
+                            Purchase List Filter
                         </div>
                         <div class="panel-body">
                             <div class="col-lg-3">
@@ -95,6 +95,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Purchase List
+                        </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvPurchase" DataKeyNames="PurchaseId" runat="server"

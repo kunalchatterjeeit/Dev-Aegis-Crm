@@ -10,7 +10,7 @@ namespace Entity.Service
     {
         public ServiceBook()
         { }
-
+        
         public long ServiceBookId { get; set; }
         public long ServiceBookDetailsId { get; set; }
         public long CallId { get; set; }

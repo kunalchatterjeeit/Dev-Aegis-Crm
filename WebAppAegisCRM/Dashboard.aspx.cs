@@ -61,7 +61,8 @@ namespace WebAppAegisCRM
             docket.PageIndex = pageIndex;
             docket.PageSize = pageSize;
 
-            DataSet response = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.Docket) ? objDocket.Service_Docket_GetByCallStatusIds(docket) : Business.Common.Context.DocketList;
+            DataSet response = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.Docket) ?
+                objDocket.Service_Docket_GetByCallStatusIds(docket) : Business.Common.Context.DocketList;
             Business.Common.Context.DocketList = response;
             gvDocketAsync.DataSource = response.Tables[0];
             gvDocketAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
@@ -97,7 +98,53 @@ namespace WebAppAegisCRM
             //lblTonerTotal.Text = string.Concat("Total records: ", gvTonnerRequestAsync.VirtualItemCount);
         }
 
-        protected void LoadContractStatusList(int pageIndex, int pageSize, ContractStatusType contractType)
+        //protected void LoadContractStatusList(ContractStatusType contractType)
+        //{
+        //    Entity.Service.Contract contract = new Entity.Service.Contract();
+        //    Business.Service.Contract objContract = new Business.Service.Contract();
+        //    contract.PageIndex = pageIndex;
+        //    contract.PageSize = pageSize;
+        //    contract.MachineId = "";
+        //    contract.FromDate = DateTime.MinValue;
+        //    contract.ToDate = DateTime.MinValue;
+        //    if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+        //        contract.AssignEngineer = 0;
+        //    else
+        //        contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
+        //    DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList || _DashboardEvent == DashboardEvent.ExpiringList) ?
+        //        objContract.Service_ContractStatusList(contract) : Business.Common.Context.ContractStatusList;
+        //    Business.Common.Context.ContractStatusList = ds;
+
+        //    if (ContractStatusType.None == contractType
+        //        && (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST)
+        //        || HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST)))
+        //    {
+        //        gvExpiringSoonAsync.DataSource = ds.Tables[0];
+        //        gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 10;
+        //        gvExpiringSoonAsync.DataBind();
+
+        //        gvExpiredListAsync.DataSource = ds.Tables[1];
+        //        gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 10;
+        //        gvExpiredListAsync.DataBind();
+        //    }
+        //    else if (ContractStatusType.Expiring == contractType
+        //        && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST))
+        //    {
+        //        gvExpiringSoonAsync.DataSource = ds.Tables[0];
+        //        gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 10;
+        //        gvExpiringSoonAsync.DataBind();
+        //    }
+        //    else if (ContractStatusType.Expired == contractType
+        //        && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST))
+        //    {
+        //        gvExpiredListAsync.DataSource = ds.Tables[1];
+        //        gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 10;
+        //        gvExpiredListAsync.DataBind();
+        //    }
+        //}
+
+        protected void LoadContractExpiredList(int pageIndex, int pageSize)
         {
             Entity.Service.Contract contract = new Entity.Service.Contract();
             Business.Service.Contract objContract = new Business.Service.Contract();
@@ -111,35 +158,36 @@ namespace WebAppAegisCRM
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList || _DashboardEvent == DashboardEvent.ExpiringList) ? objContract.Service_ContractStatusList(contract) : Business.Common.Context.ContractStatusList;
-            Business.Common.Context.ContractStatusList = ds;
+            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList) ?
+                objContract.Service_ContractExpiredList(contract) : Business.Common.Context.ContractExpiredList;
+            Business.Common.Context.ContractExpiredList = ds;
 
-            if (ContractStatusType.None == contractType
-                && (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST)
-                || HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST)))
-            {
-                gvExpiringSoonAsync.DataSource = ds.Tables[0];
-                gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiringSoonAsync.DataBind();
+            gvExpiredListAsync.DataSource = ds.Tables[0];
+            gvExpiredListAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
+            gvExpiredListAsync.DataBind();
+        }
 
-                gvExpiredListAsync.DataSource = ds.Tables[1];
-                gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiredListAsync.DataBind();
-            }
-            else if (ContractStatusType.Expiring == contractType
-                && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST))
-            {
-                gvExpiringSoonAsync.DataSource = ds.Tables[0];
-                gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[4].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[4].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiringSoonAsync.DataBind();
-            }
-            else if (ContractStatusType.Expired == contractType
-                && HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST))
-            {
-                gvExpiredListAsync.DataSource = ds.Tables[1];
-                gvExpiredListAsync.VirtualItemCount = (ds.Tables[5].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[5].Rows[0]["TotalCount"].ToString()) : 17;
-                gvExpiredListAsync.DataBind();
-            }
+        protected void LoadContractExpiringList(int pageIndex, int pageSize)
+        {
+            Entity.Service.Contract contract = new Entity.Service.Contract();
+            Business.Service.Contract objContract = new Business.Service.Contract();
+            contract.PageIndex = pageIndex;
+            contract.PageSize = pageSize;
+            contract.MachineId = "";
+            contract.FromDate = DateTime.MinValue;
+            contract.ToDate = DateTime.MinValue;
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                contract.AssignEngineer = 0;
+            else
+                contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
+            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiringList) ?
+                objContract.Service_ContractExpiringList(contract) : Business.Common.Context.ContractExpiringList;
+            Business.Common.Context.ContractExpiringList = ds;
+
+            gvExpiringSoonAsync.DataSource = ds.Tables[0];
+            gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
+            gvExpiringSoonAsync.DataBind();
         }
 
         protected void LoadPieChart()
@@ -268,9 +316,10 @@ namespace WebAppAegisCRM
                 }
             }
 
-            LoadContractStatusList(0, gvExpiredListAsync.PageSize, ContractStatusType.None);
+            //LoadContractStatusList(ContractStatusType.None);
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST))
             {
+                LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
                 using (System.IO.StringWriter sw = new System.IO.StringWriter())
                 {
                     gvExpiringSoonAsync.RenderControl(new HtmlTextWriter(sw));
@@ -279,6 +328,7 @@ namespace WebAppAegisCRM
             }
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST))
             {
+                LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);
                 using (System.IO.StringWriter sw = new System.IO.StringWriter())
                 {
                     gvExpiredListAsync.RenderControl(new HtmlTextWriter(sw));
@@ -324,7 +374,7 @@ namespace WebAppAegisCRM
                     break;
             }
 
-            SaveSettings(userId, settingName , settingValue , false);
+            SaveSettings(userId, settingName, settingValue, false);
             Response.Redirect(Request.RawUrl);
         }
 

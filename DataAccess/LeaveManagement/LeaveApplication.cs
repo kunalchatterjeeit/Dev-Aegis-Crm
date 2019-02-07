@@ -301,5 +301,42 @@ namespace DataAccess.LeaveManagement
                 return dt;
             }
         }
+        public static DataSet LeaveApplication_GetAll(Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_LeaveApplication_GetAll";
+                        if (leaveApplicationMaster.LeaveTypeId == 0)
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", leaveApplicationMaster.LeaveTypeId);
+                        if (leaveApplicationMaster.RequestorId == 0)
+                            cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmployeeId", leaveApplicationMaster.RequestorId);
+                        if (leaveApplicationMaster.FromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", leaveApplicationMaster.FromDate);
+                        if (leaveApplicationMaster.ToDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", leaveApplicationMaster.ToDate);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
     }
 }

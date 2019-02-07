@@ -5,10 +5,32 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
     <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Lookup Filter
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    Product/Spare Name :
+                                <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group"><br />
+                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Entry Particulars
+                    Particulars
                 </div>
                 <div class="table-responsive">
                     <asp:GridView ID="gvStockSnap" runat="server" AutoGenerateColumns="False"
@@ -23,8 +45,8 @@
                                     <%# Container.DataItemIndex+1 %>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField HeaderText="ProductName" DataField="ProductName" />
-                            <asp:BoundField HeaderText="SpareName" DataField="SpareName" />
+                            <asp:BoundField HeaderText="Product Name" DataField="ProductName" />
+                            <asp:BoundField HeaderText="Spare Name" DataField="SpareName" />
                             <asp:BoundField HeaderText="Location" DataField="Location" />
                             <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
                         </Columns>

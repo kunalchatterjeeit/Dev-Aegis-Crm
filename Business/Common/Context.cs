@@ -149,6 +149,30 @@ namespace Business.Common
             }
         }
 
+        public static DataSet ContractExpiredList
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ContractExpiredList"] != null) ? (DataSet)HttpContext.Current.Session["ContractExpiredList"] : new DataSet();
+            }
+            set
+            {
+                HttpContext.Current.Session["ContractExpiredList"] = value;
+            }
+        }
+
+        public static DataSet ContractExpiringList
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ContractExpiringList"] != null) ? (DataSet)HttpContext.Current.Session["ContractExpiringList"] : new DataSet();
+            }
+            set
+            {
+                HttpContext.Current.Session["ContractExpiringList"] = value;
+            }
+        }
+
         public static List<DateTime> SelectedDates
         {
             get

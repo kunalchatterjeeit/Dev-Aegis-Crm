@@ -13,7 +13,7 @@ namespace DataAccess.Inventory
     {
         public Stock() { }
 
-        public static DataTable GetStockSnap()
+        public static DataTable GetStockSnap(string name)
         {
             using (DataTable dt = new DataTable())
             {
@@ -24,7 +24,11 @@ namespace DataAccess.Inventory
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_GetStockSnap";
-                        
+                        if (string.IsNullOrEmpty(name))
+                            cmd.Parameters.AddWithValue("@Name", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@Name", name);
+
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
