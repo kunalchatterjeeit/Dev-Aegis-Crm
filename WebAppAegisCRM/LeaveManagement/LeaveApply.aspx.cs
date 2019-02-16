@@ -129,13 +129,13 @@ namespace WebAppAegisCRM.LeaveManagement
                         return false;
                     }
 
-                    if (Convert.ToDecimal(lbTotalCount.Text.Trim()) > Convert.ToDecimal(dtLeaveDesignationConfiguration.Rows[0]["LeaveCount"].ToString()))
-                    {
-                        Message.Text = "Maximum Leave you can apply is " + dtLeaveDesignationConfiguration.Rows[0]["LeaveCount"].ToString() + " days in a year";
-                        Message.IsSuccess = false;
-                        Message.Show = true;
-                        return false;
-                    }
+                    //if (Convert.ToDecimal(lbTotalCount.Text.Trim()) > Convert.ToDecimal(dtLeaveDesignationConfiguration.Rows[0]["LeaveCount"].ToString()))
+                    //{
+                    //    Message.Text = "Maximum Leave you can apply is " + dtLeaveDesignationConfiguration.Rows[0]["LeaveCount"].ToString() + " days in a year";
+                    //    Message.IsSuccess = false;
+                    //    Message.Show = true;
+                    //    return false;
+                    //}
                 }
                 else
                 {

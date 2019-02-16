@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using Entity.Common;
 
 namespace Entity.Service
 {
-    public class ServiceBook
+    public class ServiceBook: BaseEntity
     {
         public ServiceBook()
         { }

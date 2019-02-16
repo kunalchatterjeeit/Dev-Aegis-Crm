@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using Entity.Service;
+using DataAccess.Common;
 
 namespace DataAccess.Service
 {
@@ -946,9 +947,9 @@ namespace DataAccess.Service
             }
         }
 
-        public static DataTable Service_SpareUsage(Entity.Service.ServiceBook serviceBook)
+        public static DataSet Service_SpareUsage(Entity.Service.ServiceBook serviceBook)
         {
-            using (DataTable dt = new DataTable())
+            using (DataSet ds = new DataSet())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
@@ -982,17 +983,19 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ToDate", serviceBook.ToDate);
+                        cmd.InsertPaging(serviceBook, serviceBook.ServiceBookId);
+
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            da.Fill(ds);
                         }
 
                         con.Close();
                     }
                 }
-                return dt;
+                return ds;
             }
         }
     }

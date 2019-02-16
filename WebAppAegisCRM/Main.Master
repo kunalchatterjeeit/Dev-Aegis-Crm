@@ -410,6 +410,9 @@
                                 <li id="liLeaveReport" runat="server">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
                                 </li>
+                                <li id="liSpareTonerUsage" runat="server">
+                                    <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

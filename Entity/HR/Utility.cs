@@ -69,6 +69,7 @@ namespace Entity.HR
         public const string TONER_REQUEST_LIST = "504";
         public const string DOCKET_LIST = "505";
         public const string SERVICE_BOOK_LIST = "506";
+        public const string SPARE_TONER_USAGE_LIST = "507";
 
         //LeaveManagement
         public const string LEAVE_MANAGEMENT = "700";

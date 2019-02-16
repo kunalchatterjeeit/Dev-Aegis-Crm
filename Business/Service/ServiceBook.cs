@@ -147,7 +147,7 @@ namespace Business.Service
             return DataAccess.Service.ServiceBook.Service_ServiceCallAttendanceByServiceBookId(serviceBookId);
         }
 
-        public DataTable Service_SpareUsage(Entity.Service.ServiceBook serviceBook)
+        public DataSet Service_SpareUsage(Entity.Service.ServiceBook serviceBook)
         {
             return DataAccess.Service.ServiceBook.Service_SpareUsage(serviceBook);
         }

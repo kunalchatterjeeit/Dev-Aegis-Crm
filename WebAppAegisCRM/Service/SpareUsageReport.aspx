@@ -29,76 +29,75 @@
                         <div class="panel-body">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    Customer Name:
-                                        <asp:TextBox ID="txtTonnerRequestNo" CssClass="form-control" runat="server"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    Customer :
+                                     Customer :
                                     <asp:DropDownList ID="ddlCustomer" CssClass="form-control" runat="server">
                                     </asp:DropDownList>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    Model :
-                                    <asp:DropDownList ID="ddlProduct" CssClass="form-control" runat="server">
+                                    Call No:
+                                    <asp:TextBox ID="txtCallNo" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                     Employee :
+                                    <asp:DropDownList ID="ddlEmployee" CssClass="form-control" runat="server">
                                     </asp:DropDownList>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    From Request Date :
-                                    <asp:TextBox ID="txtFromTonnerRequestDate" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFromTonnerRequestDate"
+                                    Spare/Toner :
+                                    <asp:DropDownList ID="ddlItem" CssClass="form-control" runat="server">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    From Log Date :
+                                    <asp:TextBox ID="txtFromLogRequestDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtFromLogRequestDate"
                                         Format="dd MMM yyyy" Enabled="True">
                                     </asp:CalendarExtender>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    To Request Date :
-                                    <asp:TextBox ID="txtToTonnerRequestDate" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtToTonnerRequestDate"
+                                    To Log Date :
+                                    <asp:TextBox ID="txtToLogRequestDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtToLogRequestDate"
                                         Format="dd MMM yyyy" Enabled="True">
                                     </asp:CalendarExtender>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form-group">
-                                    Call Status :
-                                    <asp:DropDownList ID="ddlCallStatus" CssClass="form-control" runat="server">
-                                    </asp:DropDownList>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <br />
-                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClientClick="return ValidationForSave();" OnClick="btnSearch_Click" />
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server" 
+                                        <asp:GridView ID="gvSpareUsage" runat="server" 
                                             AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                             class="table table-striped" GridLines="None" Style="text-align: left" PageSize="20" 
-                                            OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" AllowPaging="true" AllowCustomPaging="true">
+                                            OnPageIndexChanging="gvSpareUsage_PageIndexChanging" AllowPaging="true" AllowCustomPaging="true">
                                             <Columns>
                                                 <asp:TemplateField>
                                                     <HeaderTemplate>
                                                         SN.
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <%#  (gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize) + (Container.DataItemIndex + 1) %>
+                                                        <%#  (gvSpareUsage.PageIndex * gvSpareUsage.PageSize) + (Container.DataItemIndex + 1) %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Request No" DataField="RequestNo" />
-                                                <asp:BoundField HeaderText="Date" DataField="RequestDate" />
-                                                <asp:BoundField HeaderText="Time" DataField="RequestTime" />
-                                                <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
-                                                <asp:BoundField HeaderText="Model" DataField="ProductName" />
-                                                <asp:BoundField HeaderText="Status" DataField="CallStatus" />
-                                                <asp:BoundField HeaderText="CE" DataField="IsCustomerEntry" ItemStyle-HorizontalAlign="Center" />
+                                                <asp:BoundField HeaderText="Call No" DataField="CallNo" />
+                                                <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
+                                                <asp:BoundField HeaderText="Item Name" DataField="SpareName" />
+                                                <asp:BoundField HeaderText="Is Tonner" DataField="IsToner" />
+                                                <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
+                                                <asp:BoundField HeaderText="Engineer" DataField="ServiceEngineer" />
                                             </Columns>
                                             <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                             <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

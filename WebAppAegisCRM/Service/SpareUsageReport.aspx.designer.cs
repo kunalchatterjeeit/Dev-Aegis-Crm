@@ -40,15 +40,6 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// txtTonnerRequestNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTonnerRequestNo;
-        
-        /// <summary>
         /// ddlCustomer control.
         /// </summary>
         /// <remarks>
@@ -58,22 +49,40 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.DropDownList ddlCustomer;
         
         /// <summary>
-        /// ddlProduct control.
+        /// txtCallNo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.TextBox txtCallNo;
         
         /// <summary>
-        /// txtFromTonnerRequestDate control.
+        /// ddlEmployee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFromTonnerRequestDate;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
+        
+        /// <summary>
+        /// ddlItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlItem;
+        
+        /// <summary>
+        /// txtFromLogRequestDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFromLogRequestDate;
         
         /// <summary>
         /// CalendarExtender1 control.
@@ -85,13 +94,13 @@ namespace WebAppAegisCRM.Service {
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
         
         /// <summary>
-        /// txtToTonnerRequestDate control.
+        /// txtToLogRequestDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtToTonnerRequestDate;
+        protected global::System.Web.UI.WebControls.TextBox txtToLogRequestDate;
         
         /// <summary>
         /// CalendarExtender2 control.
@@ -103,15 +112,6 @@ namespace WebAppAegisCRM.Service {
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
         
         /// <summary>
-        /// ddlCallStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallStatus;
-        
-        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
@@ -121,12 +121,12 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// gvTonnerRequest control.
+        /// gvSpareUsage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTonnerRequest;
+        protected global::System.Web.UI.WebControls.GridView gvSpareUsage;
     }
 }
