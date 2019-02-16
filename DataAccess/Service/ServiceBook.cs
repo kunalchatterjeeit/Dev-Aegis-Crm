@@ -945,5 +945,55 @@ namespace DataAccess.Service
                 return dt;
             }
         }
+
+        public static DataTable Service_SpareUsage(Entity.Service.ServiceBook serviceBook)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_SpareUsage";
+
+                        if (serviceBook.CustomerId == 0)
+                            cmd.Parameters.AddWithValue("@CustomerMasterId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerMasterId", serviceBook.CustomerId);
+                        if (string.IsNullOrEmpty(serviceBook.RequestNo))
+                            cmd.Parameters.AddWithValue("@CallNo", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CallNo", serviceBook.RequestNo);
+                        if (serviceBook.EmployeeId_FK == 0)
+                            cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmployeeId", serviceBook.EmployeeId_FK);
+                        if (serviceBook.ItemId == 0)
+                            cmd.Parameters.AddWithValue("@ItemId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ItemId", serviceBook.ItemId);
+                        if (serviceBook.RequestFromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", serviceBook.FromDate);
+                        if (serviceBook.RequestToDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", serviceBook.ToDate);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }
