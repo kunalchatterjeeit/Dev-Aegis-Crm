@@ -975,11 +975,11 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@ItemId", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ItemId", serviceBook.ItemId);
-                        if (serviceBook.RequestFromDate == DateTime.MinValue)
+                        if (serviceBook.FromDate == DateTime.MinValue)
                             cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@FromDate", serviceBook.FromDate);
-                        if (serviceBook.RequestToDate == DateTime.MinValue)
+                        if (serviceBook.ToDate == DateTime.MinValue)
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ToDate", serviceBook.ToDate);
