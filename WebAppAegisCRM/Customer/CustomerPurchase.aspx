@@ -56,54 +56,52 @@
                             <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-lg-12">
-                                        <div style="height: 83vh; overflow: scroll">
-                                            <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
-                                                AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                                Style="text-align: left" GridLines="None" OnRowCommand="gvCustomerMaster_RowCommand"
-                                                class="table table-striped">
-                                                <Columns>
-                                                    <asp:TemplateField>
-                                                        <HeaderTemplate>
-                                                            SN.
-                                                        </HeaderTemplate>
-                                                        <ItemTemplate>
-                                                            <%# Container.DataItemIndex+1 %>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:BoundField HeaderText="Customer Id" DataField="CustomerCode" />
-                                                    <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
-                                                    <asp:TemplateField HeaderText="Customer Type">
-                                                        <ItemTemplate>
-                                                            <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:BoundField HeaderText="Mobile No" DataField="MobileNo" />
-                                                    <asp:TemplateField>
-                                                        <ItemTemplate>
-                                                            <asp:Button ID="btnCustomerPurchase" runat="server" Text="Tag Details" CommandName="PurchaseDetails" class="btn btn-outline btn-success"
-                                                                CommandArgument='<%# Eval("CustomerMasterId") %>' />
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField>
-                                                        <ItemTemplate>
-                                                            <asp:Button ID="btnContract" runat="server" Text="Contract Details" CommandName="ContractDetails" class="btn btn-outline btn-success"
-                                                                CommandArgument='<%# Eval("CustomerMasterId") %>' />
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                </Columns>
-                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                                <EditRowStyle BackColor="#999999" />
-                                                <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                                <EmptyDataTemplate>
-                                                    No Record Found...
-                                                </EmptyDataTemplate>
-                                            </asp:GridView>
-                                        </div>
+                                        <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
+                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="true" AllowCustomPaging="true" PageSize="20"
+                                            Style="text-align: left" GridLines="None" OnRowCommand="gvCustomerMaster_RowCommand"
+                                            class="table table-striped" OnPageIndexChanging="gvCustomerMaster_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        SN.
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField HeaderText="Customer Id" DataField="CustomerCode" />
+                                                <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
+                                                <asp:TemplateField HeaderText="Customer Type">
+                                                    <ItemTemplate>
+                                                        <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField HeaderText="Mobile No" DataField="MobileNo" />
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:Button ID="btnCustomerPurchase" runat="server" Text="Tag Details" CommandName="PurchaseDetails" class="btn btn-outline btn-success"
+                                                            CommandArgument='<%# Eval("CustomerMasterId") %>' />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:Button ID="btnContract" runat="server" Text="Contract Details" CommandName="ContractDetails" class="btn btn-outline btn-success"
+                                                            CommandArgument='<%# Eval("CustomerMasterId") %>' />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
                                     </div>
                                 </div>
                             </div>

@@ -81,10 +81,14 @@ namespace WebAppAegisCRM.Customer
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
             customer.CompanyMasterId_FK = 1;
-            DataTable dt = objCustomer.GetAllCustomer(customer);
-            if (dt.Rows.Count > 0)
+            customer.PageIndex = gvCustomerMaster.PageIndex;
+            customer.PageSize = gvCustomerMaster.PageSize;
+
+            DataSet ds = objCustomer.GetAllCustomer(customer);
+            if (ds.Tables.Count > 0)
             {
-                gvCustomerMaster.DataSource = dt;
+                gvCustomerMaster.DataSource = ds.Tables[0];
+                gvCustomerMaster.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
                 gvCustomerMaster.DataBind();
             }
             else
@@ -580,6 +584,12 @@ namespace WebAppAegisCRM.Customer
                 }
                 TabContainer2.ActiveTabIndex = 0;
             }
+        }
+
+        protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerMaster.PageIndex = e.NewPageIndex;
+            GetAllCustomer();
         }
     }
 }

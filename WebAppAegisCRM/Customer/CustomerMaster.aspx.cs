@@ -97,10 +97,11 @@ namespace WebAppAegisCRM.Customer
             customer.PageIndex = gvCustomerMaster.PageIndex;
             customer.PageSize = gvCustomerMaster.PageSize;
 
-            DataTable dt = objCustomer.GetAllCustomer(customer);
-            if (dt.Rows.Count > 0)
+            DataSet ds = objCustomer.GetAllCustomer(customer);
+            if (ds.Tables.Count > 0)
             {
-                gvCustomerMaster.DataSource = dt;
+                gvCustomerMaster.DataSource = ds.Tables[0];
+                gvCustomerMaster.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
                 gvCustomerMaster.DataBind();
             }
             else
@@ -162,7 +163,7 @@ namespace WebAppAegisCRM.Customer
             }
         }
 
-        protected void FetchCustomerDetailsById(Int64 Id)
+        protected void FetchCustomerDetailsById(long Id)
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
@@ -244,7 +245,7 @@ namespace WebAppAegisCRM.Customer
 
         }
 
-        protected void GetAllACustomerContactDetails(Int64 Id)
+        protected void GetAllACustomerContactDetails(long Id)
         {
             Business.Customer.CustomerContactDetails objustomerContactDetails = new Business.Customer.CustomerContactDetails();
             Entity.Customer.CustomerContactDetails customerContactDetails = new Entity.Customer.CustomerContactDetails();
@@ -265,7 +266,7 @@ namespace WebAppAegisCRM.Customer
 
         }
 
-        protected void GetAllAddress(Int64 Id)
+        protected void GetAllAddress(long Id)
         {
             Business.Customer.CustomerAddress objCustomerAddress = new Business.Customer.CustomerAddress();
             Entity.Customer.CustomerAddress customerAddress = new Entity.Customer.CustomerAddress();
@@ -285,7 +286,7 @@ namespace WebAppAegisCRM.Customer
             }
         }
 
-        protected void FetchCustomerContactDetailsById(Int64 Id)
+        protected void FetchCustomerContactDetailsById(long Id)
         {
             Business.Customer.CustomerContactDetails objCustomerContactDetails = new Business.Customer.CustomerContactDetails();
             Entity.Customer.CustomerContactDetails customerContactDetails = new Entity.Customer.CustomerContactDetails();
@@ -301,7 +302,7 @@ namespace WebAppAegisCRM.Customer
             }
         }
 
-        protected void FetchCustomerAddressDetailsById(Int64 Id)
+        protected void FetchCustomerAddressDetailsById(long Id)
         {
             Business.Customer.CustomerAddress objCustomerAddress = new Business.Customer.CustomerAddress();
             Entity.Customer.CustomerAddress customerAddress = new Entity.Customer.CustomerAddress();

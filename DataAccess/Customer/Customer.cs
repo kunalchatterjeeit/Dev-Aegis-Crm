@@ -44,9 +44,9 @@ namespace DataAccess.Customer
             return rowsAffacted;
         }
 
-        public static DataTable GetAllCustomer(Entity.Customer.Customer customer)
+        public static DataSet GetAllCustomer(Entity.Customer.Customer customer)
         {
-            using (DataTable dt = new DataTable())
+            using (DataSet ds = new DataSet())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
@@ -63,12 +63,12 @@ namespace DataAccess.Customer
                         cmd.InsertPaging(customer, customer.CustomerMasterId);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            da.Fill(ds);
                         }
                         con.Close();
                     }
                 }
-                return dt;
+                return ds;
             }
         }
 

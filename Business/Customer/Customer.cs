@@ -15,7 +15,7 @@ namespace Business.Customer
           return DataAccess.Customer.Customer.Save(ObjElCustomer);
       }
 
-      public DataTable GetAllCustomer(Entity.Customer.Customer customer)
+      public DataSet GetAllCustomer(Entity.Customer.Customer customer)
       {
           return DataAccess.Customer.Customer.GetAllCustomer(customer);
       }

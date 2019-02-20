@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Customer" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true"
+﻿<%@ Page Title="CUSTOMER" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true"
     CodeBehind="CustomerMaster.aspx.cs" Inherits="WebAppAegisCRM.Customer.CustomerMaster" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -135,68 +135,66 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <div style="height: 40vh; overflow: scroll">
-                                    <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
-                                        AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" OnPageIndexChanging="gvCustomerMaster_PageIndexChanging"
-                                        class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvCustomerMaster_RowCommand">
-                                        <Columns>
-                                            <asp:TemplateField>
-                                                <HeaderTemplate>
-                                                    SN.
-                                                </HeaderTemplate>
-                                                <ItemTemplate>
-                                                    <%# Container.DataItemIndex+1 %>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField HeaderText="Customer ID" DataField="CustomerCode" />
-                                            <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
-                                            <asp:TemplateField HeaderText="Customer Type">
-                                                        <ItemTemplate>
-                                                            <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>
-                                                        </ItemTemplate>
-                                                    </asp:TemplateField>
-                                            <asp:BoundField HeaderText="Mobile No." DataField="MobileNo" />
-                                            <asp:BoundField HeaderText="Email" DataField="EmailId" />
-                                            <asp:TemplateField>
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("CustomerMasterId") %>'
-                                                        CommandName="Contact">Add Contact</asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkContact" runat="server" CommandArgument='<%# Eval("CustomerMasterId") %>'
-                                                        CommandName="Address">Add Address</asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <ItemTemplate>
-                                                    <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                        CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/Images/edit_button.png"
-                                                        ImageAlign="AbsMiddle" ToolTip="Edit" Width="20px" Height="20px" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:TemplateField>
-                                                <ItemTemplate>
-                                                    <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                        CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/images/delete_button.png"
-                                                        ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                        <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
-                                        <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
-                                        <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
-                                        <EditRowStyle BackColor="#999999" />
-                                        <EmptyDataRowStyle CssClass="EditRowStyle" />
-                                        <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
-                                        <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
-                                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                        <EmptyDataTemplate>
-                                            No Record Found...
-                                        </EmptyDataTemplate>
-                                    </asp:GridView>
-                                </div>
+                                <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server" AllowPaging="true" AllowCustomPaging="true" PageSize="20"
+                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" OnPageIndexChanging="gvCustomerMaster_PageIndexChanging"
+                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvCustomerMaster_RowCommand">
+                                    <Columns>
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                SN.
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Customer ID" DataField="CustomerCode" />
+                                        <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
+                                        <asp:TemplateField HeaderText="Customer Type">
+                                            <ItemTemplate>
+                                                <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Mobile No." DataField="MobileNo" />
+                                        <asp:BoundField HeaderText="Email" DataField="EmailId" />
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("CustomerMasterId") %>'
+                                                    CommandName="Contact">Add Contact</asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lnkContact" runat="server" CommandArgument='<%# Eval("CustomerMasterId") %>'
+                                                    CommandName="Address">Add Address</asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
+                                                    CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/Images/edit_button.png"
+                                                    ImageAlign="AbsMiddle" ToolTip="Edit" Width="20px" Height="20px" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField>
+                                            <ItemTemplate>
+                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
+                                                    CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/images/delete_button.png"
+                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                    </Columns>
+                                    <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <EmptyDataTemplate>
+                                        No Record Found...
+                                    </EmptyDataTemplate>
+                                </asp:GridView>
                             </div>
                         </div>
                     </div>
@@ -417,7 +415,7 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID = "btnSubmit" />
+            <asp:PostBackTrigger ControlID="btnSubmit" />
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
