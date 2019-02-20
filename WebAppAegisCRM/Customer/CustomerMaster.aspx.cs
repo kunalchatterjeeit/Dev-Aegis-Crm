@@ -94,6 +94,9 @@ namespace WebAppAegisCRM.Customer
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
             customer.CompanyMasterId_FK = 1;
+            customer.PageIndex = gvCustomerMaster.PageIndex;
+            customer.PageSize = gvCustomerMaster.PageSize;
+
             DataTable dt = objCustomer.GetAllCustomer(customer);
             if (dt.Rows.Count > 0)
             {
@@ -379,6 +382,12 @@ namespace WebAppAegisCRM.Customer
                 //ModalPopupExtender1.Show();
                 CustomerContactDetailsId = 0;
             }
+        }
+
+        protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerMaster.PageIndex = e.NewPageIndex;
+            GetAllCustomer();
         }
     }
 }

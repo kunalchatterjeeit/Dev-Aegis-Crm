@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Entity.Customer
 {
-   public class Customer
+    public class Customer : BaseEntity
     {
         private Int64 customerMasterId = 0;
         public Int64 CustomerMasterId
@@ -154,7 +155,7 @@ namespace Entity.Customer
         private string orderNo = string.Empty;
         private int serviceType = 0;
         private int purchaseFrom = 0;
-        
+
 
         public int PurchaseFrom
         {

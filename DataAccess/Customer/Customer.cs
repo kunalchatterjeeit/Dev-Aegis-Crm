@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using DataAccess.Common;
 
 namespace DataAccess.Customer
 {
@@ -59,6 +60,7 @@ namespace DataAccess.Customer
                         cmd.Parameters.AddWithValue("@EmailId", customer.EmailId);
                         cmd.Parameters.AddWithValue("@MobileNo", customer.MobileNo);
                         cmd.Parameters.AddWithValue("@CustomerCode", customer.CustomerCode);
+                        cmd.InsertPaging(customer, customer.CustomerMasterId);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);

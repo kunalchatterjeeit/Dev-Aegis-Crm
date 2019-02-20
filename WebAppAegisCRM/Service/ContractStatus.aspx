@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="CONTRACT STATUS REPORT" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ContractStatus.aspx.cs" Inherits="WebAppAegisCRM.Service.ContractStatus" %>
-
+<%@ Import Namespace="Business.Common" %>
+<%@ Import Namespace="Entity.Common" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 
@@ -120,7 +121,7 @@
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <span id="anchorContract" runat="server">
-                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId") %>&source=contractStatus&contractId=<%# Eval("ContractId") %>'>
+                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=contractStatus&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
                                                                 <img src="../images/go_icon.gif" width="15px" alt="" />
                                                             </a>
                                                         </span>

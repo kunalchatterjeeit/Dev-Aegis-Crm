@@ -137,7 +137,7 @@
                             <div class="table-responsive">
                                 <div style="height: 40vh; overflow: scroll">
                                     <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
-                                        AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                        AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" OnPageIndexChanging="gvCustomerMaster_PageIndexChanging"
                                         class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvCustomerMaster_RowCommand">
                                         <Columns>
                                             <asp:TemplateField>
