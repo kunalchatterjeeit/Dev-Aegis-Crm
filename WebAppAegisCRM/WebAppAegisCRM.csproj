@@ -741,7 +741,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">
-      <Project>{F7A73092-5D35-4B16-9A32-5EEF7770E5B7}</Project>
+      <Project>{f7a73092-5d35-4b16-9a32-5eef7770e5b7}</Project>
       <Name>Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entity\Entity.csproj">

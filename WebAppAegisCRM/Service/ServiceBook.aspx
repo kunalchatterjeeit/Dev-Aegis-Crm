@@ -265,8 +265,34 @@
                             <div class="clearfix"></div>
                             <div class="row">
                                 <div class="col-lg-3">
+                                    <div class="form-group">
+                                        A3 BW Last Machine Reading :
+                                        <asp:Label ID="lblDocketA3BWLastReading" runat="server" Text="0" CssClass="form-control"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        A4 BW Last Machine Reading :
+                                        <asp:Label ID="lblDocketA4BWLastReading" runat="server" Text="0" CssClass="form-control"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        A3 CL Last Machine Reading :
+                                        <asp:Label ID="lblDocketA3CLLastReading" runat="server" Text="0" CssClass="form-control"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        A4 CL Last Machine Reading :
+                                        <asp:Label ID="lblDocketA4CLLastReading" runat="server" Text="0" CssClass="form-control"></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        A3 BW Current Meter Reading:                                        
+                                        A3 BW Current Machine Reading:                                        
                                         <asp:TextBox ID="txtA3BWCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number" Text="0"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="txtA3BWCurrentMeterReading_FilteredTextBoxExtender" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA3BWCurrentMeterReading">
@@ -275,7 +301,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        A4 BW Current Meter Reading:                                        
+                                        A4 BW Current Machine Reading:                                        
                                         <asp:TextBox ID="txtA4BWCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number" Text="0"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA4BWCurrentMeterReading">
@@ -284,7 +310,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        A3 CL Current Meter Reading:                                        
+                                        A3 CL Current Machine Reading:                                        
                                         <asp:TextBox ID="txtA3CLCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number" Text="0"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA3CLCurrentMeterReading">
@@ -293,7 +319,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        A4 CL Current Meter Reading:                                        
+                                        A4 CL Current Machine Reading:                                        
                                         <asp:TextBox ID="txtA4CLCurrentMeterReading" runat="server" CssClass="form-control" TextMode="Number" Text="0"></asp:TextBox>
                                         <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" ValidChars="0123456789"
                                             runat="server" TargetControlID="txtA4CLCurrentMeterReading">

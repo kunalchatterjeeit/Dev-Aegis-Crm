@@ -144,7 +144,7 @@
                                                 SN.
                                             </HeaderTemplate>
                                             <ItemTemplate>
-                                                <%# Container.DataItemIndex+1 %>
+                                                <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Customer ID" DataField="CustomerCode" />

@@ -804,7 +804,6 @@ namespace WebAppAegisCRM.Service
             }
             ddlTonerServiceEngineer.InsertSelect();
         }
-       
         private Entity.Service.ServiceBook AssignningValuesToModel(Entity.Service.ServiceBook serviceBook, DataTable dtSpare, DataTable dtAssociatedEngineers)
         {
             serviceBook.ServiceBookId = Business.Common.Context.ServiceBookId;
@@ -1114,6 +1113,19 @@ namespace WebAppAegisCRM.Service
             MessageTonner.Show = false;
             MessageDocket.Show = false;
         }
+        private void LoadLastMachineReading()
+        {
+            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
+            Entity.Customer.Customer customer = objCustomer.CustomerPurchase_GetByCustomerPurchaseId(CustomerPurchaseId);
+
+            if (customer != null)
+            {
+                lblDocketA3BWLastReading.Text = customer.A3BWMeterReading.ToString();
+                lblDocketA4BWLastReading.Text = customer.A4BWMeterReading.ToString();
+                lblDocketA3CLLastReading.Text = customer.A3CLMeterReading.ToString();
+                lblDocketA4CLLastReading.Text = customer.A4CLMeterReading.ToString();
+            }
+        }
         #endregion
 
         #region SYSTEM DEFINED FUNCTIONS
@@ -1266,6 +1278,8 @@ namespace WebAppAegisCRM.Service
 
                 if (gvDocket.DataKeys[gridViewRow.RowIndex].Values != null && gvDocket.DataKeys[gridViewRow.RowIndex].Values.Count > 4)
                     SelectedDocketCallStatusId = Convert.ToInt32(gvDocket.DataKeys[gridViewRow.RowIndex].Values[4].ToString());
+
+                LoadLastMachineReading();
             }
             catch (Exception ex)
             {

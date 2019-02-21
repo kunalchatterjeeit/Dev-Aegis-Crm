@@ -998,5 +998,36 @@ namespace DataAccess.Service
                 return ds;
             }
         }
+
+        public static DataTable Service_GetLastMeterReadingOfSpare(long callId, CallType callType, int itemId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_GetLastMeterReadingOfSpare";
+
+                            cmd.Parameters.AddWithValue("@CallId", callId);
+                            cmd.Parameters.AddWithValue("@CallType", (int)callType);
+                            cmd.Parameters.AddWithValue("@ItemId", itemId);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

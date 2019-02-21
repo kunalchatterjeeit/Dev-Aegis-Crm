@@ -162,5 +162,10 @@ namespace Business.Service
             }
             return retValue;
         }
+
+        public DataTable Service_GetLastMeterReadingOfSpare(long callId, CallType callType, int itemId)
+        {
+            return DataAccess.Service.ServiceBook.Service_GetLastMeterReadingOfSpare(callId, callType, itemId);
+        }
     }
 }

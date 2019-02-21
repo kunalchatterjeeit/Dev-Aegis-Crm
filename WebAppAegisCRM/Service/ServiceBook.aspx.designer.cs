@@ -274,6 +274,42 @@ namespace WebAppAegisCRM.Service {
         protected global::System.Web.UI.WebControls.DropDownList ddlOutTimeTT;
         
         /// <summary>
+        /// lblDocketA3BWLastReading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocketA3BWLastReading;
+        
+        /// <summary>
+        /// lblDocketA4BWLastReading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocketA4BWLastReading;
+        
+        /// <summary>
+        /// lblDocketA3CLLastReading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocketA3CLLastReading;
+        
+        /// <summary>
+        /// lblDocketA4CLLastReading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocketA4CLLastReading;
+        
+        /// <summary>
         /// txtA3BWCurrentMeterReading control.
         /// </summary>
         /// <remarks>

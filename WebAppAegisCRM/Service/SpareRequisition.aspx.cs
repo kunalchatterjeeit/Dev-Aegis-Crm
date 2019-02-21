@@ -43,5 +43,20 @@ namespace WebAppAegisCRM.Service
             }
             ClientScript.RegisterClientScriptBlock(Page.GetType(), "script", "window.close();", true);
         }
+
+        protected void chkSpare_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+            int spareId = int.Parse(gvSpareList.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+
+            Label lblA4BWLastReading = (Label)gridViewRow.FindControl("lblA4BWLastReading");
+
+            DataTable dt = new Business.Service.ServiceBook().Service_GetLastMeterReadingOfSpare(Business.Common.Context.CallId, Business.Common.Context.CallType, spareId);
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                lblA4BWLastReading.Text = dt.Rows[0]["A4BWLast"].ToString();
+            }
+        }
     }
 }

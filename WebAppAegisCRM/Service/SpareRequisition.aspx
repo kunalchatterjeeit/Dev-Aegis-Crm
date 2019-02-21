@@ -22,7 +22,7 @@
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="chkSpare" runat="server"></asp:CheckBox>
+                                    <asp:CheckBox ID="chkSpare" runat="server" OnCheckedChanged="chkSpare_CheckedChanged" AutoPostBack="true"></asp:CheckBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField>
@@ -35,6 +35,12 @@
                             </asp:TemplateField>
                             <asp:BoundField HeaderText="Spare" DataField="SpareName" />
                             <asp:BoundField HeaderText="Yield" DataField="Yield" />
+                            <asp:TemplateField>
+                                <HeaderTemplate>Last A4 BW</HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lblA4BWLastReading" runat="server" Text="0"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField>
                                 <HeaderTemplate>Quantity</HeaderTemplate>
                                 <ItemTemplate>
