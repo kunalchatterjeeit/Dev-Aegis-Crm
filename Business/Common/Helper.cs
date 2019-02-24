@@ -150,5 +150,13 @@ namespace Business.Common
                 retValue = true;
             return retValue;
         }
+
+        public static bool ValidateContinueSelection(this ApplicationModules applicationModules)
+        {
+            bool retValue = false;
+
+            
+            return retValue;
+        }
     }
 }

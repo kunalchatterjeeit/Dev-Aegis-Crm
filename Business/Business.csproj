@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ApplicationModules.cs" />
     <Compile Include="Common\ExtensionHelper.cs" />
     <Compile Include="Common\GlobalCache.cs" />
     <Compile Include="Common\City.cs" />
