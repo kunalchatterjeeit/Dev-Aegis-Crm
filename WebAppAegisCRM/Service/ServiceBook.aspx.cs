@@ -1455,7 +1455,6 @@ namespace WebAppAegisCRM.Service
                     {
                         serviceBook.ServiceBookDetails = new DataTable();
                         serviceBook.ServiceBookDetails.AcceptChanges();
-                        //serviceBook.CallStatusId = (int)CallStatusType.DocketOpenForApproval;
                     }
                     else
                     {

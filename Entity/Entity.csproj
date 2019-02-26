@@ -93,6 +93,8 @@
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\PurchaseRequisitionDetails.cs" />
     <Compile Include="Purchase\Vendor.cs" />
+    <Compile Include="Sale\SaleChallan.cs" />
+    <Compile Include="Sale\SaleChallanDetails.cs" />
     <Compile Include="Service\ApprovalStatus.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\CallStatusType.cs" />

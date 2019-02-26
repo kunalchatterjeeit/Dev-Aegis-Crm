@@ -167,6 +167,7 @@
     <Content Include="Purchase\PurchaseRequisition.aspx" />
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
+    <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />
@@ -538,6 +539,13 @@
     </Compile>
     <Compile Include="Purchase\VendorMasterView.aspx.designer.cs">
       <DependentUpon>VendorMasterView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.designer.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\CallStatus.aspx.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>
