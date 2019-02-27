@@ -1,4 +1,4 @@
-﻿Entity.Inventory;
+﻿using Entity.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
