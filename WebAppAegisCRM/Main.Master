@@ -208,7 +208,7 @@
                     <!-- /.dropdown-tasks -->
                 </li>--%>
                 <!-- /.dropdown -->
-                <li id="liHolidayList" runat="server" class="dropdown">
+                <li id="liHolidayList" runat="server" class="dropdown" visible="false">
                     <a class="dropdown-toggle" href="../HR/HolidayList.aspx">
                         <i class="fa fa-list fa-fw" title="Holiday List"></i> 
                     </a> 
@@ -233,184 +233,184 @@
                         <li>
                             <a href="../Dashboard.aspx"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li  id="liControlPanel" runat="server">
+                        <li  id="liControlPanel" runat="server" visible="false">
                             <a href="#"><i class="fa fa-shield fa-fw"></i> Control Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liServiceCallAttendanceManager" runat="server">
+                                <li id="liServiceCallAttendanceManager" runat="server" visible="false">
                                     <a href="../ControlPanel/CallAttendanceManager.aspx">Service Call Attendance Manager</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li  id="liSettings" runat="server">
+                        <li  id="liSettings" runat="server" visible="false">
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liAddEditCity" runat="server">
+                                <li id="liAddEditCity" runat="server" visible="false">
                                     <a href="../Common/City.aspx">Add/Edit City</a>
                                 </li>
-                                <li id="liAddEditContractType" runat="server">
+                                <li id="liAddEditContractType" runat="server" visible="false">
                                     <a href="../Customer/Contract.aspx">Add/Edit Contract Type</a>
                                 </li>
-                                <li id="liAddEditCallStatus" runat="server">
+                                <li id="liAddEditCallStatus" runat="server" visible="false">
                                     <a href="../Service/CallStatus.aspx">Add/Edit Call Status</a>
                                 </li>
-                                <li id="liAddEditActionTaken" runat="server">
+                                <li id="liAddEditActionTaken" runat="server" visible="false">
                                     <a href="../Service/ActionTaken.aspx">Add/Edit Action Taken</a>
                                 </li>
-                                <li id="liAddEditDiagnosis" runat="server">
+                                <li id="liAddEditDiagnosis" runat="server" visible="false">
                                     <a href="../Service/Diagnosis.aspx">Add/Edit Diagnosis</a>
                                 </li>
-                                <li id="liProblemObserved" runat="server">
+                                <li id="liProblemObserved" runat="server" visible="false">
                                     <a href="../Service/ProblemObserved.aspx">Add/Edit Problem Observed</a>
                                 </li>
-                                <li id="liAddEditBrand" runat="server">
+                                <li id="liAddEditBrand" runat="server" visible="false">
                                     <a href="../Inventory/Brand.aspx">Add/Edit Brand</a>
                                 </li>
-                                <li id="liAddEditModelCategory" runat="server">
+                                <li id="liAddEditModelCategory" runat="server" visible="false">
                                     <a href="../Inventory/ProductCategory.aspx">Add/Edit Model Category</a>
                                 </li>
-                                <li id="liAddEditModel" runat="server">
+                                <li id="liAddEditModel" runat="server" visible="false">
                                     <a href="../Inventory/Product.aspx">Add/Edit Model</a>
                                 </li>
-                                <li id="liAddEditSpare" runat="server">
+                                <li id="liAddEditSpare" runat="server" visible="false">
                                     <a href="../Inventory/Spare.aspx">Add/Edit Spare/Consumables</a>
                                 </li>
-                                <li id="liModelSpareMapping" runat="server">
+                                <li id="liModelSpareMapping" runat="server" visible="false">
                                     <a href="../Inventory/ProductSpareMapping.aspx">Model Spare Mapping</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li  id="liHR" runat="server">
+                        <li  id="liHR" runat="server" visible="false">
                             <a href="#"><i class="fa fa-user fa-fw"></i> HR<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liAddEditRole" runat="server">
+                                <li id="liAddEditRole" runat="server" visible="false">
                                     <a href="../HR/RoleMaster.aspx">Add/Edit Role</a>
                                 </li>
-                                <li id="liManageRoleAccess" runat="server">
+                                <li id="liManageRoleAccess" runat="server" visible="false">
                                     <a href="../HR/RoleAccessLevel.aspx">Manage Role Access</a>
                                 </li>
                                 <li id="liAddEditEmployee" runat="server">
                                     <a href="../HR/Employee.aspx">Add/Edit Employee</a>
                                 </li>
-                                <li id="liLoyaltyPointReasonMaster" runat="server">
+                                <li id="liLoyaltyPointReasonMaster" runat="server" visible="false">
                                     <a href="../HR/LoyaltyPointReasonMaster.aspx">Add/Edit Loyalty Point Reason</a>
                                 </li>
-                                <li id="liEmployeeLoyaltyPoint" runat="server">
+                                <li id="liEmployeeLoyaltyPoint" runat="server" visible="false">
                                     <a href="../HR/EmployeeLoyaltyPoint.aspx">Employee Loyalty Point List</a>
                                 </li>
-                                <li id="liHolidayProfile" runat="server">
+                                <li id="liHolidayProfile" runat="server" visible="false">
                                     <a href="../HR/HolidayProfile.aspx">Add/Edit Holiday Profile</a>
                                 </li>
-                                <li id="liHoliday" runat="server">
+                                <li id="liHoliday" runat="server" visible="false">
                                     <a href="../HR/Holiday.aspx">Add/Edit Holiday</a>
                                 </li>
-                                <li id="liEmployeeHolidayProfileMapping" runat="server">
+                                <li id="liEmployeeHolidayProfileMapping" runat="server" visible="false">
                                     <a href="../HR/EmployeeHolidayProfileMapping.aspx">Employee Holiday Profile Mapping</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li  id="liLeaveManagement" runat="server">
+                        <li  id="liLeaveManagement" runat="server" visible="false">
                             <a href="#"><i class="fa fa-life-saver fa-fw"></i> Leave Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liLeaveConfiguration" runat="server">
+                                <li id="liLeaveConfiguration" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveConfig.aspx">Leave Configuration</a>
                                 </li>
-                                <li id="liLeaveDesignationConfiguration" runat="server">
+                                <li id="liLeaveDesignationConfiguration" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveDesignationConfiguration.aspx">Leave Designation Configuration</a>
                                 </li>
-                                <li id="liLeaveApply" runat="server">
+                                <li id="liLeaveApply" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
                                 </li>
-                                <li id="liLeaveApprove" runat="server">
+                                <li id="liLeaveApprove" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveApprove.aspx">Leave Approve</a>
                                 </li>
-                                 <li id="liLeaveApplicationList" runat="server">
+                                 <li id="liLeaveApplicationList" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveApplicationList.aspx">Leave Application List</a>
                                 </li>
-                                <li id="liLeaveGenerate" runat="server">
+                                <li id="liLeaveGenerate" runat="server" visible="false">
                                     <a href="../LeaveManagement/GenerateLeave.aspx">Generate Leave</a>
                                 </li>
-                                 <li id="liLeaveAdjustment" runat="server">
+                                 <li id="liLeaveAdjustment" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveAdjustment.aspx">Leave Adjustment</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="liInventory" runat="server">
+                        <li id="liInventory" runat="server" visible="false">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liPurchaseRequisitionEntry" runat="server">
+                                <li id="liPurchaseRequisitionEntry" runat="server" visible="false">
                                     <a href="../Purchase/PurchaseRequisition.aspx">Purchase Requisition Entry</a>
                                 </li>
-                                <li id="liPurchaseEntry" runat="server">
+                                <li id="liPurchaseEntry" runat="server" visible="false">
                                     <a href="../Purchase/Purchase.aspx">Purchase Entry</a>
                                 </li>
-                                <li id="liPurchaseList" runat="server">
+                                <li id="liPurchaseList" runat="server" visible="false">
                                     <a href="../Purchase/PurchaseList.aspx">Purchase List</a>
                                 </li> 
-                                <li id="liStockLookup" runat="server">
+                                <li id="liStockLookup" runat="server" visible="false">
                                     <a href="../Inventory/StockSnap.aspx">Stock Lookup</a>
                                 </li>
-                                <li id="liVendorMaster" runat="server">
+                                <li id="liVendorMaster" runat="server" visible="false">
                                     <a href="../Purchase/VendorMaster.aspx">Add/Edit Vendor</a>
                                 </li>
-                                 <li id="liVendorList" runat="server">
+                                 <li id="liVendorList" runat="server" visible="false">
                                     <a href="../Purchase/VendorMasterView.aspx">Vendor List</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="liService" runat="server">
+                        <li id="liService" runat="server" visible="false">
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liAddEditCustomer" runat="server">
+                                <li id="liAddEditCustomer" runat="server" visible="false">
                                     <a href="../Customer/CustomerMaster.aspx">Add/Edit Customer</a>
                                 </li>
-                                <li id="liTagCustomerModel" runat="server">
+                                <li id="liTagCustomerModel" runat="server" visible="false">
                                     <a href="../Customer/CustomerPurchase.aspx">Tag Customer Model</a>
                                 </li>
-                                <li id="liDocketEntry" runat="server">
+                                <li id="liDocketEntry" runat="server" visible="false">
                                     <a href="../Service/EmployeeDocket.aspx">Docket Entry</a>
                                 </li>
-                                <li id="liTonnerRequestEntry" runat="server">
+                                <li id="liTonnerRequestEntry" runat="server" visible="false">
                                     <a href="../Service/EmployeeTonnerRequest.aspx">Toner Request Entry</a>
                                 </li>
-                                <li id="liTonerRequestApproval" runat="server">
+                                <li id="liTonerRequestApproval" runat="server" visible="false">
                                     <a href="../Service/TonerApproval.aspx">Toner Request Approval</a>
                                 </li>
-                                <li id="liServiceBook" runat="server">
+                                <li id="liServiceBook" runat="server" visible="false">
                                     <a href="../Service/ServiceBook.aspx">Service Book</a>
                                 </li>
-                                <li id="liServiceBookApproval" runat="server">
+                                <li id="liServiceBookApproval" runat="server" visible="false">
                                     <a href="../Service/ServiceBookSpareApproval.aspx">Service Book Approval</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li id="liReport" runat="server">
+                        <li id="liReport" runat="server" visible="false">
                             <a href="#"><i class="fa fa-database fa-fw"></i> Reports<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liCustomerList" runat="server">
+                                <li id="liCustomerList" runat="server" visible="false">
                                     <a href="../Customer/CustomerList.aspx">Customer List</a>
                                 </li>
-                                <li id="liContractStatus" runat="server">
+                                <li id="liContractStatus" runat="server" visible="false">
                                     <a href="../Service/ContractStatus.aspx">Contract Status Report</a>
                                 </li>
-                                <li id="liTonnerRequestList" runat="server">
+                                <li id="liTonnerRequestList" runat="server" visible="false">
                                     <a href="../Service/TonnerRequestList.aspx">Toner Request List</a>
                                 </li>
-                                <li id="liDocketList" runat="server">
+                                <li id="liDocketList" runat="server" visible="false">
                                     <a href="../Service/DocketList.aspx">Docket List</a>
                                 </li>
-                                <li id="liServiceBookReport" runat="server">
+                                <li id="liServiceBookReport" runat="server" visible="false">
                                     <a href="../Service/ServiceBookReport.aspx">Service Book Report</a>
                                 </li>
-                                <li id="liLeaveReport" runat="server">
+                                <li id="liLeaveReport" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
                                 </li>
-                                <li id="liSpareTonerUsage" runat="server">
+                                <li id="liSpareTonerUsage" runat="server" visible="false">
                                     <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
                                 </li>
                             </ul>

@@ -3,6 +3,8 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+<%@ Import Namespace="Business.Common" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="../js/MyJavaScript.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -297,7 +299,7 @@
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("EmployeeMasterId") %>'
-                                                    CommandName="Leave">Leave Settings</asp:LinkButton>
+                                                    CommandName="Leave" Visible="<%# Business.Common.ApplicationModules.HrModule.ModulePermission() %>">Leave Settings</asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField>

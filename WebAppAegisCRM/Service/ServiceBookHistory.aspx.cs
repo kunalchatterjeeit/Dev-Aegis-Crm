@@ -1,4 +1,5 @@
-﻿using Entity.Service;
+﻿using Business.Common;
+using Entity.Service;
 using System;
 using System.Data;
 
@@ -10,9 +11,16 @@ namespace WebAppAegisCRM.Service
         {
             if (!IsPostBack)
             {
-                LoadServiceBookMasterHistory();
-                string source = string.Concat("CSR.aspx", "?docketno=", Convert.ToString(Business.Common.Context.DocketNo));
-                iframe.Attributes.Add("src", source);
+                try
+                {
+                    LoadServiceBookMasterHistory();
+                    string source = string.Concat("CSR.aspx", "?docketno=", Convert.ToString(Business.Common.Context.DocketNo));
+                    iframe.Attributes.Add("src", source);
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                }
             }
         }
 
