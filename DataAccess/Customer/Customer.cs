@@ -296,7 +296,7 @@ namespace DataAccess.Customer
             return customer;
         }
 
-        public static int CustomerPurchase_DeleteByCustomerPurchaseId(Int64 customerpurchaseid)
+        public static int CustomerPurchase_DeleteByCustomerPurchaseId(long customerpurchaseid)
         {
             int i = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -307,6 +307,28 @@ namespace DataAccess.Customer
                     cmd.CommandText = "usp_Customer_CustomerPurchase_DeleteByCustomerPurchaseId";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerpurchaseid);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    i = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return i;
+        }
+
+        public static int Customer_CustomerPurchaseAssignEngineer_Save(long customerpurchaseid, int assignedEngineerId)
+        {
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_Customer_CustomerPurchaseAssignEngineer_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CustomerPurchaseid", customerpurchaseid);
+                    cmd.Parameters.AddWithValue("@AssignedEngineerId", assignedEngineerId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();

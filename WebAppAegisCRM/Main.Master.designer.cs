@@ -418,6 +418,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liTagCustomerModel;
         
         /// <summary>
+        /// liCustomerPurchaseAssignEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liCustomerPurchaseAssignEngineer;
+        
+        /// <summary>
         /// liDocketEntry control.
         /// </summary>
         /// <remarks>

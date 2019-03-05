@@ -371,6 +371,9 @@
                                 <li id="liTagCustomerModel" runat="server">
                                     <a href="../Customer/CustomerPurchase.aspx">Tag Customer Model</a>
                                 </li>
+                                <li id="liCustomerPurchaseAssignEngineer" runat="server">
+                                    <a href="../Customer/CustomerPurchaseAssignEngineer.aspx">Assign Engineer Bulk</a>
+                                </li>
                                 <li id="liDocketEntry" runat="server">
                                     <a href="../Service/EmployeeDocket.aspx">Docket Entry</a>
                                 </li>
