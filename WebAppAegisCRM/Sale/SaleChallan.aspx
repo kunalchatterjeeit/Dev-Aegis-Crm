@@ -24,6 +24,9 @@
                 return false;
             }
         }
+        function OpenWindow(page) {
+            window.open(page, 'mypopuptitle', 'width=1000,height=600');
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

@@ -139,5 +139,32 @@ namespace DataAccess.Inventory
                 return dt;
             }
         }
+
+        public static DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Inventory_GetInventoryItem";
+                        cmd.Parameters.AddWithValue("@AssetLocationId", (int)assetLocation);
+                        cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
+                        cmd.Parameters.AddWithValue("@ItemName", itemName);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

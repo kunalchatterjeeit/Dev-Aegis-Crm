@@ -193,7 +193,7 @@
                                                     <asp:BoundField HeaderText="Item Type" DataField="ItemType" />
                                                     <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
                                                     <asp:BoundField HeaderText="Rate" DataField="Rate" />
-                                                    <asp:BoundField HeaderText="Discount" DataField="Discount" />
+                                                    <%--<asp:BoundField HeaderText="Discount" DataField="Discount" />--%>
                                                     <asp:BoundField HeaderText="GST" DataField="GST" />
                                                     <asp:BoundField HeaderText="HSN Code" DataField="HSNCode" />
                                                     <asp:TemplateField>

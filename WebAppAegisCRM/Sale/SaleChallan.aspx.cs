@@ -179,6 +179,8 @@ namespace WebAppAegisCRM.Sale
             _ItemsList.AcceptChanges();
 
             LoadItemList();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "OpenWindow('AssetSelection.aspx?ItemNo=" + ddlItem.SelectedItem.Text + "');", true);
+
             ClearItemControls();
         }
 
