@@ -88,6 +88,7 @@
     <Content Include="Customer\CustomerMaster.aspx" />
     <Content Include="Customer\CustomerList.aspx" />
     <Content Include="Customer\CustomerPurchase.aspx" />
+    <Content Include="Customer\CustomerPurchaseAssignEngineer.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="dist\css\custom-popup.css" />
@@ -270,6 +271,13 @@
     </Compile>
     <Compile Include="Customer\CustomerPurchase.aspx.designer.cs">
       <DependentUpon>CustomerPurchase.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.designer.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
