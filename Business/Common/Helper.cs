@@ -151,11 +151,17 @@ namespace Business.Common
             return retValue;
         }
 
-        public static bool ValidateContinueSelection(this ApplicationModules applicationModules)
+        public static bool ModulePermission(this ApplicationModules applicationModules)
         {
             bool retValue = false;
-
-            
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(applicationModules.ToString()))
+            {
+                string value = (string)(new AppSettingsReader()).GetValue(applicationModules.ToString(), typeof(String));
+                if (applicationModules.ToString() == value.DecryptMd5Padding(CryptographyMode.Md5))
+                {
+                    retValue = true;
+                }
+            }
             return retValue;
         }
     }
