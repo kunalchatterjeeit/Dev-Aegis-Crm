@@ -21,6 +21,7 @@ namespace WebAppAegisCRM.Customer
             ddlCustomer.DataTextField = "CustomerName";
             ddlCustomer.DataValueField = "CustomerMasterId";
             ddlCustomer.DataBind();
+            ddlCustomer.InsertSelect();
         }
 
         private void LoadEmployee(DropDownList ddlAssignEngineer)
@@ -41,9 +42,36 @@ namespace WebAppAegisCRM.Customer
         private void LoadCustomerPurchase()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            DataTable dtPurchase = objCustomer.CustomerPurchase_GetByCustomerId(int.Parse(ddlCustomer.SelectedValue));
-            gvCustomerPurchase.DataSource = dtPurchase;
-            gvCustomerPurchase.DataBind();
+            Entity.Customer.Customer customer = new Entity.Customer.Customer()
+            {
+                CustomerMasterId = Convert.ToInt32(ddlCustomer.SelectedValue),
+                SerialNo = txtSerialNo.Text.Trim(),
+                AssignEngineer = Convert.ToInt32(ddlAssignedEngineer.SelectedValue),
+                PageIndex = gvCustomerPurchase.PageIndex,
+                PageSize = gvCustomerPurchase.PageSize,
+            };
+            DataSet dsPurchase = objCustomer.Customer_CustomerPurchase_GetAll(customer);
+            if (dsPurchase.Tables.Count > 1)
+            {
+                gvCustomerPurchase.DataSource = dsPurchase.Tables[0];
+                gvCustomerPurchase.VirtualItemCount = (dsPurchase.Tables[1].Rows.Count > 0) ? Convert.ToInt32(dsPurchase.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
+                gvCustomerPurchase.DataBind();
+            }
+        }
+
+        private void LoadEmployee()
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+
+            employeeMaster.CompanyId_FK = 1;
+            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
+            ddlAssignedEngineer.DataSource = dt;
+            ddlAssignedEngineer.DataTextField = "EmployeeName";
+            ddlAssignedEngineer.DataValueField = "EmployeeMasterId";
+            ddlAssignedEngineer.DataBind();
+            ddlAssignedEngineer.InsertSelect();
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -52,6 +80,7 @@ namespace WebAppAegisCRM.Customer
             {
                 Message.Show = false;
                 LoadCustomer();
+                LoadEmployee();
                 LoadCustomerPurchase();
             }
         }
@@ -88,7 +117,8 @@ namespace WebAppAegisCRM.Customer
                             objCustomer.Customer_CustomerPurchaseAssignEngineer_Save(customerPurchaseId, assignedEngineerId);
                         }
                     }
-
+                    LoadCustomerPurchase();
+                    ClearControls();
                     Message.IsSuccess = true;
                     Message.Text = "Engineers are assigned successfully.";
                 }
@@ -100,6 +130,14 @@ namespace WebAppAegisCRM.Customer
                 Message.Text = ex.Message;
             }
             Message.Show = true;
+        }
+
+        private void ClearControls()
+        {
+            Message.Show = false;
+            ddlAssignedEngineer.SelectedIndex = 0;
+            ddlCustomer.SelectedIndex = 0;
+            txtSerialNo.Text = string.Empty;
         }
 
         private bool ValidateAssignment()
@@ -150,6 +188,12 @@ namespace WebAppAegisCRM.Customer
                 Message.Text = ex.Message;
                 Message.Show = true;
             }
+        }
+
+        protected void gvCustomerPurchase_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerPurchase.PageIndex = e.NewPageIndex;
+            LoadCustomerPurchase();
         }
     }
 }

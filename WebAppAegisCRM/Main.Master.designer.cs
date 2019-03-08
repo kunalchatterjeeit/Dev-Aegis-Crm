@@ -337,6 +337,24 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liInventory;
         
         /// <summary>
+        /// liVendorMaster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorMaster;
+        
+        /// <summary>
+        /// liVendorList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorList;
+        
+        /// <summary>
         /// liPurchaseRequisitionEntry control.
         /// </summary>
         /// <remarks>
@@ -373,22 +391,22 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStockLookup;
         
         /// <summary>
-        /// liVendorMaster control.
+        /// liSaleEntry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorMaster;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSaleEntry;
         
         /// <summary>
-        /// liVendorList control.
+        /// liSaleChallanList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSaleChallanList;
         
         /// <summary>
         /// liService control.

@@ -364,5 +364,42 @@ namespace DataAccess.Customer
                 return dt;
             }
         }
+
+        public static DataSet Customer_CustomerPurchase_GetAll(Entity.Customer.Customer customer)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_Customer_CustomerPurchase_GetAll";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        if (customer.CustomerMasterId == 0)
+                            cmd.Parameters.AddWithValue("@CustomerId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerId", customer.CustomerMasterId);
+                        if (string.IsNullOrEmpty(customer.SerialNo))
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", customer.SerialNo);
+                        if (customer.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignedEngineerId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignedEngineerId", customer.AssignEngineer);
+                        cmd.InsertPaging(customer, customer.CustomerMasterId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
     }
 }

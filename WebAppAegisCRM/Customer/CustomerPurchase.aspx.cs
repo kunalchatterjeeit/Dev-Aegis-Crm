@@ -81,6 +81,7 @@ namespace WebAppAegisCRM.Customer
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
             customer.CompanyMasterId_FK = 1;
+            customer.CustomerName = txtName.Text.Trim();
             customer.PageIndex = gvCustomerMaster.PageIndex;
             customer.PageSize = gvCustomerMaster.PageSize;
 
@@ -589,6 +590,11 @@ namespace WebAppAegisCRM.Customer
         protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvCustomerMaster.PageIndex = e.NewPageIndex;
+            GetAllCustomer();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
             GetAllCustomer();
         }
     }

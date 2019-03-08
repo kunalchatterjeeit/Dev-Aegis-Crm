@@ -25,6 +25,11 @@ namespace Business.Sale
             return DataAccess.Sale.SaleChallan.Sale_Challan_GetById(saleChallanid);
         }
 
+        public DataTable SaleChallanDetails_GetBySaleChallanId(long saleChallanId)
+        {
+            return DataAccess.Sale.SaleChallan.SaleChallanDetails_GetBySaleChallanId(saleChallanId);
+        }
+
         public static implicit operator SaleChallan(Purchase.Purchase v)
         {
             throw new NotImplementedException();

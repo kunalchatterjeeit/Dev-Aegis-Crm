@@ -43,7 +43,16 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField HeaderText="Customer ID" DataField="CustomerCode" />
-                                            <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Name
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <span title='<%# Eval("CustomerName") %>'>
+                                                        <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                    </span>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="Customer Type">
                                                 <ItemTemplate>
                                                     <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>

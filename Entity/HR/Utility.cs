@@ -43,6 +43,9 @@ namespace Entity.HR
         public const string PURCHASE_LIST = "304";
         public const string STOCK_LOOKUP = "305";
         public const string PURCHASE_REQUISITION_ENTRY = "306";
+        public const string SALE_CHALLAN_ENTRY = "307";
+        public const string SALE_CHALLAN_LIST = "308";
+
 
 
         //Service

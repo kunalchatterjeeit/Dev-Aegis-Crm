@@ -34,5 +34,6 @@ namespace Entity.Service
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public int AssignEngineer { get; set; }
+        public string ProductSerialNo { get; set; }
     }
 }

@@ -88,9 +88,9 @@
                         </EmptyDataTemplate>
                     </asp:GridView>
                 </div>
+                <asp:Button ID="btnSave" runat="server" Text="Proceed" OnClick="btnSave_Click" class="btn"/>
             </ContentTemplate>
         </asp:UpdatePanel>
-
     </form>
 </body>
 </html>

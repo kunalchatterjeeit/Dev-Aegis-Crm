@@ -110,7 +110,7 @@ namespace DataAccess.Inventory
             }
         }
 
-        public static DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation,ItemType itemType)
+        public static DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType)
         {
             using (DataTable dt = new DataTable())
             {
@@ -165,6 +165,37 @@ namespace DataAccess.Inventory
                 }
                 return dt;
             }
+        }
+
+        public static int Inventory_Movement(Entity.Inventory.Inventory inventory)
+        {
+            int rowsAffacted = 0;
+
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_Inventory_Movement";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    foreach (DataRow dr in inventory.InventoryDetails.Rows)
+                    {
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@AssetId", dr["AssetId"].ToString());
+                        cmd.Parameters.AddWithValue("@AssetLocationId", dr["AssetLocationId"].ToString());
+                        cmd.Parameters.AddWithValue("@CustomerId", dr["CustomerId"].ToString());
+                        cmd.Parameters.AddWithValue("@SaleChallanId", dr["SaleChallanId"].ToString());
+                        cmd.Parameters.AddWithValue("@EmployeeId", dr["EmployeeId"].ToString());
+
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        rowsAffacted += cmd.ExecuteNonQuery();
+                    }
+                    con.Close();
+                }
+            }
+
+            return rowsAffacted;
         }
     }
 }

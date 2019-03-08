@@ -69,5 +69,10 @@ namespace Business.Customer
         {
             return DataAccess.Customer.Customer.Customer_CustomerPurchaseAssignEngineer_Save(customerpurchaseid, assignedEngineerId);
         }
+
+        public DataSet Customer_CustomerPurchase_GetAll(Entity.Customer.Customer customer)
+        {
+            return DataAccess.Customer.Customer.Customer_CustomerPurchase_GetAll(customer);
+        }
     }
 }

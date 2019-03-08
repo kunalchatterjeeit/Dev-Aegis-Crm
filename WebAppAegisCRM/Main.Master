@@ -341,6 +341,12 @@
                         <li id="liInventory" runat="server">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li id="liVendorMaster" runat="server">
+                                    <a href="../Purchase/VendorMaster.aspx">Add/Edit Vendor</a>
+                                </li>
+                                 <li id="liVendorList" runat="server">
+                                    <a href="../Purchase/VendorMasterView.aspx">Vendor List</a>
+                                </li>
                                 <li id="liPurchaseRequisitionEntry" runat="server">
                                     <a href="../Purchase/PurchaseRequisition.aspx">Purchase Requisition Entry</a>
                                 </li>
@@ -353,12 +359,12 @@
                                 <li id="liStockLookup" runat="server">
                                     <a href="../Inventory/StockSnap.aspx">Stock Lookup</a>
                                 </li>
-                                <li id="liVendorMaster" runat="server">
-                                    <a href="../Purchase/VendorMaster.aspx">Add/Edit Vendor</a>
+                                <li id="liSaleEntry" runat="server">
+                                    <a href="../Sale/SaleChallan.aspx">Sale Challan Entry</a>
                                 </li>
-                                 <li id="liVendorList" runat="server">
-                                    <a href="../Purchase/VendorMasterView.aspx">Vendor List</a>
-                                </li>
+                                <li id="liSaleChallanList" runat="server">
+                                    <a href="../Sale/SaleChallanList.aspx">Sale Challan List</a>
+                                </li> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

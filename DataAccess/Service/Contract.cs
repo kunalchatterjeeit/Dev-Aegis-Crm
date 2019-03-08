@@ -272,6 +272,10 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@AssignEngineer", contract.AssignEngineer);
+                        if (contract.ProductSerialNo == "")
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", contract.ProductSerialNo);
                         cmd.InsertPaging(contract, contract.ContractId);
 
                         if (con.State == ConnectionState.Closed)

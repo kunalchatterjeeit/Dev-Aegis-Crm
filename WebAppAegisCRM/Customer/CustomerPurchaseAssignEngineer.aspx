@@ -26,26 +26,34 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Customer Basic Details
+                            Search Criteria
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
-                                        Customer Type
+                                        Customer
                                         <asp:DropDownList ID="ddlCustomer" CssClass="form-control" runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <br />
-                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success pull-right extra-margin "
-                                        OnClick="btnSearch_Click" />
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Assigned Engineer
+                                        <asp:DropDownList ID="ddlAssignedEngineer" CssClass="form-control" runat="server">
+                                        </asp:DropDownList>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Serial No
+                                        <asp:TextBox ID="txtSerialNo" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <br />
-                                    <asp:Button ID="btnSaveAssignment" runat="server" Text="Save Assignment" CssClass="btn btn-outline btn-success pull-right extra-margin "
-                                        OnClick="btnSaveAssignment_Click" />
+                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success pull-left extra-margin "
+                                        OnClick="btnSearch_Click" />
                                 </div>
                                 <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />
@@ -61,11 +69,21 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-lg-8">
+                                    <span class="red">Please select checkbox in list to change Assign Engineer and click on Save Assignment to commit changes.</span>
+                                </div>
+                                <div class="col-lg-4">
+                                    <asp:Button ID="btnSaveAssignment" runat="server" Text="Save Assignment" CssClass="btn btn-outline btn-danger pull-right extra-margin "
+                                        OnClick="btnSaveAssignment_Click" />
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-lg-12">
                                         <asp:GridView ID="gvCustomerPurchase" DataKeyNames="CustomerPurchaseId" runat="server"
-                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="true"
-                                            Style="text-align: left" GridLines="None" class="table table-striped" OnRowDataBound="gvCustomerPurchase_RowDataBound">
+                                            AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="true" AllowCustomPaging="true" PageSize="20"
+                                            Style="text-align: left" GridLines="None" class="table table-striped" OnRowDataBound="gvCustomerPurchase_RowDataBound"
+                                            OnPageIndexChanging="gvCustomerPurchase_PageIndexChanging">
                                             <Columns>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
@@ -77,14 +95,24 @@
                                                         SN.
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <%#  (Container.DataItemIndex + 1) %>
+                                                        <%#  (gvCustomerPurchase.PageIndex * gvCustomerPurchase.PageSize) + (Container.DataItemIndex + 1) %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Customer Name
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <span title='<%# Eval("CustomerName") %>'>
+                                                            <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                        </span>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Brand" DataField="BrandName" />
-                                                <asp:BoundField HeaderText="Product Code" DataField="ProductCode" />
                                                 <asp:BoundField HeaderText="Product Name" DataField="ProductName" />
                                                 <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNo" />
                                                 <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
+                                                <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
                                                 <asp:BoundField HeaderText="Assigned Engineer" DataField="AssignedEngineerName" />
                                                 <asp:TemplateField>
                                                     <HeaderTemplate>

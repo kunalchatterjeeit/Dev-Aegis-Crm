@@ -57,6 +57,8 @@ namespace WebAppAegisCRM
                 liVendorMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADD_EDIT_VENDOR);
                 liVendorList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.VENDOR_LIST);
                 liPurchaseRequisitionEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.PURCHASE_REQUISITION_ENTRY);
+                liSaleEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_ENTRY);
+                liSaleChallanList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_LIST);
 
                 //SERVICE
                 liService.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE);

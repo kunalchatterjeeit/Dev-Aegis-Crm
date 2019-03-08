@@ -54,6 +54,18 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Name
+                                        <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 left">
+                                    <br />
+                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success pull-left extra-margin" OnClick="btnSearch_Click" />
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-lg-12">
                                         <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
@@ -66,7 +78,7 @@
                                                         SN.
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                       <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
+                                                        <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Customer Id" DataField="CustomerCode" />
