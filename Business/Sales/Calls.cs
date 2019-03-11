@@ -1,4 +1,6 @@
 ﻿
+using Business.Common;
+using DataAccessEntity.Sales;
 using System.Collections.Generic;
 using System.Data;
 
@@ -13,19 +15,27 @@ namespace Business.Sales
 
         public List<Entity.Sales.CallStatus> GetCallStatus()
         {
-            return DataAccessEntity.Sales.CallsDataAccess.GetCallStatus();
+            List<Entity.Sales.CallStatus> callStatusList = new List<Entity.Sales.CallStatus>();
+            CallsDataAccess.GetCallStatus().CopyListTo(callStatusList);
+            return callStatusList;
         }
         public List<Entity.Sales.CallRelated> GetCallRelated()
         {
-            return DataAccessEntity.Sales.CallsDataAccess.GetCallRelated();
+            List<Entity.Sales.CallRelated> callRelatedList = new List<Entity.Sales.CallRelated>();
+            CallsDataAccess.GetCallRelated().CopyListTo(callRelatedList);
+            return callRelatedList;
         }
         public List<Entity.Sales.CallRepeatType> GetCallRepeatType()
         {
-            return DataAccessEntity.Sales.CallsDataAccess.GetCallRepeatType();
+            List<Entity.Sales.CallRepeatType> callRepeatTypeList = new List<Entity.Sales.CallRepeatType>();
+            CallsDataAccess.GetCallRepeatType().CopyListTo(callRepeatTypeList);
+            return callRepeatTypeList;
         }
         public List<Entity.Sales.CallDirection> GetCallDirection()
         {
-            return DataAccessEntity.Sales.CallsDataAccess.GetCallDirection();
+            List<Entity.Sales.CallDirection> callDirectionList = new List<Entity.Sales.CallDirection>();
+            CallsDataAccess.GetCallDirection().CopyListTo(callDirectionList);
+            return callDirectionList;
         }
     }
 }
