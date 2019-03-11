@@ -8,22 +8,6 @@ namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerPurchaseAssignEngineer : System.Web.UI.Page
     {
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customer.AssignEngineer = 0;
-            else
-                customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ddlCustomer.InsertSelect();
-        }
-
         private void LoadEmployee(DropDownList ddlAssignEngineer)
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -44,7 +28,7 @@ namespace WebAppAegisCRM.Customer
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer()
             {
-                CustomerMasterId = Convert.ToInt32(ddlCustomer.SelectedValue),
+                CustomerName = txtCustomerName.Text.Trim(),
                 SerialNo = txtSerialNo.Text.Trim(),
                 AssignEngineer = Convert.ToInt32(ddlAssignedEngineer.SelectedValue),
                 PageIndex = gvCustomerPurchase.PageIndex,
@@ -79,7 +63,7 @@ namespace WebAppAegisCRM.Customer
             if (!IsPostBack)
             {
                 Message.Show = false;
-                LoadCustomer();
+                //LoadCustomer();
                 LoadEmployee();
                 LoadCustomerPurchase();
             }
@@ -136,7 +120,7 @@ namespace WebAppAegisCRM.Customer
         {
             Message.Show = false;
             ddlAssignedEngineer.SelectedIndex = 0;
-            ddlCustomer.SelectedIndex = 0;
+            txtCustomerName.Text = string.Empty;
             txtSerialNo.Text = string.Empty;
         }
 

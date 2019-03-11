@@ -33,7 +33,7 @@ namespace WebAppAegisCRM.Service
             if (!IsPostBack)
             {
                 LoadCallStatus();
-                LoadCustomer();
+                //LoadCustomer();
                 LoadProduct();
                 LoadDocket();
             }
@@ -54,21 +54,6 @@ namespace WebAppAegisCRM.Service
             }
             ddlCallStatus.InsertSelect();
         }
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customer.AssignEngineer = 0;
-            else
-                customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ddlCustomer.InsertSelect();
-        }
         private void LoadProduct()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
@@ -87,7 +72,7 @@ namespace WebAppAegisCRM.Service
             Entity.Service.Docket docket = new Entity.Service.Docket();
 
             docket.DocketNo = txtDocketNo.Text.Trim();
-            docket.CustomerId = int.Parse(ddlCustomer.SelectedValue);
+            docket.CustomerName = txtCustomerName.Text.Trim();
             docket.ProductId = int.Parse(ddlProduct.SelectedValue);
             docket.DocketFromDateTime = (txtFromDocketDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromDocketDate.Text);
             docket.DocketToDateTime = (txtToDocketDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToDocketDate.Text);

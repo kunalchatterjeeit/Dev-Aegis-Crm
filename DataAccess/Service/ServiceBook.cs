@@ -215,10 +215,10 @@ namespace DataAccess.Service
 
                         cmd.Parameters.AddWithValue("@CallType", calltype);
 
-                        if (serviceBook.CustomerId == 0)
-                            cmd.Parameters.AddWithValue("@CustomerId", DBNull.Value);
+                        if (string.IsNullOrEmpty(serviceBook.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@CustomerId", serviceBook.CustomerId);
+                            cmd.Parameters.AddWithValue("@CustomerName", serviceBook.CustomerName);
 
                         if (serviceBook.ModelId == 0)
                             cmd.Parameters.AddWithValue("@ModelId", DBNull.Value);
@@ -959,10 +959,10 @@ namespace DataAccess.Service
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Service_SpareUsage";
 
-                        if (serviceBook.CustomerId == 0)
-                            cmd.Parameters.AddWithValue("@CustomerMasterId", DBNull.Value);
+                        if (string.IsNullOrEmpty(serviceBook.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@CustomerMasterId", serviceBook.CustomerId);
+                            cmd.Parameters.AddWithValue("@CustomerName", serviceBook.CustomerName);
                         if (string.IsNullOrEmpty(serviceBook.RequestNo))
                             cmd.Parameters.AddWithValue("@CallNo", DBNull.Value);
                         else

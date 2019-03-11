@@ -33,9 +33,8 @@ namespace WebAppAegisCRM.Service
             if (!IsPostBack)
             {
                 LoadCallStatus();
-                LoadCustomer();
                 LoadProduct();
-                LoadTonnerRequest(1, gvTonnerRequest.PageSize);
+                LoadTonnerRequest();
             }
         }
 
@@ -54,21 +53,21 @@ namespace WebAppAegisCRM.Service
             }
             ddlCallStatus.InsertSelect();
         }
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customer.AssignEngineer = 0;
-            else
-                customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ddlCustomer.InsertSelect();
-        }
+        //protected void LoadCustomer()
+        //{
+        //    Business.Customer.Customer objCustomer = new Business.Customer.Customer();
+        //    Entity.Customer.Customer customer = new Entity.Customer.Customer();
+        //    if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+        //        customer.AssignEngineer = 0;
+        //    else
+        //        customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+        //    DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
+        //    ddlCustomer.DataSource = dt;
+        //    ddlCustomer.DataTextField = "CustomerName";
+        //    ddlCustomer.DataValueField = "CustomerMasterId";
+        //    ddlCustomer.DataBind();
+        //    ddlCustomer.InsertSelect();
+        //}
         private void LoadProduct()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
@@ -80,15 +79,15 @@ namespace WebAppAegisCRM.Service
             ddlProduct.DataBind();
             ddlProduct.InsertSelect();
         }
-        protected void LoadTonnerRequest(int pageIndex, int pageSize)
+        protected void LoadTonnerRequest()
         {
             Business.Service.TonerRequest objTonerRequest = new Business.Service.TonerRequest();
             Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
-
-            tonerRequest.PageIndex = pageIndex;
-            tonerRequest.PageSize = pageSize;
+           
+            tonerRequest.PageIndex = gvTonnerRequest.PageIndex;
+            tonerRequest.PageSize = gvTonnerRequest.PageSize;
             tonerRequest.RequestNo = txtTonnerRequestNo.Text.Trim();
-            tonerRequest.CustomerId = int.Parse(ddlCustomer.SelectedValue);
+            tonerRequest.CustomerName = txtCustomerName.Text.Trim();
             tonerRequest.ProductId = int.Parse(ddlProduct.SelectedValue);
             tonerRequest.RequestFromDateTime = (txtFromTonnerRequestDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromTonnerRequestDate.Text);
             tonerRequest.RequestToDateTime = (txtToTonnerRequestDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToTonnerRequestDate.Text);
@@ -112,13 +111,13 @@ namespace WebAppAegisCRM.Service
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadTonnerRequest((gvTonnerRequest.PageIndex == 0) ? 1 : gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
+            LoadTonnerRequest();
         }
 
         protected void gvTonnerRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTonnerRequest.PageIndex = e.NewPageIndex;
-            LoadTonnerRequest(e.NewPageIndex, gvTonnerRequest.PageSize);
+            LoadTonnerRequest();
         }
     }
 }

@@ -12,22 +12,6 @@ namespace WebAppAegisCRM.Service
 {
     public partial class SpareUsageReport : System.Web.UI.Page
     {
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customer.AssignEngineer = 0;
-            else
-                customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ddlCustomer.InsertSelect();
-        }
-
         protected void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -75,7 +59,7 @@ namespace WebAppAegisCRM.Service
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
             Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook()
             {
-                CustomerId = int.Parse(ddlCustomer.SelectedValue),
+                CustomerName = txtCustomerName.Text.Trim(),
                 RequestNo = txtCallNo.Text.Trim(),
                 ItemId = int.Parse(ddlItem.SelectedValue),
                 EmployeeId_FK = int.Parse(ddlEmployee.SelectedValue),
@@ -96,7 +80,6 @@ namespace WebAppAegisCRM.Service
         {
             if (!IsPostBack)
             {
-                LoadCustomer();
                 EmployeeMaster_GetAll();
                 LoadAllItem();
                 Service_SpareUsage(gvSpareUsage.PageIndex, gvSpareUsage.PageSize);

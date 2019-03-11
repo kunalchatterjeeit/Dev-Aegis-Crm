@@ -28,18 +28,30 @@
                             Customer List
                         </div>
                         <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Name
+                                        <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 left">
+                                    <br />
+                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success pull-left extra-margin" OnClick="btnSearch_Click" />
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <div style="height: 80vh; overflow: scroll">
                                     <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
                                         AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                        class="table table-striped" GridLines="None" Style="text-align: left">
+                                        class="table table-striped" GridLines="None" Style="text-align: left" AllowPaging="true" AllowCustomPaging="true" PageSize="20" OnPageIndexChanging="gvCustomerMaster_PageIndexChanging">
                                         <Columns>
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
                                                     SN.
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <%# Container.DataItemIndex+1 %>
+                                                    <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField HeaderText="Customer ID" DataField="CustomerCode" />

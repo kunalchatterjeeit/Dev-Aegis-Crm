@@ -49,6 +49,7 @@ namespace Entity.Service
         public int CallTransferId { get; set; }
         public DataTable SpareRequisition { get; set; }
         public int ItemId { get; set; }
+        public string CustomerName { get; set; }
     }
 
     public class MachineResponseTime

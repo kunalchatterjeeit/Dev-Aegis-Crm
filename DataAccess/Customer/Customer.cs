@@ -114,6 +114,49 @@ namespace DataAccess.Customer
             }
         }
 
+        public static DataSet Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(Entity.Customer.Customer customer)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Customer_CustomerMaster_GetByAssignEngineerIdWithPaging";
+                        if (string.IsNullOrEmpty(customer.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerName", customer.CustomerName);
+                        if (string.IsNullOrEmpty(customer.EmailId))
+                            cmd.Parameters.AddWithValue("@EmailId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmailId", customer.EmailId);
+                        if (string.IsNullOrEmpty(customer.MobileNo))
+                            cmd.Parameters.AddWithValue("@MobileNo", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@MobileNo", customer.MobileNo);
+                        if (string.IsNullOrEmpty(customer.CustomerCode))
+                            cmd.Parameters.AddWithValue("@CustomerCode", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerCode", customer.CustomerCode);
+                        if (customer.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", customer.AssignEngineer);
+                        cmd.InsertPaging(customer, customer.CustomerMasterId);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
+
         public static DataTable FetchCustomerDetailsById(Entity.Customer.Customer ObjElCustomer)
         {
             using (DataTable dt = new DataTable())
@@ -376,10 +419,10 @@ namespace DataAccess.Customer
                         cmd.Connection = con;
                         cmd.CommandText = "usp_Customer_CustomerPurchase_GetAll";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        if (customer.CustomerMasterId == 0)
-                            cmd.Parameters.AddWithValue("@CustomerId", DBNull.Value);
+                        if (string.IsNullOrEmpty(customer.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@CustomerId", customer.CustomerMasterId);
+                            cmd.Parameters.AddWithValue("@CustomerName", customer.CustomerName);
                         if (string.IsNullOrEmpty(customer.SerialNo))
                             cmd.Parameters.AddWithValue("@ProductSerialNumber", DBNull.Value);
                         else

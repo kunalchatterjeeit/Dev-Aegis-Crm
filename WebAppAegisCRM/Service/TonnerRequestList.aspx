@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="TONER REQUEST LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="TonnerRequestList.aspx.cs" Inherits="WebAppAegisCRM.Service.TonnerRequestList" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -35,9 +36,8 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    Customer :
-                                    <asp:DropDownList ID="ddlCustomer" CssClass="form-control" runat="server">
-                                    </asp:DropDownList>
+                                    Customer Name :
+                                    <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -79,9 +79,9 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server" 
+                                        <asp:GridView ID="gvTonnerRequest" DataKeyNames="TonnerRequestId" runat="server"
                                             AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                            class="table table-striped" GridLines="None" Style="text-align: left" PageSize="20" 
+                                            class="table table-striped" GridLines="None" Style="text-align: left" PageSize="20"
                                             OnPageIndexChanging="gvTonnerRequest_PageIndexChanging" AllowPaging="true" AllowCustomPaging="true">
                                             <Columns>
                                                 <asp:TemplateField>
@@ -90,6 +90,16 @@
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
                                                         <%#  (gvTonnerRequest.PageIndex * gvTonnerRequest.PageSize) + (Container.DataItemIndex + 1) %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Customer Name
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <span title='<%# Eval("CustomerName") %>'>
+                                                            <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                        </span>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Request No" DataField="RequestNo" />

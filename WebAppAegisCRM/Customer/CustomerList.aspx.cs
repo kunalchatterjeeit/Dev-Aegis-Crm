@@ -28,13 +28,33 @@ namespace WebAppAegisCRM.Customer
                 customer.AssignEngineer = 0;
             else
                 customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+            customer.CustomerName = txtName.Text.Trim();
+            customer.PageIndex = gvCustomerMaster.PageIndex;
+            customer.PageSize = gvCustomerMaster.PageSize;
 
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            if (dt.Rows.Count > 0)
-                gvCustomerMaster.DataSource = dt;
+            DataSet ds = objCustomer.Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(customer);
+            if (ds.Tables.Count > 0)
+            {
+                gvCustomerMaster.DataSource = ds.Tables[0];
+                gvCustomerMaster.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
+                gvCustomerMaster.DataBind();
+            }
             else
+            {
                 gvCustomerMaster.DataSource = null;
-            gvCustomerMaster.DataBind();
+                gvCustomerMaster.DataBind();
+            }
+        }
+
+        protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerMaster.PageIndex = e.NewPageIndex;
+            Customer_Customer_GetByAssignEngineerId();
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            Customer_Customer_GetByAssignEngineerId();
         }
     }
 }

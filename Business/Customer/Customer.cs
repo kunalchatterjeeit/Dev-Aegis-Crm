@@ -25,6 +25,11 @@ namespace Business.Customer
             return DataAccess.Customer.Customer.Customer_Customer_GetByAssignEngineerId(customer);
         }
 
+        public DataSet Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(Entity.Customer.Customer customer)
+        {
+            return DataAccess.Customer.Customer.Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(customer);
+        }
+
         public DataTable FetchCustomerDetailsById(Entity.Customer.Customer customer)
         {
             return DataAccess.Customer.Customer.FetchCustomerDetailsById(customer);
