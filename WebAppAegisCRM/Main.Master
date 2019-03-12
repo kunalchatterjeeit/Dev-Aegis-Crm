@@ -207,6 +207,15 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>--%>
+                <li id="liAttendance" runat="server" class="dropdown">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
+                        <span class="glyphicon glyphicon-log-in"> IN</span>
+                    </a> 
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
+                        <i class="glyphicon glyphicon-log-out"> OUT</i>
+                    </a> 
+                    <!-- /.dropdown-alerts -->
+                </li>
                 <!-- /.dropdown -->
                 <li id="liHolidayList" runat="server" class="dropdown" visible="false">
                     <a class="dropdown-toggle" href="../HR/HolidayList.aspx">
