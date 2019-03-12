@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,7 @@ namespace WebAppAegisCRM.Sales
             if (!IsPostBack)
             {
                 LoadCallsDropdowns();
+                Message.Show = false;
             }
         }
 
@@ -25,21 +27,25 @@ namespace WebAppAegisCRM.Sales
             ddlCallDirection.DataTextField = "Name";
             ddlCallDirection.DataValueField = "Id";
             ddlCallDirection.DataBind();
+            ddlCallDirection.InsertSelect();
 
             ddlCallRelatedTo.DataSource = Obj.GetCallRelated();
             ddlCallRelatedTo.DataTextField = "Name";
             ddlCallRelatedTo.DataValueField = "Id";
             ddlCallRelatedTo.DataBind();
+            ddlCallRelatedTo.InsertSelect();
 
             ddlCallRepeatType.DataSource = Obj.GetCallRepeatType();
             ddlCallRepeatType.DataTextField = "Name";
             ddlCallRepeatType.DataValueField = "Id";
             ddlCallRepeatType.DataBind();
+            ddlCallRepeatType.InsertSelect();
 
             ddlCallStatus.DataSource = Obj.GetCallStatus();
             ddlCallStatus.DataTextField = "Name";
             ddlCallStatus.DataValueField = "Id";
             ddlCallStatus.DataBind();
+            ddlCallStatus.InsertSelect();
         }
     }
 }
