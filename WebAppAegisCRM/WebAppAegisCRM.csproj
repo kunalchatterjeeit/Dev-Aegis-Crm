@@ -171,6 +171,7 @@
     <Content Include="Inventory\StockSnap.aspx" />
     <Content Include="LeaveManagement\LeaveDesignationConfiguration.aspx" />
     <Content Include="LeaveManagement\LeaveReport.aspx" />
+    <Content Include="location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logindetails.aspx" />
     <Content Include="MainLogout.aspx" />
@@ -494,6 +495,13 @@
     </Compile>
     <Compile Include="LeaveManagement\LeaveReport.aspx.designer.cs">
       <DependentUpon>LeaveReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="location.aspx.cs">
+      <DependentUpon>location.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="location.aspx.designer.cs">
+      <DependentUpon>location.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

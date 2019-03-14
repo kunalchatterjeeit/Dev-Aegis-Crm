@@ -18,6 +18,8 @@ namespace Entity.HR
         public DateTime OutDateTime { get; set; }
         public double TotalHours { get; set; }
         public int CreatedBy { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
 
         public DateTime AttendanceFromDate { get; set; }
         public DateTime AttendanceToDate { get; set; }

@@ -1,11 +1,8 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
@@ -13,7 +10,7 @@ namespace WebAppAegisCRM.HR
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["Log"] != null)
+            if (Request.QueryString["Log"] != null && Request.QueryString["latitude"] != null && Request.QueryString["longitude"] != null)
             {
                 if (Request.QueryString["Log"].ToString() == ((int)AttendanceLog.Login).ToString())
                 {
@@ -24,7 +21,9 @@ namespace WebAppAegisCRM.HR
                         OutDateTime = DateTime.Now,
                         EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                         CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
-                        TotalHours = 0
+                        TotalHours = 0,
+                        Latitude = Request.QueryString["latitude"].ToString(),
+                        Longitude = Request.QueryString["longitude"].ToString()
                     };
                     objAttendance.Attendance_Save(attendance);
                 }
@@ -41,7 +40,9 @@ namespace WebAppAegisCRM.HR
                             InDateTime = Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString()),
                             OutDateTime = DateTime.Now,
                             CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
-                            TotalHours = (DateTime.Now - Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString())).TotalMinutes
+                            TotalHours = (DateTime.Now - Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString())).TotalMinutes,
+                            Latitude = Request.QueryString["latitude"].ToString(),
+                            Longitude = Request.QueryString["longitude"].ToString()
                         };
                         objAttendance.Attendance_Save(attendance);
                     }

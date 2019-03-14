@@ -121,6 +121,8 @@ namespace DataAccess.HR
                     cmd.Parameters.AddWithValue("@OutDateTime", Attendance.OutDateTime);
                     cmd.Parameters.AddWithValue("@TotalHours", Attendance.TotalHours);
                     cmd.Parameters.AddWithValue("@CreatedBy", Attendance.CreatedBy);
+                    cmd.Parameters.AddWithValue("@Latitude", Attendance.Latitude);
+                    cmd.Parameters.AddWithValue("@Longitude", Attendance.Longitude);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();
