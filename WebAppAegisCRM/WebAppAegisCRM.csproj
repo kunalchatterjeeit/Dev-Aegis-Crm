@@ -88,7 +88,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bower_components\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="Common\City.aspx" />
     <Content Include="ControlPanel\CallAttendanceManager.aspx" />
     <Content Include="CustomerDashboard.aspx" />
@@ -109,7 +108,6 @@
     <Content Include="Error.html" />
     <Content Include="Global.asax" />
     <Content Include="EmailMockup.htm" />
-    <Content Include="HR\AttendanceLogInOut.aspx" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
@@ -118,8 +116,6 @@
     <Content Include="HR\EmployeeHolidayProfileMapping.aspx" />
     <Content Include="HR\HolidayList.aspx" />
     <Content Include="HR\HolidayProfile.aspx" />
-    <Content Include="images\attendance_login.jpg" />
-    <Content Include="images\attendance_logout.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
@@ -298,13 +294,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="HR\AttendanceLogInOut.aspx.cs">
-      <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HR\AttendanceLogInOut.aspx.designer.cs">
-      <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\Employee.aspx.cs">
       <DependentUpon>Employee.aspx</DependentUpon>
@@ -760,6 +749,7 @@
     <None Include="Properties\PublishProfiles\Qualistech.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bower_components\" />
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
     <Folder Include="js\" />
