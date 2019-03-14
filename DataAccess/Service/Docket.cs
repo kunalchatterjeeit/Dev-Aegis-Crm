@@ -65,10 +65,10 @@ namespace DataAccess.Service
                             cmd.Parameters.AddWithValue("@DocketNo", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@DocketNo", docket.DocketNo);
-                        if (docket.CustomerId == 0)
-                            cmd.Parameters.AddWithValue("@CustomerId_FK", DBNull.Value);
+                        if (string.IsNullOrEmpty(docket.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@CustomerId_FK", docket.CustomerId);
+                            cmd.Parameters.AddWithValue("@CustomerName", docket.CustomerName);
                         if (docket.ProductId == 0)
                             cmd.Parameters.AddWithValue("@ProductId_FK", DBNull.Value);
                         else

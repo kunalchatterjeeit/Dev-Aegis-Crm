@@ -97,6 +97,7 @@
     <Content Include="Customer\CustomerMaster.aspx" />
     <Content Include="Customer\CustomerList.aspx" />
     <Content Include="Customer\CustomerPurchase.aspx" />
+    <Content Include="Customer\CustomerPurchaseAssignEngineer.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="dist\css\custom-popup.css" />
@@ -180,6 +181,9 @@
     <Content Include="Purchase\PurchaseRequisition.aspx" />
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
+    <Content Include="Sale\AssetSelection.aspx" />
+    <Content Include="Sale\SaleChallan.aspx" />
+    <Content Include="Sale\SaleChallanList.aspx" />
     <Content Include="Sales\Calls.aspx" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
@@ -282,6 +286,13 @@
     </Compile>
     <Compile Include="Customer\CustomerPurchase.aspx.designer.cs">
       <DependentUpon>CustomerPurchase.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.designer.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -573,6 +584,27 @@
     </Compile>
     <Compile Include="Sales\Calls.aspx.designer.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\AssetSelection.aspx.cs">
+      <DependentUpon>AssetSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\AssetSelection.aspx.designer.cs">
+      <DependentUpon>AssetSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.designer.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\SaleChallanList.aspx.cs">
+      <DependentUpon>SaleChallanList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\SaleChallanList.aspx.designer.cs">
+      <DependentUpon>SaleChallanList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\CallStatus.aspx.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>

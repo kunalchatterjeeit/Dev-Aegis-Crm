@@ -83,6 +83,7 @@
     <Compile Include="Purchase\Purchase.cs" />
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
+    <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\Contract.cs" />
     <Compile Include="Service\Docket.cs" />
@@ -97,6 +98,7 @@
       <Name>Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

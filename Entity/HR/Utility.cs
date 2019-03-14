@@ -43,6 +43,9 @@ namespace Entity.HR
         public const string PURCHASE_LIST = "304";
         public const string STOCK_LOOKUP = "305";
         public const string PURCHASE_REQUISITION_ENTRY = "306";
+        public const string SALE_CHALLAN_ENTRY = "307";
+        public const string SALE_CHALLAN_LIST = "308";
+
 
 
         //Service
@@ -60,6 +63,8 @@ namespace Entity.HR
         public const string TONNER_REQUEST_APPROVAL = "413";
         public const string CALL_TRANSFER = "414";
         public const string SERVICE_BOOK_SPARE_APPROVAL = "415";
+        public const string ASSIGN_ENGINEER_BULK = "416";
+
 
         //Reports
         public const string REPORT = "500";

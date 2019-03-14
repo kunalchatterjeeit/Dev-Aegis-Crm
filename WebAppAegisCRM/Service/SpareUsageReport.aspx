@@ -29,9 +29,8 @@
                         <div class="panel-body">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                     Customer :
-                                    <asp:DropDownList ID="ddlCustomer" CssClass="form-control" runat="server">
-                                    </asp:DropDownList>
+                                     Customer Name :
+                                    <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-lg-3">

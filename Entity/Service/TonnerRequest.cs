@@ -36,6 +36,7 @@ namespace Entity.Service
         public bool IsApprove { get; set; }
         public int ApprovedBy { get; set; }
         public int AssignEngineer { get; set; }
+        public string CustomerName { get; set; }
     }
     public class TonerIdQuantity
     {

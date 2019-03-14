@@ -32,6 +32,18 @@ namespace Business.Common
             }
         }
 
+        public static DataTable SelectedSaleAssets
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedSaleAssets"] != null) ? (DataTable)HttpContext.Current.Session["SelectedSaleAssets"] : new DataTable();
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedSaleAssets"] = value;
+            }
+        }
+
         public static string Signature
         {
             get

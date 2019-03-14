@@ -18,7 +18,6 @@ namespace WebAppAegisCRM.Service
             {
                 LoadCallStatus();
                 FetchAllEmployee();
-                LoadCustomer();
                 LoadProduct();
             }
         }
@@ -38,22 +37,6 @@ namespace WebAppAegisCRM.Service
             }
             ListItem li = new ListItem("--SELECT ALL--", "0");
             ddlDocketCallStatus.Items.Insert(0, li);
-        }
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomerMaster = new Business.Customer.Customer();
-            Entity.Customer.Customer customerMaster = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customerMaster.AssignEngineer = 0;
-            else
-                customerMaster.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomerMaster.Customer_Customer_GetByAssignEngineerId(customerMaster);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ListItem li = new ListItem("--SELECT ALL--", "0");
-            ddlCustomer.Items.Insert(0, li);
         }
         private void LoadProduct()
         {
@@ -107,7 +90,7 @@ namespace WebAppAegisCRM.Service
             Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
             Entity.Service.ServiceBook serviceBook = new Entity.Service.ServiceBook();
 
-            serviceBook.CustomerId = int.Parse(ddlCustomer.SelectedValue);
+            serviceBook.CustomerName = txtCustomerName.Text.Trim();
             serviceBook.ModelId = int.Parse(ddlDocketProduct.SelectedValue);
             serviceBook.MachineId = txtMachineId.Text.Trim();
             serviceBook.FromDate = (!string.IsNullOrEmpty(txtFromDocketDate.Text.Trim())) ? Convert.ToDateTime(txtFromDocketDate.Text.Trim()) : DateTime.MinValue;

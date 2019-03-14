@@ -49,7 +49,7 @@
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <br />
                                 <br />
@@ -61,7 +61,7 @@
                                     OnClick="btnCancel_Click" />
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-12">
                             <br />
                             <uc3:Message ID="Message" runat="server" />
                         </div>

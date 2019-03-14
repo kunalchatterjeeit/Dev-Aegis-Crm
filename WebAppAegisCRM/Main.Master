@@ -373,6 +373,12 @@
                         <li id="liInventory" runat="server" visible="false">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                <li id="liVendorMaster" runat="server" visible="false">
+                                    <a href="../Purchase/VendorMaster.aspx">Add/Edit Vendor</a>
+                                </li>
+                                 <li id="liVendorList" runat="server" visible="false">
+                                    <a href="../Purchase/VendorMasterView.aspx">Vendor List</a>
+                                </li>
                                 <li id="liPurchaseRequisitionEntry" runat="server" visible="false">
                                     <a href="../Purchase/PurchaseRequisition.aspx">Purchase Requisition Entry</a>
                                 </li>
@@ -385,12 +391,12 @@
                                 <li id="liStockLookup" runat="server" visible="false">
                                     <a href="../Inventory/StockSnap.aspx">Stock Lookup</a>
                                 </li>
-                                <li id="liVendorMaster" runat="server" visible="false">
-                                    <a href="../Purchase/VendorMaster.aspx">Add/Edit Vendor</a>
+                                <li id="liSaleEntry" runat="server" visible="false">
+                                    <a href="../Sale/SaleChallan.aspx">Sale Challan Entry</a>
                                 </li>
-                                 <li id="liVendorList" runat="server" visible="false">
-                                    <a href="../Purchase/VendorMasterView.aspx">Vendor List</a>
-                                </li>
+                                <li id="liSaleChallanList" runat="server" visible="false">
+                                    <a href="../Sale/SaleChallanList.aspx">Sale Challan List</a>
+                                </li> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -402,6 +408,9 @@
                                 </li>
                                 <li id="liTagCustomerModel" runat="server" visible="false">
                                     <a href="../Customer/CustomerPurchase.aspx">Tag Customer Model</a>
+                                </li>
+                                <li id="liCustomerPurchaseAssignEngineer" runat="server" visible="false">
+                                    <a href="../Customer/CustomerPurchaseAssignEngineer.aspx">Assign Engineer Bulk</a>
                                 </li>
                                 <li id="liDocketEntry" runat="server" visible="false">
                                     <a href="../Service/EmployeeDocket.aspx">Docket Entry</a>

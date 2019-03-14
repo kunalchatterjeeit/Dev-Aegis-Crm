@@ -114,6 +114,49 @@ namespace DataAccess.Customer
             }
         }
 
+        public static DataSet Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(Entity.Customer.Customer customer)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Customer_CustomerMaster_GetByAssignEngineerIdWithPaging";
+                        if (string.IsNullOrEmpty(customer.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerName", customer.CustomerName);
+                        if (string.IsNullOrEmpty(customer.EmailId))
+                            cmd.Parameters.AddWithValue("@EmailId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmailId", customer.EmailId);
+                        if (string.IsNullOrEmpty(customer.MobileNo))
+                            cmd.Parameters.AddWithValue("@MobileNo", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@MobileNo", customer.MobileNo);
+                        if (string.IsNullOrEmpty(customer.CustomerCode))
+                            cmd.Parameters.AddWithValue("@CustomerCode", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerCode", customer.CustomerCode);
+                        if (customer.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", customer.AssignEngineer);
+                        cmd.InsertPaging(customer, customer.CustomerMasterId);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
+            }
+        }
+
         public static DataTable FetchCustomerDetailsById(Entity.Customer.Customer ObjElCustomer)
         {
             using (DataTable dt = new DataTable())
@@ -296,7 +339,7 @@ namespace DataAccess.Customer
             return customer;
         }
 
-        public static int CustomerPurchase_DeleteByCustomerPurchaseId(Int64 customerpurchaseid)
+        public static int CustomerPurchase_DeleteByCustomerPurchaseId(long customerpurchaseid)
         {
             int i = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -307,6 +350,28 @@ namespace DataAccess.Customer
                     cmd.CommandText = "usp_Customer_CustomerPurchase_DeleteByCustomerPurchaseId";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerpurchaseid);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    i = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return i;
+        }
+
+        public static int Customer_CustomerPurchaseAssignEngineer_Save(long customerpurchaseid, int assignedEngineerId)
+        {
+            int i = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_Customer_CustomerPurchaseAssignEngineer_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CustomerPurchaseid", customerpurchaseid);
+                    cmd.Parameters.AddWithValue("@AssignedEngineerId", assignedEngineerId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -340,6 +405,43 @@ namespace DataAccess.Customer
                     }
                 }
                 return dt;
+            }
+        }
+
+        public static DataSet Customer_CustomerPurchase_GetAll(Entity.Customer.Customer customer)
+        {
+            using (DataSet ds = new DataSet())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_Customer_CustomerPurchase_GetAll";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        if (string.IsNullOrEmpty(customer.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@CustomerName", customer.CustomerName);
+                        if (string.IsNullOrEmpty(customer.SerialNo))
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ProductSerialNumber", customer.SerialNo);
+                        if (customer.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignedEngineerId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignedEngineerId", customer.AssignEngineer);
+                        cmd.InsertPaging(customer, customer.CustomerMasterId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(ds);
+                        }
+                        con.Close();
+                    }
+                }
+                return ds;
             }
         }
     }
