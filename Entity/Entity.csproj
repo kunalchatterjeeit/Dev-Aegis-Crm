@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AttendanceLog.cs" />
     <Compile Include="Common\Auth.cs" />
     <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Common\City.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Common\LeaveTypeEnum.cs" />
     <Compile Include="Common\LoginStatus.cs" />
     <Compile Include="Common\QuarterlyEnum.cs" />
+    <Compile Include="HR\Attendance.cs" />
     <Compile Include="HR\EmployeeHolidayProfileMapping.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\Holiday.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Sale\SaleChallanDetails.cs" />
+    <Compile Include="Sales\Calls.cs" />
     <Compile Include="Service\ApprovalStatus.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\CallStatusType.cs" />

@@ -71,6 +71,7 @@
     <Compile Include="Customer\CustomerContactDetails.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
+    <Compile Include="HR\Attendance.cs" />
     <Compile Include="HR\Holiday.cs" />
     <Compile Include="HR\HolidayProfile.cs" />
     <Compile Include="LeaveManagement\LeaveAccountBalance.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Sale\SaleChallan.cs" />
+    <Compile Include="Sales\Calls.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\Contract.cs" />
     <Compile Include="Service\Docket.cs" />
@@ -105,6 +107,10 @@
     <Compile Include="Settings\UserSettings.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessEntity\DataAccessEntity.csproj">
+      <Project>{81918a95-109e-41cf-a1df-eb2bda664604}</Project>
+      <Name>DataAccessEntity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{3A7B8EE2-5C25-4411-AF39-31320D21911B}</Project>
       <Name>DataAccess</Name>

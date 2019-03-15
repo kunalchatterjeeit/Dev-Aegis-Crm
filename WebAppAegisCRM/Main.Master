@@ -55,6 +55,29 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
+
+
+        //gps location
+        $(function () {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                setLocation(position);
+            });
+        });
+
+        function setLocation(position) {
+            //$("#location").html(
+            //    'latitude: ' + position.coords.latitude
+            //    + ' longitude: ' + position.coords.longitude
+            //    + ' altitude: ' + position.coords.altitude
+            //    + ' accuracy: ' + position.coords.accuracy
+            //    + ' altitudeAccuracy: ' + position.coords.altitudeAccuracy
+            //    + ' heading: ' + position.coords.heading
+            //    + ' speed: ' + position.coords.speed)
+            $("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&latitude=" + position.coords.latitude);
+            $("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&longitude=" + position.coords.longitude);
+            $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&latitude=" + position.coords.latitude);
+            $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&longitude=" + position.coords.longitude);
+        }
     </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -207,6 +230,15 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>--%>
+                <li id="liAttendance" runat="server" class="dropdown">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
+                        <span class="glyphicon glyphicon-log-in"> IN</span>
+                    </a> 
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
+                        <i class="glyphicon glyphicon-log-out"> OUT</i>
+                    </a> 
+                    <!-- /.dropdown-alerts -->
+                </li>
                 <!-- /.dropdown -->
                 <li id="liHolidayList" runat="server" class="dropdown" visible="false">
                     <a class="dropdown-toggle" href="../HR/HolidayList.aspx">

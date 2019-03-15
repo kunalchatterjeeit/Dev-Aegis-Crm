@@ -40,6 +40,33 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// liAttendance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAttendance;
+        
+        /// <summary>
+        /// lnkAttendaceLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkAttendaceLogin;
+        
+        /// <summary>
+        /// lnkAttendaceLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkAttendaceLogout;
+        
+        /// <summary>
         /// liHolidayList control.
         /// </summary>
         /// <remarks>
