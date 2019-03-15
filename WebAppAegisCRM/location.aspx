@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7UPU9JDzwcA4JwxuwSoPm3OUL05Rcm7k&callback=initMap"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbfTBb6nBwY7HAxzgqGODA2e8LMo0ddnU&callback=initMap"></script>
     <%--<script src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC7UPU9JDzwcA4JwxuwSoPm3OUL05Rcm7k&center=-25.108967999999997,55.198316299999995&zoom=18&maptype=satellite"></script>--%>
     <title></title>
     <script type="text/javascript">

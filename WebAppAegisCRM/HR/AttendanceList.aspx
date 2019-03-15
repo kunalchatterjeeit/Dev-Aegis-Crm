@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
@@ -79,7 +79,12 @@
                                             <asp:BoundField DataField="AttendanceDate" HeaderText="Attendance Date" />
                                             <asp:BoundField DataField="InDateTime" HeaderText="In Date&Time" />
                                             <asp:BoundField DataField="OutDateTime" HeaderText="Out Date&Time" />
-                                            <asp:BoundField DataField="TotalHours" HeaderText="TotalHours" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>Working Time</HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("TotalHours") != DBNull.Value)? TimeSpan.FromMinutes(Convert.ToDouble(Eval("TotalHours").ToString())).ToString(@"dd\:hh\:mm"):"" %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnInLocationView" runat="server" Text="In GPS Location" CommandName="InLocationView" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-info" Style="margin: 2px" />
@@ -100,7 +105,7 @@
                                         <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
                                         <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
                                         <EmptyDataTemplate>
-                                            No Leave Application found...
+                                            No Attendance record found...
                                         </EmptyDataTemplate>
                                     </asp:GridView>
                                 </div>
