@@ -35,7 +35,7 @@
     <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/dist/js/sb-admin-2.js"></script>
-
+    <script src="http://maps.google.com/maps/api/js?v=3.21"></script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
@@ -231,10 +231,10 @@
                     <!-- /.dropdown-tasks -->
                 </li>--%>
                 <li id="liAttendance" runat="server" class="dropdown">
-                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> IN</span>
                     </a> 
-                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
                         <i class="glyphicon glyphicon-log-out"> OUT</i>
                     </a> 
                     <!-- /.dropdown-alerts -->
@@ -450,6 +450,9 @@
                                 </li>
                                 <li id="liLeaveReport" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
+                                </li>
+                                <li id="liAttendanceReport" runat="server">
+                                    <a href="../HR/AttendanceList.aspx">Attendance Report</a>
                                 </li>
                                 <li id="liSpareTonerUsage" runat="server" visible="false">
                                     <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
