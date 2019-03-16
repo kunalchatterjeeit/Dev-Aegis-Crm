@@ -37,5 +37,48 @@ namespace Business.Sales
             CallsDataAccess.GetCallDirection().CopyListTo(callDirectionList);
             return callDirectionList;
         }
+        public List<Entity.Sales.GetCalls> GetAllCalls(Entity.Sales.GetCallsParam Param)
+        {
+            List<Entity.Sales.GetCalls> AllCallList = new List<Entity.Sales.GetCalls>();
+            GetCallsParamDbModel p = new GetCallsParamDbModel
+            {
+                CallStatusId = Param.CallStatusId,
+                Subject = Param.Subject,
+                StartDateTime = Param.StartDateTime,
+                EndDateTime = Param.EndDateTime
+            };
+            CallsDataAccess.GetAllCalls(p).CopyListTo(AllCallList);
+            return AllCallList;
+        }
+        public Entity.Sales.Calls GetCallById(int Id)
+        {
+            Entity.Sales.Calls call = new Entity.Sales.Calls();
+            CallsDataAccess.GetCallById(Id).CopyPropertiesTo(call);
+            return call;
+        }
+        public int SaveCalls(Entity.Sales.Calls Model)
+        {
+            CallsDbModel DbModel = new CallsDbModel
+            {
+                Id = Model.Id,
+                Subject = Model.Subject,
+                Description = Model.Description,
+                CallStatusId = Model.CallStatusId,
+                CallDirectionId = Model.CallDirectionId,
+                CallRelatedTo = Model.CallRelatedTo,
+                CallRepeatTypeId = Model.CallRepeatTypeId,
+                CreatedBy = Model.CreatedBy,
+                EmailReminder = Model.EmailReminder,
+                PopupReminder = Model.PopupReminder,
+                StartDateTime = Model.StartDateTime,
+                EndDateTime = Model.EndDateTime,
+                IsActive=Model.IsActive
+            };
+            return CallsDataAccess.SaveCalls(DbModel);
+        }
+        public int DeleteCalls(int Id)
+        {
+            return CallsDataAccess.DeleteCalls(Id);
+        }
     }
 }

@@ -73,7 +73,7 @@
                                         Call Start Date Time
                                 <asp:TextBox ID="txtStartDateTime" CssClass="form-control" runat="server"></asp:TextBox>
                                           <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtStartDateTime"
-                                            Format="dd MMM yyyy" Enabled="True">
+                                            Format="dd MMM yyyy HH:mm:ss tt" Enabled="True">
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                                         Call End Date Time
                                 <asp:TextBox ID="txtEndDateTime" runat="server" CssClass="form-control"></asp:TextBox>
                                         <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtEndDateTime"
-                                            Format="dd MMM yyyy" Enabled="True">
+                                            Format="dd MMM yyyy HH:mm:ss tt" Enabled="True">
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
@@ -95,21 +95,16 @@
                                     <div class="form-group has-error">
                                         <asp:CheckBox ID="chkEmailReminder" runat="server" Text="Email Reminder" Checked="true" />
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group has-error">
-                                        <asp:CheckBox ID="chkIsActive" runat="server" Text="Active/Inactive" Checked="true" />
-                                    </div>
-                                </div>
+                                </div>                                
                                 <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <br />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success"
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click"
                                             />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning"
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"
                                              />
                                     </div>
                                 </div>
@@ -126,7 +121,7 @@
                             <div class="table-responsive">
                                 <center>
                                     <asp:GridView ID="gvCalls" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" >
+                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvCalls_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
                                                 <ItemTemplate>

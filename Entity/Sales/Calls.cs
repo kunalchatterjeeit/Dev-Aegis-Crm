@@ -13,6 +13,8 @@ namespace Entity.Sales
         public string Description { get; set; }
         public int CallStatusId { get; set; }
         public int CallRepeatTypeId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
         public int CallDirectionId { get; set; }
         public int CallRelatedTo { get; set; }
         public bool PopupReminder { get; set; }
@@ -46,5 +48,22 @@ namespace Entity.Sales
         public int Id { get; set; }
 
         public string Name { get; set; }
+    }
+
+    public class GetCalls
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+    }
+
+    public class GetCallsParam
+    {
+        public string Subject { get; set; }
+        public int CallStatusId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
     }
 }

@@ -16,12 +16,14 @@ namespace DataAccessEntity.Sales
         public string Description { get; set; }
         public int CallStatusId { get; set; }
         public int CallRepeatTypeId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
         public int CallDirectionId { get; set; }
         public int CallRelatedTo { get; set; }
         public bool PopupReminder { get; set; }
         public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; }      
     }
     public class CallStatusDbModel
     {
@@ -57,5 +59,22 @@ namespace DataAccessEntity.Sales
         public int Id { get; set; }
 
         public string Name { get; set; }
+    }
+
+    public class GetCallsDbModel
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Name { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
+    }
+
+    public class GetCallsParamDbModel
+    {
+        public string Subject { get; set; }
+        public int CallStatusId { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
     }
 }
