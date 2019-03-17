@@ -84,7 +84,17 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
         <div id="wrapper">
+            
+        <div class="divWaiting hide">
+            <div class="loading">
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+            </div>
+        </div>
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                
@@ -230,11 +240,11 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>--%>
-                <li id="liAttendance" runat="server" class="dropdown">
-                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
+                <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> IN</span>
                     </a> 
-                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="../HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
                         <i class="glyphicon glyphicon-log-out"> OUT</i>
                     </a> 
                     <!-- /.dropdown-alerts -->
@@ -474,5 +484,14 @@
         <%--<script src="../js/signature_pad.js"></script>
         <script src="../js/app.js"></script>--%>
     </form>
+    <script type="text/javascript">
+        function showLoading() {
+            $(".divWaiting").removeClass("hide");
+            $("#liAttendance").addClass("disabled");
+            window.location.href = $("#liAttendance").children('a').attr("href");
+            $("#liAttendance").html("Please wait");
+            $('#liAttendance').prop('onclick', null).off('click');
+        }
+    </script>
 </body>
 </html>
