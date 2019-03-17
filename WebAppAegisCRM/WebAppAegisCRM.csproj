@@ -180,6 +180,7 @@
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="Sales\Calls.aspx" />
+    <Content Include="Sales\Notes.aspx" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />
@@ -565,6 +566,13 @@
     </Compile>
     <Compile Include="Sales\Calls.aspx.designer.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Notes.aspx.cs">
+      <DependentUpon>Notes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Notes.aspx.designer.cs">
+      <DependentUpon>Notes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\CallStatus.aspx.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>

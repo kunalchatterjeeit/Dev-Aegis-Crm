@@ -26,6 +26,10 @@ namespace DataAccessEntity
                 .ToTable("tbl_Sales_CallRelated");
             modelBuilder.Entity<Sales.CallDirectionDbModel>()
                 .ToTable("tbl_Sales_CallDirection");
+            modelBuilder.Entity<Sales.ContactsDbModel>()
+               .ToTable("tbl_Sales_Contacts");
+            modelBuilder.Entity<Sales.NotesDbModel>()
+               .ToTable("tbl_Sales_Notes");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -33,5 +37,7 @@ namespace DataAccessEntity
         public DbSet<Sales.CallRelatedDbModel> CallRelated { get; set; }
         public DbSet<Sales.CallRepeatTypeDbModel> CallRepeatType { get; set; }
         public DbSet<Sales.CallDirectionDbModel> CallDirection { get; set; }
+        public DbSet<Sales.ContactsDbModel> Contacts { get; set; }
+        public DbSet<Sales.NotesDbModel> Notes { get; set; }
     }
 }

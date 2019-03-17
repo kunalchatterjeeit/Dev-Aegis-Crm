@@ -97,6 +97,7 @@
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Sales\Calls.cs" />
+    <Compile Include="Sales\Notes.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\Contract.cs" />
     <Compile Include="Service\Docket.cs" />
