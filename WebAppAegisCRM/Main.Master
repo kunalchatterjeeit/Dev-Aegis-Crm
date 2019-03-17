@@ -262,8 +262,6 @@
                 </li>--%>
                 <li id="liClock" runat="server" style="color:#23527C" class="dropdown glyphicon">
                 </li>
-                <li id="liAttendance" runat="server" class="dropdown">
-                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> IN</span>
