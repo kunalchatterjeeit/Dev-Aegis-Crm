@@ -73,7 +73,8 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime,@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@EmailReminder,@CreatedBy,@IsActive",
+                                "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
+                                "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
@@ -85,6 +86,7 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("CallRepeatTypeId", Model.CallRepeatTypeId),
                                     new SqlParameter("CallDirectionId", Model.CallDirectionId),
                                     new SqlParameter("CallRelatedTo", Model.CallRelatedTo),
+                                    new SqlParameter("PopupReminder", Model.PopupReminder),
                                     new SqlParameter("EmailReminder", Model.EmailReminder),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
                                     new SqlParameter("IsActive", Model.IsActive)
