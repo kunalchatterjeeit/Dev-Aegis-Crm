@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Calls.aspx.cs" Inherits="WebAppAegisCRM.Sales.Calls" %>
+﻿<%@ Page Title="ADD/EDIT CALLS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Calls.aspx.cs" Inherits="WebAppAegisCRM.Sales.Calls" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -21,54 +21,54 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Add/Edit Calls
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                 <div class="col-lg-12">
+                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                        Call Subject
                                 <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                        Call Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Status
                                 <asp:DropDownList ID="ddlCallStatus" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>   
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Repeat Type
                                 <asp:DropDownList ID="ddlCallRepeatType" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>   
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Direction
                                 <asp:DropDownList ID="ddlCallDirection" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>   
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Related To
                                 <asp:DropDownList ID="ddlCallRelatedTo" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>   
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         Call Start Date Time
                                 <asp:TextBox ID="txtStartDateTime" CssClass="form-control" runat="server"></asp:TextBox>
@@ -77,7 +77,7 @@
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call End Date Time
                                 <asp:TextBox ID="txtEndDateTime" runat="server" CssClass="form-control"></asp:TextBox>
@@ -86,33 +86,33 @@
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="clearfix"></div>
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         <asp:CheckBox ID="chkPopupReminder" runat="server" Text="Pop Up Reminder" Checked="true" />
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         <asp:CheckBox ID="chkEmailReminder" runat="server" Text="Email Reminder" Checked="true" />
                                     </div>
-                                </div>                                
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <br />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click"
-                                            />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"
-                                             />
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click"/>
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"/>
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Call List
