@@ -3,6 +3,8 @@
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+    <script src="http://maps.google.com/maps/api/js?v=3.21"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>

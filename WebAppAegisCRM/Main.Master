@@ -35,7 +35,7 @@
     <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="/dist/js/sb-admin-2.js"></script>
-
+    <script src="http://maps.google.com/maps/api/js?v=3.21"></script>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
@@ -77,6 +77,26 @@
             $("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&longitude=" + position.coords.longitude);
             $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&latitude=" + position.coords.latitude);
             $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&longitude=" + position.coords.longitude);
+        }
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            startTime();
+        });
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            $("#liClock").html(
+            h + ":" + m + ":" + s);
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
         }
     </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -240,6 +260,10 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>--%>
+                <li id="liClock" runat="server" style="color:#23527C" class="dropdown glyphicon">
+                </li>
+                <li id="liAttendance" runat="server" class="dropdown">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> IN</span>
@@ -460,6 +484,9 @@
                                 </li>
                                 <li id="liLeaveReport" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
+                                </li>
+                                <li id="liAttendanceReport" runat="server">
+                                    <a href="../HR/AttendanceList.aspx">Attendance Report</a>
                                 </li>
                                 <li id="liSpareTonerUsage" runat="server" visible="false">
                                     <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>

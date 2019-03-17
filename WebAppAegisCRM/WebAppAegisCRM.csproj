@@ -110,6 +110,7 @@
     <Content Include="Error.html" />
     <Content Include="Global.asax" />
     <Content Include="EmailMockup.htm" />
+    <Content Include="HR\AttendanceList.aspx" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeImage\14.jpg" />
@@ -119,8 +120,6 @@
     <Content Include="HR\EmployeeHolidayProfileMapping.aspx" />
     <Content Include="HR\HolidayList.aspx" />
     <Content Include="HR\HolidayProfile.aspx" />
-    <Content Include="images\attendance_login.jpg" />
-    <Content Include="images\attendance_logout.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
@@ -310,6 +309,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HR\AttendanceList.aspx.cs">
+      <DependentUpon>AttendanceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\AttendanceList.aspx.designer.cs">
+      <DependentUpon>AttendanceList.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\AttendanceLogInOut.aspx.cs">
       <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>

@@ -87,6 +87,7 @@ namespace WebAppAegisCRM
                 liDocketList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_LIST);
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
+                liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
             }
         }
 
