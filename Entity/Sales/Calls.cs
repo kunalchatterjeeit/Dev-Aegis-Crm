@@ -8,7 +8,7 @@ namespace Entity.Sales
 {
     public class Calls
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
         public int CallStatusId { get; set; }
@@ -52,18 +52,19 @@ namespace Entity.Sales
 
     public class GetCalls
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Name { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public string CallStatus { get; set; }
+        public string StartDateTime { get; set; }
+        public string EndDateTime { get; set; }
     }
 
     public class GetCallsParam
     {
         public string Subject { get; set; }
-        public int CallStatusId { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public int? CallStatusId { get; set; }
+        public DateTime? StartDateTime { get; set; }
+        public DateTime? EndDateTime { get; set; }
     }
 }

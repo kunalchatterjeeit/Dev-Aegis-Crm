@@ -47,19 +47,19 @@ namespace DataAccessEntity.Sales
                                 "exec dbo.[usp_Sales_Calls_GetAll] @Subject,@CallStatusId,@StartFromDateTime,@StartToDateTime",
                                 new Object[]
                                 {
-                                    new SqlParameter("Subject", Param.Subject),
-                                    new SqlParameter("CallStatusId", Param.CallStatusId),
-                                    new SqlParameter("StartFromDateTime", Param.StartDateTime),
-                                    new SqlParameter("StartToDateTime", Param.EndDateTime)
+                                    new SqlParameter("Subject", DBNull.Value),
+                                    new SqlParameter("CallStatusId", DBNull.Value),
+                                    new SqlParameter("StartFromDateTime", DBNull.Value),
+                                    new SqlParameter("StartToDateTime", DBNull.Value)
                                 }
                              ).ToList();
             }
         }
-        public static GetCallsDbModel GetCallById(int Id)
+        public static CallsDbModel GetCallById(int Id)
         {
             using (var Context = new CRMContext())
             {
-                return Context.Database.SqlQuery<GetCallsDbModel>(
+                return Context.Database.SqlQuery<CallsDbModel>(
                                 "exec dbo.[usp_Sales_Calls_GetById] @Id",
                                 new Object[]
                                 {

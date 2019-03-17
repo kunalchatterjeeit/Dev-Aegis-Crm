@@ -55,7 +55,7 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = DateTime.Today, EndDateTime = DateTime.Today, CallStatusId = 1, Subject = "" };
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = null, EndDateTime = null, CallStatusId = null, Subject = null };
             //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();

@@ -11,7 +11,7 @@ namespace DataAccessEntity.Sales
     public class CallsDbModel
     {
         [Key]
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
         public int CallStatusId { get; set; }
@@ -63,18 +63,19 @@ namespace DataAccessEntity.Sales
 
     public class GetCallsDbModel
     {
-        public int Id { get; set; }
+        public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Name { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public string CallStatus { get; set; }
+        public string StartDateTime { get; set; }
+        public string EndDateTime { get; set; }
     }
 
     public class GetCallsParamDbModel
     {
         public string Subject { get; set; }
-        public int CallStatusId { get; set; }
-        public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
+        public int? CallStatusId { get; set; }
+        public DateTime? StartDateTime { get; set; }
+        public DateTime? EndDateTime { get; set; }
     }
 }
