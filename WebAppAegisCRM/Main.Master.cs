@@ -1,5 +1,7 @@
 ﻿using Business.Common;
 using System;
+using System.Data;
+using System.Linq;
 using System.Web;
 
 namespace WebAppAegisCRM
@@ -10,6 +12,8 @@ namespace WebAppAegisCRM
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
+
+            Attendance_GetByEmployeeId();
 
             if (!IsPostBack)
             {
@@ -81,6 +85,34 @@ namespace WebAppAegisCRM
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
             }
+        }
+
+        private void Attendance_GetByEmployeeId()
+        {
+            try
+            {
+                Business.HR.Attendance objAttendance = new Business.HR.Attendance();
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date);
+                if (dt != null && dt.AsEnumerable().Any())
+                {
+                    if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
+                    {
+                        lnkAttendaceLogin.Visible = true;
+                        lnkAttendaceLogout.Visible = false;
+                    }
+                    else
+                    {
+                        lnkAttendaceLogin.Visible = false;
+                        lnkAttendaceLogout.Visible = true;
+                    }
+                }
+                else
+                {
+                    lnkAttendaceLogin.Visible = true;
+                    lnkAttendaceLogout.Visible = false;
+                }
+            }
+            catch { }
         }
     }
 }
