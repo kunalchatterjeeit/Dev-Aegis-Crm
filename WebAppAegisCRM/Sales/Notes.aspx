@@ -1,12 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Notes.aspx.cs" Inherits="WebAppAegisCRM.Sales.Notes" %>
+﻿<%@ Page Title="ADD/EDIT NOTES" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Notes.aspx.cs" Inherits="WebAppAegisCRM.Sales.Notes" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
-     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
         <ProgressTemplate>
             <div class="divWaiting">
                 <div class="loading">
@@ -21,49 +22,47 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Add/Edit Notes
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                 <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                       Note Name
+                                        Note Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
-                                       Note Description
+                                        Note Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group has-error">
-                                       Contact Name
+                                        Contact Name
                                 <asp:DropDownList ID="ddlContact" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>                                                          
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <br />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click"
-                                            />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"
-                                             />
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Call List
@@ -80,7 +79,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Name" />
-                                            <asp:BoundField DataField="ContactName" HeaderText="Contact Name" />                                           
+                                            <asp:BoundField DataField="ContactName" HeaderText="Contact Name" />
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"

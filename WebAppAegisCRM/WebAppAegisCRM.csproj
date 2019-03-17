@@ -107,6 +107,7 @@
     <Content Include="dist\js\custom.js" />
     <Content Include="dist\js\sb-admin-2.js" />
     <Content Include="Error.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="EmailMockup.htm" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
@@ -181,6 +182,9 @@
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="Sales\Calls.aspx" />
     <Content Include="Sales\Notes.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />

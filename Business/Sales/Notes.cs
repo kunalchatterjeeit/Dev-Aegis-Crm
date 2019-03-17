@@ -44,8 +44,8 @@ namespace Business.Sales
                 Id = Model.Id,
                 Name = Model.Name,
                 Description = Model.Description,
-                ContactId = Model.ContactId,                
-                CreatedBy = Model.CreatedBy,               
+                ContactId = Model.ContactId,
+                CreatedBy = Model.CreatedBy,
                 IsActive = Model.IsActive
             };
             return NotesDataAccess.SaveNotes(DbModel);

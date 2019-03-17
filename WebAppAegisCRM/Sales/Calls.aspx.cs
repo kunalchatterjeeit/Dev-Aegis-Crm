@@ -64,9 +64,9 @@ namespace WebAppAegisCRM.Sales
         {
             CallId = 0;
             Message.Show = false;
-            txtEndDateTime.Text = string.Empty;
+            txtCallStartDateTime.Value = string.Empty;
             txtDescription.Text = string.Empty;
-            txtStartDateTime.Text = string.Empty;
+            txtCallEndDateTime.Value = string.Empty;
             txtSubject.Text = string.Empty;
             chkPopupReminder.Checked = true;
             chkEmailReminder.Checked = true;
@@ -85,14 +85,14 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
                 return false;
             }
-            else if (txtStartDateTime.Text.Trim() == string.Empty)
+            else if (txtCallStartDateTime.Value.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
                 Message.Text = "Please Enter Call Start Date Time";
                 Message.Show = true;
                 return false;
             }
-            else if (txtEndDateTime.Text.Trim() == string.Empty)
+            else if (txtCallEndDateTime.Value.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
                 Message.Text = "Please Enter Call End Date Time";
@@ -177,8 +177,8 @@ namespace WebAppAegisCRM.Sales
                 ddlCallRepeatType.SelectedValue = calls.CallRepeatTypeId.ToString();
                 ddlCallStatus.SelectedValue = calls.CallStatusId.ToString();
                 txtDescription.Text = calls.Description;
-                txtStartDateTime.Text = calls.StartDateTime.ToString();
-                txtEndDateTime.Text = calls.EndDateTime.ToString();
+                txtCallStartDateTime.Value = calls.StartDateTime.ToString();
+                txtCallEndDateTime.Value = calls.EndDateTime.ToString();
                 txtSubject.Text = calls.Subject;
                 chkEmailReminder.Checked = calls.EmailReminder;
                 chkPopupReminder.Checked = calls.PopupReminder;
@@ -199,8 +199,8 @@ namespace WebAppAegisCRM.Sales
                     CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                     Description = txtDescription.Text,
                     Subject = txtSubject.Text,
-                    StartDateTime = Convert.ToDateTime(txtStartDateTime.Text),
-                    EndDateTime = Convert.ToDateTime(txtEndDateTime.Text),
+                    StartDateTime = Convert.ToDateTime(txtCallStartDateTime.Value),
+                    EndDateTime = Convert.ToDateTime(txtCallEndDateTime.Value),
                     EmailReminder = chkEmailReminder.Checked,
                     PopupReminder = chkPopupReminder.Checked,
                     IsActive = true

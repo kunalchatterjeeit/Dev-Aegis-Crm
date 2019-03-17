@@ -1,7 +1,20 @@
 ﻿<%@ Page Title="ADD/EDIT CALLS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Calls.aspx.cs" Inherits="WebAppAegisCRM.Sales.Calls" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                prepareDateTimeControls();
+            });
+        });
+        function prepareDateTimeControls()
+        {
+            $('#ContentPlaceHolder1_txtCallStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+            $('#ContentPlaceHolder1_txtCallEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -28,15 +41,15 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                 <div class="col-lg-4">
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                       Call Subject
+                                        Call Subject
                                 <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                       Call Description
+                                        Call Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
@@ -46,44 +59,38 @@
                                 <asp:DropDownList ID="ddlCallStatus" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Repeat Type
                                 <asp:DropDownList ID="ddlCallRepeatType" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Direction
                                 <asp:DropDownList ID="ddlCallDirection" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call Related To
                                 <asp:DropDownList ID="ddlCallRelatedTo" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="col-lg-4">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Call Start Date Time
-                                <asp:TextBox ID="txtStartDateTime" CssClass="form-control" runat="server"></asp:TextBox>
-                                          <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtStartDateTime"
-                                            Format="dd MMM yyyy HH:mm:ss tt" Enabled="True">
-                                        </asp:CalendarExtender>
+                                        <input type="text" id="txtCallStartDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Call End Date Time
-                                <asp:TextBox ID="txtEndDateTime" runat="server" CssClass="form-control"></asp:TextBox>
-                                        <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtEndDateTime"
-                                            Format="dd MMM yyyy HH:mm:ss tt" Enabled="True">
-                                        </asp:CalendarExtender>
+                                      <input type="text" id="txtCallEndDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -101,8 +108,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <br />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click"/>
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click"/>
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -130,8 +137,22 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Subject" HeaderText="Subject" />
                                             <asp:BoundField DataField="CallStatus" HeaderText="Call Status" />
-                                            <asp:BoundField DataField="StartDateTime" HeaderText="Start Date" />
-                                            <asp:BoundField DataField="EndDateTime" HeaderText="End Date" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Start Date
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# Convert.ToDateTime(Eval("StartDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    End Date
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# Convert.ToDateTime(Eval("EndDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"

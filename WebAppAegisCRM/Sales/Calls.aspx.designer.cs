@@ -94,40 +94,22 @@ namespace WebAppAegisCRM.Sales {
         protected global::System.Web.UI.WebControls.DropDownList ddlCallRelatedTo;
         
         /// <summary>
-        /// txtStartDateTime control.
+        /// txtCallStartDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStartDateTime;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallStartDateTime;
         
         /// <summary>
-        /// CalendarExtender1 control.
+        /// txtCallEndDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
-        /// <summary>
-        /// txtEndDateTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEndDateTime;
-        
-        /// <summary>
-        /// CalendarExtender5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender5;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallEndDateTime;
         
         /// <summary>
         /// chkPopupReminder control.

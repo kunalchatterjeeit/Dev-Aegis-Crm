@@ -21,11 +21,11 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetNotesDbModel>(
-                                "exec [qualih13_test].[usp_Sales_Notes_GetAll] @Name,@ContactId",
+                                "exec [dbo].[usp_Sales_Notes_GetAll] @Name,@ContactId",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
-                                    new SqlParameter("ContactId", DBNull.Value)                                  
+                                    new SqlParameter("ContactId", DBNull.Value)
                                 }
                              ).ToList();
             }
@@ -35,7 +35,7 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<NotesDbModel>(
-                                "exec [qualih13_test].[usp_Sales_Notes_GetById] @Id",
+                                "exec [dbo].[usp_Sales_Notes_GetById] @Id",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Id)
@@ -48,13 +48,13 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec [qualih13_test].[usp_Sales_Notes_Save] @Id,@Name,@Description,@ContactId,@CreatedBy,@IsActive",
+                                "exec [dbo].[usp_Sales_Notes_Save] @Id,@Name,@Description,@ContactId,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
                                     new SqlParameter("Name", Model.Name),
                                     new SqlParameter("Description", Model.Description),
-                                    new SqlParameter("ContactId", Model.ContactId),                                   
+                                    new SqlParameter("ContactId", Model.ContactId),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
                                     new SqlParameter("IsActive", Model.IsActive)
                                 }
@@ -66,7 +66,7 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec [qualih13_test].[usp_Sales_Notes_Delete] @Id",
+                                "exec [dbo].[usp_Sales_Notes_Delete] @Id",
                                 new Object[]
                                 {
                                     new SqlParameter("Id",Id)
