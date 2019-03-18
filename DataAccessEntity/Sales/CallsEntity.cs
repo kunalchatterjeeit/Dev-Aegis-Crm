@@ -67,8 +67,8 @@ namespace DataAccessEntity.Sales
         public string Subject { get; set; }
         public string Name { get; set; }
         public string CallStatus { get; set; }
-        public string StartDateTime { get; set; }
-        public string EndDateTime { get; set; }
+        public DateTime StartDateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
     }
 
     public class GetCallsParamDbModel

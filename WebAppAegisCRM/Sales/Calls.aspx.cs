@@ -177,8 +177,8 @@ namespace WebAppAegisCRM.Sales
                 ddlCallRepeatType.SelectedValue = calls.CallRepeatTypeId.ToString();
                 ddlCallStatus.SelectedValue = calls.CallStatusId.ToString();
                 txtDescription.Text = calls.Description;
-                txtCallStartDateTime.Value = calls.StartDateTime.ToString();
-                txtCallEndDateTime.Value = calls.EndDateTime.ToString();
+                txtCallStartDateTime.Value = calls.StartDateTime.ToString("dd MMM yyyy HH:mm tt");
+                txtCallEndDateTime.Value = calls.EndDateTime.ToString("dd MMM yyyy HH:mm tt");
                 txtSubject.Text = calls.Subject;
                 chkEmailReminder.Checked = calls.EmailReminder;
                 chkPopupReminder.Checked = calls.PopupReminder;
