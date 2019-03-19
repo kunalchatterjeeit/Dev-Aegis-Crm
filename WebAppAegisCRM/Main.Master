@@ -58,11 +58,11 @@
 
 
         //gps location
-        $(function () {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                setLocation(position);
-            });
-        });
+        //$(function () {
+        //    navigator.geolocation.getCurrentPosition(function (position) {
+        //        setLocation(position);
+        //    });
+        //});
 
         function setLocation(position) {
             //$("#location").html(
@@ -73,10 +73,10 @@
             //    + ' altitudeAccuracy: ' + position.coords.altitudeAccuracy
             //    + ' heading: ' + position.coords.heading
             //    + ' speed: ' + position.coords.speed)
-            $("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&latitude=" + position.coords.latitude);
-            $("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&longitude=" + position.coords.longitude);
-            $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&latitude=" + position.coords.latitude);
-            $("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&longitude=" + position.coords.longitude);
+            //$("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&latitude=" + position.coords.latitude);
+            //$("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&longitude=" + position.coords.longitude);
+            //$("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&latitude=" + position.coords.latitude);
+            //$("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&longitude=" + position.coords.longitude);
         }
     </script>
     <script type="text/javascript">
@@ -263,10 +263,10 @@
                 <li id="liClock" runat="server" style="color:#23527C" class="dropdown glyphicon">
                 </li>
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
-                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
                     </a> 
-                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=0" title="Make Attendace Out" visible="false">
                         <i class="glyphicon glyphicon-log-out"> ATTENDANCE-OUT</i>
                     </a> 
                     <!-- /.dropdown-alerts -->

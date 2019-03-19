@@ -72,13 +72,27 @@
                                                     SN.
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                     <%#  (gvAttendanceList.PageIndex * gvAttendanceList.PageSize) + (Container.DataItemIndex + 1) %>
+                                                    <%#  (gvAttendanceList.PageIndex * gvAttendanceList.PageSize) + (Container.DataItemIndex + 1) %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="EmployeeName" HeaderText="Name" />
                                             <asp:BoundField DataField="AttendanceDate" HeaderText="Attendance Date" />
-                                            <asp:BoundField DataField="InDateTime" HeaderText="In Date&Time" />
-                                            <asp:BoundField DataField="OutDateTime" HeaderText="Out Date&Time" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    In Date&Time
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("InDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("InDateTimeRaw").ToString()).ToString("dd MMM yyyy HH:mm:ss tt") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Out Date&Time
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("OutDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("OutDateTimeRaw").ToString()).ToString("dd MMM yyyy HH:mm:ss tt") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField>
                                                 <HeaderTemplate>Working Time</HeaderTemplate>
                                                 <ItemTemplate>

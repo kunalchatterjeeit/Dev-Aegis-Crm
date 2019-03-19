@@ -52,7 +52,7 @@ namespace WebAppAegisCRM.HR
                         }
 
                     }
-                    Response.Redirect(HttpContext.Current.Request.UrlReferrer.AbsoluteUri);
+                    Response.Redirect("http://aegiscrm.in/dashboard.aspx");
                 }
             }
             catch (Exception ex)
