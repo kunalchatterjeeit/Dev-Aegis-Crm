@@ -65,14 +65,14 @@
                                     <asp:GridView ID="gvAttendanceList" runat="server" AllowPaging="True" PageSize="20"
                                         AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                         GridLines="None" Style="text-align: left" OnPageIndexChanging="gvAttendanceList_PageIndexChanging"
-                                        OnRowCommand="gvAttendanceList_RowCommand">
+                                        OnRowCommand="gvAttendanceList_RowCommand" AllowCustomPaging="true">
                                         <Columns>
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
                                                     SN.
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <%# Container.DataItemIndex+1 %>
+                                                     <%#  (gvAttendanceList.PageIndex * gvAttendanceList.PageSize) + (Container.DataItemIndex + 1) %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="EmployeeName" HeaderText="Name" />

@@ -34,7 +34,7 @@ namespace WebAppAegisCRM.HR
                     else if (Request.QueryString["Log"].ToString() == ((int)AttendanceLog.Logout).ToString())
                     {
                         Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                        DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date);
+                        DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date.AddMinutes(333));
                         if (dt != null && dt.AsEnumerable().Any())
                         {
                             Entity.HR.Attendance attendance = new Entity.HR.Attendance()

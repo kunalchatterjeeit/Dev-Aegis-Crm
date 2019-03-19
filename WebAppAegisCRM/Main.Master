@@ -264,10 +264,10 @@
                 </li>
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=1"  title="Make Attendace In">
-                        <span class="glyphicon glyphicon-log-in"> IN</span>
+                        <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
                     </a> 
                     <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="~/HR/AttendanceLogInOut.aspx?log=0" title="Make Attendace Out" visible="false">
-                        <i class="glyphicon glyphicon-log-out"> OUT</i>
+                        <i class="glyphicon glyphicon-log-out"> ATTENDANCE-OUT</i>
                     </a> 
                     <!-- /.dropdown-alerts -->
                 </li>

@@ -19,6 +19,8 @@ namespace WebAppAegisCRM.HR
                     EmployeeName = txtEmployeeName.Text.Trim(),
                     AttendanceFromDate = (string.IsNullOrEmpty(txtFromAttendanceDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtFromAttendanceDate.Text.Trim()),
                     AttendanceToDate = (string.IsNullOrEmpty(txtToAttendanceDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtToAttendanceDate.Text.Trim()),
+                    PageIndex = gvAttendanceList.PageIndex,
+                    PageSize = gvAttendanceList.PageSize
                 });
             if (dsAttendance.Tables.Count > 1)
             {
@@ -42,7 +44,7 @@ namespace WebAppAegisCRM.HR
 
         protected void gvAttendanceList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            ModalPopupExtender1.Show();
+            //ModalPopupExtender1.Show();
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
