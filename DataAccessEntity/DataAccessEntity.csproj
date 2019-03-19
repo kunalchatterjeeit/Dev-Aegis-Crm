@@ -56,6 +56,8 @@
     <Compile Include="Sales\ContactsEntity.cs" />
     <Compile Include="Sales\NotesDataAccess.cs" />
     <Compile Include="Sales\NotesEntity.cs" />
+    <Compile Include="Sales\TasksDataAccess.cs" />
+    <Compile Include="Sales\TasksEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

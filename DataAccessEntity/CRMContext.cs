@@ -30,6 +30,14 @@ namespace DataAccessEntity
                .ToTable("tbl_Sales_Contacts");
             modelBuilder.Entity<Sales.NotesDbModel>()
                .ToTable("tbl_Sales_Notes");
+            modelBuilder.Entity<Sales.TaskPriorityDbModel>()
+              .ToTable("tbl_Sales_TasksPriority");
+            modelBuilder.Entity<Sales.TaskStatusDbModel>()
+              .ToTable("tbl_Sales_TasksStatus");
+            modelBuilder.Entity<Sales.TaskRelatedToDbModel>()
+              .ToTable("tbl_Sales_TasksRelated");
+            modelBuilder.Entity<Sales.TasksDbModel>()
+              .ToTable("tbl_Sales_Tasks");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -39,5 +47,9 @@ namespace DataAccessEntity
         public DbSet<Sales.CallDirectionDbModel> CallDirection { get; set; }
         public DbSet<Sales.ContactsDbModel> Contacts { get; set; }
         public DbSet<Sales.NotesDbModel> Notes { get; set; }
+        public DbSet<Sales.TaskPriorityDbModel> TaskPriority { get; set; }
+        public DbSet<Sales.TaskRelatedToDbModel> TaskRelatedTo { get; set; }
+        public DbSet<Sales.TaskStatusDbModel> TaskStatus { get; set; }
+        public DbSet<Sales.TasksDbModel> Tasks{ get; set; }
     }
 }
