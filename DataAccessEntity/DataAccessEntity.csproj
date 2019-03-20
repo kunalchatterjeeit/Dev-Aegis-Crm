@@ -54,6 +54,8 @@
     <Compile Include="Sales\CallsEntity.cs" />
     <Compile Include="Sales\ContactsDataAccess.cs" />
     <Compile Include="Sales\ContactsEntity.cs" />
+    <Compile Include="Sales\MeetingsDataAccess.cs" />
+    <Compile Include="Sales\MeetingsEntity.cs" />
     <Compile Include="Sales\NotesDataAccess.cs" />
     <Compile Include="Sales\NotesEntity.cs" />
     <Compile Include="Sales\TasksDataAccess.cs" />
