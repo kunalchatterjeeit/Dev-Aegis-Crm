@@ -99,7 +99,9 @@
                                                     <%# (Eval("TotalHours") != DBNull.Value)? TimeSpan.FromMinutes(Convert.ToDouble(Eval("TotalHours").ToString())).ToString(@"dd\:hh\:mm"):"" %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField>
+                                            <asp:BoundField DataField="InLocation" HeaderText="In Location" />
+                                            <asp:BoundField DataField="OutLocation" HeaderText="Out Location" />
+                                            <%--<asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnInLocationView" runat="server" Text="In GPS Location" CommandName="InLocationView" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-info" Style="margin: 2px" />
                                                 </ItemTemplate>
@@ -108,7 +110,7 @@
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnOutLocationView" runat="server" Text="Out GPS Location" CommandName="OutLocationView" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-info" Style="margin: 2px" />
                                                 </ItemTemplate>
-                                            </asp:TemplateField>
+                                            </asp:TemplateField>--%>
                                         </Columns>
                                         <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                         <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />

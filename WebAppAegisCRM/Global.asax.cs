@@ -47,8 +47,8 @@ namespace WebAppAegisCRM
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception ex = Server.GetLastError();
-            ex.WriteException();
+            //Exception ex = Server.GetLastError();
+            //ex.WriteException();
         }
 
         protected void Session_End(object sender, EventArgs e)

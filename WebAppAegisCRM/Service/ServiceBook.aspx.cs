@@ -1115,64 +1115,77 @@ namespace WebAppAegisCRM.Service
         #region SYSTEM DEFINED FUNCTIONS
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            try
             {
-                Response.Redirect("~/MainLogout.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                LoadFunctions();
-                //Checking Auto Fetch functionality conditions
-                if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    if (Request.QueryString["calltype"] != null && Request.QueryString["calltype"].ToString().Length > 0)
+                    Response.Redirect("~/MainLogout.aspx");
+                }
+
+                if (!IsPostBack)
+                {
+                    LoadFunctions();
+                    //Checking Auto Fetch functionality conditions
+                    if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)
                     {
-                        ddlCallType.SelectedValue = Request.QueryString["calltype"].ToString();
+                        if (Request.QueryString["calltype"] != null && Request.QueryString["calltype"].ToString().Length > 0)
+                        {
+                            ddlCallType.SelectedValue = Request.QueryString["calltype"].ToString();
 
-                        if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Toner))
-                        {
-                            TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryString());
-                            btnSearch_Click(sender, e);
-                            foreach (GridViewRow gvr in gvTonnerRequest.Rows)
+                            if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Toner))
                             {
-                                if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryString())
+                                TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryStringSafe());
+                                btnSearch_Click(sender, e);
+                                foreach (GridViewRow gvr in gvTonnerRequest.Rows)
                                 {
-                                    ((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked = true;
-                                    chkTonnerRequest_CheckedChanged(((CheckBox)gvr.FindControl("chkTonnerRequest")), e);
+                                    if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryStringSafe())
+                                    {
+                                        ((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked = true;
+                                        chkTonnerRequest_CheckedChanged(((CheckBox)gvr.FindControl("chkTonnerRequest")), e);
+                                    }
                                 }
+                                //TonerRequestId = 0;
+                                divCallType.Visible = false;
+                                //divTonnerRequest.Visible = false;
                             }
-                            //TonerRequestId = 0;
-                            divCallType.Visible = false;
-                            //divTonnerRequest.Visible = false;
-                        }
-                        else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
-                        {
-                            DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryString());
-                            btnSearch_Click(sender, e);
-                            foreach (GridViewRow gvr in gvDocket.Rows)
+                            else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
                             {
-                                if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryString())
+                                DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryStringSafe());
+                                btnSearch_Click(sender, e);
+                                foreach (GridViewRow gvr in gvDocket.Rows)
                                 {
-                                    ((CheckBox)gvr.FindControl("chkDocket")).Checked = true;
-                                    chkDocket_CheckedChanged(((CheckBox)gvr.FindControl("chkDocket")), e);
+                                    if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryStringSafe())
+                                    {
+                                        ((CheckBox)gvr.FindControl("chkDocket")).Checked = true;
+                                        chkDocket_CheckedChanged(((CheckBox)gvr.FindControl("chkDocket")), e);
+                                    }
                                 }
+                                //DocketId = 0;
+                                divCallType.Visible = false;
+                                //divDocket.Visible = false;
                             }
-                            //DocketId = 0;
-                            divCallType.Visible = false;
-                            //divDocket.Visible = false;
-                        }
 
-                        if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
-                        {
-                            EmployeeCallLogin(sender, e);
-                        }
-                        else if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout"))
-                        {
-                            EmployeeCallLogout(sender, e);
+                            if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
+                            {
+                                EmployeeCallLogin(sender, e);
+                            }
+                            else if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout"))
+                            {
+                                EmployeeCallLogout(sender, e);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = ex.Message;
+                MessageDocket.Show = true;
+                MessageTonner.IsSuccess = false;
+                MessageTonner.Text = ex.Message;
+                MessageTonner.Show = true;
             }
         }
 
