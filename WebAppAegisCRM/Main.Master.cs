@@ -65,6 +65,16 @@ namespace WebAppAegisCRM
                 liVendorList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.VENDOR_LIST);
                 liPurchaseRequisitionEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.PURCHASE_REQUISITION_ENTRY);
 
+                if (ApplicationModules.SalesModule.ModulePermission())
+                {
+                    //SALES
+                    liSales.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES);
+                    liCalls.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_CALLS);
+                    liMeetings.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_MEETINGS);
+                    liNotes.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_NOTES);
+                    liTasks.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_TASKS);
+                }
+
                 //SERVICE
                 liService.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE);
                 liAddEditCallStatus.Visible = false;

@@ -9,8 +9,7 @@
                 prepareDateTimeControls();
             });
         });
-        function prepareDateTimeControls()
-        {
+        function prepareDateTimeControls() {
             $('#ContentPlaceHolder1_txtCallStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
             $('#ContentPlaceHolder1_txtCallEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
         }
@@ -33,6 +32,9 @@
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <script type="text/javascript">
+                Sys.Application.add_load(prepareDateTimeControls);
+            </script>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -41,16 +43,16 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group has-error">
                                         Call Subject
                                 <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         Call Description
-                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">

@@ -3,21 +3,20 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
             $(function () {
                 prepareDateTimeControls();
             });
         });
-        function prepareDateTimeControls()
-        {
+        function prepareDateTimeControls() {
             $('#ContentPlaceHolder1_txtTaskStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
             $('#ContentPlaceHolder1_txtTaskEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
         }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
         <ProgressTemplate>
@@ -33,24 +32,27 @@
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <script type="text/javascript">
+                Sys.Application.add_load(prepareDateTimeControls);
+            </script>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Calls
+                            Add/Edit Tasks
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group has-error">
                                         Task Subject
                                 <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         Task Description
-                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -73,7 +75,7 @@
                                 <asp:DropDownList ID="ddlTaskRelatedTo" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>                               
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Task Start Date Time
@@ -86,7 +88,7 @@
                                       <input type="text" id="txtTaskEndDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>                                
+                                <div class="clearfix"></div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -120,7 +122,7 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Subject" HeaderText="Subject" />
                                             <asp:BoundField DataField="TaskStatus" HeaderText="Task Status" />
-                                             <asp:BoundField DataField="TaskRelatedTo" HeaderText="Task Related To" />
+                                            <asp:BoundField DataField="TaskRelatedTo" HeaderText="Task Related To" />
                                             <asp:BoundField DataField="TaskPriority" HeaderText="Task Priority" />
                                             <asp:TemplateField>
                                                 <HeaderTemplate>

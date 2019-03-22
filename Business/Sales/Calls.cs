@@ -40,13 +40,8 @@ namespace Business.Sales
         public List<Entity.Sales.GetCalls> GetAllCalls(Entity.Sales.GetCallsParam Param)
         {
             List<Entity.Sales.GetCalls> AllCallList = new List<Entity.Sales.GetCalls>();
-            GetCallsParamDbModel p = new GetCallsParamDbModel
-            {
-                CallStatusId = Param.CallStatusId,
-                Subject = Param.Subject,
-                StartDateTime = Param.StartDateTime,
-                EndDateTime = Param.EndDateTime
-            };
+            GetCallsParamDbModel p = new GetCallsParamDbModel();
+            Param.CopyPropertiesTo(p);
             CallsDataAccess.GetAllCalls(p).CopyListTo(AllCallList);
             return AllCallList;
         }
@@ -58,22 +53,8 @@ namespace Business.Sales
         }
         public int SaveCalls(Entity.Sales.Calls Model)
         {
-            CallsDbModel DbModel = new CallsDbModel
-            {
-                Id = Model.Id,
-                Subject = Model.Subject,
-                Description = Model.Description,
-                CallStatusId = Model.CallStatusId,
-                CallDirectionId = Model.CallDirectionId,
-                CallRelatedTo = Model.CallRelatedTo,
-                CallRepeatTypeId = Model.CallRepeatTypeId,
-                CreatedBy = Model.CreatedBy,
-                EmailReminder = Model.EmailReminder,
-                PopupReminder = Model.PopupReminder,
-                StartDateTime = Model.StartDateTime,
-                EndDateTime = Model.EndDateTime,
-                IsActive=Model.IsActive
-            };
+            CallsDbModel DbModel = new CallsDbModel();
+            Model.CopyPropertiesTo(DbModel);
             return CallsDataAccess.SaveCalls(DbModel);
         }
         public int DeleteCalls(int Id)

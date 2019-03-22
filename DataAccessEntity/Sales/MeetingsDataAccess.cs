@@ -58,20 +58,20 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Meetings_Save] @Id,@Name,@Description,@Location,@StartDateTime,@EndDateTime," +
-                                "@MeetingTypeId,@MeetingStatusId,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
+                                "exec dbo.[usp_Sales_Meetings_Save] @Id,@Name,@Description,@StartDateTime,@EndDateTime,@Location," +
+                                "@PopupReminder,@EmailReminder,@MeetingTypeId,@MeetingStatusId,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
                                     new SqlParameter("Name", Model.Name),
                                     new SqlParameter("Description", Model.Description),
-                                    new SqlParameter("Location", Model.Location),
                                     new SqlParameter("StartDateTime", Model.StartDateTime),
                                     new SqlParameter("EndDateTime", Model.EndDateTime),
-                                    new SqlParameter("MeetingTypeId", Model.MeetingTypeId),
-                                    new SqlParameter("MeetingStatusId", Model.MeetingStatusId),
+                                    new SqlParameter("Location", Model.Location),
                                     new SqlParameter("PopupReminder", Model.PopupReminder),
                                     new SqlParameter("EmailReminder", Model.EmailReminder),
+                                    new SqlParameter("MeetingTypeId", Model.MeetingTypeId),
+                                    new SqlParameter("MeetingStatusId", Model.MeetingStatusId),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
                                     new SqlParameter("IsActive", Model.IsActive)
                                 }

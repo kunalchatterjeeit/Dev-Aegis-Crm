@@ -32,15 +32,8 @@ namespace Business.Sales
         public List<Entity.Sales.GetTasks> GetAllTasks(Entity.Sales.GetTasksParam Param)
         {
             List<Entity.Sales.GetTasks> AllTaskList = new List<Entity.Sales.GetTasks>();
-            GetTasksParamDbModel p = new GetTasksParamDbModel
-            {
-                Subject = Param.Subject,
-                StartDateTime = Param.StartDateTime,
-                EndDateTime = Param.EndDateTime,
-                TaskPriorityId = Param.TaskPriorityId,
-                TaskStatusId = Param.TaskStatusId,
-                TaskRelatedToId = Param.TaskRelatedToId
-            };
+            GetTasksParamDbModel p = new GetTasksParamDbModel();
+            Param.CopyPropertiesTo(p);
             TasksDataAccess.GetAllTasks(p).CopyListTo(AllTaskList);
             return AllTaskList;
         }
@@ -52,19 +45,8 @@ namespace Business.Sales
         }
         public int SaveTasks(Entity.Sales.Tasks Model)
         {
-            TasksDbModel DbModel = new TasksDbModel
-            {
-                Id = Model.Id,
-                Subject = Model.Subject,
-                Description = Model.Description,
-                TasksPriorityId = Model.TasksPriorityId,
-                TasksRelatedTo = Model.TasksRelatedTo,
-                TasksStatusId = Model.TasksStatusId,
-                CreatedBy = Model.CreatedBy,
-                StartDateTime = Model.StartDateTime,
-                EndDateTime = Model.EndDateTime,
-                IsActive = Model.IsActive
-            };
+            TasksDbModel DbModel = new TasksDbModel();
+            Model.CopyPropertiesTo(DbModel);
             return TasksDataAccess.SaveTasks(DbModel);
         }
         public int DeleteTasks(int Id)

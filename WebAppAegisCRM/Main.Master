@@ -374,6 +374,24 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li id="liSales" runat="server" visible="false">
+                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Sales<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="liCalls" runat="server" visible="false">
+                                    <a href="../Sales/Calls.aspx">Add/Edit Calls</a>
+                                </li>
+                                <li id="liMeetings" runat="server" visible="false">
+                                    <a href="../Sales/Meeting.aspx">Add/Edit Meetings</a>
+                                </li>
+                                <li id="liNotes" runat="server" visible="false">
+                                    <a href="../Sales/Notes.aspx">Add/Edit Notes</a>
+                                </li>
+                                <li id="liTasks" runat="server" visible="false">
+                                    <a href="../Sales/Task.aspx">Add/Edit Tasks</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li id="liService" runat="server" visible="false">
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

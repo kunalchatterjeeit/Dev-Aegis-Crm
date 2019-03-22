@@ -1,4 +1,5 @@
-﻿<%@ Page Title="ADD/EDIT CALLS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Meeting.aspx.cs" Inherits="WebAppAegisCRM.Sales.Meeting" %>
+﻿<%@ Page Title="ADD/EDIT MEETINGS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Meeting.aspx.cs" Inherits="WebAppAegisCRM.Sales.Meeting" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -8,8 +9,7 @@
                 prepareDateTimeControls();
             });
         });
-        function prepareDateTimeControls()
-        {
+        function prepareDateTimeControls() {
             $('#ContentPlaceHolder1_txtMeetingStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
             $('#ContentPlaceHolder1_txtMeetingEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
         }
@@ -30,34 +30,37 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
-     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <script type="text/javascript">
+                Sys.Application.add_load(prepareDateTimeControls);
+            </script>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Meetings
+                            Add/Edit Meeting
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group has-error">
                                         Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="form-group">
-                                         Description
-                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server"></asp:TextBox>
+                                        Description
+                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
-                                      <div class="col-lg-4">
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                         Location
+                                        Location
                                 <asp:TextBox ID="txtLocation" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
-                                </div>                        
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Meeting Type
@@ -72,6 +75,7 @@
                                 </asp:DropDownList>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Meeting Start Date Time
@@ -128,7 +132,7 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Name" />
                                             <asp:BoundField DataField="MeetingType" HeaderText="Meeting Type" />
-                                             <asp:BoundField DataField="MeetingStatus" HeaderText="Meeting Status" />
+                                            <asp:BoundField DataField="MeetingStatus" HeaderText="Meeting Status" />
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
                                                     Start Date

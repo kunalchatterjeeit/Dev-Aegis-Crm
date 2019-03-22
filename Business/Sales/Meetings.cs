@@ -26,14 +26,8 @@ namespace Business.Sales
         public List<Entity.Sales.GetMeetings> GetAllMeetings(Entity.Sales.GetMeetingsParam Param)
         {
             List<Entity.Sales.GetMeetings> AllMeetingList = new List<Entity.Sales.GetMeetings>();
-            GetMeetingsParamDbModel p = new GetMeetingsParamDbModel
-            {
-                Name = Param.Name,
-                MeetingStatusId = Param.MeetingStatusId,
-                MeetingTypeId = Param.MeetingTypeId,
-                StartDateTime = Param.StartDateTime,
-                EndDateTime = Param.EndDateTime
-            };
+            GetMeetingsParamDbModel p = new GetMeetingsParamDbModel();
+            Param.CopyPropertiesTo(p);
             MeetingsDataAccess.GetAllMeetings(p).CopyListTo(AllMeetingList);
             return AllMeetingList;
         }
@@ -45,21 +39,8 @@ namespace Business.Sales
         }
         public int SaveMeetings(Entity.Sales.Meetings Model)
         {
-            MeetingsDbModel DbModel = new MeetingsDbModel
-            {
-                Id = Model.Id,
-                Name = Model.Name,
-                Description = Model.Description,
-                Location = Model.Location,
-                MeetingStatusId = Model.MeetingStatusId,
-                MeetingTypeId = Model.MeetingTypeId,
-                CreatedBy = Model.CreatedBy,
-                EmailReminder = Model.EmailReminder,
-                PopupReminder = Model.PopupReminder,
-                StartDateTime = Model.StartDateTime,
-                EndDateTime = Model.EndDateTime,
-                IsActive = Model.IsActive
-            };
+            MeetingsDbModel DbModel = new MeetingsDbModel();
+            Model.CopyPropertiesTo(DbModel);
             return MeetingsDataAccess.SaveMeetings(DbModel);
         }
         public int DeleteMeetings(int Id)

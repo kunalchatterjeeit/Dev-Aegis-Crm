@@ -23,11 +23,8 @@ namespace Business.Sales
         public List<Entity.Sales.GetNotes> GetAllNotes(Entity.Sales.GetNotesParam Param)
         {
             List<Entity.Sales.GetNotes> AllNoteList = new List<Entity.Sales.GetNotes>();
-            GetNotesParamDbModel p = new GetNotesParamDbModel
-            {
-                Name = Param.Name,
-                ContactId = Param.ContactId
-            };
+            GetNotesParamDbModel p = new GetNotesParamDbModel();
+            Param.CopyPropertiesTo(p);
             NotesDataAccess.GetAllNotes(p).CopyListTo(AllNoteList);
             return AllNoteList;
         }
@@ -39,15 +36,8 @@ namespace Business.Sales
         }
         public int SaveNotes(Entity.Sales.Notes Model)
         {
-            NotesDbModel DbModel = new NotesDbModel
-            {
-                Id = Model.Id,
-                Name = Model.Name,
-                Description = Model.Description,
-                ContactId = Model.ContactId,
-                CreatedBy = Model.CreatedBy,
-                IsActive = Model.IsActive
-            };
+            NotesDbModel DbModel = new NotesDbModel();
+            Model.CopyPropertiesTo(DbModel);
             return NotesDataAccess.SaveNotes(DbModel);
         }
         public int DeleteNotes(int Id)
