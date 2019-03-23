@@ -66,7 +66,7 @@
                                                         SN.
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                       <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
+                                                        <%#  (gvCustomerMaster.PageIndex * gvCustomerMaster.PageSize) + (Container.DataItemIndex + 1) %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Customer Id" DataField="CustomerCode" />
@@ -112,6 +112,9 @@
             <a id="lnk" runat="server"></a>
             <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
                 runat="server" TargetControlID="lnk" PopupControlID="Panel1" CancelControlID="imgbtn">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
             </asp:ModalPopupExtender>
             <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-10" Style="display: none; z-index: 10000; position: absolute">
                 <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">
@@ -285,6 +288,9 @@
             <a id="lnk2" runat="server"></a>
             <asp:ModalPopupExtender ID="ModalPopupExtender2" BackgroundCssClass="myModalPopupbackGrnd"
                 runat="server" TargetControlID="lnk2" PopupControlID="Panel2" CancelControlID="imgbtn2">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
             </asp:ModalPopupExtender>
             <asp:Panel ID="Panel2" runat="server" CssClass="myModalPopup-18" Style="display: none;">
                 <asp:Panel ID="Panel4" runat="server" class="popup-working-section-extra-height" ScrollBars="Auto">

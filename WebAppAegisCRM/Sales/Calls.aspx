@@ -2,6 +2,8 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
+<%@ Register Src="../UserControl/SalesLinkTypeControl.ascx" TagPrefix="uc3" TagName="SalesLinkTypeControl" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -188,6 +190,21 @@
                     </div>
                 </div>
             </div>
+            <a id="lnk" runat="server"></a>
+            <asp:HiddenField ID="hdnItemType" runat="server" />
+            <asp:HiddenField ID="hdnItemId" runat="server" />
+            <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
+                runat="server" TargetControlID="lnk" PopupControlID="Panel1">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
+            </asp:ModalPopupExtender>
+            <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-small" Style="display: none; z-index: 10000; position: absolute">
+                <asp:Panel ID="dragHandler" runat="server" class="popup-working-section-small" ScrollBars="Auto">
+                    <h6 id="popupHeader1" runat="server" class="popup-header-companyname"></h6>
+                    <uc3:SalesLinkTypeControl runat="server" ID="SalesLinkTypeControl" />
+                </asp:Panel>
+            </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

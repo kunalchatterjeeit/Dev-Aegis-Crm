@@ -212,6 +212,7 @@
     <Content Include="Service\TonnerRequestList.aspx" />
     <Content Include="Settings\UserSettings.aspx" />
     <Content Include="UserControl\Message.ascx" />
+    <Content Include="UserControl\SalesLinkTypeControl.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -768,6 +769,13 @@
     </Compile>
     <Compile Include="UserControl\Message.ascx.designer.cs">
       <DependentUpon>Message.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\SalesLinkTypeControl.ascx.cs">
+      <DependentUpon>SalesLinkTypeControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\SalesLinkTypeControl.ascx.designer.cs">
+      <DependentUpon>SalesLinkTypeControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\InternalServices.asmx.cs">
       <DependentUpon>InternalServices.asmx</DependentUpon>

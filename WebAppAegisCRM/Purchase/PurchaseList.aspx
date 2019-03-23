@@ -102,7 +102,7 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvPurchase" DataKeyNames="PurchaseId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    class="table table-striped" GridLines="None" Style="text-align: left" 
+                                    class="table table-striped" GridLines="None" Style="text-align: left"
                                     PageSize="20" AllowPaging="true" OnPageIndexChanging="gvPurchase_PageIndexChanging"
                                     OnRowCommand="gvPurchase_RowCommand">
                                     <Columns>
@@ -149,6 +149,9 @@
             <a id="lnk" runat="server"></a>
             <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
                 runat="server" TargetControlID="lnk" PopupControlID="Panel1" CancelControlID="imgbtn">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
             </asp:ModalPopupExtender>
             <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-10" Style="display: none; z-index: 10000; position: absolute">
                 <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">

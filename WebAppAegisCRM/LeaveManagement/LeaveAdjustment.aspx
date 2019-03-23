@@ -82,6 +82,9 @@
             <a id="lnkLeave" runat="server"></a>
             <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
                 runat="server" TargetControlID="lnkLeave" PopupControlID="Panel1" CancelControlID="imgbtn">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
             </asp:ModalPopupExtender>
             <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
                 <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">

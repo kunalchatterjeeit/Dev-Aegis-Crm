@@ -208,5 +208,41 @@ namespace Business.Common
                 HttpContext.Current.Session["LeaveApplicationId"] = value;
             }
         }
+
+        public static int SelectedAccountId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedAccountId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["SelectedAccountId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedAccountId"] = value;
+            }
+        }
+
+        public static int SelectedLeadId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedLeadId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["SelectedLeadId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedLeadId"] = value;
+            }
+        }
+
+        public static int SelectedOpportunityId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedOpportunityId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["SelectedOpportunityId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedOpportunityId"] = value;
+            }
+        }
     }
 }

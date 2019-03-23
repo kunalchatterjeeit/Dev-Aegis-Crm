@@ -12,6 +12,10 @@ namespace WebAppAegisCRM.Sales
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
+            {
+                ModalPopupExtender1.Show();
+            }
             if (!IsPostBack)
             {
                 LoadTasksDropdowns();
