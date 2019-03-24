@@ -25,7 +25,7 @@
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
     <link href="/dist/css/custom15112018.css" rel="stylesheet" />
-  
+
     <!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -57,7 +57,7 @@
     <%--DateTime picker related--%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-     <%--DateTime picker related End--%>
+    <%--DateTime picker related End--%>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -76,7 +76,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img src="../images/HRMS1.png" height="40px" alt="AEGIS HR" style="margin:5px"/>
-                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px"/></a>                
+                <a class="navbar-brand" href="#">
+                    <img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px" alt="AEGIS CRM"/>
+                </a>
             </div>
             <!-- /.navbar-header -->
          

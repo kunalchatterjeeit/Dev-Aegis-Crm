@@ -57,7 +57,7 @@ namespace WebAppAegisCRM.UserControl
 
         protected void btnReturn_Click(object sender, EventArgs e)
         {
-            Response.Redirect(Request.UrlReferrer.AbsoluteUri);
+            Response.Redirect(Business.Common.Context.ReferralUrl);
         }
     }
 }
