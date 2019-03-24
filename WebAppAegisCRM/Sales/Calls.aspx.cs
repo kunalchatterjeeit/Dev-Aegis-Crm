@@ -12,13 +12,13 @@ namespace WebAppAegisCRM.Sales
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Business.Common.Context.ReferralUrl = Request.UrlReferrer.AbsoluteUri;
             if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
             {
                 ModalPopupExtender1.Show();
             }
             if (!IsPostBack)
             {
+                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
                 LoadCallsDropdowns();
                 LoadCallList();
                 Message.Show = false;
