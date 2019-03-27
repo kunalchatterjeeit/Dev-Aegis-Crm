@@ -95,7 +95,28 @@ namespace DataAccess.HR
                 }
             }
             return rowsAffacted;
-        }       
+        }
+
+        public static int HR_PasswordReset_Save(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_PasswordReset_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeMasterId", employeeMaster.EmployeeMasterId);
+                    cmd.Parameters.AddWithValue("@Password", employeeMaster.Password);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
 
         public static int EmployeeDelete(Entity.HR.EmployeeMaster objElEmployeeMaster)
         {
@@ -259,6 +280,7 @@ namespace DataAccess.HR
                             user.Password = (dr[2] == DBNull.Value) ? "" : dr[2].ToString();
                             user.Roles = (dr[3] == DBNull.Value) ? "" : dr[3].ToString();
                             user.EmployeeName = (dr[4] == DBNull.Value) ? "" : dr[4].ToString();
+                            user.IsPasswordChangeRequired = (dr[5] == DBNull.Value) ? false : Convert.ToBoolean(dr[5].ToString());
                         }
 
                         con.Close();

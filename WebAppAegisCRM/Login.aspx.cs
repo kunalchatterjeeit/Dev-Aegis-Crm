@@ -63,11 +63,37 @@ namespace WebAppAegisCRM
                 {
                     string passowrd = employeeMaster.Password;
                     string userId = employeeMaster.UserId.ToString();
-#if (DEBUG)
-                    if (true)
-#else
-                    if (passowrd.Equals(txtPassword.Text.Trim().EncryptQueryString()))
-#endif
+
+                    if (employeeMaster.IsPasswordChangeRequired && passowrd.Equals(txtPassword.Text.Trim().EncryptQueryString()))
+                    {
+                        string roles = employeeMaster.Roles;
+                        string userSettings = new Business.Settings.UserSettings().GetByUserId(Convert.ToInt32(userId)).Tables[0].Rows[0]["UserSettings"].ToString();
+                        roles = string.Concat(roles, userSettings);
+
+                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+                                                                       1,
+                                                                       userId,
+                                                                       DateTime.Now,
+                                                                       DateTime.Now.AddHours(2),
+                                                                       false,
+                                                                       roles, //define roles here
+                                                                       "/");
+                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                        Response.Cookies.Add(cookie);
+
+                        auth.UserId = Convert.ToInt32(userId);
+                        auth.IP = GetIP();
+                        auth.Status = Entity.Common.LoginStatus.Success;
+                        auth.Client = GetClient();
+                        objEmployeeMaster.Login_Save(auth);
+                        Response.Redirect(@"ResetPassword.aspx");
+                        return;
+                    }
+//#if (DEBUG)
+//                    if (true)
+//#else
+                    if (passowrd.Equals(txtPassword.Text.Trim().EncodePasswordToBase64()))
+//#endif
                     {
                         string roles = employeeMaster.Roles;
                         string userSettings = new Business.Settings.UserSettings().GetByUserId(Convert.ToInt32(userId)).Tables[0].Rows[0]["UserSettings"].ToString();

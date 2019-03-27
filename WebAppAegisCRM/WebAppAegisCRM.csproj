@@ -171,7 +171,6 @@
     <Content Include="Inventory\StockSnap.aspx" />
     <Content Include="LeaveManagement\LeaveDesignationConfiguration.aspx" />
     <Content Include="LeaveManagement\LeaveReport.aspx" />
-    <Content Include="location.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="logindetails.aspx" />
     <Content Include="MainLogout.aspx" />
@@ -180,6 +179,7 @@
     <Content Include="Purchase\PurchaseRequisition.aspx" />
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
+    <Content Include="ResetPassword.aspx" />
     <Content Include="Sale\AssetSelection.aspx" />
     <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Sale\SaleChallanList.aspx" />
@@ -513,13 +513,6 @@
     <Compile Include="LeaveManagement\LeaveReport.aspx.designer.cs">
       <DependentUpon>LeaveReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="location.aspx.cs">
-      <DependentUpon>location.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="location.aspx.designer.cs">
-      <DependentUpon>location.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -583,6 +576,13 @@
     </Compile>
     <Compile Include="Purchase\VendorMasterView.aspx.designer.cs">
       <DependentUpon>VendorMasterView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Calls.aspx.cs">
       <DependentUpon>Calls.aspx</DependentUpon>

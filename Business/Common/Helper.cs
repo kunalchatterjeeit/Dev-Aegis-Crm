@@ -232,5 +232,12 @@ namespace Business.Common
             var output = MachineKey.Unprotect(bytes, EncryptionKey);
             return Encoding.UTF8.GetString(output);
         }
+
+        public static string EncodePasswordToBase64(this string password)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(password);
+            byte[] inArray = HashAlgorithm.Create("SHA1").ComputeHash(bytes);
+            return Convert.ToBase64String(inArray);
+        }
     }
 }

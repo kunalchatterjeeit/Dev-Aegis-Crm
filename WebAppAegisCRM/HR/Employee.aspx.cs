@@ -209,7 +209,7 @@ namespace WebAppAegisCRM.Employee
                     if (txtPassword.Text.Trim() == string.Empty)
                         employeeMaster.Password = EmployeePassword;
                     else
-                        employeeMaster.Password = txtPassword.Text.Trim().EncryptQueryString();
+                        employeeMaster.Password = txtPassword.Text.Trim().EncodePasswordToBase64();
                     employeeMaster.PANNo = txtPANnumber.Text.Trim();
 
                     employeeMaster.TAddress = txtpresentaddress.Text.Trim();

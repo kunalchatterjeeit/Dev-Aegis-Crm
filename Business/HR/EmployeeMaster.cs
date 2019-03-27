@@ -14,6 +14,11 @@ namespace Business.HR
             return DataAccess.HR.EmployeeMaster.Employee_Save(ObjElEmployeeMaster);
         }
 
+        public int HR_PasswordReset_Save(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            return DataAccess.HR.EmployeeMaster.HR_PasswordReset_Save(employeeMaster);
+        }
+
         public int EmployeeDelete(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
         {
             return DataAccess.HR.EmployeeMaster.EmployeeDelete(ObjElEmployeeMaster);
