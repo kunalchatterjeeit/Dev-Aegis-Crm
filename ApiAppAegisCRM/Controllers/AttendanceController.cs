@@ -66,7 +66,7 @@ namespace ApiAppAegisCRM.Controllers
             try
             {
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(userId, DateTime.Now.Date.AddMinutes(333));
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(userId, DateTime.Now.Date.AddMinutes(273));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
@@ -94,9 +94,9 @@ namespace ApiAppAegisCRM.Controllers
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
                 Entity.HR.Attendance attendance = new Entity.HR.Attendance()
                 {
-                    AttendanceDate = DateTime.Now.Date.AddMinutes(333),
-                    InDateTime = DateTime.Now.AddMinutes(333),
-                    OutDateTime = DateTime.Now.AddMinutes(333),
+                    AttendanceDate = DateTime.Now.Date.AddMinutes(273),
+                    InDateTime = DateTime.Now.AddMinutes(273),
+                    OutDateTime = DateTime.Now.AddMinutes(273),
                     EmployeeId = Convert.ToInt32(model.UserId),
                     CreatedBy = Convert.ToInt32(model.UserId),
                     TotalHours = 0,
@@ -108,7 +108,7 @@ namespace ApiAppAegisCRM.Controllers
             else if (model.AttendanceMode.ToLower().Equals("out"))
             {
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.Now.Date.AddMinutes(333));
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.Now.Date.AddMinutes(273));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
                     Entity.HR.Attendance attendance = new Entity.HR.Attendance()
@@ -116,9 +116,9 @@ namespace ApiAppAegisCRM.Controllers
                         AttendanceId = Convert.ToInt64(dt.Rows[0]["AttendanceId"].ToString()),
                         AttendanceDate = Convert.ToDateTime(dt.Rows[0]["AttendanceDate"].ToString()),
                         InDateTime = Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString()),
-                        OutDateTime = DateTime.Now.AddMinutes(333),
+                        OutDateTime = DateTime.Now.AddMinutes(273),
                         CreatedBy = Convert.ToInt32(model.UserId),
-                        TotalHours = (DateTime.Now.AddMinutes(333) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
+                        TotalHours = (DateTime.Now.AddMinutes(273) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
                         Latitude = model.Latitude,
                         Longitude = model.Longitude
                     };

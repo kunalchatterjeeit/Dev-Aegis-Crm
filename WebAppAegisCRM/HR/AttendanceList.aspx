@@ -82,7 +82,7 @@
                                                     In Date&Time
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <%# (Eval("InDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("InDateTimeRaw").ToString()).ToString("dd MMM yyyy HH:mm:ss tt") %>
+                                                    <%# (Eval("InDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("InDateTimeRaw").ToString()).ToString("dd MMM yyyy hh:mm:ss tt") %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField>
@@ -90,7 +90,7 @@
                                                     Out Date&Time
                                                 </HeaderTemplate>
                                                 <ItemTemplate>
-                                                    <%# (Eval("OutDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("OutDateTimeRaw").ToString()).ToString("dd MMM yyyy HH:mm:ss tt") %>
+                                                    <%# (Eval("OutDateTimeRaw") == DBNull.Value)? "": Convert.ToDateTime(Eval("OutDateTimeRaw").ToString()).ToString("dd MMM yyyy hh:mm:ss tt") %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField>
