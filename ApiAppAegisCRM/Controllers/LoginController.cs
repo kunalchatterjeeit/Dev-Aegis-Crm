@@ -24,9 +24,7 @@ namespace ApiAppAegisCRM.Controllers
                     if (model != null)
                     {
                         model = UserLogin(model);
-                        model.ResponseCode = 200;
                         model.Password = string.Empty;
-                        model.IsLoginBlocked = false;
                         retValue = Request.CreateResponse(HttpStatusCode.OK, model);
                     }
                 }
@@ -43,6 +41,7 @@ namespace ApiAppAegisCRM.Controllers
         {
             try
             {
+                model.ResponseCode = 99;
                 Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                 Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
                 Entity.Common.Auth auth = new Auth();
@@ -55,18 +54,34 @@ namespace ApiAppAegisCRM.Controllers
 
                     if (passowrd.Equals(model.Password.Trim().EncodePasswordToBase64()))
                     {
-                        model.LoginStatus = "SUCCESS";
+                        if (employeeMaster.IsPasswordChangeRequired)
+                        {
+                            model.ResponseCode = 99;
+                            model.Message = "Reset password needed. Please visit aegiscrm.in to reset password.";
+                        }
+                        else if (!employeeMaster.IsLoginActive)
+                        {
+                            model.ResponseCode = 99;
+                            model.Message = "Login blocked by admin.";
+                        }
+                        else
+                        {
+                            model.Name = employeeMaster.EmployeeName + " (" + employeeMaster.EmployeeCode + ")";
+                            model.UserId = Convert.ToInt32(userId);
+                            model.ResponseCode = 200;
+                            model.Message = "Success";
 
-                        model.Name = employeeMaster.EmployeeName + " (" + employeeMaster.EmployeeCode + ")";
-                        model.UserId = Convert.ToInt32(userId);
-                        auth.UserId = Convert.ToInt32(userId);
-                        auth.IP = GetIP();
-                        auth.Status = Entity.Common.LoginStatus.Success;
-                        auth.Client = GetClient();
-                        objEmployeeMaster.Login_Save(auth);
+                            auth.UserId = Convert.ToInt32(userId);
+                            auth.IP = GetIP();
+                            auth.Status = Entity.Common.LoginStatus.Success;
+                            auth.Client = GetClient();
+                            objEmployeeMaster.Login_Save(auth);
+                        }
                     }
                     else
                     {
+                        model.Message = "Invalid username/password.";
+
                         auth.UserId = Convert.ToInt32(userId);
                         auth.IP = GetIP();
                         auth.Status = Entity.Common.LoginStatus.WrongPassword;
@@ -74,24 +89,24 @@ namespace ApiAppAegisCRM.Controllers
                         auth.FailedUserName = model.UserName;
                         auth.FailedPassword = model.Password;
                         objEmployeeMaster.Login_Save(auth);
-                        model.LoginStatus = "FAILED";
                     }
                 }
                 else
                 {
+                    model.Message = "Invalid username/password.";
+
                     auth.IP = GetIP();
                     auth.Status = Entity.Common.LoginStatus.Failed;
                     auth.Client = GetClient();
                     auth.FailedUserName = model.UserName;
                     auth.FailedPassword = model.Password;
                     objEmployeeMaster.Login_Save(auth);
-                    model.LoginStatus = "FAILED";
                 }
             }
             catch (Exception ex)
             {
                 ex.WriteException();
-                model.LoginStatus = "FAILED";
+                model.Message = ex.Message;
             }
             return model;
         }

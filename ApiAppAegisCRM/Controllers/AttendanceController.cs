@@ -22,8 +22,7 @@ namespace ApiAppAegisCRM.Controllers
                 {
                     if (model != null)
                     {
-                        model.CurrentState = Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId));
-                        model.ResponseCode = 200;
+                        model = Attendance_GetByEmployeeId(model);
                         retValue = Request.CreateResponse(HttpStatusCode.OK, model);
                     }
                 }
@@ -46,9 +45,7 @@ namespace ApiAppAegisCRM.Controllers
                 {
                     if (model != null)
                     {
-                        SaveAttendance(model);
-                        model.IsAttendanceBlocked = false;
-                        model.ResponseCode = 200;
+                        model = SaveAttendance(model);
                         retValue = Request.CreateResponse(HttpStatusCode.OK, model);
                     }
                 }
@@ -61,71 +58,96 @@ namespace ApiAppAegisCRM.Controllers
             }
         }
 
-        private string Attendance_GetByEmployeeId(int userId)
+        private AttendanceModel Attendance_GetByEmployeeId(AttendanceModel model)
         {
+            model.ResponseCode = 99;
             try
             {
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(userId, DateTime.Now.Date.AddMinutes(273));
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
                     {
-                        return "OUT";
+                        model.CurrentState = "OUT";
                     }
                     else
                     {
-                        return "IN";
+                        model.CurrentState = "IN";
                     }
                 }
                 else
                 {
-                    return "OUT";
+                    model.CurrentState = "OUT";
                 }
+                model.ResponseCode = 200;
             }
-            catch { }
-            return "OUT";
+            catch (Exception ex)
+            {
+                model.Message = ex.Message;
+            }
+            model.Message = "OUT";
+
+            return model;
         }
 
-        private void SaveAttendance(AttendanceModel model)
+        private AttendanceModel SaveAttendance(AttendanceModel model)
         {
-            if (model.AttendanceMode.ToLower().Equals("in"))
+            model.ResponseCode = 99;
+            try
             {
-                Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                Entity.HR.Attendance attendance = new Entity.HR.Attendance()
+                if (model.AttendanceMode.ToLower().Equals("in"))
                 {
-                    AttendanceDate = DateTime.Now.Date.AddMinutes(273),
-                    InDateTime = DateTime.Now.AddMinutes(273),
-                    OutDateTime = DateTime.Now.AddMinutes(273),
-                    EmployeeId = Convert.ToInt32(model.UserId),
-                    CreatedBy = Convert.ToInt32(model.UserId),
-                    TotalHours = 0,
-                    Latitude = model.Latitude,
-                    Longitude = model.Longitude
-                };
-                objAttendance.Attendance_Save(attendance);
-            }
-            else if (model.AttendanceMode.ToLower().Equals("out"))
-            {
-                Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.Now.Date.AddMinutes(273));
-                if (dt != null && dt.AsEnumerable().Any())
-                {
+                    Business.HR.Attendance objAttendance = new Business.HR.Attendance();
                     Entity.HR.Attendance attendance = new Entity.HR.Attendance()
                     {
-                        AttendanceId = Convert.ToInt64(dt.Rows[0]["AttendanceId"].ToString()),
-                        AttendanceDate = Convert.ToDateTime(dt.Rows[0]["AttendanceDate"].ToString()),
-                        InDateTime = Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString()),
-                        OutDateTime = DateTime.Now.AddMinutes(273),
+                        AttendanceDate = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                        InDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                        OutDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                        EmployeeId = Convert.ToInt32(model.UserId),
                         CreatedBy = Convert.ToInt32(model.UserId),
-                        TotalHours = (DateTime.Now.AddMinutes(273) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
+                        TotalHours = 0,
                         Latitude = model.Latitude,
                         Longitude = model.Longitude
                     };
                     objAttendance.Attendance_Save(attendance);
+                    model.Message = "You are successfully IN.";
+                    model.ResponseCode = 200;
                 }
-
+                else if (model.AttendanceMode.ToLower().Equals("out"))
+                {
+                    Business.HR.Attendance objAttendance = new Business.HR.Attendance();
+                    DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.UtcNow.AddHours(5).AddMinutes(33));
+                    if (dt != null && dt.AsEnumerable().Any())
+                    {
+                        Entity.HR.Attendance attendance = new Entity.HR.Attendance()
+                        {
+                            AttendanceId = Convert.ToInt64(dt.Rows[0]["AttendanceId"].ToString()),
+                            AttendanceDate = Convert.ToDateTime(dt.Rows[0]["AttendanceDate"].ToString()),
+                            InDateTime = Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString()),
+                            OutDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                            CreatedBy = Convert.ToInt32(model.UserId),
+                            TotalHours = (DateTime.UtcNow.AddHours(5).AddMinutes(33) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
+                            Latitude = model.Latitude,
+                            Longitude = model.Longitude
+                        };
+                        objAttendance.Attendance_Save(attendance);
+                        model.Message = "You are successfully OUT.";
+                        model.ResponseCode = 200;
+                    }
+                    else
+                    {
+                        model.Message = "Invalid employee id.";
+                        model.ResponseCode = 200;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                model.ResponseCode = 99;
+                model.Message = ex.Message;
+            }
+            return model;
         }
     }
 }

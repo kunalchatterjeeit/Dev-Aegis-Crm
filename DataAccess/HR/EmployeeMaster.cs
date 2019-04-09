@@ -275,12 +275,14 @@ namespace DataAccess.HR
                     {
                         while (dr.Read())
                         {
-                            user.UserId = (dr[0] == DBNull.Value) ? 0 : Convert.ToInt32(dr[0].ToString());
-                            user.EmployeeCode = (dr[1] == DBNull.Value) ? "" : dr[1].ToString();
-                            user.Password = (dr[2] == DBNull.Value) ? "" : dr[2].ToString();
-                            user.Roles = (dr[3] == DBNull.Value) ? "" : dr[3].ToString();
-                            user.EmployeeName = (dr[4] == DBNull.Value) ? "" : dr[4].ToString();
-                            user.IsPasswordChangeRequired = (dr[5] == DBNull.Value) ? false : Convert.ToBoolean(dr[5].ToString());
+                            user.UserId = (dr["EmployeeMasterId"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["EmployeeMasterId"].ToString());
+                            user.EmployeeCode = (dr["EmployeeCode"] == DBNull.Value) ? "" : dr["EmployeeCode"].ToString();
+                            user.Password = (dr["Password"] == DBNull.Value) ? "" : dr["Password"].ToString();
+                            user.Roles = (dr["Roles"] == DBNull.Value) ? "" : dr["Roles"].ToString();
+                            user.EmployeeName = (dr["EmployeeName"] == DBNull.Value) ? "" : dr["EmployeeName"].ToString();
+                            user.IsActive = (dr["IsActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsActive"].ToString());
+                            user.IsLoginActive = (dr["IsLoginActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsLoginActive"].ToString());
+                            user.IsPasswordChangeRequired = (dr["IsPasswordChangeRequired"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsPasswordChangeRequired"].ToString());
                         }
 
                         con.Close();

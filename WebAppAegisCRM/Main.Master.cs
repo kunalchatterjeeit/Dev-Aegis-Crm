@@ -96,7 +96,7 @@ namespace WebAppAegisCRM
             try
             {
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date.AddMinutes(273));
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))

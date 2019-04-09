@@ -9,5 +9,6 @@ namespace Entity.Common
         public string Client { get; set; }
         public string FailedUserName { get; set; }
         public string FailedPassword { get; set; }
+        public string Source { get; set; }
     }
 }

@@ -20,9 +20,9 @@ namespace WebAppAegisCRM.HR
                         Business.HR.Attendance objAttendance = new Business.HR.Attendance();
                         Entity.HR.Attendance attendance = new Entity.HR.Attendance()
                         {
-                            AttendanceDate = DateTime.Now.Date.AddMinutes(273),
-                            InDateTime = DateTime.Now.AddMinutes(273),
-                            OutDateTime = DateTime.Now.AddMinutes(273),
+                            AttendanceDate = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                            InDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                            OutDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
                             EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                             CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                             TotalHours = 0,
@@ -34,7 +34,7 @@ namespace WebAppAegisCRM.HR
                     else if (Request.QueryString["Log"].ToString() == ((int)AttendanceLog.Logout).ToString())
                     {
                         Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                        DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date.AddMinutes(273));
+                        DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                         if (dt != null && dt.AsEnumerable().Any())
                         {
                             Entity.HR.Attendance attendance = new Entity.HR.Attendance()
@@ -42,9 +42,9 @@ namespace WebAppAegisCRM.HR
                                 AttendanceId = Convert.ToInt64(dt.Rows[0]["AttendanceId"].ToString()),
                                 AttendanceDate = Convert.ToDateTime(dt.Rows[0]["AttendanceDate"].ToString()),
                                 InDateTime = Convert.ToDateTime(dt.Rows[0]["InDateTime"].ToString()),
-                                OutDateTime = DateTime.Now.AddMinutes(273),
+                                OutDateTime = DateTime.UtcNow.AddHours(5).AddMinutes(33),
                                 CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
-                                TotalHours = (DateTime.Now.AddMinutes(273) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
+                                TotalHours = (DateTime.UtcNow.AddHours(5).AddMinutes(33) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
                                 Latitude = (Request.QueryString["latitude"] != null) ? Request.QueryString["latitude"].ToString() : string.Empty,
                                 Longitude = (Request.QueryString["longitude"] != null) ? Request.QueryString["longitude"].ToString() : string.Empty
                             };

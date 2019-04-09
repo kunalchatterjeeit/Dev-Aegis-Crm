@@ -296,6 +296,7 @@
                                         <asp:BoundField HeaderText="Name" DataField="EmployeeName" />
                                         <asp:BoundField HeaderText="Mobile" DataField="PersonalMobileNo" />
                                         <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
+                                        <asp:BoundField HeaderText="Device" DataField="DeviceId" />
                                         <asp:TemplateField>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("EmployeeMasterId") %>'
