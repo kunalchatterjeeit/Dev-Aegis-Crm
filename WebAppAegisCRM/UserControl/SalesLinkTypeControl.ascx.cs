@@ -47,7 +47,7 @@ namespace WebAppAegisCRM.UserControl
             }
             else if (TabContainer1.ActiveTabIndex == 1)
             {
-                Response.Redirect("../Sales/Leads.aspx");
+                Response.Redirect("../Sales/Lead.aspx");
             }
             else if (TabContainer1.ActiveTabIndex == 2)
             {
