@@ -59,6 +59,11 @@ namespace Business.HR
             return DataAccess.HR.EmployeeMaster.AuthenticateUser(UserName);
         }
 
+        public Entity.HR.EmployeeMaster AutoAuthenticateUserByDevice(string deviceId)
+        {
+            return DataAccess.HR.EmployeeMaster.AutoAuthenticateUserByDevice(deviceId);
+        }
+
         public int Login_Save(Entity.Common.Auth auth)
         {
             return DataAccess.HR.EmployeeMaster.Login_Save(auth);
@@ -67,6 +72,16 @@ namespace Business.HR
         public int EmployeeLeave_Update(Entity.HR.EmployeeMaster employeeMaster)
         {
             return DataAccess.HR.EmployeeMaster.EmployeeLeave_Update(employeeMaster);
+        }
+
+        public int LinkedDevices_Save(int employeeId, string deviceId)
+        {
+            return DataAccess.HR.EmployeeMaster.LinkedDevices_Save(employeeId, deviceId);
+        }
+
+        public DataTable LinkedDevices_GetByUserId(int userId)
+        {
+            return DataAccess.HR.EmployeeMaster.LinkedDevices_GetByUserId(userId);
         }
     }
 }
