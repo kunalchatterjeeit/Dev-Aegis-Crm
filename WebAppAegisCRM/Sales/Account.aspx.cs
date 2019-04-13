@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,180 @@ namespace WebAppAegisCRM.Sales
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                LoadAccountsDropdowns();
+                LoadAccountList();
+                Message.Show = false;
+            }
+        }
+        public int AccountId
+        {
+            get { return Convert.ToInt32(ViewState["Id"]); }
+            set { ViewState["Id"] = value; }
+        }
+        private void LoadAccountsDropdowns()
+        {
+            Business.Sales.Account Obj = new Business.Sales.Account();
 
+            ddlCustomerType.DataSource = Obj.GetCustomerType();
+            ddlCustomerType.DataTextField = "Name";
+            ddlCustomerType.DataValueField = "Id";
+            ddlCustomerType.DataBind();
+            ddlCustomerType.InsertSelect();
+
+            ddlLeadSource.DataSource = Obj.GetLeadSource();
+            ddlLeadSource.DataTextField = "Name";
+            ddlLeadSource.DataValueField = "Id";
+            ddlLeadSource.DataBind();
+            ddlLeadSource.InsertSelect();
+        }
+        private void LoadAccountList()
+        {
+            Business.Sales.Account Obj = new Business.Sales.Account();
+            Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
+            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+            gvAccounts.DataSource = Obj.GetAllAccounts(Param);
+            gvAccounts.DataBind();
+        }
+        private void ClearControls()
+        {
+            AccountId = 0;
+            Message.Show = false;
+            txtAccountScore.Text = string.Empty;
+            txtDescription.Text = string.Empty;
+            txtAnnualRevenue.Text = string.Empty;
+            txtDescription.Text = string.Empty;
+            txtEmployeeStrength.Text = string.Empty;
+            txtOfficePhone.Text = string.Empty;
+            txtIndustry.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtWebsite.Text = string.Empty;
+            txtSourceName.Text = string.Empty;
+            ddlCustomerType.SelectedIndex = 0;
+            ddlLeadSource.SelectedIndex = 0;
+            btnSave.Text = "Save";
+        }
+        private bool AccountControlValidation()
+        {
+            if (txtName.Text.Trim() == string.Empty)
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please Enter Account Name";
+                Message.Show = true;
+                return false;
+            }
+            else if (txtOfficePhone.Text.Trim() == string.Empty)
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please Enter Office Phone No";
+                Message.Show = true;
+                return false;
+            }
+            else if (txtEmployeeStrength.Text.Trim() == string.Empty)
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please Enter Employee Strength";
+                Message.Show = true;
+                return false;
+            }
+
+            return true;
+        }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            ClearControls();
+        }
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
+        protected void gvAccounts_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Ed")
+            {
+                AccountId = Convert.ToInt32(e.CommandArgument.ToString());
+                GetAccountById();
+                Message.Show = false;
+                btnSave.Text = "Update";
+            }
+            else if (e.CommandName == "Del")
+            {
+                Business.Sales.Account Obj = new Business.Sales.Account();
+                int rows = Obj.DeleteAccounts(Convert.ToInt32(e.CommandArgument.ToString()));
+                if (rows > 0)
+                {
+                    ClearControls();
+                    LoadAccountList();
+                    Message.IsSuccess = true;
+                    Message.Text = "Deleted Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Data Dependency Exists";
+                }
+                Message.Show = true;
+            }
+        }
+        private void GetAccountById()
+        {
+            Business.Sales.Account Obj = new Business.Sales.Account();
+            Entity.Sales.Accounts Account = Obj.GetAccountById(AccountId);
+            if (Account.Id != 0)
+            {
+                ddlLeadSource.SelectedValue = Account.LeadSourceId == null ? "0" : Account.LeadSourceId.ToString();
+                ddlCustomerType.SelectedValue = Account.CustomerTypeId == null ? "0" : Account.CustomerTypeId.ToString();
+                txtDescription.Text = Account.Description;
+                txtAccountScore.Text = Account.AccountScore.ToString();
+                txtAnnualRevenue.Text = Account.AnualRevenue.ToString();
+                txtEmployeeStrength.Text = Account.EmployeeStrength.ToString();
+                txtIndustry.Text = Account.Industry;
+                txtName.Text = Account.Name;
+                txtOfficePhone.Text = Account.OfficePhone;
+                txtSourceName.Text = Account.SourceName;
+                txtWebsite.Text = Account.Website;
+            }
+        }
+        private void Save()
+        {
+            if (AccountControlValidation())
+            {
+                Business.Sales.Account Obj = new Business.Sales.Account();
+                Entity.Sales.Accounts Model = new Entity.Sales.Accounts
+                {
+                    Id = AccountId,
+                    LeadSourceId = ddlLeadSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlLeadSource.SelectedValue),
+                    CustomerTypeId = ddlCustomerType.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCustomerType.SelectedValue),
+                    CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
+                    Description = txtDescription.Text,
+                    Name = txtName.Text,
+                    Industry = txtIndustry.Text,
+                    SourceName = txtSourceName.Text,
+                    AccountScore = txtAccountScore.Text == "" ? (decimal?)null : Convert.ToDecimal(txtAccountScore.Text),
+                    AnualRevenue = txtAnnualRevenue.Text == "" ? (decimal?)null : Convert.ToDecimal(txtAnnualRevenue.Text),
+                    EmployeeStrength =Convert.ToInt32( txtEmployeeStrength.Text),
+                    OfficePhone = txtOfficePhone.Text,
+                    Website = txtWebsite.Text,
+                    IsActive = true
+                };
+                int rows = Obj.SaveAccounts(Model);
+                if (rows > 0)
+                {
+                    ClearControls();
+                    LoadAccountList();
+                    AccountId = 0;
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Unable to save data.";
+                }
+                Message.Show = true;
+            }
         }
     }
 }

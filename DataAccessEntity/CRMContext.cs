@@ -48,6 +48,14 @@ namespace DataAccessEntity
               .ToTable("tbl_Sales_Campaign");
             modelBuilder.Entity<Sales.DepartmentDbModel>()
               .ToTable("tbl_Sales_Department");
+            modelBuilder.Entity<Sales.LeadsDbModel>()
+              .ToTable("tbl_Sales_Leads");
+            modelBuilder.Entity<Sales.CustomerTypeDbModel>()
+              .ToTable("tbl_Sales_CustomerType");
+            modelBuilder.Entity<Sales.LeadSourceDbModel>()
+              .ToTable("tbl_Sales_LeadSource");
+            modelBuilder.Entity<Sales.AccountsDbModel>()
+              .ToTable("tbl_Sales_Accounts");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -66,5 +74,9 @@ namespace DataAccessEntity
         public DbSet<Sales.MeetingsDbModel> Meeting { get; set; }
         public DbSet<Sales.CampaignDbModel> Campaign { get; set; }
         public DbSet<Sales.DepartmentDbModel> Department { get; set; }
+        public DbSet<Sales.LeadsDbModel> Leads { get; set; }
+        public DbSet<Sales.CustomerTypeDbModel> CustomerType { get; set; }
+        public DbSet<Sales.LeadSourceDbModel> LeadSource { get; set; }
+        public DbSet<Sales.AccountsDbModel> Accounts { get; set; }
     }
 }

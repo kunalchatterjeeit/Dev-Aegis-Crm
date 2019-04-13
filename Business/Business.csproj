@@ -96,6 +96,7 @@
     <Compile Include="Purchase\Purchase.cs" />
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
+    <Compile Include="Sales\Account.cs" />
     <Compile Include="Sales\Calls.cs" />
     <Compile Include="Sales\Campaign.cs" />
     <Compile Include="Sales\Leads.cs" />
