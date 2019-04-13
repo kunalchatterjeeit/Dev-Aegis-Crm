@@ -101,6 +101,7 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="InLocation" HeaderText="In Location" />
                                             <asp:BoundField DataField="OutLocation" HeaderText="Out Location" />
+                                            <asp:BoundField DataField="Source" HeaderText="Source" />
                                             <%--<asp:TemplateField>
                                                 <ItemTemplate>
                                                     <asp:Button ID="btnInLocationView" runat="server" Text="In GPS Location" CommandName="InLocationView" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-info" Style="margin: 2px" />

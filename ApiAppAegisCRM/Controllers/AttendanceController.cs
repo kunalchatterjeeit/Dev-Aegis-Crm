@@ -108,7 +108,8 @@ namespace ApiAppAegisCRM.Controllers
                         CreatedBy = Convert.ToInt32(model.UserId),
                         TotalHours = 0,
                         Latitude = model.Latitude,
-                        Longitude = model.Longitude
+                        Longitude = model.Longitude,
+                        Source = "Android"
                     };
                     objAttendance.Attendance_Save(attendance);
                     model.Message = "You are successfully IN.";
@@ -129,7 +130,8 @@ namespace ApiAppAegisCRM.Controllers
                             CreatedBy = Convert.ToInt32(model.UserId),
                             TotalHours = (DateTime.UtcNow.AddHours(5).AddMinutes(33) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
                             Latitude = model.Latitude,
-                            Longitude = model.Longitude
+                            Longitude = model.Longitude,
+                            Source = "Android"
                         };
                         objAttendance.Attendance_Save(attendance);
                         model.Message = "You are successfully OUT.";

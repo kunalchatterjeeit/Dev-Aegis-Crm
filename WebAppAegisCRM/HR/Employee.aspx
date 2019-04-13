@@ -296,25 +296,28 @@
                                         <asp:BoundField HeaderText="Name" DataField="EmployeeName" />
                                         <asp:BoundField HeaderText="Mobile" DataField="PersonalMobileNo" />
                                         <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
-                                        <asp:BoundField HeaderText="Device" DataField="DeviceId" />
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("EmployeeMasterId") %>'
-                                                    CommandName="Leave" Visible="<%# Business.Common.ApplicationModules.HrModule.ModulePermission() %>">Leave Settings</asp:LinkButton>
+                                                <asp:LinkButton ID="btnRemoveMobile" runat="server" class="fa fa-android fa-fw" CommandName="RemoveMobile" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("LinkedDeviceId") %>' Visible='<%# (Eval("LinkedDeviceId")==DBNull.Value)? false : true %>' ToolTip="Remove Linked Mobile"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ImageUrl="~/Images/edit_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                                <asp:LinkButton ID="btnSettings" runat="server" class="fa fa-leaf fa-fw" CommandName="Leave" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Leave Settings"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ImageUrl="~/images/delete_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="E" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Edit"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false" ToolTip="Delete"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

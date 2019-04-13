@@ -424,6 +424,28 @@ namespace DataAccess.HR
                 return dt;
             }
         }
+
+        public static int LiknedDevices_Delete(int linkedDeviceId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_LiknedDevices_Delete";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@LinkedDeviceId", linkedDeviceId);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
     }
 }
 

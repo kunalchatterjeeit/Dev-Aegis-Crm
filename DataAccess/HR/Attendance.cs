@@ -123,6 +123,7 @@ namespace DataAccess.HR
                     cmd.Parameters.AddWithValue("@CreatedBy", Attendance.CreatedBy);
                     cmd.Parameters.AddWithValue("@Latitude", Attendance.Latitude);
                     cmd.Parameters.AddWithValue("@Longitude", Attendance.Longitude);
+                    cmd.Parameters.AddWithValue("@Source", Attendance.Source);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

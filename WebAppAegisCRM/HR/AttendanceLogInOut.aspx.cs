@@ -27,7 +27,8 @@ namespace WebAppAegisCRM.HR
                             CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                             TotalHours = 0,
                             Latitude = (Request.QueryString["latitude"] != null) ? Request.QueryString["latitude"].ToString() : string.Empty,
-                            Longitude = (Request.QueryString["longitude"] != null) ? Request.QueryString["longitude"].ToString() : string.Empty
+                            Longitude = (Request.QueryString["longitude"] != null) ? Request.QueryString["longitude"].ToString() : string.Empty,
+                            Source = "Web"
                         };
                         objAttendance.Attendance_Save(attendance);
                     }
@@ -46,7 +47,8 @@ namespace WebAppAegisCRM.HR
                                 CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                                 TotalHours = (DateTime.UtcNow.AddHours(5).AddMinutes(33) - Convert.ToDateTime(dt.Rows[0]["InDateTimeRaw"].ToString())).TotalMinutes,
                                 Latitude = (Request.QueryString["latitude"] != null) ? Request.QueryString["latitude"].ToString() : string.Empty,
-                                Longitude = (Request.QueryString["longitude"] != null) ? Request.QueryString["longitude"].ToString() : string.Empty
+                                Longitude = (Request.QueryString["longitude"] != null) ? Request.QueryString["longitude"].ToString() : string.Empty,
+                                Source = "Web"
                             };
                             objAttendance.Attendance_Save(attendance);
                         }
