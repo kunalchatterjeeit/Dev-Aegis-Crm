@@ -10,8 +10,26 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Task : System.Web.UI.Page
     {
+        private void SetQueryStringValue()
+        {
+            if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
+            {
+                hdnItemId.Value = Request.QueryString["id"].ToString();
+                hdnItemType.Value = Request.QueryString["itemtype"].ToString();
+            }
+            if (Request.QueryString["taskid"] != null)
+            {
+                TaskId = Convert.ToInt32(Request.QueryString["taskid"].ToString());
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                SetQueryStringValue();
+            }
+
             if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
             {
                 ModalPopupExtender1.Show();
@@ -22,6 +40,10 @@ namespace WebAppAegisCRM.Sales
                 LoadTasksDropdowns();
                 LoadTaskList();
                 Message.Show = false;
+                if (TaskId > 0)
+                {
+                    GetTaskById();
+                }
             }
         }
         public int TaskId

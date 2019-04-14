@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Account.aspx.cs" Inherits="WebAppAegisCRM.Sales.Account" %>
+﻿<%@ Page Title="ADD/EDIT ACCOUNTS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Account.aspx.cs" Inherits="WebAppAegisCRM.Sales.Account" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -19,8 +19,8 @@
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>
-     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>           
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -41,13 +41,13 @@
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
-                                 <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         Website
                                 <asp:TextBox ID="txtWebsite" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                 <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         Industry
                                 <asp:TextBox ID="txtIndustry" CssClass="form-control" runat="server"></asp:TextBox>
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                      Customer Type
+                                        Customer Type
                                 <asp:DropDownList ID="ddlCustomerType" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
@@ -72,7 +72,7 @@
                                 <asp:DropDownList ID="ddlLeadSource" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
-                                </div>                               
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Employee Strength
@@ -90,13 +90,13 @@
                                         Account Score
                                       <asp:TextBox ID="txtAccountScore" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         Source Name
                                       <asp:TextBox ID="txtSourceName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -115,7 +115,281 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Account List
+                            <a data-toggle="collapse" data-parent="#accordion" href="#section4" title="Click to expand">
+                                <i class="fa fa-chevron-down fa-fw"></i>Calls List
+                            </a>
+                            <asp:LinkButton ID="btnCreateNewCall" runat="server" CssClass="pull-right" Enabled="false">Create New</asp:LinkButton>
+                        </div>
+                        <div class="panel-collapse collapse out" id="section4">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <center>
+                                        <asp:GridView ID="gvCalls" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                            GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvCalls_RowCommand">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <%#Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="Subject" HeaderText="Subject" />
+                                                <asp:BoundField DataField="CallStatus" HeaderText="Call Status" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Start Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Convert.ToDateTime(Eval("StartDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        End Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Convert.ToDateTime(Eval("EndDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
+                                                            CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                            CommandName="Del" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                LastPageText="Last" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#section3" title="Click to expand">
+                                <i class="fa fa-chevron-down fa-fw"></i>Meetings List
+                            </a>
+                            <asp:LinkButton ID="btnCreateNewMeeting" runat="server" CssClass="pull-right" Enabled="false">Create New</asp:LinkButton>
+                        </div>
+                        <div class="panel-collapse collapse out" id="section3">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <center>
+                                        <asp:GridView ID="gvMeetingss" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                            GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvMeetingss_RowCommand">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <%#Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="Name" HeaderText="Name" />
+                                                <asp:BoundField DataField="MeetingType" HeaderText="Meeting Type" />
+                                                <asp:BoundField DataField="MeetingStatus" HeaderText="Meeting Status" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Start Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Convert.ToDateTime(Eval("StartDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        End Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Convert.ToDateTime(Eval("EndDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
+                                                            CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                            CommandName="Del" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                LastPageText="Last" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#section1" title="Click to expand">
+                                <i class="fa fa-chevron-down fa-fw"></i>Notes List
+                            </a>
+                            <asp:LinkButton ID="btnCreateNewNote" runat="server" CssClass="pull-right" Enabled="false">Create New</asp:LinkButton>
+                        </div>
+                        <div class="panel-collapse collapse out" id="section1">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <center>
+                                        <asp:GridView ID="gvNotes" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                            GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvNotes_RowCommand">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <%#Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="Name" HeaderText="Name" />
+                                                <asp:BoundField DataField="ContactName" HeaderText="Contact Name" />
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
+                                                            CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="15px">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                            CommandName="Del" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                LastPageText="Last" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#section2" title="Click to expand">
+                                    <i class="fa fa-chevron-down fa-fw"></i>Tasks List
+                                </a>
+                                <asp:LinkButton ID="btnCreateNewTask" runat="server" CssClass="pull-right" Enabled="false">Create New</asp:LinkButton>
+                            </div>
+                            <!--  End of heading -->
+                            <div class="panel-collapse collapse out" id="section2">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <center>
+                                            <asp:GridView ID="gvTasks" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                                GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvTasks_RowCommand">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="Subject" HeaderText="Subject" />
+                                                    <asp:BoundField DataField="TaskStatus" HeaderText="Task Status" />
+                                                    <asp:BoundField DataField="TaskRelatedTo" HeaderText="Task Related To" />
+                                                    <asp:BoundField DataField="TaskPriority" HeaderText="Task Priority" />
+                                                    <asp:TemplateField>
+                                                        <HeaderTemplate>
+                                                            Start Date
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <%# Convert.ToDateTime(Eval("StartDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField>
+                                                        <HeaderTemplate>
+                                                            End Date
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <%# Convert.ToDateTime(Eval("EndDateTime").ToString()).ToString("dd MMM yyyy HH:mm tt") %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
+                                                                CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                                CommandName="Del" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                <EditRowStyle BackColor="#999999" />
+                                                <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                    LastPageText="Last" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                <EmptyDataTemplate>
+                                                    No Record Found...
+                                                </EmptyDataTemplate>
+                                            </asp:GridView>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Accounts List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -129,20 +403,26 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Account Name" />
-                                            <asp:BoundField DataField="OfficePhone" HeaderText="Office Phone" /> 
+                                            <asp:BoundField DataField="OfficePhone" HeaderText="Office Phone" />
                                             <asp:BoundField DataField="EmployeeStrength" HeaderText="Employee Strength" />
                                             <asp:BoundField DataField="Industry" HeaderText="Industry" />
                                             <asp:BoundField DataField="CustomerTypeName" HeaderText="Customer Type" />
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"
-                                                        Width="15px" Height="15px" CommandArgument='<%# Eval("Id") %>' />
+                                                    <asp:LinkButton ID="btnView" runat="server" ToolTip="View" class="fa fa-eye fa-fw" CommandName="View" CausesValidation="false"
+                                                        CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/Images/delete_button.png"
-                                                        CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>' />
+                                                    <asp:LinkButton ID="btnEdit" runat="server" ToolTip="Edit" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
+                                                        CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField ItemStyle-Width="15px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnDelete" runat="server" ToolTip="Delete" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                        CommandName="Del" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("Id") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -165,7 +445,7 @@
                         </div>
                     </div>
                 </div>
-            </div>           
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

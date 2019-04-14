@@ -377,8 +377,14 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li id="liSales" runat="server" visible="false">
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Sales<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-tags fa-fw"></i> Sales<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                 <li id="liAccounts" runat="server" visible="false">
+                                    <a href="../Sales/Account.aspx">Add/Edit Accounts</a>
+                                </li>
+                                 <li id="liLeads" runat="server" visible="false">
+                                    <a href="../Sales/Lead.aspx">Add/Edit Leads</a>
+                                </li>
                                 <li id="liCalls" runat="server" visible="false">
                                     <a href="../Sales/Calls.aspx">Add/Edit Calls</a>
                                 </li>

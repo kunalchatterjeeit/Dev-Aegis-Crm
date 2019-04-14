@@ -10,8 +10,26 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Meeting : System.Web.UI.Page
     {
+        private void SetQueryStringValue()
+        {
+            if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
+            {
+                hdnItemId.Value = Request.QueryString["id"].ToString();
+                hdnItemType.Value = Request.QueryString["itemtype"].ToString();
+            }
+            if (Request.QueryString["meetingid"] != null)
+            {
+                MeetingId = Convert.ToInt32(Request.QueryString["meetingid"].ToString());
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                SetQueryStringValue();
+            }
+
             if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
             {
                 ModalPopupExtender1.Show();
@@ -22,6 +40,10 @@ namespace WebAppAegisCRM.Sales
                 LoadMeetingsDropdowns();
                 LoadMeetingList();
                 Message.Show = false;
+                if (MeetingId > 0)
+                {
+                    GetMeetingById();
+                }
             }
         }
         public int MeetingId

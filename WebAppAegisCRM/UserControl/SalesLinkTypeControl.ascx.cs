@@ -10,11 +10,35 @@ namespace WebAppAegisCRM.UserControl
 {
     public partial class SalesLinkTypeControl : System.Web.UI.UserControl
     {
+        private void LoadAccountList()
+        {
+            Business.Sales.Account objAccount = new Business.Sales.Account();
+            Entity.Sales.GetAccountsParam getAccountsParam = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
+            
+            ddlAccounts.DataSource = objAccount.GetAllAccounts(getAccountsParam);
+            ddlAccounts.DataTextField = "Name";
+            ddlAccounts.DataValueField = "Id";
+            ddlAccounts.DataBind();
+        }
+        private void LoadLeadList()
+        {
+            Business.Sales.Leads Obj = new Business.Sales.Leads();
+            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null };
+            
+            ddlLead.DataSource = Obj.GetAllLeads(Param);
+            ddlLead.DataTextField = "Name";
+            ddlLead.DataValueField = "Id";
+            ddlLead.DataBind();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ddlAccounts.Items.Add(new ListItem() { Text = "Account1", Value = "1" });
-            ddlLead.Items.Add(new ListItem() { Text = "Lead1", Value = "2" });
-            ddlOpportunity.Items.Add(new ListItem() { Text = "Opportunity1", Value = "3" });
+            if (!IsPostBack)
+            {
+                LoadAccountList();
+                LoadLeadList();
+                ddlOpportunity.Items.Add(new ListItem() { Text = "Opportunity1", Value = "3" });
+            }
         }
 
         protected void btnContinue_Click(object sender, EventArgs e)
