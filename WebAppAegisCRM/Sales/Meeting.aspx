@@ -1,9 +1,8 @@
-﻿<%@ Page Title="ADD/EDIT CALLS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Calls.aspx.cs" Inherits="WebAppAegisCRM.Sales.Calls" %>
+﻿<%@ Page Title="ADD/EDIT MEETINGS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Meeting.aspx.cs" Inherits="WebAppAegisCRM.Sales.Meeting" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Src="../UserControl/SalesLinkTypeControl.ascx" TagPrefix="uc3" TagName="SalesLinkTypeControl" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -12,8 +11,8 @@
             });
         });
         function prepareDateTimeControls() {
-            $('#ContentPlaceHolder1_txtCallStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
-            $('#ContentPlaceHolder1_txtCallEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+            $('#ContentPlaceHolder1_txtMeetingStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+            $('#ContentPlaceHolder1_txtMeetingEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
         }
     </script>
 </asp:Content>
@@ -41,60 +40,53 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Calls
+                            Add/Edit Meeting
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group has-error">
-                                        Call Subject
-                                <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
+                                        Name
+                                <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        Call Description
+                                        Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
+                                    <div class="form-group">
+                                        Location
+                                <asp:TextBox ID="txtLocation" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Status
-                                <asp:DropDownList ID="ddlCallStatus" runat="server" CssClass="form-control">
+                                        Meeting Type
+                                <asp:DropDownList ID="ddlMeetingType" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Repeat Type
-                                <asp:DropDownList ID="ddlCallRepeatType" runat="server" CssClass="form-control">
+                                        Meeting Status
+                                <asp:DropDownList ID="ddlMeetingStatus" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Direction
-                                <asp:DropDownList ID="ddlCallDirection" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
+                                        Meeting Start Date Time
+                                        <input type="text" id="txtMeetingStartDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Related To
-                                <asp:DropDownList ID="ddlCallRelatedTo" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        Call Start Date Time
-                                        <input type="text" id="txtCallStartDateTime" runat="server" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        Call End Date Time
-                                      <input type="text" id="txtCallEndDateTime" runat="server" class="form-control" />
+                                        Meeting End Date Time
+                                      <input type="text" id="txtMeetingEndDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -126,21 +118,22 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Call List
+                            Meeting List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <center>
-                                    <asp:GridView ID="gvCalls" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvCalls_RowCommand">
+                                    <asp:GridView ID="gvMeetingss" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvMeetings_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <%#Container.DataItemIndex+1 %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="Subject" HeaderText="Subject" />
-                                            <asp:BoundField DataField="CallStatus" HeaderText="Call Status" />
+                                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                                            <asp:BoundField DataField="MeetingType" HeaderText="Meeting Type" />
+                                            <asp:BoundField DataField="MeetingStatus" HeaderText="Meeting Status" />
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
                                                     Start Date

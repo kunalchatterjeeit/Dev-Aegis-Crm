@@ -11,6 +11,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Bootstrap Core CSS -->
+
+    <%--DateTime picker related--%>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+    <%--DateTime picker related End--%>
+
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- MetisMenu CSS -->
     <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -20,12 +25,6 @@
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
     <link href="/dist/css/custom15112018.css" rel="stylesheet" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -99,6 +98,12 @@
             return i;
         }
     </script>
+
+    <%--DateTime picker related--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    <%--DateTime picker related End--%>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -126,7 +131,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <img src="../images/HRMS1.png" height="40px" alt="AEGIS HR" style="margin:5px"/>
-                <a class="navbar-brand" href="#"><img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px"/></a>                
+                <a class="navbar-brand" href="#">
+                    <img src="../images/Aegis_CRM_Logo2.png"  height="45px" style="margin:2px" alt="AEGIS CRM"/>
+                </a>
             </div>
             <!-- /.navbar-header -->
          
@@ -429,6 +436,24 @@
                                 <li id="liSaleChallanList" runat="server" visible="false">
                                     <a href="../Sale/SaleChallanList.aspx">Sale Challan List</a>
                                 </li> 
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li id="liSales" runat="server" visible="false">
+                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Sales<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="liCalls" runat="server" visible="false">
+                                    <a href="../Sales/Calls.aspx">Add/Edit Calls</a>
+                                </li>
+                                <li id="liMeetings" runat="server" visible="false">
+                                    <a href="../Sales/Meeting.aspx">Add/Edit Meetings</a>
+                                </li>
+                                <li id="liNotes" runat="server" visible="false">
+                                    <a href="../Sales/Notes.aspx">Add/Edit Notes</a>
+                                </li>
+                                <li id="liTasks" runat="server" visible="false">
+                                    <a href="../Sales/Task.aspx">Add/Edit Tasks</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

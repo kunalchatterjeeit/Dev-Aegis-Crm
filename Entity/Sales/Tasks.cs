@@ -6,64 +6,56 @@ using System.Threading.Tasks;
 
 namespace Entity.Sales
 {
-    public class Calls
+    public class Tasks
     {
         public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
-        public int CallStatusId { get; set; }
-        public int CallRepeatTypeId { get; set; }
+        public int TasksPriorityId { get; set; }
+        public int TasksRelatedTo { get; set; }
+        public int TasksStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public int CallDirectionId { get; set; }
-        public int CallRelatedTo { get; set; }
-        public bool PopupReminder { get; set; }
-        public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
     }
-    public class CallStatus
+    public class TaskPriority
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
     }
 
-    public class CallRepeatType
+    public class TaskRelatedTo
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
     }
 
-    public class CallRelated
+    public class TaskStatus
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
     }
-
-    public class CallDirection
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class GetCalls
+    public class GetTasks
     {
         public Int64 Id { get; set; }
         public string Subject { get; set; }
-        public string Name { get; set; }
-        public string CallStatus { get; set; }
+        public string TaskStatus { get; set; }
+        public string TaskPriority { get; set; }
+        public string TaskRelatedTo { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
     }
 
-    public class GetCallsParam
+    public class GetTasksParam
     {
         public string Subject { get; set; }
-        public int? CallStatusId { get; set; }
+        public int? TaskStatusId { get; set; }
+        public int? TaskPriorityId { get; set; }
+        public int? TaskRelatedToId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
     }

@@ -98,6 +98,10 @@
     <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Sale\SaleChallanDetails.cs" />
     <Compile Include="Sales\Calls.cs" />
+    <Compile Include="Sales\Contacts.cs" />
+    <Compile Include="Sales\Meetings.cs" />
+    <Compile Include="Sales\Notes.cs" />
+    <Compile Include="Sales\Tasks.cs" />
     <Compile Include="Service\ApprovalStatus.cs" />
     <Compile Include="Service\CallStatus.cs" />
     <Compile Include="Service\CallStatusType.cs" />

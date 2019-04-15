@@ -116,6 +116,15 @@ legend {
     padding-left: 1px;
 }
 
+.myModalPopup-small {
+    /*min-width: 540px;*/
+    min-height: 150px;
+    background: white;
+    border-radius: 5px;
+    padding-top: 1px;
+    padding-left: 1px;
+}
+
 .MyTabStyle .ajax__tab_header {
     font-family: "Helvetica Neue", Arial, Sans-Serif;
     font-size: 14px;
@@ -162,9 +171,14 @@ legend {
     margin: 20px;
 }
 
+.popup-working-section-small {
+    float: left;
+    margin: 10px;
+}
+
 .popup-working-section-extra-height {
     width: 93%;
-    height: 520px;
+    height: 500px;
     float: left;
     margin: 20px;
 }
@@ -300,4 +314,8 @@ table.popup-table {
 
 .checkbox input[type="checkbox"] {
     float: none;
+}
+
+.margin-top {
+    margin-top: 10px;
 }

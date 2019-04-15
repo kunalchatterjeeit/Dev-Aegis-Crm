@@ -223,6 +223,9 @@
                 <a id="lnkContact" runat="server"></a>
                 <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
                     runat="server" TargetControlID="lnkContact" PopupControlID="Panel1" CancelControlID="imgbtn">
+                    <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                    </Animations>
                 </asp:ModalPopupExtender>
                 <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
                     <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">
@@ -333,6 +336,9 @@
                 <a href="#" id="lnkAddress" runat="server"></a>
                 <asp:ModalPopupExtender ID="ModalPopupExtender2" BackgroundCssClass="myModalPopupbackGrnd"
                     runat="server" TargetControlID="lnkAddress" PopupControlID="Panel2" CancelControlID="img1">
+                    <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                    </Animations>
                 </asp:ModalPopupExtender>
                 <asp:Panel ID="Panel2" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
                     <asp:Panel ID="Panel3" runat="server" class="popup-working-section" ScrollBars="Auto">

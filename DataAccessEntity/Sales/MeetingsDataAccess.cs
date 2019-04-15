@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -8,59 +7,45 @@ using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
-    public class CallsDataAccess
+    public class MeetingsDataAccess
     {
-        public static List<CallStatusDbModel> GetCallStatus()
+        public static List<MeetingStatusDbModel> GetMeetingStatus()
         {
             using (var Context = new CRMContext())
             {
-                return Context.CallStatus.ToList();
+                return Context.MeetingStatus.ToList();
             }
         }
-        public static List<CallDirectionDbModel> GetCallDirection()
+        public static List<MeetingTypeDbModel> GetMeetingType()
         {
             using (var Context = new CRMContext())
             {
-                return Context.CallDirection.ToList();
+                return Context.MeetingType.ToList();
             }
         }
-        public static List<CallRelatedDbModel> GetCallRelated()
+        public static List<GetMeetingsDbModel> GetAllMeetings(GetMeetingsParamDbModel Param)
         {
             using (var Context = new CRMContext())
             {
-                return Context.CallRelated.ToList();
-            }
-        }
-        public static List<CallRepeatTypeDbModel> GetCallRepeatType()
-        {
-            var Context = new CRMContext();
-            {
-                return Context.CallRepeatType.ToList();
-            }
-        }
-
-        public static List<GetCallsDbModel> GetAllCalls(GetCallsParamDbModel Param)
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.Database.SqlQuery<GetCallsDbModel>(
-                                "exec dbo.[usp_Sales_Calls_GetAll] @Subject,@CallStatusId,@StartFromDateTime,@StartToDateTime",
+                return Context.Database.SqlQuery<GetMeetingsDbModel>(
+                                "exec dbo.[usp_Sales_Meetings_GetAll] @Name,@MeetingTypeId,@MeetingStatusId,@StartFromDateTime,@StartToDateTime",
                                 new Object[]
                                 {
-                                    new SqlParameter("Subject", DBNull.Value),
-                                    new SqlParameter("CallStatusId", DBNull.Value),
+                                    new SqlParameter("Name", DBNull.Value),
+                                    new SqlParameter("MeetingTypeId", DBNull.Value),
+                                    new SqlParameter("MeetingStatusId", DBNull.Value),
                                     new SqlParameter("StartFromDateTime", DBNull.Value),
                                     new SqlParameter("StartToDateTime", DBNull.Value)
                                 }
                              ).ToList();
             }
         }
-        public static CallsDbModel GetCallById(int Id)
+        public static MeetingsDbModel GetMeetingById(int Id)
         {
             using (var Context = new CRMContext())
             {
-                return Context.Database.SqlQuery<CallsDbModel>(
-                                "exec dbo.[usp_Sales_Calls_GetById] @Id",
+                return Context.Database.SqlQuery<MeetingsDbModel>(
+                                "exec dbo.[usp_Sales_Meetings_GetById] @Id",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Id)
@@ -68,41 +53,40 @@ namespace DataAccessEntity.Sales
                              ).FirstOrDefault();
             }
         }
-        public static int SaveCalls(CallsDbModel Model)
+        public static int SaveMeetings(MeetingsDbModel Model)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
-                                "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
+                                "exec dbo.[usp_Sales_Meetings_Save] @Id,@Name,@Description,@StartDateTime,@EndDateTime,@Location," +
+                                "@PopupReminder,@EmailReminder,@MeetingTypeId,@MeetingStatusId,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
-                                    new SqlParameter("Subject", Model.Subject),
+                                    new SqlParameter("Name", Model.Name),
                                     new SqlParameter("Description", Model.Description),
-                                    new SqlParameter("CallStatusId", Model.CallStatusId),
                                     new SqlParameter("StartDateTime", Model.StartDateTime),
                                     new SqlParameter("EndDateTime", Model.EndDateTime),
-                                    new SqlParameter("CallRepeatTypeId", Model.CallRepeatTypeId),
-                                    new SqlParameter("CallDirectionId", Model.CallDirectionId),
-                                    new SqlParameter("CallRelatedTo", Model.CallRelatedTo),
+                                    new SqlParameter("Location", Model.Location),
                                     new SqlParameter("PopupReminder", Model.PopupReminder),
                                     new SqlParameter("EmailReminder", Model.EmailReminder),
+                                    new SqlParameter("MeetingTypeId", Model.MeetingTypeId),
+                                    new SqlParameter("MeetingStatusId", Model.MeetingStatusId),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
                                     new SqlParameter("IsActive", Model.IsActive)
                                 }
                              );
             }
         }
-        public static int DeleteCalls(int Id)
+        public static int DeleteMeetings(int Id)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Calls_Delete] @Id",
+                                "exec dbo.[usp_Sales_Meetings_Delete] @Id",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id",Id)                                   
+                                    new SqlParameter("Id",Id)
                                 }
                              );
             }

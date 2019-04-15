@@ -67,6 +67,16 @@ namespace WebAppAegisCRM
                 liSaleEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_ENTRY);
                 liSaleChallanList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_LIST);
 
+                if (ApplicationModules.SalesModule.ModulePermission())
+                {
+                    //SALES
+                    liSales.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES);
+                    liCalls.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_CALLS);
+                    liMeetings.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_MEETINGS);
+                    liNotes.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_NOTES);
+                    liTasks.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_TASKS);
+                }
+
                 //SERVICE
                 liService.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE);
                 liAddEditCallStatus.Visible = false;
@@ -116,7 +126,8 @@ namespace WebAppAegisCRM
                     lnkAttendaceLogout.Visible = false;
                 }
             }
-            catch { }
+            catch
+            { }
         }
     }
 }

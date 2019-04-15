@@ -88,6 +88,13 @@ namespace Entity.HR
         public const string LEAVE_ADJUSTMENT = "707";
         public const string LEAVE_REPORT = "708";
 
+        //Sales
+        public const string SALES = "800";
+        public const string SALES_CALLS = "801";
+        public const string SALES_MEETINGS = "802";
+        public const string SALES_NOTES = "803";
+        public const string SALES_TASKS = "804";
+
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";
         public const string DASHBOARD_TONER_LIST = "10002";

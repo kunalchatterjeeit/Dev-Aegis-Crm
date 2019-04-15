@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.Sales {
     
     
-    public partial class Calls {
+    public partial class Meeting {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -40,13 +40,13 @@ namespace WebAppAegisCRM.Sales {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// txtSubject control.
+        /// txtName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSubject;
+        protected global::System.Web.UI.WebControls.TextBox txtName;
         
         /// <summary>
         /// txtDescription control.
@@ -58,58 +58,49 @@ namespace WebAppAegisCRM.Sales {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
-        /// ddlCallStatus control.
+        /// txtLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallStatus;
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
         
         /// <summary>
-        /// ddlCallRepeatType control.
+        /// ddlMeetingType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallRepeatType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMeetingType;
         
         /// <summary>
-        /// ddlCallDirection control.
+        /// ddlMeetingStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallDirection;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMeetingStatus;
         
         /// <summary>
-        /// ddlCallRelatedTo control.
+        /// txtMeetingStartDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallRelatedTo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtMeetingStartDateTime;
         
         /// <summary>
-        /// txtCallStartDateTime control.
+        /// txtMeetingEndDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallStartDateTime;
-        
-        /// <summary>
-        /// txtCallEndDateTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallEndDateTime;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtMeetingEndDateTime;
         
         /// <summary>
         /// chkPopupReminder control.
@@ -157,13 +148,13 @@ namespace WebAppAegisCRM.Sales {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// gvCalls control.
+        /// gvMeetingss control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCalls;
+        protected global::System.Web.UI.WebControls.GridView gvMeetingss;
         
         /// <summary>
         /// lnk control.

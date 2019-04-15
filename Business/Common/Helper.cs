@@ -194,10 +194,10 @@ namespace Business.Common
             var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
             var destProps = typeof(TU).GetProperties().Where(x => x.CanRead).ToList();
             
-            var destItem = Activator.CreateInstance(typeof(TU));
-
             foreach (var sourceItem in source)
             {
+                var destItem = Activator.CreateInstance(typeof(TU));
+
                 foreach (var sourceProp in sourceProps)
                 {
                     if (destProps.Any(x => x.Name == sourceProp.Name))

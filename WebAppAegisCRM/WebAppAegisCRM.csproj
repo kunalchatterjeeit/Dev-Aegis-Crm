@@ -108,6 +108,7 @@
     <Content Include="dist\js\custom.js" />
     <Content Include="dist\js\sb-admin-2.js" />
     <Content Include="Error.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="EmailMockup.htm" />
     <Content Include="HR\AttendanceList.aspx" />
@@ -184,6 +185,12 @@
     <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Sale\SaleChallanList.aspx" />
     <Content Include="Sales\Calls.aspx" />
+    <Content Include="Sales\Meeting.aspx" />
+    <Content Include="Sales\Notes.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Sales\Task.aspx" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />
@@ -209,6 +216,7 @@
     <Content Include="Service\TonnerRequestList.aspx" />
     <Content Include="Settings\UserSettings.aspx" />
     <Content Include="UserControl\Message.ascx" />
+    <Content Include="UserControl\SalesLinkTypeControl.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -612,6 +620,27 @@
     <Compile Include="Sale\SaleChallanList.aspx.designer.cs">
       <DependentUpon>SaleChallanList.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Meeting.aspx.cs">
+      <DependentUpon>Meeting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Meeting.aspx.designer.cs">
+      <DependentUpon>Meeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Notes.aspx.cs">
+      <DependentUpon>Notes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Notes.aspx.designer.cs">
+      <DependentUpon>Notes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Task.aspx.cs">
+      <DependentUpon>Task.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Task.aspx.designer.cs">
+      <DependentUpon>Task.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Service\CallStatus.aspx.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -786,6 +815,13 @@
     </Compile>
     <Compile Include="UserControl\Message.ascx.designer.cs">
       <DependentUpon>Message.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\SalesLinkTypeControl.ascx.cs">
+      <DependentUpon>SalesLinkTypeControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\SalesLinkTypeControl.ascx.designer.cs">
+      <DependentUpon>SalesLinkTypeControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\InternalServices.asmx.cs">
       <DependentUpon>InternalServices.asmx</DependentUpon>

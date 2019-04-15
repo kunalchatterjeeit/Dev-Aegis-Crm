@@ -8,24 +8,21 @@ using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
-    public class CallsDbModel
+    public class TasksDbModel
     {
         [Key]
         public Int64 Id { get; set; }
         public string Subject { get; set; }
         public string Description { get; set; }
-        public int CallStatusId { get; set; }
-        public int CallRepeatTypeId { get; set; }
+        public int TasksPriorityId { get; set; }
+        public int TasksRelatedTo { get; set; }
+        public int TasksStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public int CallDirectionId { get; set; }
-        public int CallRelatedTo { get; set; }
-        public bool PopupReminder { get; set; }
-        public bool EmailReminder { get; set; }
+        public DateTime EndDateTime { get; set; }       
         public int CreatedBy { get; set; }
-        public bool IsActive { get; set; }      
+        public bool IsActive { get; set; }
     }
-    public class CallStatusDbModel
+    public class TaskPriorityDbModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -34,7 +31,7 @@ namespace DataAccessEntity.Sales
         public string Name { get; set; }
     }
 
-    public class CallRepeatTypeDbModel
+    public class TaskRelatedToDbModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -43,7 +40,7 @@ namespace DataAccessEntity.Sales
         public string Name { get; set; }
     }
 
-    public class CallRelatedDbModel
+    public class TaskStatusDbModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -51,30 +48,23 @@ namespace DataAccessEntity.Sales
 
         public string Name { get; set; }
     }
-
-    public class CallDirectionDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class GetCallsDbModel
+    public class GetTasksDbModel
     {
         public Int64 Id { get; set; }
-        public string Subject { get; set; }
-        public string Name { get; set; }
-        public string CallStatus { get; set; }
+        public string Subject { get; set; }       
+        public string TaskStatus { get; set; }
+        public string TaskPriority { get; set; }
+        public string TaskRelatedTo { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
     }
 
-    public class GetCallsParamDbModel
+    public class GetTasksParamDbModel
     {
         public string Subject { get; set; }
-        public int? CallStatusId { get; set; }
+        public int? TaskStatusId { get; set; }
+        public int? TaskPriorityId { get; set; }
+        public int? TaskRelatedToId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
     }

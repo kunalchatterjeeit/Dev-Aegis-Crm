@@ -6,64 +6,49 @@ using System.Threading.Tasks;
 
 namespace Entity.Sales
 {
-    public class Calls
+    public class Meetings
     {
         public Int64 Id { get; set; }
-        public string Subject { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
-        public int CallStatusId { get; set; }
-        public int CallRepeatTypeId { get; set; }
+        public string Location { get; set; }
+        public int MeetingTypeId { get; set; }
+        public int MeetingStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public int CallDirectionId { get; set; }
-        public int CallRelatedTo { get; set; }
         public bool PopupReminder { get; set; }
         public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
     }
-    public class CallStatus
-    {
+    public class MeetingType
+    {       
         public int Id { get; set; }
 
         public string Name { get; set; }
     }
 
-    public class CallRepeatType
+    public class MeetingStatus
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
     }
-
-    public class CallRelated
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class CallDirection
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class GetCalls
+    public class GetMeetings
     {
         public Int64 Id { get; set; }
-        public string Subject { get; set; }
         public string Name { get; set; }
-        public string CallStatus { get; set; }
+        public string MeetingType { get; set; }
+        public string MeetingStatus { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
     }
 
-    public class GetCallsParam
+    public class GetMeetingsParam
     {
-        public string Subject { get; set; }
-        public int? CallStatusId { get; set; }
+        public string Name { get; set; }
+        public int? MeetingTypeId { get; set; }
+        public int? MeetingStatusId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
     }

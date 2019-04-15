@@ -37,5 +37,29 @@ namespace Business.Sales
             CallsDataAccess.GetCallDirection().CopyListTo(callDirectionList);
             return callDirectionList;
         }
+        public List<Entity.Sales.GetCalls> GetAllCalls(Entity.Sales.GetCallsParam Param)
+        {
+            List<Entity.Sales.GetCalls> AllCallList = new List<Entity.Sales.GetCalls>();
+            GetCallsParamDbModel p = new GetCallsParamDbModel();
+            Param.CopyPropertiesTo(p);
+            CallsDataAccess.GetAllCalls(p).CopyListTo(AllCallList);
+            return AllCallList;
+        }
+        public Entity.Sales.Calls GetCallById(int Id)
+        {
+            Entity.Sales.Calls call = new Entity.Sales.Calls();
+            CallsDataAccess.GetCallById(Id).CopyPropertiesTo(call);
+            return call;
+        }
+        public int SaveCalls(Entity.Sales.Calls Model)
+        {
+            CallsDbModel DbModel = new CallsDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return CallsDataAccess.SaveCalls(DbModel);
+        }
+        public int DeleteCalls(int Id)
+        {
+            return CallsDataAccess.DeleteCalls(Id);
+        }
     }
 }

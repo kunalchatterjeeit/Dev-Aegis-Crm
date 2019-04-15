@@ -7,117 +7,99 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebAppAegisCRM.HR {
+namespace WebAppAegisCRM.UserControl {
     
     
-    public partial class RoleAccessLevel {
+    public partial class SalesLinkTypeControl {
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// TabContainer1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::AjaxControlToolkit.TabContainer TabContainer1;
         
         /// <summary>
-        /// UpdateProgress1 control.
+        /// AccountsTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
+        protected global::AjaxControlToolkit.TabPanel AccountsTab;
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// ddlAccounts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccounts;
         
         /// <summary>
-        /// ddlRole control.
+        /// LeadsTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlRole;
+        protected global::AjaxControlToolkit.TabPanel LeadsTab;
         
         /// <summary>
-        /// ChkControlPanel control.
+        /// ddlLead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkControlPanel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLead;
         
         /// <summary>
-        /// ChkLstSettings control.
+        /// OpportunityTab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkLstSettings;
+        protected global::AjaxControlToolkit.TabPanel OpportunityTab;
         
         /// <summary>
-        /// ChkListHR control.
+        /// ddlOpportunity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListHR;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOpportunity;
         
         /// <summary>
-        /// chkListLeaveManagement control.
+        /// btnContinue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListLeaveManagement;
+        protected global::System.Web.UI.WebControls.Button btnContinue;
         
         /// <summary>
-        /// ChkListInventory control.
+        /// btnCreateNew control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListInventory;
+        protected global::System.Web.UI.WebControls.Button btnCreateNew;
         
         /// <summary>
-        /// chkListSales control.
+        /// btnReturn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListSales;
-        
-        /// <summary>
-        /// ChkListService control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListService;
-        
-        /// <summary>
-        /// ChkListReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList ChkListReport;
+        protected global::System.Web.UI.WebControls.Button btnReturn;
     }
 }

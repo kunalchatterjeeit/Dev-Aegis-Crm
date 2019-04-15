@@ -8,24 +8,23 @@ using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
-    public class CallsDbModel
+    public class MeetingsDbModel
     {
         [Key]
         public Int64 Id { get; set; }
-        public string Subject { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
-        public int CallStatusId { get; set; }
-        public int CallRepeatTypeId { get; set; }
+        public string Location { get; set; }
+        public int MeetingTypeId { get; set; }
+        public int MeetingStatusId { get; set; }
         public DateTime StartDateTime { get; set; }
-        public DateTime EndDateTime { get; set; }
-        public int CallDirectionId { get; set; }
-        public int CallRelatedTo { get; set; }
+        public DateTime EndDateTime { get; set; }       
         public bool PopupReminder { get; set; }
         public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
-        public bool IsActive { get; set; }      
+        public bool IsActive { get; set; }
     }
-    public class CallStatusDbModel
+    public class MeetingTypeDbModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -34,7 +33,7 @@ namespace DataAccessEntity.Sales
         public string Name { get; set; }
     }
 
-    public class CallRepeatTypeDbModel
+    public class MeetingStatusDbModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -42,39 +41,21 @@ namespace DataAccessEntity.Sales
 
         public string Name { get; set; }
     }
-
-    public class CallRelatedDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class CallDirectionDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class GetCallsDbModel
+    public class GetMeetingsDbModel
     {
         public Int64 Id { get; set; }
-        public string Subject { get; set; }
         public string Name { get; set; }
-        public string CallStatus { get; set; }
+        public string MeetingType { get; set; }
+        public string MeetingStatus { get; set; }
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
     }
 
-    public class GetCallsParamDbModel
+    public class GetMeetingsParamDbModel
     {
-        public string Subject { get; set; }
-        public int? CallStatusId { get; set; }
+        public string Name { get; set; }
+        public int? MeetingTypeId { get; set; }
+        public int? MeetingStatusId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
     }

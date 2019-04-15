@@ -1,9 +1,8 @@
-﻿<%@ Page Title="ADD/EDIT CALLS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Calls.aspx.cs" Inherits="WebAppAegisCRM.Sales.Calls" %>
+﻿<%@ Page Title="ADD/EDIT TASKS" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Task.aspx.cs" Inherits="WebAppAegisCRM.Sales.Task" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Src="../UserControl/SalesLinkTypeControl.ascx" TagPrefix="uc3" TagName="SalesLinkTypeControl" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -12,8 +11,8 @@
             });
         });
         function prepareDateTimeControls() {
-            $('#ContentPlaceHolder1_txtCallStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
-            $('#ContentPlaceHolder1_txtCallEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+            $('#ContentPlaceHolder1_txtTaskStartDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
+            $('#ContentPlaceHolder1_txtTaskEndDateTime').datetimepicker({ format: 'DD MMM YYYY hh:mm A' });
         }
     </script>
 </asp:Content>
@@ -41,73 +40,56 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Calls
+                            Add/Edit Tasks
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group has-error">
-                                        Call Subject
+                                        Task Subject
                                 <asp:TextBox ID="txtSubject" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        Call Description
+                                        Task Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Status
-                                <asp:DropDownList ID="ddlCallStatus" runat="server" CssClass="form-control">
+                                        Task Priority
+                                <asp:DropDownList ID="ddlTaskPriority" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Repeat Type
-                                <asp:DropDownList ID="ddlCallRepeatType" runat="server" CssClass="form-control">
+                                        Task Status
+                                <asp:DropDownList ID="ddlTaskStatus" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Direction
-                                <asp:DropDownList ID="ddlCallDirection" runat="server" CssClass="form-control">
+                                        Task Related To
+                                <asp:DropDownList ID="ddlTaskRelatedTo" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Related To
-                                <asp:DropDownList ID="ddlCallRelatedTo" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
+                                        Task Start Date Time
+                                        <input type="text" id="txtTaskStartDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Call Start Date Time
-                                        <input type="text" id="txtCallStartDateTime" runat="server" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        Call End Date Time
-                                      <input type="text" id="txtCallEndDateTime" runat="server" class="form-control" />
+                                        Task End Date Time
+                                      <input type="text" id="txtTaskEndDateTime" runat="server" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        <asp:CheckBox ID="chkPopupReminder" runat="server" Text="Pop Up Reminder" Checked="true" />
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        <asp:CheckBox ID="chkEmailReminder" runat="server" Text="Email Reminder" Checked="true" />
-                                    </div>
-                                </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -126,13 +108,13 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Call List
+                            Task List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <center>
-                                    <asp:GridView ID="gvCalls" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvCalls_RowCommand">
+                                    <asp:GridView ID="gvTasks" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="Id" ForeColor="#333333" OnRowCommand="gvTasks_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
                                                 <ItemTemplate>
@@ -140,7 +122,9 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Subject" HeaderText="Subject" />
-                                            <asp:BoundField DataField="CallStatus" HeaderText="Call Status" />
+                                            <asp:BoundField DataField="TaskStatus" HeaderText="Task Status" />
+                                            <asp:BoundField DataField="TaskRelatedTo" HeaderText="Task Related To" />
+                                            <asp:BoundField DataField="TaskPriority" HeaderText="Task Priority" />
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
                                                     Start Date

@@ -108,6 +108,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -147,7 +149,7 @@
                                 </asp:ListItem>
                                 <asp:ListItem Value="303" Text="&nbsp;&nbsp;&nbsp;VENDOR LIST">
                                 </asp:ListItem>
-                                 <asp:ListItem Value="306" Text="&nbsp;&nbsp;&nbsp;PURCHASE REQUISITION ENTRY">
+                                <asp:ListItem Value="306" Text="&nbsp;&nbsp;&nbsp;PURCHASE REQUISITION ENTRY">
                                 </asp:ListItem>
                                 <asp:ListItem Value="307" Text="&nbsp;&nbsp;&nbsp;SALE CHALLAN ENTRY">
                                 </asp:ListItem>
@@ -156,7 +158,30 @@
                             </asp:CheckBoxList>
                         </div>
                     </div>
-                </div>            
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Sales
+                        </div>
+                        <div class="panel-body">
+                            <asp:CheckBoxList ID="chkListSales" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckListBox_SelectedIndexChanged">
+                                <asp:ListItem Value="800" Text="&nbsp;&nbsp;&nbsp;SALES">
+                                </asp:ListItem>
+                                <asp:ListItem Value="801" Text="&nbsp;&nbsp;&nbsp;SALES CALLS">
+                                </asp:ListItem>
+                                <asp:ListItem Value="802" Text="&nbsp;&nbsp;&nbsp;SALES MEETINGS">
+                                </asp:ListItem>
+                                <asp:ListItem Value="803" Text="&nbsp;&nbsp;&nbsp;SALES NOTES">
+                                </asp:ListItem>
+                                <asp:ListItem Value="804" Text="&nbsp;&nbsp;&nbsp;SALES TASKS">
+                                </asp:ListItem>
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">

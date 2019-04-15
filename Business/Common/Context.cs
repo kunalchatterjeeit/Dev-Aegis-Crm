@@ -220,5 +220,17 @@ namespace Business.Common
                 HttpContext.Current.Session["LeaveApplicationId"] = value;
             }
         }
+
+        public static string ReferralUrl
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ReferralUrl"] != null) ? HttpContext.Current.Session["ReferralUrl"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["ReferralUrl"] = value;
+            }
+        }
     }
 }

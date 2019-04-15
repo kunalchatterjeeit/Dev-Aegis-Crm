@@ -26,6 +26,24 @@ namespace DataAccessEntity
                 .ToTable("tbl_Sales_CallRelated");
             modelBuilder.Entity<Sales.CallDirectionDbModel>()
                 .ToTable("tbl_Sales_CallDirection");
+            modelBuilder.Entity<Sales.ContactsDbModel>()
+               .ToTable("tbl_Sales_Contacts");
+            modelBuilder.Entity<Sales.NotesDbModel>()
+               .ToTable("tbl_Sales_Notes");
+            modelBuilder.Entity<Sales.TaskPriorityDbModel>()
+              .ToTable("tbl_Sales_TasksPriority");
+            modelBuilder.Entity<Sales.TaskStatusDbModel>()
+              .ToTable("tbl_Sales_TasksStatus");
+            modelBuilder.Entity<Sales.TaskRelatedToDbModel>()
+              .ToTable("tbl_Sales_TasksRelated");
+            modelBuilder.Entity<Sales.TasksDbModel>()
+              .ToTable("tbl_Sales_Tasks");
+            modelBuilder.Entity<Sales.MeetingStatusDbModel>()
+             .ToTable("tbl_Sales_MeetingStatus");
+            modelBuilder.Entity<Sales.MeetingTypeDbModel>()
+              .ToTable("tbl_Sales_MeetingType");
+            modelBuilder.Entity<Sales.MeetingsDbModel>()
+              .ToTable("tbl_Sales_Meetings");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -33,5 +51,14 @@ namespace DataAccessEntity
         public DbSet<Sales.CallRelatedDbModel> CallRelated { get; set; }
         public DbSet<Sales.CallRepeatTypeDbModel> CallRepeatType { get; set; }
         public DbSet<Sales.CallDirectionDbModel> CallDirection { get; set; }
+        public DbSet<Sales.ContactsDbModel> Contacts { get; set; }
+        public DbSet<Sales.NotesDbModel> Notes { get; set; }
+        public DbSet<Sales.TaskPriorityDbModel> TaskPriority { get; set; }
+        public DbSet<Sales.TaskRelatedToDbModel> TaskRelatedTo { get; set; }
+        public DbSet<Sales.TaskStatusDbModel> TaskStatus { get; set; }
+        public DbSet<Sales.TasksDbModel> Tasks{ get; set; }
+        public DbSet<Sales.MeetingStatusDbModel> MeetingStatus { get; set; }
+        public DbSet<Sales.MeetingTypeDbModel> MeetingType { get; set; }
+        public DbSet<Sales.MeetingsDbModel> Meeting { get; set; }
     }
 }

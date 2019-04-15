@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.Sales {
     
     
-    public partial class Calls {
+    public partial class Task {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -58,76 +58,49 @@ namespace WebAppAegisCRM.Sales {
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
         
         /// <summary>
-        /// ddlCallStatus control.
+        /// ddlTaskPriority control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaskPriority;
         
         /// <summary>
-        /// ddlCallRepeatType control.
+        /// ddlTaskStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallRepeatType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaskStatus;
         
         /// <summary>
-        /// ddlCallDirection control.
+        /// ddlTaskRelatedTo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallDirection;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaskRelatedTo;
         
         /// <summary>
-        /// ddlCallRelatedTo control.
+        /// txtTaskStartDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCallRelatedTo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtTaskStartDateTime;
         
         /// <summary>
-        /// txtCallStartDateTime control.
+        /// txtTaskEndDateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallStartDateTime;
-        
-        /// <summary>
-        /// txtCallEndDateTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText txtCallEndDateTime;
-        
-        /// <summary>
-        /// chkPopupReminder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkPopupReminder;
-        
-        /// <summary>
-        /// chkEmailReminder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkEmailReminder;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtTaskEndDateTime;
         
         /// <summary>
         /// btnSave control.
@@ -157,13 +130,13 @@ namespace WebAppAegisCRM.Sales {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// gvCalls control.
+        /// gvTasks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvCalls;
+        protected global::System.Web.UI.WebControls.GridView gvTasks;
         
         /// <summary>
         /// lnk control.
