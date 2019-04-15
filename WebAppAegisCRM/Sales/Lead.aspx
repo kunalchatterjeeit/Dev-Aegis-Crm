@@ -21,6 +21,7 @@
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <asp:HiddenField ID="hdnOpenForm" runat="server" ClientIDMode="Static" />
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -445,6 +446,16 @@
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+                $(function () {
+                    loadForm();
+                });
+                function loadForm() {
+                    if ($('#hdnOpenForm').val() == "true")
+                        $('#hrefForm').click();
+                }
+                Sys.Application.add_load(loadForm);
+            </script>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

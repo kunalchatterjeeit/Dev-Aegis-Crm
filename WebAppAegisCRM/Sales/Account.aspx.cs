@@ -19,7 +19,12 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = null, EndDateTime = null, CallStatusId = null, Subject = null };
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = AccountId,
+                LinkType = SalesLinkType.Account
+            };
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();
         }
@@ -169,12 +174,14 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = false;
                 btnSave.Text = "Update";
                 PopulateItems();
+                hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "View")
             {
                 AccountId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetAccountById();
                 PopulateItems();
+                hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "Del")
             {

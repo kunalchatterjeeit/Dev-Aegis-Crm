@@ -162,12 +162,14 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = false;
                 btnSave.Text = "Update";
                 PopulateItems();
+                hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "View")
             {
                 LeadId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetLeadById();
                 PopulateItems();
+                hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "Del")
             {

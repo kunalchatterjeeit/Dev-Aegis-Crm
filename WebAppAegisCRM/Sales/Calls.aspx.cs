@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,8 +82,12 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = null, EndDateTime = null, CallStatusId = null, Subject = null };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+            };
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();
         }
@@ -234,6 +239,7 @@ namespace WebAppAegisCRM.Sales
                 int rows = Obj.SaveCalls(Model);
                 if (rows > 0)
                 {
+                    SaveCallLink();
                     ClearControls();
                     LoadCallList();
                     CallId = 0;
@@ -249,5 +255,16 @@ namespace WebAppAegisCRM.Sales
             }
         }
 
+        private void SaveCallLink()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
+            Entity.Sales.Calls Model = new Entity.Sales.Calls
+            {
+                Id = CallId,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType),hdnItemType.Value)
+            };
+            Obj.SaveCalls(Model);
+        }
     }
 }

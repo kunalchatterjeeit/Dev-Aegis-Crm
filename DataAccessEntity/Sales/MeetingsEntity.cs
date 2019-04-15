@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,8 @@ namespace DataAccessEntity.Sales
         public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
     public class MeetingTypeDbModel
     {

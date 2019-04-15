@@ -61,5 +61,11 @@ namespace Business.Sales
         {
             return CallsDataAccess.DeleteCalls(Id);
         }
+        public int SaveCallLinks(Entity.Sales.Calls Model)
+        {
+            CallsDbModel DbModel = new CallsDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return CallsDataAccess.SaveCallLinks(DbModel);
+        }
     }
 }
