@@ -219,15 +219,6 @@
     <Content Include="Settings\UserSettings.aspx" />
     <Content Include="UserControl\Message.ascx" />
     <Content Include="UserControl\SalesLinkTypeControl.ascx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="WebServices\InternalServices.asmx" />
     <Content Include="WebServices\WebServiceChart.asmx" />
   </ItemGroup>
@@ -849,6 +840,13 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Aegis.pubxml" />
     <None Include="Properties\PublishProfiles\Qualistech.pubxml" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Customer\StampImage\" />
