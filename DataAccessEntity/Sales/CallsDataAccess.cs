@@ -1,6 +1,7 @@
 ﻿using Entity.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -89,14 +90,21 @@ namespace DataAccessEntity.Sales
         }
         public static int SaveCalls(CallsDbModel Model)
         {
+            var outParam = new SqlParameter();
+            outParam.ParameterName = "Id";
+            outParam.Value = Model.Id;
+            outParam.SqlDbType = SqlDbType.BigInt;
+            outParam.Direction = ParameterDirection.InputOutput;
+
+            int result = 0;
             using (var Context = new CRMContext())
             {
-                return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
+                result= Context.Database.ExecuteSqlCommand(
+                                "exec dbo.[usp_Sales_Calls_Save] @Id OUT,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
                                 "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
                                 new object[]
                                 {
-                                    new SqlParameter("Id", Model.Id),
+                                    outParam,
                                     new SqlParameter("Subject", Model.Subject),
                                     new SqlParameter("Description", Model.Description),
                                     new SqlParameter("CallStatusId", Model.CallStatusId),
@@ -112,6 +120,8 @@ namespace DataAccessEntity.Sales
                                 }
                              );
             }
+            int a = Convert.ToInt32(outParam.Value);
+            return result;
         }
         public static int DeleteCalls(int Id)
         {
