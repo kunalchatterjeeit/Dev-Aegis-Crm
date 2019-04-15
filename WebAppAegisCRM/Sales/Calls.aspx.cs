@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,25 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Calls : System.Web.UI.Page
     {
+        private void SetQueryStringValue()
+        {
+            if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
+            {
+                hdnItemId.Value = Request.QueryString["id"].ToString();
+                hdnItemType.Value = Request.QueryString["itemtype"].ToString();
+            }
+            if (Request.QueryString["callid"] != null)
+            {
+                CallId = Convert.ToInt32(Request.QueryString["callid"].ToString());
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                SetQueryStringValue();
+            }
             if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
             {
                 ModalPopupExtender1.Show();
@@ -22,6 +40,10 @@ namespace WebAppAegisCRM.Sales
                 LoadCallsDropdowns();
                 LoadCallList();
                 Message.Show = false;
+                if (CallId > 0)
+                {
+                    GetCallById();
+                }
             }
         }
         public int CallId
@@ -60,8 +82,12 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = null, EndDateTime = null, CallStatusId = null, Subject = null };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+            };
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();
         }
@@ -213,6 +239,7 @@ namespace WebAppAegisCRM.Sales
                 int rows = Obj.SaveCalls(Model);
                 if (rows > 0)
                 {
+                    SaveCallLink();
                     ClearControls();
                     LoadCallList();
                     CallId = 0;
@@ -228,5 +255,16 @@ namespace WebAppAegisCRM.Sales
             }
         }
 
+        private void SaveCallLink()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
+            Entity.Sales.Calls Model = new Entity.Sales.Calls
+            {
+                Id = CallId,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType),hdnItemType.Value)
+            };
+            Obj.SaveCalls(Model);
+        }
     }
 }

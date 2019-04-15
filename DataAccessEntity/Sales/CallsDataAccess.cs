@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -43,14 +44,32 @@ namespace DataAccessEntity.Sales
         {
             using (var Context = new CRMContext())
             {
+                object linkType = DBNull.Value, linkId = DBNull.Value, fromDate = DBNull.Value,
+                    toDate = DBNull.Value, callStatusId = DBNull.Value, subject = DBNull.Value;
+
+                if (Param.LinkType != SalesLinkType.None)
+                    linkType = (int)Param.LinkType;
+                if (Param.LinkId >= 0)
+                    linkId = Param.LinkId;
+                if (Param.StartDateTime != DateTime.MinValue)
+                    fromDate = Param.StartDateTime;
+                if (Param.EndDateTime != DateTime.MinValue)
+                    toDate = Param.EndDateTime;
+                if (Param.CallStatusId >= 0)
+                    callStatusId = Param.CallStatusId;
+                if (!string.IsNullOrEmpty(Param.Subject))
+                    subject = Param.Subject;
+
                 return Context.Database.SqlQuery<GetCallsDbModel>(
-                                "exec dbo.[usp_Sales_Calls_GetAll] @Subject,@CallStatusId,@StartFromDateTime,@StartToDateTime",
+                                "exec dbo.[usp_Sales_Calls_GetAll] @Subject,@CallStatusId,@StartFromDateTime,@StartToDateTime,@LinkId,@LinkType",
                                 new Object[]
                                 {
-                                    new SqlParameter("Subject", DBNull.Value),
-                                    new SqlParameter("CallStatusId", DBNull.Value),
-                                    new SqlParameter("StartFromDateTime", DBNull.Value),
-                                    new SqlParameter("StartToDateTime", DBNull.Value)
+                                    new SqlParameter("Subject", subject),
+                                    new SqlParameter("CallStatusId", callStatusId),
+                                    new SqlParameter("StartFromDateTime", fromDate),
+                                    new SqlParameter("StartToDateTime", toDate),
+                                    new SqlParameter("LinkId", linkId),
+                                    new SqlParameter("LinkType", linkType)
                                 }
                              ).ToList();
             }
@@ -75,7 +94,7 @@ namespace DataAccessEntity.Sales
                 return Context.Database.ExecuteSqlCommand(
                                 "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
                                 "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
-                                new Object[]
+                                new object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
                                     new SqlParameter("Subject", Model.Subject),
@@ -102,7 +121,23 @@ namespace DataAccessEntity.Sales
                                 "exec dbo.[usp_Sales_Calls_Delete] @Id",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id",Id)                                   
+                                    new SqlParameter("Id",Id)
+                                }
+                             );
+            }
+        }
+        public static int SaveCallLinks(CallsDbModel Model)
+        {
+            using (var Context = new CRMContext())
+            {
+                return Context.Database.ExecuteSqlCommand(
+                                "exec dbo.[usp_Sales_CallLinks_Save] @Id,@CallId,@LinkId,@LinkType",
+                                new Object[]
+                                {
+                                    new SqlParameter("Id", Model.CallLinkId),
+                                    new SqlParameter("CallId", Model.Id),
+                                    new SqlParameter("LinkId", Model.LinkId),
+                                    new SqlParameter("LinkType", Model.LinkId)
                                 }
                              );
             }

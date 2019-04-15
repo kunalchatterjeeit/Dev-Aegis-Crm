@@ -50,10 +50,16 @@
   <ItemGroup>
     <Compile Include="CRMContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sales\AccountDataAccess.cs" />
+    <Compile Include="Sales\AccountEntity.cs" />
     <Compile Include="Sales\CallsDataAccess.cs" />
     <Compile Include="Sales\CallsEntity.cs" />
+    <Compile Include="Sales\CampaignDataAccess.cs" />
+    <Compile Include="Sales\CampaignEntity.cs" />
     <Compile Include="Sales\ContactsDataAccess.cs" />
     <Compile Include="Sales\ContactsEntity.cs" />
+    <Compile Include="Sales\LeadsDataAccess.cs" />
+    <Compile Include="Sales\LeadsEntity.cs" />
     <Compile Include="Sales\MeetingsDataAccess.cs" />
     <Compile Include="Sales\MeetingsEntity.cs" />
     <Compile Include="Sales\NotesDataAccess.cs" />

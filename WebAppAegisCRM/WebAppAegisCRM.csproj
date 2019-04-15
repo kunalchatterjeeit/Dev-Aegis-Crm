@@ -184,7 +184,9 @@
     <Content Include="Sale\AssetSelection.aspx" />
     <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Sale\SaleChallanList.aspx" />
+    <Content Include="Sales\Account.aspx" />
     <Content Include="Sales\Calls.aspx" />
+    <Content Include="Sales\Lead.aspx" />
     <Content Include="Sales\Meeting.aspx" />
     <Content Include="Sales\Notes.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -584,6 +586,13 @@
     </Compile>
     <Compile Include="Purchase\VendorMasterView.aspx.designer.cs">
       <DependentUpon>VendorMasterView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Account.aspx.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Account.aspx.designer.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
     <Compile Include="ResetPassword.aspx.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>

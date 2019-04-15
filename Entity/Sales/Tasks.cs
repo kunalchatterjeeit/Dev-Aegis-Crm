@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ namespace Entity.Sales
         public DateTime EndDateTime { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
     public class TaskPriority
     {
