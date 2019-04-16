@@ -19,6 +19,7 @@ namespace Entity.Sales
         public DateTime EndDateTime { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int TaskLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
@@ -61,5 +62,7 @@ namespace Entity.Sales
         public int? TaskRelatedToId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
 }

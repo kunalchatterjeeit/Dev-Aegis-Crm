@@ -53,5 +53,11 @@ namespace Business.Sales
         {
             return TasksDataAccess.DeleteTask(Id);
         }
+        public int SaveTaskLinks(Entity.Sales.Tasks Model)
+        {
+            TasksDbModel DbModel = new TasksDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return TasksDataAccess.SaveTaskLinks(DbModel);
+        }
     }
 }

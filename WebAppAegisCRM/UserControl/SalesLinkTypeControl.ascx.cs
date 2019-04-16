@@ -47,17 +47,17 @@ namespace WebAppAegisCRM.UserControl
             HiddenField hdnItemId = (HiddenField)Parent.FindControl("hdnItemId");
             if (TabContainer1.ActiveTabIndex == 0)
             {
-                hdnItemType.Value = "SalesAccounts";
+                hdnItemType.Value = "Account";
                 hdnItemId.Value = ddlAccounts.SelectedValue;
             }
             else if (TabContainer1.ActiveTabIndex == 1)
             {
-                hdnItemType.Value = "SalesLeads";
+                hdnItemType.Value = "Lead";
                 hdnItemId.Value = ddlLead.SelectedValue;
             }
             else if (TabContainer1.ActiveTabIndex == 2)
             {
-                hdnItemType.Value = "SalesOpportunity";
+                hdnItemType.Value = "Opportunity";
                 hdnItemId.Value = ddlOpportunity.SelectedValue;
             }
             ((ModalPopupExtender)Parent.FindControl("ModalPopupExtender1")).Hide();

@@ -47,5 +47,11 @@ namespace Business.Sales
         {
             return MeetingsDataAccess.DeleteMeetings(Id);
         }
+        public int SaveMeetingLinks(Entity.Sales.Meetings Model)
+        {
+            MeetingsDbModel DbModel = new MeetingsDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return MeetingsDataAccess.SaveMeetingLinks(DbModel);
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace Entity.Sales
         public int ContactId { get; set; }
         public int CreatedBy { get; set; }       
         public bool IsActive { get; set; }
+        public int NoteLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
@@ -30,5 +31,7 @@ namespace Entity.Sales
     {
         public string Name { get; set; }
         public int? ContactId { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
 }

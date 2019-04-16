@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -31,11 +32,13 @@ namespace DataAccessEntity.Sales
                                 "exec dbo.[usp_Sales_Meetings_GetAll] @Name,@MeetingTypeId,@MeetingStatusId,@StartFromDateTime,@StartToDateTime",
                                 new Object[]
                                 {
-                                    new SqlParameter("Name", DBNull.Value),
-                                    new SqlParameter("MeetingTypeId", DBNull.Value),
-                                    new SqlParameter("MeetingStatusId", DBNull.Value),
-                                    new SqlParameter("StartFromDateTime", DBNull.Value),
-                                    new SqlParameter("StartToDateTime", DBNull.Value)
+                                    new SqlParameter("Name", (!string.IsNullOrEmpty(Param.Name))?Param.Name:(object)DBNull.Value),
+                                    new SqlParameter("MeetingTypeId", (Param.MeetingTypeId>0)?Param.MeetingTypeId:(object)DBNull.Value),
+                                    new SqlParameter("MeetingStatusId", (Param.MeetingStatusId>0)?Param.MeetingStatusId:(object)DBNull.Value),
+                                    new SqlParameter("StartFromDateTime", (Param.StartDateTime!=DateTime.MinValue)?Param.StartDateTime:(object)DBNull.Value),
+                                    new SqlParameter("StartToDateTime", (Param.EndDateTime!=DateTime.MinValue)?Param.EndDateTime:(object)DBNull.Value),
+                                    new SqlParameter("LinkId", (Param.LinkId>0)?Param.LinkId:(object)DBNull.Value),
+                                    new SqlParameter("LinkType", (Param.LinkType != SalesLinkType.None)?(int)Param.LinkType:(object)DBNull.Value)
                                 }
                              ).ToList();
             }
@@ -87,6 +90,23 @@ namespace DataAccessEntity.Sales
                                 new Object[]
                                 {
                                     new SqlParameter("Id",Id)
+                                }
+                             );
+            }
+        }
+
+        public static int SaveMeetingLinks(MeetingsDbModel Model)
+        {
+            using (var Context = new CRMContext())
+            {
+                return Context.Database.ExecuteSqlCommand(
+                                "exec dbo.[usp_Sales_MeetingLinks_Save] @Id,@MeetingId,@LinkId,@LinkType",
+                                new Object[]
+                                {
+                                    new SqlParameter("Id", Model.MeetingLinkId),
+                                    new SqlParameter("MeetingId", Model.Id),
+                                    new SqlParameter("LinkId", Model.LinkId),
+                                    new SqlParameter("LinkType", Model.LinkId)
                                 }
                              );
             }
