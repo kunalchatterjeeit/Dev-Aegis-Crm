@@ -11,14 +11,7 @@ using System.Threading.Tasks;
 namespace DataAccessEntity.Sales
 {
     public class CallsDataAccess
-    {
-        public static List<CallStatusDbModel> GetCallStatus()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.CallStatus.ToList();
-            }
-        }
+    {       
         public static List<CallDirectionDbModel> GetCallDirection()
         {
             using (var Context = new CRMContext())

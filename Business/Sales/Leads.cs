@@ -11,7 +11,7 @@ namespace Business.Sales
         public List<Entity.Sales.Department> GetDepartment()
         {
             List<Entity.Sales.Department> DepartmentList = new List<Entity.Sales.Department>();
-            LeadsDataAccess.GetDepartments().CopyListTo(DepartmentList);
+            DepartmentDataAccess.GetAllDepartment().CopyListTo(DepartmentList);
             return DepartmentList;
         }
         public List<Entity.Sales.GetLeads> GetAllLeads(Entity.Sales.GetLeadsParam Param)

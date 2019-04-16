@@ -182,8 +182,11 @@
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="Sales\Account.aspx" />
     <Content Include="Sales\Calls.aspx" />
+    <Content Include="Sales\CallStatus.aspx" />
+    <Content Include="Sales\Department.aspx" />
     <Content Include="Sales\Lead.aspx" />
     <Content Include="Sales\Meeting.aspx" />
+    <Content Include="Sales\MeetingType.aspx" />
     <Content Include="Sales\Notes.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -574,6 +577,20 @@
     <Compile Include="Sales\Calls.aspx.designer.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\CallStatus.aspx.cs">
+      <DependentUpon>CallStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\CallStatus.aspx.designer.cs">
+      <DependentUpon>CallStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Department.aspx.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Department.aspx.designer.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -587,6 +604,13 @@
     </Compile>
     <Compile Include="Sales\Meeting.aspx.designer.cs">
       <DependentUpon>Meeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\MeetingType.aspx.cs">
+      <DependentUpon>MeetingType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\MeetingType.aspx.designer.cs">
+      <DependentUpon>MeetingType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Notes.aspx.cs">
       <DependentUpon>Notes.aspx</DependentUpon>

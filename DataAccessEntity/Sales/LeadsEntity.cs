@@ -7,14 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
-{
-    public class DepartmentDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-        public string Name { get; set; }       
-    }
+{   
     public class GetLeadsParamDbModel
     {
         public string Name { get; set; }

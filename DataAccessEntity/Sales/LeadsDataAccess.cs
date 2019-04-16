@@ -9,13 +9,6 @@ namespace DataAccessEntity.Sales
 {
     public class LeadsDataAccess
     {
-        public static List<DepartmentDbModel> GetDepartments()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.Department.ToList();
-            }
-        }
         public static List<GetLeadsDbModel> GetAllLeads(GetLeadsParamDbModel Param)
         {
             using (var Context = new CRMContext())

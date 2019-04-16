@@ -24,13 +24,7 @@ namespace Entity.Sales
         public int MeetingLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
-    }
-    public class MeetingType
-    {       
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
+    }   
 
     public class MeetingStatus
     {
