@@ -44,5 +44,11 @@ namespace Business.Sales
         {
             return NotesDataAccess.DeleteNotes(Id);
         }
+        public int SaveNoteLinks(Entity.Sales.Notes Model)
+        {
+            NotesDbModel DbModel = new NotesDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return NotesDataAccess.SaveNoteLinks(DbModel);
+        }
     }
 }

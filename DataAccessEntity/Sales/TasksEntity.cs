@@ -1,11 +1,7 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
@@ -22,6 +18,7 @@ namespace DataAccessEntity.Sales
         public DateTime EndDateTime { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int TaskLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
@@ -54,7 +51,7 @@ namespace DataAccessEntity.Sales
     public class GetTasksDbModel
     {
         public Int64 Id { get; set; }
-        public string Subject { get; set; }       
+        public string Subject { get; set; }
         public string TaskStatus { get; set; }
         public string TaskPriority { get; set; }
         public string TaskRelatedTo { get; set; }
@@ -70,5 +67,7 @@ namespace DataAccessEntity.Sales
         public int? TaskRelatedToId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
 }
