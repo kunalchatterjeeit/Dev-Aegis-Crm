@@ -64,6 +64,8 @@
     <Compile Include="Sales\DepartmentEntity.cs" />
     <Compile Include="Sales\LeadsDataAccess.cs" />
     <Compile Include="Sales\LeadsEntity.cs" />
+    <Compile Include="Sales\LeadSourceDataAccess.cs" />
+    <Compile Include="Sales\LeadSourceEntity.cs" />
     <Compile Include="Sales\MeetingsDataAccess.cs" />
     <Compile Include="Sales\MeetingsEntity.cs" />
     <Compile Include="Sales\MeetingTypeDataAccess.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="Sales\NotesEntity.cs" />
     <Compile Include="Sales\TasksDataAccess.cs" />
     <Compile Include="Sales\TasksEntity.cs" />
+    <Compile Include="Sales\TaskStatusDataAccess.cs" />
+    <Compile Include="Sales\TaskStatusEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

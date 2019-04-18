@@ -14,14 +14,7 @@ namespace DataAccessEntity.Sales
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
-    }
-    public class LeadSourceDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    }    
     public class GetAccountsParamDbModel
     {
         public string Name { get; set; }

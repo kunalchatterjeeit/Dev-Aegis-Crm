@@ -17,13 +17,7 @@ namespace DataAccessEntity.Sales
                 return Context.CustomerType.ToList();
             }
         }
-        public static List<LeadSourceDbModel> GetLeadSources()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.LeadSource.ToList();
-            }
-        }
+       
         public static List<GetAccountsDbModel> GetAllAccounts(GetAccountsParamDbModel Param)
         {
             using (var Context = new CRMContext())

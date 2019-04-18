@@ -45,7 +45,7 @@ namespace WebAppAegisCRM.Sales
             if (txtName.Text.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
-                Message.Text = "Please Enter Call Status Name";
+                Message.Text = "Please Enter Department Name";
                 Message.Show = true;
                 return false;
             }

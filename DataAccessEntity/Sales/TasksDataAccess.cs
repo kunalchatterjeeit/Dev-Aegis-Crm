@@ -24,13 +24,7 @@ namespace DataAccessEntity.Sales
                 return Context.TaskRelatedTo.ToList();
             }
         }
-        public static List<TaskStatusDbModel> GetTaskStatus()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.TaskStatus.ToList();
-            }
-        }
+        
         public static List<GetTasksDbModel> GetAllTasks(GetTasksParamDbModel Param)
         {
             using (var Context = new CRMContext())

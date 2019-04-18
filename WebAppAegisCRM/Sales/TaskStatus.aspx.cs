@@ -7,34 +7,34 @@ using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
-    public partial class MeetingType : System.Web.UI.Page
+    public partial class TaskStatus : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadMeetingTypeList();
+                LoadTaskStatusList();
                 Message.Show = false;
-                if (MeetingTypeId > 0)
+                if (TaskStatusId > 0)
                 {
-                    GetMeetingTypeById();
+                    GetTaskStatusById();
                 }
             }
         }
-        public int MeetingTypeId
+        public int TaskStatusId
         {
             get { return Convert.ToInt32(ViewState["Id"]); }
             set { ViewState["Id"] = value; }
         }
-        private void LoadMeetingTypeList()
+        private void LoadTaskStatusList()
         {
-            Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-            gvMeetingType.DataSource = Obj.GetAllMeetingType();
-            gvMeetingType.DataBind();
+            Business.Sales.TaskStatus Obj = new Business.Sales.TaskStatus();
+            gvTaskStatus.DataSource = Obj.GetAllTaskStatus();
+            gvTaskStatus.DataBind();
         }
         private void ClearControls()
         {
-            MeetingTypeId = 0;
+            TaskStatusId = 0;
             Message.Show = false;
             txtDescription.Text = string.Empty;
             txtName.Text = string.Empty;
@@ -45,7 +45,7 @@ namespace WebAppAegisCRM.Sales
             if (txtName.Text.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
-                Message.Text = "Please Enter Meeting Type Name";
+                Message.Text = "Please Enter Task Status Name";
                 Message.Show = true;
                 return false;
             }
@@ -59,23 +59,23 @@ namespace WebAppAegisCRM.Sales
         {
             Save();
         }
-        protected void gvMeetingType_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvTaskStatus_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Ed")
             {
-                MeetingTypeId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetMeetingTypeById();
+                TaskStatusId = Convert.ToInt32(e.CommandArgument.ToString());
+                GetTaskStatusById();
                 Message.Show = false;
                 btnSave.Text = "Update";
             }
             else if (e.CommandName == "Del")
             {
-                Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-                int rows = Obj.DeleteMeetingType(Convert.ToInt32(e.CommandArgument.ToString()));
+                Business.Sales.TaskStatus Obj = new Business.Sales.TaskStatus();
+                int rows = Obj.DeleteTaskStatus(Convert.ToInt32(e.CommandArgument.ToString()));
                 if (rows > 0)
                 {
                     ClearControls();
-                    LoadMeetingTypeList();
+                    LoadTaskStatusList();
                     Message.IsSuccess = true;
                     Message.Text = "Deleted Successfully";
                 }
@@ -87,34 +87,34 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-        private void GetMeetingTypeById()
+        private void GetTaskStatusById()
         {
-            Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-            Entity.Sales.MeetingType meetingType = Obj.GetMeetingTypeById(MeetingTypeId);
-            if (meetingType.Id != 0)
+            Business.Sales.TaskStatus Obj = new Business.Sales.TaskStatus();
+            Entity.Sales.TaskStatus Taskstatus = Obj.GetTaskStatusById(TaskStatusId);
+            if (Taskstatus.Id != 0)
             {
-                txtDescription.Text = meetingType.Description;
-                txtName.Text = meetingType.Name;
+                txtDescription.Text = Taskstatus.Description;
+                txtName.Text = Taskstatus.Name;
             }
         }
         private void Save()
         {
             if (CallStatusControlValidation())
             {
-                Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-                Entity.Sales.MeetingType Model = new Entity.Sales.MeetingType
+                Business.Sales.TaskStatus Obj = new Business.Sales.TaskStatus();
+                Entity.Sales.TaskStatus Model = new Entity.Sales.TaskStatus
                 {
-                    Id = MeetingTypeId,
+                    Id = TaskStatusId,
                     Name = txtName.Text,
                     Description = txtDescription.Text,
 
                 };
-                int rows = Obj.SaveMeetingType(Model);
+                int rows = Obj.SaveTaskStatus(Model);
                 if (rows > 0)
                 {
                     ClearControls();
-                    LoadMeetingTypeList();
-                    MeetingTypeId = 0;
+                    LoadTaskStatusList();
+                    TaskStatusId = 0;
                     Message.IsSuccess = true;
                     Message.Text = "Saved Successfully";
                 }

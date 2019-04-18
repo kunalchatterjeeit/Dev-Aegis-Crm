@@ -7,45 +7,45 @@ using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
-    public partial class MeetingType : System.Web.UI.Page
+    public partial class LeadSource : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                LoadMeetingTypeList();
+                LoadLeadSourceList();
                 Message.Show = false;
-                if (MeetingTypeId > 0)
+                if (LeadSourceId > 0)
                 {
-                    GetMeetingTypeById();
+                    GetLeadSourceById();
                 }
             }
         }
-        public int MeetingTypeId
+        public int LeadSourceId
         {
             get { return Convert.ToInt32(ViewState["Id"]); }
             set { ViewState["Id"] = value; }
         }
-        private void LoadMeetingTypeList()
+        private void LoadLeadSourceList()
         {
-            Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-            gvMeetingType.DataSource = Obj.GetAllMeetingType();
-            gvMeetingType.DataBind();
+            Business.Sales.LeadSource Obj = new Business.Sales.LeadSource();
+            gvLeadSource.DataSource = Obj.GetAllLeadSource();
+            gvLeadSource.DataBind();
         }
         private void ClearControls()
         {
-            MeetingTypeId = 0;
+            LeadSourceId = 0;
             Message.Show = false;
             txtDescription.Text = string.Empty;
             txtName.Text = string.Empty;
             btnSave.Text = "Save";
         }
-        private bool CallStatusControlValidation()
+        private bool LeadSourceStatusControlValidation()
         {
             if (txtName.Text.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
-                Message.Text = "Please Enter Meeting Type Name";
+                Message.Text = "Please Enter Lead Source Name";
                 Message.Show = true;
                 return false;
             }
@@ -59,23 +59,23 @@ namespace WebAppAegisCRM.Sales
         {
             Save();
         }
-        protected void gvMeetingType_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvLeadSource_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Ed")
             {
-                MeetingTypeId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetMeetingTypeById();
+                LeadSourceId = Convert.ToInt32(e.CommandArgument.ToString());
+                GetLeadSourceById();
                 Message.Show = false;
                 btnSave.Text = "Update";
             }
             else if (e.CommandName == "Del")
             {
-                Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-                int rows = Obj.DeleteMeetingType(Convert.ToInt32(e.CommandArgument.ToString()));
+                Business.Sales.LeadSource Obj = new Business.Sales.LeadSource();
+                int rows = Obj.DeleteLeadSource(Convert.ToInt32(e.CommandArgument.ToString()));
                 if (rows > 0)
                 {
                     ClearControls();
-                    LoadMeetingTypeList();
+                    LoadLeadSourceList();
                     Message.IsSuccess = true;
                     Message.Text = "Deleted Successfully";
                 }
@@ -87,34 +87,34 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-        private void GetMeetingTypeById()
+        private void GetLeadSourceById()
         {
-            Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-            Entity.Sales.MeetingType meetingType = Obj.GetMeetingTypeById(MeetingTypeId);
-            if (meetingType.Id != 0)
+            Business.Sales.LeadSource Obj = new Business.Sales.LeadSource();
+            Entity.Sales.LeadSource LeadSource = Obj.GetLeadSourceById(LeadSourceId);
+            if (LeadSource.Id != 0)
             {
-                txtDescription.Text = meetingType.Description;
-                txtName.Text = meetingType.Name;
+                txtDescription.Text = LeadSource.Description;
+                txtName.Text = LeadSource.Name;
             }
         }
         private void Save()
         {
-            if (CallStatusControlValidation())
+            if (LeadSourceStatusControlValidation())
             {
-                Business.Sales.MeetingType Obj = new Business.Sales.MeetingType();
-                Entity.Sales.MeetingType Model = new Entity.Sales.MeetingType
+                Business.Sales.LeadSource Obj = new Business.Sales.LeadSource();
+                Entity.Sales.LeadSource Model = new Entity.Sales.LeadSource
                 {
-                    Id = MeetingTypeId,
+                    Id = LeadSourceId,
                     Name = txtName.Text,
                     Description = txtDescription.Text,
 
                 };
-                int rows = Obj.SaveMeetingType(Model);
+                int rows = Obj.SaveLeadSource(Model);
                 if (rows > 0)
                 {
                     ClearControls();
-                    LoadMeetingTypeList();
-                    MeetingTypeId = 0;
+                    LoadLeadSourceList();
+                    LeadSourceId = 0;
                     Message.IsSuccess = true;
                     Message.Text = "Saved Successfully";
                 }
