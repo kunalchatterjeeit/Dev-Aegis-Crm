@@ -16,14 +16,7 @@ namespace DataAccessEntity.Sales
             {
                 return Context.MeetingStatus.ToList();
             }
-        }
-        public static List<MeetingTypeDbModel> GetMeetingType()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.MeetingType.ToList();
-            }
-        }
+        }        
         public static List<GetMeetingsDbModel> GetAllMeetings(GetMeetingsParamDbModel Param)
         {
             using (var Context = new CRMContext())

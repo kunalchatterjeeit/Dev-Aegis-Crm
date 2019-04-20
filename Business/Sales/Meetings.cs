@@ -20,7 +20,7 @@ namespace Business.Sales
         public List<Entity.Sales.MeetingType> GetMeetingType()
         {
             List<Entity.Sales.MeetingType> MeetingTypeList = new List<Entity.Sales.MeetingType>();
-            MeetingsDataAccess.GetMeetingType().CopyListTo(MeetingTypeList);
+            MeetingTypeDataAccess.GetAllMeetingType().CopyListTo(MeetingTypeList);
             return MeetingTypeList;
         }
         public List<Entity.Sales.GetMeetings> GetAllMeetings(Entity.Sales.GetMeetingsParam Param)

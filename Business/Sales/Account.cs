@@ -17,7 +17,7 @@ namespace Business.Sales
         public List<Entity.Sales.LeadSource> GetLeadSource()
         {
             List<Entity.Sales.LeadSource> LeadSourceList = new List<Entity.Sales.LeadSource>();
-            AccountDataAccess.GetLeadSources().CopyListTo(LeadSourceList);
+            LeadSourceDataAccess.GetAllLeadSource().CopyListTo(LeadSourceList);
             return LeadSourceList;
         }
         public List<Entity.Sales.GetAccounts> GetAllAccounts(Entity.Sales.GetAccountsParam Param)

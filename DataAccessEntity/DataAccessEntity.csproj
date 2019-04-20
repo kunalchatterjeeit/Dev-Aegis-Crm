@@ -54,18 +54,28 @@
     <Compile Include="Sales\AccountEntity.cs" />
     <Compile Include="Sales\CallsDataAccess.cs" />
     <Compile Include="Sales\CallsEntity.cs" />
+    <Compile Include="Sales\CallStatusDataAccess.cs" />
+    <Compile Include="Sales\CallStatusEntity.cs" />
     <Compile Include="Sales\CampaignDataAccess.cs" />
     <Compile Include="Sales\CampaignEntity.cs" />
     <Compile Include="Sales\ContactsDataAccess.cs" />
     <Compile Include="Sales\ContactsEntity.cs" />
+    <Compile Include="Sales\DepartmentDataAccess.cs" />
+    <Compile Include="Sales\DepartmentEntity.cs" />
     <Compile Include="Sales\LeadsDataAccess.cs" />
     <Compile Include="Sales\LeadsEntity.cs" />
+    <Compile Include="Sales\LeadSourceDataAccess.cs" />
+    <Compile Include="Sales\LeadSourceEntity.cs" />
     <Compile Include="Sales\MeetingsDataAccess.cs" />
     <Compile Include="Sales\MeetingsEntity.cs" />
+    <Compile Include="Sales\MeetingTypeDataAccess.cs" />
+    <Compile Include="Sales\MeetingTypeEntity.cs" />
     <Compile Include="Sales\NotesDataAccess.cs" />
     <Compile Include="Sales\NotesEntity.cs" />
     <Compile Include="Sales\TasksDataAccess.cs" />
     <Compile Include="Sales\TasksEntity.cs" />
+    <Compile Include="Sales\TaskStatusDataAccess.cs" />
+    <Compile Include="Sales\TaskStatusEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

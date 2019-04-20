@@ -182,13 +182,18 @@
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="Sales\Account.aspx" />
     <Content Include="Sales\Calls.aspx" />
+    <Content Include="Sales\CallStatus.aspx" />
+    <Content Include="Sales\Department.aspx" />
     <Content Include="Sales\Lead.aspx" />
+    <Content Include="Sales\LeadSource.aspx" />
     <Content Include="Sales\Meeting.aspx" />
+    <Content Include="Sales\MeetingType.aspx" />
     <Content Include="Sales\Notes.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Sales\Task.aspx" />
+    <Content Include="Sales\TaskStatus.aspx" />
     <Content Include="Service\CallStatus.aspx" />
     <Content Include="Service\CallTransfer.aspx" />
     <Content Include="Service\Challan.aspx" />
@@ -574,6 +579,20 @@
     <Compile Include="Sales\Calls.aspx.designer.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\CallStatus.aspx.cs">
+      <DependentUpon>CallStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\CallStatus.aspx.designer.cs">
+      <DependentUpon>CallStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Department.aspx.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Department.aspx.designer.cs">
+      <DependentUpon>Department.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Lead.aspx.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -581,12 +600,26 @@
     <Compile Include="Sales\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\LeadSource.aspx.cs">
+      <DependentUpon>LeadSource.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\LeadSource.aspx.designer.cs">
+      <DependentUpon>LeadSource.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Meeting.aspx.cs">
       <DependentUpon>Meeting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sales\Meeting.aspx.designer.cs">
       <DependentUpon>Meeting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\MeetingType.aspx.cs">
+      <DependentUpon>MeetingType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\MeetingType.aspx.designer.cs">
+      <DependentUpon>MeetingType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Notes.aspx.cs">
       <DependentUpon>Notes.aspx</DependentUpon>
@@ -601,6 +634,13 @@
     </Compile>
     <Compile Include="Sales\Task.aspx.designer.cs">
       <DependentUpon>Task.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\TaskStatus.aspx.cs">
+      <DependentUpon>TaskStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\TaskStatus.aspx.designer.cs">
+      <DependentUpon>TaskStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\CallStatus.aspx.cs">
       <DependentUpon>CallStatus.aspx</DependentUpon>
@@ -801,7 +841,9 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Aegis.pubxml" />
     <None Include="Properties\PublishProfiles\Qualistech.pubxml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

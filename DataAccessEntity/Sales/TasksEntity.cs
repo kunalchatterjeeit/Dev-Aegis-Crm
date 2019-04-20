@@ -39,15 +39,7 @@ namespace DataAccessEntity.Sales
 
         public string Name { get; set; }
     }
-
-    public class TaskStatusDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
+    
     public class GetTasksDbModel
     {
         public Int64 Id { get; set; }

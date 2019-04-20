@@ -24,15 +24,7 @@ namespace DataAccessEntity.Sales
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
-    public class MeetingTypeDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
+   
     public class MeetingStatusDbModel
     {
         [Key]
