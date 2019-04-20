@@ -6,11 +6,30 @@ using System.Threading.Tasks;
 
 namespace Entity.Sales
 {
-    public class Campaigns
+    public class Campaign
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool IsDeleted { get; set; }
+        public string Description { get; set; }
+        public string Reason { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+    }
+    public class GetCampaignParam
+    {
+        public string Name { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+    }
+    public class GetCampaign
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Reason { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
