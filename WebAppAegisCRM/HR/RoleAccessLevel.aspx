@@ -162,6 +162,14 @@
                         </div>
                         <div class="panel-body">
                             <asp:CheckBoxList ID="chkListSales" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckListBox_SelectedIndexChanged">
+                                 <asp:ListItem Value="807" Text="&nbsp;&nbsp;&nbsp;SALES DEPARTMENT">
+                                </asp:ListItem>
+                                 <asp:ListItem Value="808" Text="&nbsp;&nbsp;&nbsp;SALES LEAD SOURCE">
+                                </asp:ListItem>
+                                 <asp:ListItem Value="809" Text="&nbsp;&nbsp;&nbsp;SALES MEETING TYPE">
+                                </asp:ListItem>
+                                 <asp:ListItem Value="810" Text="&nbsp;&nbsp;&nbsp;SALES TASK STATUS">
+                                </asp:ListItem>
                                 <asp:ListItem Value="805" Text="&nbsp;&nbsp;&nbsp;SALES ACCOUNTS">
                                 </asp:ListItem>
                                 <asp:ListItem Value="806" Text="&nbsp;&nbsp;&nbsp;SALES LEADS">
