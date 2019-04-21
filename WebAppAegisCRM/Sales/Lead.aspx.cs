@@ -88,8 +88,13 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
             Business.Sales.Campaign CampaignObj = new Business.Sales.Campaign();
-
-            ddlCampaign.DataSource = CampaignObj.GetCampaign();
+            Entity.Sales.GetCampaignParam Param = new Entity.Sales.GetCampaignParam
+            {
+                EndDate = DateTime.MinValue,
+                StartDate = DateTime.MinValue,
+                Name = null
+            };
+            ddlCampaign.DataSource = CampaignObj.GetAllCampaign(Param);
             ddlCampaign.DataTextField = "Name";
             ddlCampaign.DataValueField = "Id";
             ddlCampaign.DataBind();
