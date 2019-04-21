@@ -91,8 +91,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
-    <br />
-     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:TabContainer ID="TabContainer1" runat="server" Width="100%" CssClass="MyTabStyle"
         ActiveTabIndex="0   ">
         <asp:TabPanel ID="AccountsTab" runat="server">
