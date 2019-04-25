@@ -184,6 +184,7 @@
     <Content Include="Sales\Calls.aspx" />
     <Content Include="Sales\CallStatus.aspx" />
     <Content Include="Sales\Campaign.aspx" />
+    <Content Include="Sales\Contacts.aspx" />
     <Content Include="Sales\Department.aspx" />
     <Content Include="Sales\Lead.aspx" />
     <Content Include="Sales\LeadSource.aspx" />
@@ -593,6 +594,13 @@
     </Compile>
     <Compile Include="Sales\Campaign.aspx.designer.cs">
       <DependentUpon>Campaign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Contacts.aspx.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Contacts.aspx.designer.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\Department.aspx.cs">
       <DependentUpon>Department.aspx</DependentUpon>

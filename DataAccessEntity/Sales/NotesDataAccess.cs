@@ -9,14 +9,7 @@ using System.Threading.Tasks;
 namespace DataAccessEntity.Sales
 {
     public class NotesDataAccess
-    {
-        public static List<ContactsDbModel> GetContacts()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.Contacts.Where(x => x.IsActive == true && x.IsDeleted == false).ToList();
-            }
-        }
+    {       
         public static List<GetNotesDbModel> GetAllNotes(GetNotesParamDbModel Param)
         {
             using (var Context = new CRMContext())

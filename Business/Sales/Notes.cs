@@ -14,10 +14,12 @@ namespace Business.Sales
         {
 
         }
-        public List<Entity.Sales.Contacts> GetAllContacts()  // need to point contact data access. changes required.
+        public List<Entity.Sales.GetContacts> GetAllContacts(Entity.Sales.GetContactsParam Param)
         {
-            List<Entity.Sales.Contacts> AllContactList = new List<Entity.Sales.Contacts>();
-            NotesDataAccess.GetContacts().CopyListTo(AllContactList);
+            List<Entity.Sales.GetContacts> AllContactList = new List<Entity.Sales.GetContacts>();
+            GetContactsParamDbModel p = new GetContactsParamDbModel();
+            Param.CopyPropertiesTo(p);
+            ContactsDataAccess.GetAllContacts(p).CopyListTo(AllContactList);
             return AllContactList;
         }
         public List<Entity.Sales.GetNotes> GetAllNotes(Entity.Sales.GetNotesParam Param)

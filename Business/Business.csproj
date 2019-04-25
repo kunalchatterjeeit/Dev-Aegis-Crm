@@ -100,6 +100,7 @@
     <Compile Include="Sales\Calls.cs" />
     <Compile Include="Sales\CallStatus.cs" />
     <Compile Include="Sales\Campaign.cs" />
+    <Compile Include="Sales\Contacts.cs" />
     <Compile Include="Sales\Department.cs" />
     <Compile Include="Sales\Leads.cs" />
     <Compile Include="Sales\LeadSource.cs" />

@@ -55,7 +55,11 @@ namespace WebAppAegisCRM.Sales
         private void LoadContacts()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            ddlContact.DataSource = Obj.GetAllContacts();
+            Entity.Sales.GetContactsParam Param = new Entity.Sales.GetContactsParam
+            {
+                Name = null, AccountId = null, Mobile = null
+            };
+            ddlContact.DataSource = Obj.GetAllContacts(Param);
             ddlContact.DataTextField = "Name";
             ddlContact.DataValueField = "Id";
             ddlContact.DataBind();
