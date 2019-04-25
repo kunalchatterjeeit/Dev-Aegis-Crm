@@ -68,6 +68,10 @@ namespace WebAppAegisCRM
                 if (ApplicationModules.SalesModule.ModulePermission())
                 {
                     //SALES
+                    liDepartment.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_DEPARTMENT);
+                    liLeadSource.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_LEAD_SOURCE);
+                    liMeetingType.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_MEETING_TYPE);
+                    liTaskStatus.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_TASK_STATUS);
                     liSales.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES);
                     liCalls.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_CALLS);
                     liMeetings.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_MEETINGS);

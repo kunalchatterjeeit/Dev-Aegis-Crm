@@ -379,7 +379,19 @@
                         <li id="liSales" runat="server" visible="false">
                             <a href="#"><i class="fa fa-tags fa-fw"></i> Sales<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                 <li id="liAccounts" runat="server" visible="false">
+                                <li id="liDepartment" runat="server" visible="false">
+                                    <a href="../Sales/Department.aspx">Add/Edit Department</a>
+                                </li> 
+                                <li id="liLeadSource" runat="server" visible="false">
+                                    <a href="../Sales/LeadSource.aspx">Add/Edit Lead Source</a>
+                                </li> 
+                                 <li id="liMeetingType" runat="server" visible="false">
+                                    <a href="../Sales/MeetingType.aspx">Add/Edit Meeting Type</a>
+                                </li> 
+                                <li id="liTaskStatus" runat="server" visible="false">
+                                    <a href="../Sales/TaskStatus.aspx">Add/Edit Task Status</a>
+                                </li> 
+                                <li id="liAccounts" runat="server" visible="false">
                                     <a href="../Sales/Account.aspx">Add/Edit Accounts</a>
                                 </li>
                                  <li id="liLeads" runat="server" visible="false">

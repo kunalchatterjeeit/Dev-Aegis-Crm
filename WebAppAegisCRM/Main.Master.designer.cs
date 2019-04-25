@@ -427,6 +427,42 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSales;
         
         /// <summary>
+        /// liDepartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liDepartment;
+        
+        /// <summary>
+        /// liLeadSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeadSource;
+        
+        /// <summary>
+        /// liMeetingType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liMeetingType;
+        
+        /// <summary>
+        /// liTaskStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liTaskStatus;
+        
+        /// <summary>
         /// liAccounts control.
         /// </summary>
         /// <remarks>
