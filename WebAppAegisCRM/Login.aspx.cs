@@ -36,18 +36,7 @@ namespace WebAppAegisCRM
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                ddlLoginType_SelectedIndexChanged(sender, e);
-            }
-        }
-
-        protected void btnLogin_Click(object sender, EventArgs e)
-        {
-            if (ddlLoginType.SelectedValue == "1")
-                UserLogin();
-            else
-                CustomerLogin();
+            
         }
 
         private void UserLogin()
@@ -57,7 +46,7 @@ namespace WebAppAegisCRM
                 Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                 Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
                 Entity.Common.Auth auth = new Auth();
-                employeeMaster = objEmployeeMaster.AuthenticateUser(txtUsername.Text);
+                employeeMaster = objEmployeeMaster.AuthenticateUser(txtUserName.Text);
 
                 if (employeeMaster != null)
                 {
@@ -112,7 +101,7 @@ namespace WebAppAegisCRM
                         auth.IP = GetIP();
                         auth.Status = Entity.Common.LoginStatus.WrongPassword;
                         auth.Client = GetClient();
-                        auth.FailedUserName = txtUsername.Text;
+                        auth.FailedUserName = txtUserName.Text;
                         auth.FailedPassword = txtPassword.Text;
                         objEmployeeMaster.Login_Save(auth);
                         lblMessage.InnerHtml = "Invalid Username/Password";
@@ -124,7 +113,7 @@ namespace WebAppAegisCRM
                     auth.IP = GetIP();
                     auth.Status = Entity.Common.LoginStatus.Failed;
                     auth.Client = GetClient();
-                    auth.FailedUserName = txtUsername.Text;
+                    auth.FailedUserName = txtUserName.Text;
                     auth.FailedPassword = txtPassword.Text;
                     objEmployeeMaster.Login_Save(auth);
                     lblMessage.InnerHtml = "Invalid Username/Password";
@@ -139,45 +128,10 @@ namespace WebAppAegisCRM
             }
         }
 
-        //private void UserLogin()
-        //{
-        //    Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-        //    Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
-        //    employeeMaster = objEmployeeMaster.AuthenticateUser(txtUsername.Text);
-
-        //    if (employeeMaster != null)
-        //    {
-        //        if (employeeMaster.Password == txtPassword.Text)
-        //        {
-        //            string UserId = employeeMaster.UserId.ToString();
-        //            string roles = employeeMaster.Roles;
-        //            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-        //                                                       1,
-        //                                                       UserId,
-        //                                                       DateTime.Now,
-        //                                                       DateTime.Now.AddHours(2),
-        //                                                       false,
-        //                                                       roles,
-        //                                                       "/");
-        //            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,FormsAuthentication.Encrypt(authTicket));
-        //            Response.Cookies.Add(cookie);
-        //            Response.Redirect(@"Dashboard.aspx");
-        //        }
-        //        else
-        //        {
-        //            lblMessage.InnerHtml = "Invalid Username/Password";
-        //        }
-        //    }
-        //    else
-        //    {
-        //        lblMessage.InnerHtml = "Invalid Username/Password";
-        //    }
-        //}
-
         private void CustomerLogin()
         {
             Business.Customer.Customer ObjUser = new Business.Customer.Customer();
-            DataTable dt = ObjUser.CustomerAuthentication(txtUsername.Text, txtPassword.Text);
+            DataTable dt = ObjUser.CustomerAuthentication(txtCustomerEmail.Text, txtMobileNumber.Text);
             if (dt != null && dt.Rows.Count > 0)
             {
                 if (dt.Rows[0]["STATUS"].ToString() == "1")
@@ -204,18 +158,14 @@ namespace WebAppAegisCRM
 
         }
 
-        protected void ddlLoginType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnCustomerLogin_Click(object sender, EventArgs e)
         {
-            if (ddlLoginType.SelectedValue == "1")
-            {
-                lblUserName.Text = "Username :";
-                lblPassword.Text = "Password :";
-            }
-            else
-            {
-                lblUserName.Text = "Email Id :";
-                lblPassword.Text = "Mobile No :";
-            }
+            CustomerLogin();
+        }
+
+        protected void btnUserLogin_Click(object sender, EventArgs e)
+        {
+            UserLogin();
         }
     }
 }
