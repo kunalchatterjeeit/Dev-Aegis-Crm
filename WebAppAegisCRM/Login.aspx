@@ -51,7 +51,7 @@
         }
 
             .footer img {
-                height: 60px;
+                height: 5vh;
             }
 
         .column {
