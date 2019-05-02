@@ -52,11 +52,7 @@ namespace WebAppAegisCRM
                 {
                     string passowrd = employeeMaster.Password;
                     string userId = employeeMaster.UserId.ToString();
-//#if (DEBUG)
-//                    if (true)
-//#else
                     if (employeeMaster.IsActive && passowrd.Equals(txtPassword.Text.Trim().EncodePasswordToBase64()))
-//#endif
                     {
                         if (employeeMaster.IsLoginActive)
                         {

@@ -127,8 +127,6 @@
     <Content Include="images\aegis_hrms.png" />
     <Content Include="images\aegis_logo.png" />
     <Content Include="images\aegis_sales.png" />
-    <Content Include="images\attendance_login.jpg" />
-    <Content Include="images\attendance_logout.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
