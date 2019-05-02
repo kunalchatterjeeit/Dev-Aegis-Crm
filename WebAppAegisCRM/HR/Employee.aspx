@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="font-size: large;">
+                        <div class="panel-heading">
                             Add/Edit Employee
                         </div>
                         <div class="panel-body">

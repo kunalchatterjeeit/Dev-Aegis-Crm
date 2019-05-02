@@ -16,6 +16,9 @@ namespace DataAccessEntity
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<CRMContext>(null);
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Sales.CallsDbModel>()
                 .ToTable("tbl_Sales_Calls");
             modelBuilder.Entity<Sales.CallStatusDbModel>()
