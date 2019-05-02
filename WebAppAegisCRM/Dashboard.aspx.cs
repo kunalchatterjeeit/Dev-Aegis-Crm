@@ -104,8 +104,7 @@ namespace WebAppAegisCRM
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList) ?
-                objContract.Service_ContractExpiredList(contract) : Business.Common.Context.ContractExpiredList;
+            DataSet ds = objContract.Service_ContractExpiredList(contract);
             Business.Common.Context.ContractExpiredList = ds;
 
             gvExpiredListAsync.DataSource = ds.Tables[0];
@@ -127,8 +126,7 @@ namespace WebAppAegisCRM
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiringList) ?
-                objContract.Service_ContractExpiringList(contract) : Business.Common.Context.ContractExpiringList;
+            DataSet ds = objContract.Service_ContractExpiringList(contract);
             Business.Common.Context.ContractExpiringList = ds;
 
             gvExpiringSoonAsync.DataSource = ds.Tables[0];

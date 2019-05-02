@@ -638,6 +638,9 @@
       <DependentUpon>Lead.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Sales\Lead.aspx.designer.cs">
+      <DependentUpon>Lead.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sale\SaleChallanList.aspx.designer.cs">
       <DependentUpon>SaleChallanList.aspx</DependentUpon>
     </Compile>
