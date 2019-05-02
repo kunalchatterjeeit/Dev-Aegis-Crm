@@ -1134,11 +1134,11 @@ namespace WebAppAegisCRM.Service
 
                             if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Toner))
                             {
-                                TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryStringSafe());
+                                TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString());
                                 btnSearch_Click(sender, e);
                                 foreach (GridViewRow gvr in gvTonnerRequest.Rows)
                                 {
-                                    if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryStringSafe())
+                                    if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString())
                                     {
                                         ((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked = true;
                                         chkTonnerRequest_CheckedChanged(((CheckBox)gvr.FindControl("chkTonnerRequest")), e);
@@ -1150,11 +1150,11 @@ namespace WebAppAegisCRM.Service
                             }
                             else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
                             {
-                                DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryStringSafe());
+                                DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString());
                                 btnSearch_Click(sender, e);
                                 foreach (GridViewRow gvr in gvDocket.Rows)
                                 {
-                                    if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryStringSafe())
+                                    if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString())
                                     {
                                         ((CheckBox)gvr.FindControl("chkDocket")).Checked = true;
                                         chkDocket_CheckedChanged(((CheckBox)gvr.FindControl("chkDocket")), e);
