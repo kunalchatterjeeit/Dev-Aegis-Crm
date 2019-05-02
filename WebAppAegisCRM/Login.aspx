@@ -155,6 +155,7 @@
                                 <div class="form-group">
                                     <asp:Button ID="btnCustomerLogin" runat="server" Text="Login" OnClick="btnCustomerLogin_Click" CssClass="btnSubmit" />
                                 </div>
+                                <span id="lblCustomerMessage" runat="server" style="color: white"></span>
                             </div>
                             <div class="col-md-6 login-form-2">
                                 <div class="login-logo">
@@ -170,8 +171,8 @@
                                 <div class="form-group">
                                     <asp:Button ID="btnUserLogin" runat="server" Text="Login" OnClick="btnUserLogin_Click" CssClass="btnSubmit" />
                                 </div>
+                            <span id="lblUserMessage" runat="server" style="color: white"></span>
                             </div>
-                            <span id="lblMessage" runat="server" style="color: red"></span>
                         </div>
                     </div>
                 </div>
