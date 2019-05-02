@@ -352,7 +352,7 @@ table.popup-table {
 
 .fancyTab a {
     font-family: 'Source Sans Pro';
-    font-size: 1.65em;
+    font-size: 1.20em;
     font-weight: 300;
     transition: .2s;
     color: #333;
@@ -378,9 +378,9 @@ li.fancyTab.active a {
 }
 
 .fancyTab .fa {
-    font-size: 40px;
+    font-size: 25px;
     width: 100%;
-    padding: 15px 0 5px;
+    padding: 10px 0 5px;
     color: #666;
 }
 
@@ -433,7 +433,7 @@ li.fancyTab.active a {
     margin-right: 0;
     border-top: 0;
     padding-bottom: 30px;
-    margin-bottom: -30px;
+    margin-bottom: -40px;
 }
 
 .nav-tabs > li.fancyTab {

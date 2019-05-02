@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace DataAccessEntity.Sales
 {
     public class CallsDataAccess
-    {       
+    {
         public static List<CallDirectionDbModel> GetCallDirection()
         {
             using (var Context = new CRMContext())
@@ -76,7 +76,7 @@ namespace DataAccessEntity.Sales
             int result = 0;
             using (var Context = new CRMContext())
             {
-                result= Context.Database.ExecuteSqlCommand(
+                Context.Database.ExecuteSqlCommand(
                                 "exec dbo.[usp_Sales_Calls_Save] @Id OUT,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
                                 "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
                                 new object[]
@@ -97,7 +97,7 @@ namespace DataAccessEntity.Sales
                                 }
                              );
             }
-            int a = Convert.ToInt32(outParam.Value);
+            result = Convert.ToInt32(outParam.Value);
             return result;
         }
         public static int DeleteCalls(int Id)
@@ -124,7 +124,7 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("Id", Model.CallLinkId),
                                     new SqlParameter("CallId", Model.Id),
                                     new SqlParameter("LinkId", Model.LinkId),
-                                    new SqlParameter("LinkType", Model.LinkId)
+                                    new SqlParameter("LinkType", (int)Model.LinkType)
                                 }
                              );
             }

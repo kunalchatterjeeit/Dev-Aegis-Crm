@@ -88,60 +88,7 @@
             alert('Settings change will take effect from next login. To change user settings goto User Settings page.')
         }
     </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var numItems = $('li.fancyTab').length;
-            if (numItems == 12) {
-                $("li.fancyTab").width('8.3%');
-            }
-            if (numItems == 11) {
-                $("li.fancyTab").width('9%');
-            }
-            if (numItems == 10) {
-                $("li.fancyTab").width('10%');
-            }
-            if (numItems == 9) {
-                $("li.fancyTab").width('11.1%');
-            }
-            if (numItems == 8) {
-                $("li.fancyTab").width('12.5%');
-            }
-            if (numItems == 7) {
-                $("li.fancyTab").width('14.2%');
-            }
-            if (numItems == 6) {
-                $("li.fancyTab").width('16.666666666666667%');
-            }
-            if (numItems == 5) {
-                $("li.fancyTab").width('20%');
-            }
-            if (numItems == 4) {
-                $("li.fancyTab").width('25%');
-            }
-            if (numItems == 3) {
-                $("li.fancyTab").width('33.3%');
-            }
-            if (numItems == 2) {
-                $("li.fancyTab").width('50%');
-            }
-
-
-
-
-        });
-
-        $(window).load(function () {
-            $('.fancyTabs').each(function () {
-                var highestBox = 0;
-                $('.fancyTab a', this).each(function () {
-
-                    if ($(this).height() > highestBox)
-                        highestBox = $(this).height();
-                });
-                $('.fancyTab a', this).height(highestBox);
-            });
-        });
-    </script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -157,7 +104,7 @@
                 
                 <li class="tab fancyTab">
                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
-                    <a id="tab3" href="#tabBody1" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-mortar-board"></span><span class="hidden-xs">Sales</span></a>
+                    <a id="tab3" href="#tabBody1" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-line-chart"></span><span class="hidden-xs">Sales</span></a>
                     <div class="whiteBlock"></div>
                 </li>
             </ul>
@@ -172,16 +119,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div style="min-height: 25vh;">
+                                        <div style="min-height: 15vh;">
                                             <div class="table-responsive" id="gvDocketDiv">
-                                                <div class="over" style="position: absolute; width: 100%; height: 100%">
-                                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
-                                                </div>
                                                 <asp:GridView ID="gvDocketAsync" DataKeyNames="DocketId" runat="server" RowStyle-Font-Size="9px"
                                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                                     class="table table-striped" GridLines="None" Style="text-align: left"
                                                     OnRowDataBound="gvDocketAsync_RowDataBound" OnPageIndexChanging="gvDocketAsync_PageIndexChanging"
-                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
+                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="5">
                                                     <Columns>
                                                         <asp:TemplateField>
                                                             <HeaderTemplate>
@@ -263,16 +207,13 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div style="min-height: 25vh;">
+                                        <div style="min-height: 15vh;">
                                             <div class="table-responsive" id="gvTonerDiv">
-                                                <div class="over" style="position: absolute; width: 100%; height: 100%">
-                                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
-                                                </div>
                                                 <asp:GridView ID="gvTonnerRequestAsync" DataKeyNames="TonnerRequestId" runat="server"
                                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
                                                     OnRowDataBound="gvTonnerRequestAsync_RowDataBound" OnPageIndexChanging="gvTonnerRequestAsync_PageIndexChanging"
-                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="10">
+                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="5">
                                                     <Columns>
                                                         <asp:TemplateField>
                                                             <HeaderTemplate>
@@ -355,14 +296,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="table-responsive" id="gvExpiringSoonDiv" style="min-height: 30vh;">
-                                                <div class="over" style="position: absolute; width: 100%; height: 100%; min-height: 20vh;">
-                                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
-                                                </div>
+                                            <div class="table-responsive" id="gvExpiringSoonDiv" style="min-height: 15vh;">
                                                 <asp:GridView ID="gvExpiringSoonAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                                    OnPageIndexChanging="gvExpiringSoonAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
+                                                    OnPageIndexChanging="gvExpiringSoonAsync_PageIndexChanging" PageSize="5" AllowPaging="true" AllowCustomPaging="true">
                                                     <Columns>
                                                         <asp:TemplateField>
                                                             <HeaderTemplate>
@@ -413,14 +351,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div class="table-responsive" id="gvExpiredDiv" style="min-height: 30vh;">
-                                                <div class="over" style="position: absolute; width: 100%; height: 100%; min-height: 20vh;">
-                                                    <img src="images/gridLoader.gif" style="position: absolute; height: 50%" />
-                                                </div>
+                                            <div class="table-responsive" id="gvExpiredDiv" style="min-height: 15vh;">
                                                 <asp:GridView ID="gvExpiredListAsync" runat="server" DataKeyNames="CustomerId,ContractId"
                                                     RowStyle-Font-Size="9px" AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                                     ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left"
-                                                    OnPageIndexChanging="gvExpiredListAsync_PageIndexChanging" PageSize="10" AllowPaging="true" AllowCustomPaging="true">
+                                                    OnPageIndexChanging="gvExpiredListAsync_PageIndexChanging" PageSize="5" AllowPaging="true" AllowCustomPaging="true">
                                                     <Columns>
                                                         <asp:TemplateField>
                                                             <HeaderTemplate>

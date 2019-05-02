@@ -377,7 +377,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li id="liSales" runat="server" visible="false">
-                            <a href="#"><i class="fa fa-tags fa-fw"></i> Sales<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-line-chart fa-fw"></i> Sales<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li id="liDepartment" runat="server" visible="false">
                                     <a href="../Sales/Department.aspx">Add/Edit Department</a>
@@ -413,7 +413,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li id="liService" runat="server" visible="false">
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cogs fa-fw"></i> Service<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li id="liAddEditCustomer" runat="server" visible="false">
                                     <a href="../Customer/CustomerMaster.aspx">Add/Edit Customer</a>

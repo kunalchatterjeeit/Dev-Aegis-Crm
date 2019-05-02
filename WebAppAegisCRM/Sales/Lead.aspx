@@ -26,88 +26,92 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Add/Edit Leads
+                            <a id="hrefForm" data-toggle="collapse" data-parent="#accordion" href="#section5" title="Click to expand">
+                                <i class="fa fa-chevron-down fa-fw"></i>Add/Edit Leads
+                            </a>
                         </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group has-error">
-                                        Lead Name
+                        <div class="panel-collapse collapse out" id="section5">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group has-error">
+                                            Lead Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        Lead Description
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Lead Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        Website
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Website
                                 <asp:TextBox ID="txtWebsite" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        Lead Score
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Lead Score
                                 <asp:TextBox ID="txtLeadScore" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        Email Id
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Email Id
                                 <asp:TextBox ID="txtEmailId" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        Department Name
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            Department Name
                                 <asp:DropDownList ID="ddlDepartment" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        Campaign Name
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            Campaign Name
                                 <asp:DropDownList ID="ddlCampaign" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        Primary Address
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            Primary Address
                                         <asp:TextBox ID="txtPrimaryAddress" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        Alternate Address
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            Alternate Address
                                       <asp:TextBox ID="txtAlternateAddress" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        Office Phone
+                                    <div class="col-lg-4">
+                                        <div class="form-group has-error">
+                                            Office Phone
                                       <asp:TextBox ID="txtOfficePhone" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        Fax
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            Fax
                                       <asp:TextBox ID="txtFax" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <br />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
+                                    <div class="clearfix"></div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <br />
+                                            <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" />
+                                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
+                                    <div class="col-lg-12">
+                                        <uc3:Message ID="Message" runat="server" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

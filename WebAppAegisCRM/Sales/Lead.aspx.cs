@@ -19,28 +19,46 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam { StartDateTime = null, EndDateTime = null, CallStatusId = null, Subject = null };
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = LeadId,
+                LinkType = SalesLinkType.Lead
+            };
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();
         }
         private void LoadMeetingList()
         {
             Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam { StartDateTime = null, EndDateTime = null, MeetingStatusId = null, MeetingTypeId = null, Name = null };
+            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = LeadId,
+                LinkType = SalesLinkType.Lead
+            };
             gvMeetingss.DataSource = Obj.GetAllMeetings(Param);
             gvMeetingss.DataBind();
         }
         private void LoadNotesList()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam { ContactId = null, Name = null };
+            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam {
+                LinkId = LeadId,
+                LinkType = SalesLinkType.Lead
+            };
             gvNotes.DataSource = Obj.GetAllNotes(Param);
             gvNotes.DataBind();
         }
         private void LoadTaskList()
         {
             Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam { StartDateTime = null, EndDateTime = null, TaskPriorityId = null, Subject = null, TaskRelatedToId = null, TaskStatusId = null };
+            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = LeadId,
+                LinkType = SalesLinkType.Lead
+            };
             gvTasks.DataSource = Obj.GetAllTasks(Param);
             gvTasks.DataBind();
         }

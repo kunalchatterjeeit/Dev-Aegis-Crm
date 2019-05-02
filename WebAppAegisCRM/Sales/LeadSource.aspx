@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeadSource.aspx.cs" Inherits="WebAppAegisCRM.Sales.LeadSource" %>
+﻿<%@ Page Title="LEAD SOURCE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeadSource.aspx.cs" Inherits="WebAppAegisCRM.Sales.LeadSource" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 
@@ -22,7 +22,7 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>           
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Add/Edit Lead Source
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Lead Source List
@@ -72,8 +72,7 @@
                                                     <%#Container.DataItemIndex+1 %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="Name" HeaderText="Name" />
-                                            <asp:BoundField DataField="Description" HeaderText="Description" />    
+                                            <asp:BoundField DataField="Name" HeaderText="Name" />  
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"

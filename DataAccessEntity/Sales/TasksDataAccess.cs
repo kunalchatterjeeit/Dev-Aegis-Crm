@@ -1,6 +1,7 @@
 ﻿using Entity.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace DataAccessEntity.Sales
                 return Context.TaskRelatedTo.ToList();
             }
         }
-        
+
         public static List<GetTasksDbModel> GetAllTasks(GetTasksParamDbModel Param)
         {
             using (var Context = new CRMContext())
@@ -60,14 +61,20 @@ namespace DataAccessEntity.Sales
         }
         public static int SaveTasks(TasksDbModel Model)
         {
+            var outParam = new SqlParameter();
+            outParam.ParameterName = "Id";
+            outParam.Value = Model.Id;
+            outParam.SqlDbType = SqlDbType.BigInt;
+            outParam.Direction = ParameterDirection.InputOutput;
+            int result = 0;
             using (var Context = new CRMContext())
             {
-                return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Tasks_Save] @Id,@Subject,@Description,@StartDateTime,@EndDateTime," +
+                Context.Database.ExecuteSqlCommand(
+                                "exec dbo.[usp_Sales_Tasks_Save] @Id OUT,@Subject,@Description,@StartDateTime,@EndDateTime," +
                                 "@TasksPriorityId,@TasksStatusId,@TasksRelatedTo,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id", Model.Id),
+                                    outParam,
                                     new SqlParameter("Subject", Model.Subject),
                                     new SqlParameter("Description", Model.Description),
                                     new SqlParameter("StartDateTime", Model.StartDateTime),
@@ -80,6 +87,8 @@ namespace DataAccessEntity.Sales
                                 }
                              );
             }
+            result = Convert.ToInt32(outParam.Value);
+            return result;
         }
         public static int DeleteTask(int Id)
         {
@@ -106,7 +115,7 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("Id", Model.TaskLinkId),
                                     new SqlParameter("TaskId", Model.Id),
                                     new SqlParameter("LinkId", Model.LinkId),
-                                    new SqlParameter("LinkType", Model.LinkId)
+                                    new SqlParameter("LinkType", (int)Model.LinkType)
                                 }
                              );
             }

@@ -215,8 +215,8 @@ namespace WebAppAegisCRM.Sales
                     EndDateTime = Convert.ToDateTime(txtTaskEndDateTime.Value),
                     IsActive = true
                 };
-                int rows = Obj.SaveTasks(Model);
-                if (rows > 0)
+                TaskId = Obj.SaveTasks(Model);
+                if (TaskId > 0)
                 {
                     SaveTaskLinks();
                     ClearControls();

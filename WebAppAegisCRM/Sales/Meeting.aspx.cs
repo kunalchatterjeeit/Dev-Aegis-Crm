@@ -209,8 +209,8 @@ namespace WebAppAegisCRM.Sales
                     PopupReminder = chkPopupReminder.Checked,
                     IsActive = true
                 };
-                int rows = Obj.SaveMeetings(Model);
-                if (rows > 0)
+                MeetingId = Obj.SaveMeetings(Model);
+                if (MeetingId > 0)
                 {
                     SaveMeetingLink();
                     ClearControls();
