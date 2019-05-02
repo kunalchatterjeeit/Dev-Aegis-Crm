@@ -104,8 +104,8 @@ namespace WebAppAegisCRM
                         auth.FailedUserName = txtUserName.Text;
                         auth.FailedPassword = txtPassword.Text;
                         objEmployeeMaster.Login_Save(auth);
-                        lblMessage.InnerHtml = "Invalid Username/Password";
-                        lblMessage.Visible = true;
+                        lblUserMessage.InnerHtml = "Invalid Username/Password";
+                        lblUserMessage.Visible = true;
                     }
                 }
                 else
@@ -116,15 +116,15 @@ namespace WebAppAegisCRM
                     auth.FailedUserName = txtUserName.Text;
                     auth.FailedPassword = txtPassword.Text;
                     objEmployeeMaster.Login_Save(auth);
-                    lblMessage.InnerHtml = "Invalid Username/Password";
-                    lblMessage.Visible = true;
+                    lblUserMessage.InnerHtml = "Invalid Username/Password";
+                    lblUserMessage.Visible = true;
                 }
             }
             catch (Exception ex)
             {
                 ex.WriteException();
-                lblMessage.InnerHtml = "Invalid Username/Password";
-                lblMessage.Visible = true;
+                lblUserMessage.InnerHtml = "Invalid Username/Password";
+                lblUserMessage.Visible = true;
             }
         }
 
@@ -153,7 +153,7 @@ namespace WebAppAegisCRM
             }
             else
             {
-                lblMessage.InnerHtml = "Invalid Username/Password";
+                lblCustomerMessage.InnerHtml = "Invalid Email/Mobile Number";
             }
 
         }

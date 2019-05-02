@@ -76,6 +76,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.WebControls.Button btnCustomerLogin;
         
         /// <summary>
+        /// lblCustomerMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblCustomerMessage;
+        
+        /// <summary>
         /// txtUserName control.
         /// </summary>
         /// <remarks>
@@ -103,12 +112,12 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.WebControls.Button btnUserLogin;
         
         /// <summary>
-        /// lblMessage control.
+        /// lblUserMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblUserMessage;
     }
 }
