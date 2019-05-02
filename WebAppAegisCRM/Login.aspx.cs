@@ -91,8 +91,8 @@ namespace WebAppAegisCRM
                         }
                         else
                         {
-                            lblMessage.InnerHtml = "Login blocked by admin.";
-                            lblMessage.Visible = true;
+                            lblUserMessage.InnerHtml = "Login blocked by admin.";
+                            lblUserMessage.Visible = true;
                         }
                     }
                     else
