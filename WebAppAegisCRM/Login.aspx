@@ -145,33 +145,37 @@
                     <div class="container login-container">
                         <div class="row">
                             <div class="col-md-6 login-form-1">
-                                <h3>Customer Login</h3>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtCustomerEmail" runat="server" class="form-control" placeholder="Your Email *" autofocus></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtMobileNumber" TextMode="Password" runat="server" class="form-control" placeholder="Your Mobile Number *"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:Button ID="btnCustomerLogin" runat="server" Text="Login" OnClick="btnCustomerLogin_Click" CssClass="btnSubmit" />
-                                </div>
-                                <span id="lblCustomerMessage" runat="server" style="color: white"></span>
+                                <asp:Panel ID="Panel2" runat="server" DefaultButton="btnCustomerLogin">
+                                    <h3>Customer Login</h3>
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtCustomerEmail" runat="server" class="form-control" placeholder="Your Email *" autofocus></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtMobileNumber" TextMode="Password" runat="server" class="form-control" placeholder="Your Mobile Number *"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Button ID="btnCustomerLogin" runat="server" Text="Login" OnClick="btnCustomerLogin_Click" CssClass="btnSubmit" />
+                                    </div>
+                                    <span id="lblCustomerMessage" runat="server" style="color: white"></span>
+                                </asp:Panel>
                             </div>
                             <div class="col-md-6 login-form-2">
-                                <div class="login-logo">
-                                    <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-                                </div>
-                                <h3>Employee Login</h3>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtUserName" runat="server" class="form-control" placeholder="Your Username *"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" placeholder="Your Password *"></asp:TextBox>
-                                </div>
-                                <div class="form-group">
-                                    <asp:Button ID="btnUserLogin" runat="server" Text="Login" OnClick="btnUserLogin_Click" CssClass="btnSubmit" />
-                                </div>
-                            <span id="lblUserMessage" runat="server" style="color: white"></span>
+                                <asp:Panel ID="Panel1" runat="server" DefaultButton="btnUserLogin">
+                                    <div class="login-logo">
+                                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+                                    </div>
+                                    <h3>Employee Login</h3>
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtUserName" runat="server" class="form-control" placeholder="Your Username *"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:TextBox ID="txtPassword" TextMode="Password" runat="server" class="form-control" placeholder="Your Password *"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <asp:Button ID="btnUserLogin" runat="server" Text="Login" OnClick="btnUserLogin_Click" CssClass="btnSubmit" />
+                                    </div>
+                                </asp:Panel>
+                                <span id="lblUserMessage" runat="server" style="color: white"></span>
                             </div>
                         </div>
                     </div>
