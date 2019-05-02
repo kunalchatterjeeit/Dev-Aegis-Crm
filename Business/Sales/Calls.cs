@@ -16,7 +16,7 @@ namespace Business.Sales
         public List<Entity.Sales.CallStatus> GetCallStatus()
         {
             List<Entity.Sales.CallStatus> callStatusList = new List<Entity.Sales.CallStatus>();
-            CallsDataAccess.GetCallStatus().CopyListTo(callStatusList);
+            CallStatusDataAccess.GetAllCallStatus().CopyListTo(callStatusList);
             return callStatusList;
         }
         public List<Entity.Sales.CallRelated> GetCallRelated()

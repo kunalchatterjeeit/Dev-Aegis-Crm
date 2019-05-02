@@ -1,11 +1,7 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
@@ -29,15 +25,7 @@ namespace DataAccessEntity.Sales
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
-    public class CallStatusDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
+    
     public class CallRepeatTypeDbModel
     {
         [Key]

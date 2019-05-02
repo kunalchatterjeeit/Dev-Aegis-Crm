@@ -14,14 +14,35 @@ namespace DataAccessEntity.Sales
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int AccountId { get; set; }
+        public int? AccountId { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
-        public int DesignationId { get; set; }
+        public int? DesignationId { get; set; }
         public string GSTNo { get; set; }
         public string OfficePhone { get; set; }
         public int CreatedBy { get; set; }      
         public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
+    }
+    public class DesignationMasterDbModel
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int DesignationMasterId { get; set; }
+
+        public string DesignationName { get; set; }
+    }
+    public class GetContactsDbModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string AccountName { get; set; }
+    }
+    public class GetContactsParamDbModel
+    {
+        public string Name { get; set; }
+        public string Mobile { get; set; }       
+        public int? AccountId { get; set; }
     }
 }

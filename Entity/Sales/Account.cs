@@ -11,11 +11,7 @@ namespace Entity.Sales
         public int Id { get; set; }
         public string Name { get; set; }
     }
-    public class LeadSource
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+   
     public class GetAccountsParam
     {
         public string Name { get; set; }

@@ -14,7 +14,7 @@ namespace Business.Sales
         public List<Entity.Sales.TaskStatus> GetTaskStatus()
         {
             List<Entity.Sales.TaskStatus> TaskStatusList = new List<Entity.Sales.TaskStatus>();
-            TasksDataAccess.GetTaskStatus().CopyListTo(TaskStatusList);
+            TaskStatusDataAccess.GetAllTaskStatus().CopyListTo(TaskStatusList);
             return TaskStatusList;
         }
         public List<Entity.Sales.TaskRelatedTo> GetTaskRelatedTo()
@@ -52,6 +52,12 @@ namespace Business.Sales
         public int DeleteTasks(int Id)
         {
             return TasksDataAccess.DeleteTask(Id);
+        }
+        public int SaveTaskLinks(Entity.Sales.Tasks Model)
+        {
+            TasksDbModel DbModel = new TasksDbModel();
+            Model.CopyPropertiesTo(DbModel);
+            return TasksDataAccess.SaveTaskLinks(DbModel);
         }
     }
 }

@@ -56,6 +56,8 @@ namespace DataAccessEntity
               .ToTable("tbl_Sales_LeadSource");
             modelBuilder.Entity<Sales.AccountsDbModel>()
               .ToTable("tbl_Sales_Accounts");
+            modelBuilder.Entity<Sales.DesignationMasterDbModel>()
+             .ToTable("tbl_HR_DesignationMaster");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -78,5 +80,6 @@ namespace DataAccessEntity
         public DbSet<Sales.CustomerTypeDbModel> CustomerType { get; set; }
         public DbSet<Sales.LeadSourceDbModel> LeadSource { get; set; }
         public DbSet<Sales.AccountsDbModel> Accounts { get; set; }
+        public DbSet<Sales.DesignationMasterDbModel> Designations { get; set; }
     }
 }

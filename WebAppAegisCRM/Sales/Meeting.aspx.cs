@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,7 +72,12 @@ namespace WebAppAegisCRM.Sales
         private void LoadMeetingList()
         {
             Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam { StartDateTime = null, EndDateTime = null, MeetingStatusId = null, MeetingTypeId = null, Name = null };
+            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
+                LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
+            };
             //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
             gvMeetingss.DataSource = Obj.GetAllMeetings(Param);
             gvMeetingss.DataBind();
@@ -203,9 +209,10 @@ namespace WebAppAegisCRM.Sales
                     PopupReminder = chkPopupReminder.Checked,
                     IsActive = true
                 };
-                int rows = Obj.SaveMeetings(Model);
-                if (rows > 0)
+                MeetingId = Obj.SaveMeetings(Model);
+                if (MeetingId > 0)
                 {
+                    SaveMeetingLink();
                     ClearControls();
                     LoadMeetingList();
                     MeetingId = 0;
@@ -219,6 +226,18 @@ namespace WebAppAegisCRM.Sales
                 }
                 Message.Show = true;
             }
+        }
+
+        private void SaveMeetingLink()
+        {
+            Business.Sales.Meetings Obj = new Business.Sales.Meetings();
+            Entity.Sales.Meetings Model = new Entity.Sales.Meetings
+            {
+                Id = MeetingId,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+            };
+            Obj.SaveMeetingLinks(Model);
         }
     }
 }

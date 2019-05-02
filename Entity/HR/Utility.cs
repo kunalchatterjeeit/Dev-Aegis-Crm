@@ -96,6 +96,10 @@ namespace Entity.HR
         public const string SALES_TASKS = "804";
         public const string SALES_ACCOUNTS = "805";
         public const string SALES_LEADS = "806";
+        public const string SALES_DEPARTMENT = "807";
+        public const string SALES_LEAD_SOURCE = "808";
+        public const string SALES_MEETING_TYPE = "809";
+        public const string SALES_TASK_STATUS = "810";
 
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";

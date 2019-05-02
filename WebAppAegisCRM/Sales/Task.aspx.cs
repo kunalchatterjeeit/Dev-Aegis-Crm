@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,22 +77,26 @@ namespace WebAppAegisCRM.Sales
         private void LoadTaskList()
         {
             Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam { StartDateTime = null, EndDateTime = null, TaskPriorityId = null, Subject = null,TaskRelatedToId=null,TaskStatusId=null };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam {
+                StartDateTime = DateTime.MinValue,
+                EndDateTime = DateTime.MinValue,
+                LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
+                LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
+            };
             gvTasks.DataSource = Obj.GetAllTasks(Param);
             gvTasks.DataBind();
         }
         private void ClearControls()
         {
             TaskId = 0;
-            Message.Show = false;            
+            Message.Show = false;
             txtDescription.Text = string.Empty;
             txtSubject.Text = string.Empty;
             txtTaskEndDateTime.Value = string.Empty;
             txtTaskStartDateTime.Value = string.Empty;
             ddlTaskStatus.SelectedIndex = 0;
             ddlTaskRelatedTo.SelectedIndex = 0;
-            ddlTaskPriority.SelectedIndex = 0;           
+            ddlTaskPriority.SelectedIndex = 0;
             btnSave.Text = "Save";
         }
         private bool TaskControlValidation()
@@ -185,11 +190,11 @@ namespace WebAppAegisCRM.Sales
             {
                 ddlTaskStatus.SelectedValue = Tasks.TasksStatusId.ToString();
                 ddlTaskRelatedTo.SelectedValue = Tasks.TasksRelatedTo.ToString();
-                ddlTaskPriority.SelectedValue = Tasks.TasksPriorityId.ToString();              
+                ddlTaskPriority.SelectedValue = Tasks.TasksPriorityId.ToString();
                 txtDescription.Text = Tasks.Description;
                 txtTaskStartDateTime.Value = Tasks.StartDateTime.ToString("dd MMM yyyy HH:mm tt");
                 txtTaskEndDateTime.Value = Tasks.EndDateTime.ToString("dd MMM yyyy HH:mm tt");
-                txtSubject.Text = Tasks.Subject;                
+                txtSubject.Text = Tasks.Subject;
             }
         }
         private void Save()
@@ -202,17 +207,18 @@ namespace WebAppAegisCRM.Sales
                     Id = TaskId,
                     TasksPriorityId = Convert.ToInt32(ddlTaskPriority.SelectedValue),
                     TasksRelatedTo = Convert.ToInt32(ddlTaskRelatedTo.SelectedValue),
-                    TasksStatusId = Convert.ToInt32(ddlTaskStatus.SelectedValue),                    
+                    TasksStatusId = Convert.ToInt32(ddlTaskStatus.SelectedValue),
                     CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                     Description = txtDescription.Text,
                     Subject = txtSubject.Text,
                     StartDateTime = Convert.ToDateTime(txtTaskStartDateTime.Value),
-                    EndDateTime = Convert.ToDateTime(txtTaskEndDateTime.Value),                   
+                    EndDateTime = Convert.ToDateTime(txtTaskEndDateTime.Value),
                     IsActive = true
                 };
-                int rows = Obj.SaveTasks(Model);
-                if (rows > 0)
+                TaskId = Obj.SaveTasks(Model);
+                if (TaskId > 0)
                 {
+                    SaveTaskLinks();
                     ClearControls();
                     LoadTaskList();
                     TaskId = 0;
@@ -226,6 +232,18 @@ namespace WebAppAegisCRM.Sales
                 }
                 Message.Show = true;
             }
+        }
+
+        private void SaveTaskLinks()
+        {
+            Business.Sales.Tasks Obj = new Business.Sales.Tasks();
+            Entity.Sales.Tasks Model = new Entity.Sales.Tasks
+            {
+                Id = TaskId,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+            };
+            Obj.SaveTaskLinks(Model);
         }
     }
 }

@@ -82,11 +82,12 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
-                LinkId = Convert.ToInt32(hdnItemId.Value),
-                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+                LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
+                LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
             };
             gvCalls.DataSource = Obj.GetAllCalls(Param);
             gvCalls.DataBind();
@@ -236,8 +237,8 @@ namespace WebAppAegisCRM.Sales
                     PopupReminder = chkPopupReminder.Checked,
                     IsActive = true
                 };
-                int rows = Obj.SaveCalls(Model);
-                if (rows > 0)
+                CallId = Obj.SaveCalls(Model);
+                if (CallId > 0)
                 {
                     SaveCallLink();
                     ClearControls();
@@ -262,9 +263,9 @@ namespace WebAppAegisCRM.Sales
             {
                 Id = CallId,
                 LinkId = Convert.ToInt32(hdnItemId.Value),
-                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType),hdnItemType.Value)
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
             };
-            Obj.SaveCalls(Model);
+            Obj.SaveCallLinks(Model);
         }
     }
 }

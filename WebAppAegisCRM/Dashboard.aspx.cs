@@ -104,7 +104,9 @@ namespace WebAppAegisCRM
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataSet ds = objContract.Service_ContractExpiredList(contract);
+            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiredList) ?
+                objContract.Service_ContractExpiredList(contract) : Business.Common.Context.ContractExpiredList;
+            Business.Common.Context.ContractExpiredList = ds;
 
             gvExpiredListAsync.DataSource = ds.Tables[0];
             gvExpiredListAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
@@ -125,7 +127,9 @@ namespace WebAppAegisCRM
             else
                 contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
-            DataSet ds = objContract.Service_ContractExpiringList(contract);
+            DataSet ds = (_DashboardEvent == DashboardEvent.None || _DashboardEvent == DashboardEvent.ExpiringList) ?
+                objContract.Service_ContractExpiringList(contract) : Business.Common.Context.ContractExpiringList;
+            Business.Common.Context.ContractExpiringList = ds;
 
             gvExpiringSoonAsync.DataSource = ds.Tables[0];
             gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;

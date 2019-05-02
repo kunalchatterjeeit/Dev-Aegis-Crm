@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Sales
 {
-    public class Department
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }  
+   
     public class GetLeadsParam
     {
         public string Name { get; set; }

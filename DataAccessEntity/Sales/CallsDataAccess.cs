@@ -1,6 +1,7 @@
 ﻿using Entity.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,13 +12,6 @@ namespace DataAccessEntity.Sales
 {
     public class CallsDataAccess
     {
-        public static List<CallStatusDbModel> GetCallStatus()
-        {
-            using (var Context = new CRMContext())
-            {
-                return Context.CallStatus.ToList();
-            }
-        }
         public static List<CallDirectionDbModel> GetCallDirection()
         {
             using (var Context = new CRMContext())
@@ -44,32 +38,16 @@ namespace DataAccessEntity.Sales
         {
             using (var Context = new CRMContext())
             {
-                object linkType = DBNull.Value, linkId = DBNull.Value, fromDate = DBNull.Value,
-                    toDate = DBNull.Value, callStatusId = DBNull.Value, subject = DBNull.Value;
-
-                if (Param.LinkType != SalesLinkType.None)
-                    linkType = (int)Param.LinkType;
-                if (Param.LinkId >= 0)
-                    linkId = Param.LinkId;
-                if (Param.StartDateTime != DateTime.MinValue)
-                    fromDate = Param.StartDateTime;
-                if (Param.EndDateTime != DateTime.MinValue)
-                    toDate = Param.EndDateTime;
-                if (Param.CallStatusId >= 0)
-                    callStatusId = Param.CallStatusId;
-                if (!string.IsNullOrEmpty(Param.Subject))
-                    subject = Param.Subject;
-
                 return Context.Database.SqlQuery<GetCallsDbModel>(
                                 "exec dbo.[usp_Sales_Calls_GetAll] @Subject,@CallStatusId,@StartFromDateTime,@StartToDateTime,@LinkId,@LinkType",
                                 new Object[]
                                 {
-                                    new SqlParameter("Subject", subject),
-                                    new SqlParameter("CallStatusId", callStatusId),
-                                    new SqlParameter("StartFromDateTime", fromDate),
-                                    new SqlParameter("StartToDateTime", toDate),
-                                    new SqlParameter("LinkId", linkId),
-                                    new SqlParameter("LinkType", linkType)
+                                    new SqlParameter("Subject", (!string.IsNullOrEmpty(Param.Subject))?Param.Subject:(object)DBNull.Value),
+                                    new SqlParameter("CallStatusId", (Param.CallStatusId>0)?Param.CallStatusId:(object)DBNull.Value),
+                                    new SqlParameter("StartFromDateTime", (Param.StartDateTime!=DateTime.MinValue)?Param.StartDateTime:(object)DBNull.Value),
+                                    new SqlParameter("StartToDateTime", (Param.EndDateTime!=DateTime.MinValue)?Param.EndDateTime:(object)DBNull.Value),
+                                    new SqlParameter("LinkId", (Param.LinkId>0)?Param.LinkId:(object)DBNull.Value),
+                                    new SqlParameter("LinkType", (Param.LinkType != SalesLinkType.None)?(int)Param.LinkType:(object)DBNull.Value)
                                 }
                              ).ToList();
             }
@@ -89,14 +67,21 @@ namespace DataAccessEntity.Sales
         }
         public static int SaveCalls(CallsDbModel Model)
         {
+            var outParam = new SqlParameter();
+            outParam.ParameterName = "Id";
+            outParam.Value = Model.Id;
+            outParam.SqlDbType = SqlDbType.BigInt;
+            outParam.Direction = ParameterDirection.InputOutput;
+
+            int result = 0;
             using (var Context = new CRMContext())
             {
-                return Context.Database.ExecuteSqlCommand(
-                                "exec dbo.[usp_Sales_Calls_Save] @Id,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
+                Context.Database.ExecuteSqlCommand(
+                                "exec dbo.[usp_Sales_Calls_Save] @Id OUT,@Subject,@Description,@CallStatusId,@StartDateTime,@EndDateTime," +
                                 "@CallRepeatTypeId,@CallDirectionId,@CallRelatedTo,@PopupReminder,@EmailReminder,@CreatedBy,@IsActive",
                                 new object[]
                                 {
-                                    new SqlParameter("Id", Model.Id),
+                                    outParam,
                                     new SqlParameter("Subject", Model.Subject),
                                     new SqlParameter("Description", Model.Description),
                                     new SqlParameter("CallStatusId", Model.CallStatusId),
@@ -112,6 +97,8 @@ namespace DataAccessEntity.Sales
                                 }
                              );
             }
+            result = Convert.ToInt32(outParam.Value);
+            return result;
         }
         public static int DeleteCalls(int Id)
         {
@@ -137,7 +124,7 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("Id", Model.CallLinkId),
                                     new SqlParameter("CallId", Model.Id),
                                     new SqlParameter("LinkId", Model.LinkId),
-                                    new SqlParameter("LinkType", Model.LinkId)
+                                    new SqlParameter("LinkType", (int)Model.LinkType)
                                 }
                              );
             }

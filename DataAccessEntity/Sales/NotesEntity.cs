@@ -1,10 +1,6 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
@@ -17,6 +13,7 @@ namespace DataAccessEntity.Sales
         public int ContactId { get; set; }
         public int CreatedBy { get; set; }     
         public bool IsActive { get; set; }
+        public int NoteLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
@@ -31,6 +28,8 @@ namespace DataAccessEntity.Sales
     public class GetNotesParamDbModel
     {
         public string Name { get; set; }
-        public int? ContactId { get; set; }     
+        public int? ContactId { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
 }

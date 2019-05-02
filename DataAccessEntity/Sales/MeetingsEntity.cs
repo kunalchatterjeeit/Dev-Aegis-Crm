@@ -1,11 +1,7 @@
 ﻿using Entity.Common;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessEntity.Sales
 {
@@ -24,18 +20,11 @@ namespace DataAccessEntity.Sales
         public bool EmailReminder { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int MeetingLinkId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
     }
-    public class MeetingTypeDbModel
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
+   
     public class MeetingStatusDbModel
     {
         [Key]
@@ -61,5 +50,7 @@ namespace DataAccessEntity.Sales
         public int? MeetingStatusId { get; set; }
         public DateTime? StartDateTime { get; set; }
         public DateTime? EndDateTime { get; set; }
+        public int LinkId { get; set; }
+        public SalesLinkType LinkType { get; set; }
     }
 }

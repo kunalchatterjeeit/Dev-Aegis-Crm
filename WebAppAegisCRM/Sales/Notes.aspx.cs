@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,11 @@ namespace WebAppAegisCRM.Sales
         private void LoadContacts()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            ddlContact.DataSource = Obj.GetAllContacts();
+            Entity.Sales.GetContactsParam Param = new Entity.Sales.GetContactsParam
+            {
+                Name = null, AccountId = null, Mobile = null
+            };
+            ddlContact.DataSource = Obj.GetAllContacts(Param);
             ddlContact.DataTextField = "Name";
             ddlContact.DataValueField = "Id";
             ddlContact.DataBind();
@@ -63,7 +68,10 @@ namespace WebAppAegisCRM.Sales
         private void LoadNotesList()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam { ContactId = null, Name = null };
+            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam {
+                LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
+                LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
+            };
             gvNotes.DataSource = Obj.GetAllNotes(Param);
             gvNotes.DataBind();
         }
@@ -152,12 +160,13 @@ namespace WebAppAegisCRM.Sales
                     ContactId = Convert.ToInt32(ddlContact.SelectedValue),                   
                     CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                     Description = txtDescription.Text,
-                    Name = txtName.Text,                    
+                    Name = txtName.Text,
                     IsActive = true
                 };
-                int rows = Obj.SaveNotes(Model);
-                if (rows > 0)
+                NoteId = Obj.SaveNotes(Model);
+                if (NoteId > 0)
                 {
+                    SaveNoteLinks();
                     ClearControls();
                     LoadNotesList();
                     NoteId = 0;
@@ -171,6 +180,18 @@ namespace WebAppAegisCRM.Sales
                 }
                 Message.Show = true;
             }
+        }
+
+        private void SaveNoteLinks()
+        {
+            Business.Sales.Notes Obj = new Business.Sales.Notes();
+            Entity.Sales.Notes Model = new Entity.Sales.Notes
+            {
+                Id = NoteId,
+                LinkId = Convert.ToInt32(hdnItemId.Value),
+                LinkType = (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value)
+            };
+            Obj.SaveNoteLinks(Model);
         }
     }
 }
