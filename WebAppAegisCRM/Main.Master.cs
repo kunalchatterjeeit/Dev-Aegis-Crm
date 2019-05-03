@@ -20,6 +20,7 @@ namespace WebAppAegisCRM
 
             if (!IsPostBack)
             {
+                IndividualLoyalityPoint_ByEmployeeId();
                 //CONTROL PANEL
                 liControlPanel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CONTROLPANEL);
                 liServiceCallAttendanceManager.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICECALLATTENDANCEMANAGER);
@@ -137,6 +138,22 @@ namespace WebAppAegisCRM
             }
             catch
             { }
+        }
+
+        private void IndividualLoyalityPoint_ByEmployeeId()
+        {
+            DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(int.Parse(HttpContext.Current.User.Identity.Name));
+            int totalPoint = 0;
+            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Year"].ToString() == DateTime.Now.Year.ToString());
+            if (filteredPoint.Any())
+            {
+                foreach (DataRow dr in filteredPoint.CopyToDataTable().Rows)
+                {
+                    totalPoint += int.Parse(dr["Point"].ToString());
+                }
+            }
+            lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
         }
     }
 }

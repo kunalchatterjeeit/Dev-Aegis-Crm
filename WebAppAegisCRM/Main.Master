@@ -279,24 +279,26 @@
                 </li>
                 <li class="dropdown nav-item">
                     <a href="javascript:;" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img id="imgUserImage" runat="server" style="height:20px; border-radius: 30%;"/> <asp:Label ID="lblUsername" runat="server"></asp:Label> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <%--<li class="dropdown-item">
-                            <a href="javascript:;"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>--%>
-                        <li class="dropdown-item" id="liHolidayList" runat="server" visible="false">
-                            <a href="../HR/HolidayList.aspx"><i class="fa fa-fw fa-list"></i> My Holiday List</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="../Settings/UserSettings.aspx"><i class="fa fa-fw fa-gear"></i> Dashboard Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown-item">
-                            <a href="../MainLogout.aspx" title="Logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
-                        </li>
-                    </ul>
+                        <img id="imgUserImage" runat="server" style="height:20px; border-radius: 30%;"/> 
+                        <asp:Label ID="lblUsername" runat="server"></asp:Label> 
+                        <span id="lblLoyalityPoint" runat="server" style="color:#2aaf2a!important; font-weight:bold"></span> <b class="caret"></b>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="../HR/IndividualLoyalityPoint.aspx"><i class="fa fa-fw fa-puzzle-piece"></i> Loyality Point List</a>
+                            </li>
+                            <li class="dropdown-item" id="liHolidayList" runat="server" visible="false">
+                                <a href="../HR/HolidayList.aspx"><i class="fa fa-fw fa-list"></i> My Holiday List</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="../Settings/UserSettings.aspx"><i class="fa fa-fw fa-gear"></i> Dashboard Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="dropdown-item">
+                                <a href="../MainLogout.aspx" title="Logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            </li>
+                        </ul>
                 </li>
-            </ul>
             </ul>
             <!-- /.navbar-top-links -->
 

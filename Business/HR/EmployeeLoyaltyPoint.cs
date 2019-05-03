@@ -24,5 +24,10 @@ namespace Business.HR
         {
             return DataAccess.HR.EmployeeLoyaltyPoint.EmployeeLoyaltyPoint_Delete(loyaltyid);
         }
+
+        public DataTable IndividualLoyalityPoint_ByEmployeeId(int employeeId)
+        {
+            return DataAccess.HR.EmployeeLoyaltyPoint.IndividualLoyalityPoint_ByEmployeeId(employeeId);
+        }
     }
 }
