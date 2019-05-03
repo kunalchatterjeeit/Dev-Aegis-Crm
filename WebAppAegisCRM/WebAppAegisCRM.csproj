@@ -100,7 +100,7 @@
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="dist\css\custom-popup.css" />
-    <Content Include="dist\css\custom15112018.css" />
+    <Content Include="dist\css\custom03052019.css" />
     <Content Include="dist\css\sb-admin-2.css" />
     <Content Include="dist\css\signature-pad.css" />
     <Content Include="dist\css\timeline.css" />
