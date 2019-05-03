@@ -51,8 +51,13 @@
         }
 
             .footer img {
-                height: 5vh;
+                height: 10vh;
             }
+        @media (max-width: 768px) {
+            .footer img {
+                height: 0vh;
+            }
+        }
 
         .column {
             float: left;
@@ -86,32 +91,59 @@
                 border-radius: 4.5rem;
                 padding: 5%;
             }
-
-        .login-form-1 {
-            filter: blur(0px);
-            -webkit-filter: blur(0px);
-            padding: 9%;
-            background: #282726;
-            box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-        }
-
-            .login-form-1 h3 {
-                text-align: center;
-                margin-bottom: 12%;
-                color: #fff;
+            .login-form-1 {
+                filter: blur(0px);
+                -webkit-filter: blur(0px);
+                padding: 9%;
+                background: #282726;
+                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
             }
 
-        .login-form-2 {
-            padding: 9%;
-            background: #f05837;
-            box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-        }
+                .login-form-1 h3 {
+                    text-align: center;
+                    margin-bottom: 12%;
+                    color: #fff;
+                }
 
-            .login-form-2 h3 {
-                text-align: center;
-                margin-bottom: 12%;
-                color: #fff;
+            .login-form-2 {
+                padding: 9%;
+                background: #f05837;
+                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
             }
+
+                .login-form-2 h3 {
+                    text-align: center;
+                    margin-bottom: 12%;
+                    color: #fff;
+                }
+
+        @media (max-width: 768px) {
+            .login-form-1 {
+                filter: blur(0px);
+                -webkit-filter: blur(0px);
+                padding: 9%;
+                background: #282726;
+                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+            }
+
+                .login-form-1 h3 {
+                    text-align: center;
+                    margin-bottom: 2%;
+                    color: #fff;
+                }
+
+            .login-form-2 {
+                padding: 9%;
+                background: #f05837;
+                box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+            }
+
+                .login-form-2 h3 {
+                    text-align: center;
+                    margin-bottom: 2%;
+                    color: #fff;
+                }
+        }
 
         .btnSubmit {
             font-weight: 600;
