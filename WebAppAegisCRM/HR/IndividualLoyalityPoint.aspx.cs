@@ -23,7 +23,7 @@ namespace WebAppAegisCRM.HR
                        => row["Year"].ToString() == DateTime.Now.Year.ToString());
             if (filteredPoint.Any())
             {
-                gvLoyalityPoint.DataSource = filteredPoint.CopyToDataTable().Rows;
+                gvLoyalityPoint.DataSource = filteredPoint.CopyToDataTable();
             }
             else
                 gvLoyalityPoint.DataSource = null;
