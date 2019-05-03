@@ -50,12 +50,12 @@ namespace WebAppAegisCRM.Customer
                 {
                     if (Request.QueryString["source"].ToString() == "dashboard" || Request.QueryString["source"].ToString() == "contractStatus")
                     {
-                        CustomerMasterId = int.Parse(Request.QueryString["customerId"].ToString().DecryptQueryStringSafe());
+                        CustomerMasterId = int.Parse(Request.QueryString["customerId"].ToString());
                         popupHeader2.InnerHtml = objCustomer.CustomerPurchase_GetByCustomerId(CustomerMasterId).Rows[0]["CustomerName"].ToString();
                         LoadCustomerPurchaseListForContract();
                         LoadContractList();
                         ClearControlForContract();
-                        LoadContractDetail(int.Parse(Request.QueryString["contractId"].ToString().DecryptQueryStringSafe()));
+                        LoadContractDetail(int.Parse(Request.QueryString["contractId"].ToString()));
                         ModalPopupExtender2.Show();
                     }
                 }

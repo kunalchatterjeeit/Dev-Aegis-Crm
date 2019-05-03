@@ -445,7 +445,7 @@
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
                                                                 <span id="anchorCallIn" runat="server" title='<%# string.Concat("CALL ATTEND TIME WILL BE: ", DateTime.Now.ToShortTimeString()) %>'>
-                                                                    <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callin'>
+                                                                    <a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>&action=callin'>
                                                                         <img src="images/intime_icon.png" width="13px" alt="GO" />
                                                                     </a>
                                                                 </span>
@@ -461,7 +461,7 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
-                                                                <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() + " | "+ Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
+                                                                <span id="anchorDocket" runat="server" title='<%# Eval("AssignedEngineerName").ToString() + " | "+ Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("DocketId").ToString() %>&calltype=<%# (int)Entity.Service.CallType.Docket %>'>
                                                                     <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
@@ -532,7 +532,7 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
-                                                                <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString().EncryptQueryString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
+                                                                <span id="anchorToner" runat="server" title='<%# Eval("CallStatus").ToString() %>'><a href='Service/ServiceBook.aspx?callid=<%# Eval("TonnerRequestId").ToString() %>&calltype=<%# (int)Entity.Service.CallType.Toner %>'>
                                                                     <img src="images/go_icon.gif" width="13px" /></a></span>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
@@ -604,7 +604,7 @@
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
                                                                 <span id="anchorExpyring" runat="server" title='<%# Eval("CustomerName") %>'>
-                                                                    <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
+                                                                    <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString() %>'>
                                                                         <img src="images/go_icon.gif" width="13px" alt="" />
                                                                     </a>
                                                                 </span>
@@ -659,7 +659,7 @@
                                                         <asp:TemplateField>
                                                             <ItemTemplate>
                                                                 <span id="anchorExpired" runat="server" title='<%# Eval("CustomerName") %>'>
-                                                                    <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
+                                                                    <a target="_blank" href='Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString() %>&source=dashboard&contractId=<%# Eval("ContractId").ToString() %>'>
                                                                         <img src="images/go_icon.gif" width="13px" alt="" />
                                                                     </a>
                                                                 </span>
