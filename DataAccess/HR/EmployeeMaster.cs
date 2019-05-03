@@ -283,6 +283,7 @@ namespace DataAccess.HR
                             user.IsActive = (dr["IsActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsActive"].ToString());
                             user.IsLoginActive = (dr["IsLoginActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsLoginActive"].ToString());
                             user.IsPasswordChangeRequired = (dr["IsPasswordChangeRequired"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsPasswordChangeRequired"].ToString());
+                            user.Image = (dr["Image"] == DBNull.Value) ? "" : dr["Image"].ToString();
                         }
 
                         con.Close();

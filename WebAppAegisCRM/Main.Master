@@ -111,15 +111,15 @@
     <form id="form1" runat="server">
 
         <div id="wrapper">
-            
-        <div class="divWaiting hide">
-            <div class="loading">
-                <div class="loading-bar"></div>
-                <div class="loading-bar"></div>
-                <div class="loading-bar"></div>
-                <div class="loading-bar"></div>
+
+            <div class="divWaiting hide">
+                <div class="loading">
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                    <div class="loading-bar"></div>
+                </div>
             </div>
-        </div>
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
                
@@ -277,23 +277,26 @@
                     </a> 
                     <!-- /.dropdown-alerts -->
                 </li>
-                <!-- /.dropdown -->
-                <li id="liHolidayList" runat="server" class="dropdown" visible="false">
-                    <a class="dropdown-toggle" href="../HR/HolidayList.aspx">
-                        <i class="fa fa-list fa-fw" title="Holiday List"></i> 
-                    </a> 
-                    <!-- /.dropdown-alerts -->
+                <li class="dropdown nav-item">
+                    <a href="javascript:;" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <img id="imgUserImage" runat="server" style="height:20px; border-radius: 30%;"/> <asp:Label ID="lblUsername" runat="server"></asp:Label> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <%--<li class="dropdown-item">
+                            <a href="javascript:;"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>--%>
+                        <li class="dropdown-item" id="liHolidayList" runat="server" visible="false">
+                            <a href="../HR/HolidayList.aspx"><i class="fa fa-fw fa-list"></i> My Holiday List</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="../Settings/UserSettings.aspx"><i class="fa fa-fw fa-gear"></i> Dashboard Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li class="dropdown-item">
+                            <a href="../MainLogout.aspx" title="Logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="../Settings/UserSettings.aspx">
-                        <i class="fa fa-cogs fa-fw" title="Change Settings"></i> 
-                    </a>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
-                <li><a href="../MainLogout.aspx" title="Logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                </li>
-                <!-- /.dropdown -->
+            </ul>
             </ul>
             <!-- /.navbar-top-links -->
 

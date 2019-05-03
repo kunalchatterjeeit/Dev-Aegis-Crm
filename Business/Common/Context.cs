@@ -232,5 +232,29 @@ namespace Business.Common
                 HttpContext.Current.Session["ReferralUrl"] = value;
             }
         }
+
+        public static string Username
+        {
+            get
+            {
+                return (HttpContext.Current.Session["Username"] != null) ? HttpContext.Current.Session["Username"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["Username"] = value;
+            }
+        }
+
+        public static string Image
+        {
+            get
+            {
+                return (HttpContext.Current.Session["Image"] != null) ? HttpContext.Current.Session["Image"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["Image"] = value;
+            }
+        }
     }
 }

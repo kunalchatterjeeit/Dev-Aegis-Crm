@@ -13,6 +13,9 @@ namespace WebAppAegisCRM
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
 
+            lblUsername.Text = Business.Common.Context.Username;
+            imgUserImage.Src = "HR\\EmployeeImage\\" + Business.Common.Context.Image;
+
             Attendance_GetByEmployeeId();
 
             if (!IsPostBack)
