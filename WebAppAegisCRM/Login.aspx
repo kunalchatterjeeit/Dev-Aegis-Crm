@@ -54,8 +54,11 @@
                 height: 10vh;
             }
         @media (max-width: 768px) {
+            .footer {
+                display:none;
+            }
             .footer img {
-                height: 0vh;
+                display:none;
             }
         }
 
