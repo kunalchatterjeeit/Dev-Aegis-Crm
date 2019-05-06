@@ -107,6 +107,7 @@
     <Compile Include="Sales\Meetings.cs" />
     <Compile Include="Sales\MeetingType.cs" />
     <Compile Include="Sales\Notes.cs" />
+    <Compile Include="Sales\Opportunity.cs" />
     <Compile Include="Sales\Tasks.cs" />
     <Compile Include="Sales\TaskStatus.cs" />
     <Compile Include="Service\CallStatus.cs" />

@@ -237,8 +237,8 @@ namespace WebAppAegisCRM.Sales
                     PopupReminder = chkPopupReminder.Checked,
                     IsActive = true
                 };
-                int rows = Obj.SaveCalls(Model);
-                if (rows > 0)
+                CallId = Obj.SaveCalls(Model);
+                if (CallId > 0)
                 {
                     SaveCallLink();
                     ClearControls();

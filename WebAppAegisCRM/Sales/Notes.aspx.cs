@@ -163,8 +163,8 @@ namespace WebAppAegisCRM.Sales
                     Name = txtName.Text,
                     IsActive = true
                 };
-                int rows = Obj.SaveNotes(Model);
-                if (rows > 0)
+                NoteId = Obj.SaveNotes(Model);
+                if (NoteId > 0)
                 {
                     SaveNoteLinks();
                     ClearControls();

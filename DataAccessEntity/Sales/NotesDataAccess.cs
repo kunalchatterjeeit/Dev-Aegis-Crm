@@ -1,6 +1,7 @@
 ﻿using Entity.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace DataAccessEntity.Sales
 {
     public class NotesDataAccess
-    {       
+    {
         public static List<GetNotesDbModel> GetAllNotes(GetNotesParamDbModel Param)
         {
             using (var Context = new CRMContext())
@@ -41,13 +42,19 @@ namespace DataAccessEntity.Sales
         }
         public static int SaveNotes(NotesDbModel Model)
         {
+            var outParam = new SqlParameter();
+            outParam.ParameterName = "Id";
+            outParam.Value = Model.Id;
+            outParam.SqlDbType = SqlDbType.BigInt;
+            outParam.Direction = ParameterDirection.InputOutput;
+            int result = 0;
             using (var Context = new CRMContext())
             {
-                return Context.Database.ExecuteSqlCommand(
-                                "exec [dbo].[usp_Sales_Notes_Save] @Id,@Name,@Description,@ContactId,@CreatedBy,@IsActive",
+                Context.Database.ExecuteSqlCommand(
+                                "exec [dbo].[usp_Sales_Notes_Save] @Id OUT,@Name,@Description,@ContactId,@CreatedBy,@IsActive",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id", Model.Id),
+                                    outParam,
                                     new SqlParameter("Name", Model.Name),
                                     new SqlParameter("Description", Model.Description),
                                     new SqlParameter("ContactId", Model.ContactId),
@@ -56,6 +63,8 @@ namespace DataAccessEntity.Sales
                                 }
                              );
             }
+            result = Convert.ToInt32(outParam.Value);
+            return result;
         }
         public static int DeleteNotes(int Id)
         {
@@ -82,7 +91,7 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("Id", Model.NoteLinkId),
                                     new SqlParameter("NoteId", Model.Id),
                                     new SqlParameter("LinkId", Model.LinkId),
-                                    new SqlParameter("LinkType", Model.LinkId)
+                                    new SqlParameter("LinkType", (int)Model.LinkType)
                                 }
                              );
             }
