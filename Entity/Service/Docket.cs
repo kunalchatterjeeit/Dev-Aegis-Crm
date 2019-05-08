@@ -26,5 +26,6 @@ namespace Entity.Service
         public Int64 CustomerPurchaseId { get; set; }
         public int AssignEngineer { get; set; }
         public string CallStatusIds { get; set; }
+        public string CustomerName { get; set; }
     }
 }

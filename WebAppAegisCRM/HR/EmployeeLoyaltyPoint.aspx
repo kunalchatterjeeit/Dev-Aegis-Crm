@@ -29,10 +29,10 @@
                             Search Criteria
                         </div>
                         <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                Month
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        Month
                                 <asp:DropDownList ID="ddlMonth" CssClass="form-control" runat="server">
                                     <asp:ListItem Value="0" Selected="True">--Select--</asp:ListItem>
                                     <asp:ListItem Value="Jan">January</asp:ListItem>
@@ -48,28 +48,28 @@
                                     <asp:ListItem Value="Nov">November</asp:ListItem>
                                     <asp:ListItem Value="Dec">December</asp:ListItem>
                                 </asp:DropDownList>
-                            </div>
-                        </div>
-                        <!-- /.col-lg-6 (nested) -->
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                Year
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        Year
                                 <asp:DropDownList ID="ddlYear" CssClass="form-control" runat="server">
                                 </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <br />
+                                        <asp:Button ID="btnSearch" runat="server" Text="Search" class="btn btn-outline btn-primary"
+                                            OnClick="btnSearch_Click" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message1" runat="server" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <br />
-                                <asp:Button ID="btnSearch" runat="server" Text="Search" class="btn btn-outline btn-primary"
-                                    OnClick="btnSearch_Click" />
-                            </div>
-                        </div>                        
-                        <div class="col-lg-12">
-                            <uc3:Message ID="Message1" runat="server" />
-                        </div>
-                    </div>
-                </div>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,8 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvEmployeePoint" DataKeyNames="LoyaltyId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="True" PageSize="20"
-                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeePoint_RowCommand" OnRowDataBound="gvEmployeePoint_RowDataBound">
+                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeePoint_RowCommand"
+                                    OnRowDataBound="gvEmployeePoint_RowDataBound">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -104,7 +105,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Point">
                                             <ItemTemplate>
-                                                    <asp:TextBox ID="txtPoint" runat="server" CssClass="form-control" TextMode="Number" MaxLength="4" Width="100px"></asp:TextBox>
+                                                <asp:TextBox ID="txtPoint" runat="server" CssClass="form-control" TextMode="Number" MaxLength="4" Width="100px"></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Note">
@@ -121,9 +122,8 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="btnDelete" runat="server" CommandName="D" ImageUrl="~/Images/delete_button.png"
-                                                    CommandArgument='<%#Eval("EmployeeMasterId") %>' Width="17px" Height="17px"
-                                                    OnClientClick="return confirm('Are You Sure?');" />
+                                                <asp:LinkButton ID="LinkButton1" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                             <HeaderStyle Width="25px" />
                                         </asp:TemplateField>

@@ -620,21 +620,6 @@ namespace WebAppAegisCRM.Service
             }
             ddlTonnerRequestProduct.InsertSelect();
         }
-        protected void LoadCustomer()
-        {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                customer.AssignEngineer = 0;
-            else
-                customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
-            ddlCustomer.DataSource = dt;
-            ddlCustomer.DataTextField = "CustomerName";
-            ddlCustomer.DataValueField = "CustomerMasterId";
-            ddlCustomer.DataBind();
-            ddlCustomer.InsertSelect();
-        }
         protected void LoadDocket()
         {
             Business.Service.Docket objDocket = new Business.Service.Docket();
@@ -642,7 +627,7 @@ namespace WebAppAegisCRM.Service
 
             docket.DocketId = DocketId;
             docket.DocketNo = txtDocketNo.Text.Trim();
-            docket.CustomerId = int.Parse(ddlCustomer.SelectedValue);
+            docket.CustomerName = txtCustomerName.Text.Trim();
             docket.DocketFromDateTime = (txtFromDocketDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromDocketDate.Text);
             docket.DocketToDateTime = (txtToDocketDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToDocketDate.Text);
             docket.CallStatusId = int.Parse(ddlDocketCallStatus.SelectedValue);
@@ -660,16 +645,16 @@ namespace WebAppAegisCRM.Service
                 gvDocket.DataBind();
             }
         }
-        protected void LoadTonnerRequest(int pageIndex, int pageSize)
+        protected void LoadTonnerRequest()
         {
             Business.Service.TonerRequest objTonerRequest = new Business.Service.TonerRequest();
             Entity.Service.TonerRequest tonerRequest = new Entity.Service.TonerRequest();
 
-            tonerRequest.PageIndex = pageIndex;
-            tonerRequest.PageSize = pageSize;
+            tonerRequest.PageIndex = gvTonnerRequest.PageIndex;
+            tonerRequest.PageSize = gvTonnerRequest.PageSize;
             tonerRequest.TonerRequestId = TonerRequestId;
             tonerRequest.RequestNo = txtTonnerRequestNo.Text.Trim();
-            tonerRequest.CustomerId = int.Parse(ddlCustomer.SelectedValue);
+            tonerRequest.CustomerName = txtCustomerName.Text.Trim();
             tonerRequest.ProductId = int.Parse(ddlTonnerRequestProduct.SelectedValue);
             tonerRequest.RequestFromDateTime = (txtFromTonnerRequestDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromTonnerRequestDate.Text);
             tonerRequest.RequestToDateTime = (txtToTonnerRequestDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToTonnerRequestDate.Text);
@@ -1106,7 +1091,6 @@ namespace WebAppAegisCRM.Service
             LoadTonnerRequestCallStatus();
             LoadCurrentTonnerRequestCallStatus();
             LoadProduct();
-            LoadCustomer();
             EmployeeMaster_GetAll();
             EmployeeMaster_GetAll_ForToner();
 
@@ -1131,64 +1115,77 @@ namespace WebAppAegisCRM.Service
         #region SYSTEM DEFINED FUNCTIONS
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            try
             {
-                Response.Redirect("~/MainLogout.aspx");
-            }
-
-            if (!IsPostBack)
-            {
-                LoadFunctions();
-                //Checking Auto Fetch functionality conditions
-                if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    if (Request.QueryString["calltype"] != null && Request.QueryString["calltype"].ToString().Length > 0)
+                    Response.Redirect("~/MainLogout.aspx");
+                }
+
+                if (!IsPostBack)
+                {
+                    LoadFunctions();
+                    //Checking Auto Fetch functionality conditions
+                    if (Request.QueryString["callid"] != null && Request.QueryString["callid"].ToString().Length > 0)
                     {
-                        ddlCallType.SelectedValue = Request.QueryString["calltype"].ToString();
+                        if (Request.QueryString["calltype"] != null && Request.QueryString["calltype"].ToString().Length > 0)
+                        {
+                            ddlCallType.SelectedValue = Request.QueryString["calltype"].ToString();
 
-                        if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Toner))
-                        {
-                            TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryString());
-                            btnSearch_Click(sender, e);
-                            foreach (GridViewRow gvr in gvTonnerRequest.Rows)
+                            if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Toner))
                             {
-                                if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryString())
+                                TonerRequestId = Convert.ToInt64(Request.QueryString["callid"].ToString());
+                                btnSearch_Click(sender, e);
+                                foreach (GridViewRow gvr in gvTonnerRequest.Rows)
                                 {
-                                    ((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked = true;
-                                    chkTonnerRequest_CheckedChanged(((CheckBox)gvr.FindControl("chkTonnerRequest")), e);
+                                    if (gvTonnerRequest.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString())
+                                    {
+                                        ((CheckBox)gvr.FindControl("chkTonnerRequest")).Checked = true;
+                                        chkTonnerRequest_CheckedChanged(((CheckBox)gvr.FindControl("chkTonnerRequest")), e);
+                                    }
                                 }
+                                //TonerRequestId = 0;
+                                divCallType.Visible = false;
+                                //divTonnerRequest.Visible = false;
                             }
-                            //TonerRequestId = 0;
-                            divCallType.Visible = false;
-                            //divTonnerRequest.Visible = false;
-                        }
-                        else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
-                        {
-                            DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString().DecryptQueryString());
-                            btnSearch_Click(sender, e);
-                            foreach (GridViewRow gvr in gvDocket.Rows)
+                            else if (Request.QueryString["calltype"].ToString() == Convert.ToString((int)CallType.Docket))
                             {
-                                if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString().DecryptQueryString())
+                                DocketId = Convert.ToInt64(Request.QueryString["callid"].ToString());
+                                btnSearch_Click(sender, e);
+                                foreach (GridViewRow gvr in gvDocket.Rows)
                                 {
-                                    ((CheckBox)gvr.FindControl("chkDocket")).Checked = true;
-                                    chkDocket_CheckedChanged(((CheckBox)gvr.FindControl("chkDocket")), e);
+                                    if (gvDocket.DataKeys[gvr.RowIndex].Values[0].ToString() == Request.QueryString["callid"].ToString())
+                                    {
+                                        ((CheckBox)gvr.FindControl("chkDocket")).Checked = true;
+                                        chkDocket_CheckedChanged(((CheckBox)gvr.FindControl("chkDocket")), e);
+                                    }
                                 }
+                                //DocketId = 0;
+                                divCallType.Visible = false;
+                                //divDocket.Visible = false;
                             }
-                            //DocketId = 0;
-                            divCallType.Visible = false;
-                            //divDocket.Visible = false;
-                        }
 
-                        if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
-                        {
-                            EmployeeCallLogin(sender, e);
-                        }
-                        else if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout"))
-                        {
-                            EmployeeCallLogout(sender, e);
+                            if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin"))
+                            {
+                                EmployeeCallLogin(sender, e);
+                            }
+                            else if (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callout"))
+                            {
+                                EmployeeCallLogout(sender, e);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                MessageDocket.IsSuccess = false;
+                MessageDocket.Text = ex.Message;
+                MessageDocket.Show = true;
+                MessageTonner.IsSuccess = false;
+                MessageTonner.Text = ex.Message;
+                MessageTonner.Show = true;
             }
         }
 
@@ -1200,7 +1197,7 @@ namespace WebAppAegisCRM.Service
                 divDocket.Visible = false;
                 divDocketClosing.Visible = false;
                 divTonnerRequestApproval.Visible = false;
-                LoadTonnerRequest(1, gvTonnerRequest.PageSize);
+                LoadTonnerRequest();
             }
             else if (ddlCallType.SelectedValue == Convert.ToString((int)CallType.Docket))
             {
@@ -1228,7 +1225,7 @@ namespace WebAppAegisCRM.Service
 
         protected void btnTonnerRequestSearch_Click(object sender, EventArgs e)
         {
-            LoadTonnerRequest(1, gvTonnerRequest.PageSize);
+            LoadTonnerRequest();
         }
 
         protected void chkDocket_CheckedChanged(object sender, EventArgs e)
@@ -1387,7 +1384,7 @@ namespace WebAppAegisCRM.Service
                     if (readingResponse > 0)
                     {
                         ClearTonnerControls();
-                        LoadTonnerRequest((gvTonnerRequest.PageIndex == 0)? 1: gvTonnerRequest.PageIndex, gvTonnerRequest.PageSize);
+                        LoadTonnerRequest();
                         MessageTonner.IsSuccess = true;
                         MessageTonner.Text = "Response to this Toner Request has been given.";
                     }
@@ -1455,7 +1452,6 @@ namespace WebAppAegisCRM.Service
                     {
                         serviceBook.ServiceBookDetails = new DataTable();
                         serviceBook.ServiceBookDetails.AcceptChanges();
-                        //serviceBook.CallStatusId = (int)CallStatusType.DocketOpenForApproval;
                     }
                     else
                     {
@@ -1563,7 +1559,7 @@ namespace WebAppAegisCRM.Service
         protected void gvTonnerRequest_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTonnerRequest.PageIndex = e.NewPageIndex;
-            LoadTonnerRequest(e.NewPageIndex, gvTonnerRequest.PageSize);
+            LoadTonnerRequest();
         }
         #endregion
     }

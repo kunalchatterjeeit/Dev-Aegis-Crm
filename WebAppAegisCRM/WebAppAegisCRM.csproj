@@ -97,10 +97,12 @@
     <Content Include="Customer\CustomerMaster.aspx" />
     <Content Include="Customer\CustomerList.aspx" />
     <Content Include="Customer\CustomerPurchase.aspx" />
+    <Content Include="Customer\CustomerPurchaseAssignEngineer.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="dist\css\custom-login.css" />
     <Content Include="dist\css\custom-popup.css" />
-    <Content Include="dist\css\custom15112018.css" />
+    <Content Include="dist\css\custom03052019.css" />
     <Content Include="dist\css\sb-admin-2.css" />
     <Content Include="dist\css\signature-pad.css" />
     <Content Include="dist\css\timeline.css" />
@@ -110,6 +112,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="EmailMockup.htm" />
+    <Content Include="HR\AttendanceList.aspx" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeImage\14.jpg" />
@@ -119,14 +122,13 @@
     <Content Include="HR\EmployeeHolidayProfileMapping.aspx" />
     <Content Include="HR\HolidayList.aspx" />
     <Content Include="HR\HolidayProfile.aspx" />
+    <Content Include="HR\IndividualLoyalityPoint.aspx" />
     <Content Include="images\aegis_attendance.png" />
     <Content Include="images\aegis_crm.png" />
     <Content Include="images\aegis_dms.png" />
     <Content Include="images\aegis_hrms.png" />
     <Content Include="images\aegis_logo.png" />
     <Content Include="images\aegis_sales.png" />
-    <Content Include="images\attendance_login.jpg" />
-    <Content Include="images\attendance_logout.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
     <Content Include="images\login_background.jpg" />
@@ -186,6 +188,10 @@
     <Content Include="Purchase\PurchaseRequisition.aspx" />
     <Content Include="Purchase\VendorMaster.aspx" />
     <Content Include="Purchase\VendorMasterView.aspx" />
+    <Content Include="ResetPassword.aspx" />
+    <Content Include="Sale\AssetSelection.aspx" />
+    <Content Include="Sale\SaleChallan.aspx" />
+    <Content Include="Sale\SaleChallanList.aspx" />
     <Content Include="Sales\Account.aspx" />
     <Content Include="Sales\Calls.aspx" />
     <Content Include="Sales\CallStatus.aspx" />
@@ -296,6 +302,13 @@
     <Compile Include="Customer\CustomerPurchase.aspx.designer.cs">
       <DependentUpon>CustomerPurchase.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerPurchaseAssignEngineer.aspx.designer.cs">
+      <DependentUpon>CustomerPurchaseAssignEngineer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -312,6 +325,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HR\AttendanceList.aspx.cs">
+      <DependentUpon>AttendanceList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\AttendanceList.aspx.designer.cs">
+      <DependentUpon>AttendanceList.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\AttendanceLogInOut.aspx.cs">
       <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>
@@ -361,6 +381,13 @@
     </Compile>
     <Compile Include="HR\HolidayProfile.aspx.designer.cs">
       <DependentUpon>HolidayProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\IndividualLoyalityPoint.aspx.cs">
+      <DependentUpon>IndividualLoyalityPoint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\IndividualLoyalityPoint.aspx.designer.cs">
+      <DependentUpon>IndividualLoyalityPoint.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>
@@ -580,6 +607,13 @@
     <Compile Include="Sales\Account.aspx.designer.cs">
       <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Calls.aspx.cs">
       <DependentUpon>Calls.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -621,6 +655,9 @@
     </Compile>
     <Compile Include="Sales\Lead.aspx.designer.cs">
       <DependentUpon>Lead.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\SaleChallanList.aspx.designer.cs">
+      <DependentUpon>SaleChallanList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sales\LeadSource.aspx.cs">
       <DependentUpon>LeadSource.aspx</DependentUpon>

@@ -82,5 +82,30 @@ namespace DataAccess.HR
             }
             return rowsAffacted;
         }
+
+        public static DataTable IndividualLoyalityPoint_ByEmployeeId(int employeeId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_IndividualLoyalityPoint_ByEmployeeId";
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

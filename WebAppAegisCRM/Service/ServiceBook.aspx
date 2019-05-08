@@ -75,9 +75,8 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        Customer :
-                                        <asp:DropDownList ID="ddlCustomer" runat="server" CssClass="form-control">
-                                        </asp:DropDownList>
+                                        Customer Name :
+                                        <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -156,7 +155,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <div style="height: 15vh; overflow: scroll">
+                                        <div style="height: 20vh; overflow: scroll">
                                             <asp:GridView ID="gvDocket" DataKeyNames="DocketId, ProductMasterId, AssignEngineer, CustomerPurchaseId, CallStatusId" runat="server"
                                                 AutoGenerateColumns="False" Width="100%" CellPadding="4"
                                                 ForeColor="#333333" class="table table-striped" GridLines="None" Style="text-align: left">

@@ -32,6 +32,18 @@ namespace Business.Common
             }
         }
 
+        public static DataTable SelectedSaleAssets
+        {
+            get
+            {
+                return (HttpContext.Current.Session["SelectedSaleAssets"] != null) ? (DataTable)HttpContext.Current.Session["SelectedSaleAssets"] : new DataTable();
+            }
+            set
+            {
+                HttpContext.Current.Session["SelectedSaleAssets"] = value;
+            }
+        }
+
         public static string Signature
         {
             get
@@ -218,6 +230,30 @@ namespace Business.Common
             set
             {
                 HttpContext.Current.Session["ReferralUrl"] = value;
+            }
+        }
+
+        public static string Username
+        {
+            get
+            {
+                return (HttpContext.Current.Session["Username"] != null) ? HttpContext.Current.Session["Username"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["Username"] = value;
+            }
+        }
+
+        public static string Image
+        {
+            get
+            {
+                return (HttpContext.Current.Session["Image"] != null) ? HttpContext.Current.Session["Image"].ToString() : string.Empty;
+            }
+            set
+            {
+                HttpContext.Current.Session["Image"] = value;
             }
         }
     }

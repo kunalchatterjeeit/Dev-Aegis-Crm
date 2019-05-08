@@ -13,10 +13,14 @@ namespace WebAppAegisCRM
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
 
+            lblUsername.Text = Business.Common.Context.Username;
+            imgUserImage.Src = "HR\\EmployeeImage\\" + Business.Common.Context.Image;
+
             Attendance_GetByEmployeeId();
 
             if (!IsPostBack)
             {
+                IndividualLoyalityPoint_ByEmployeeId();
                 //CONTROL PANEL
                 liControlPanel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CONTROLPANEL);
                 liServiceCallAttendanceManager.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICECALLATTENDANCEMANAGER);
@@ -64,6 +68,8 @@ namespace WebAppAegisCRM
                 liVendorMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADD_EDIT_VENDOR);
                 liVendorList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.VENDOR_LIST);
                 liPurchaseRequisitionEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.PURCHASE_REQUISITION_ENTRY);
+                liSaleEntry.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_ENTRY);
+                liSaleChallanList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALE_CHALLAN_LIST);
 
                 if (ApplicationModules.SalesModule.ModulePermission())
                 {
@@ -91,6 +97,7 @@ namespace WebAppAegisCRM
                 liAddEditCustomer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITCUSTOMER);
                 liTagCustomerModel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.TAGCUSTOMERMODEL);
                 liServiceBookApproval.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_SPARE_APPROVAL);
+                liCustomerPurchaseAssignEngineer.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ASSIGN_ENGINEER_BULK);
 
                 //REPORT
                 liReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.REPORT);
@@ -100,6 +107,7 @@ namespace WebAppAegisCRM
                 liDocketList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_LIST);
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
+                liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
             }
         }
 
@@ -108,7 +116,7 @@ namespace WebAppAegisCRM
             try
             {
                 Business.HR.Attendance objAttendance = new Business.HR.Attendance();
-                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.Now.Date);
+                DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
@@ -130,6 +138,22 @@ namespace WebAppAegisCRM
             }
             catch
             { }
+        }
+
+        private void IndividualLoyalityPoint_ByEmployeeId()
+        {
+            DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(int.Parse(HttpContext.Current.User.Identity.Name));
+            int totalPoint = 0;
+            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Year"].ToString() == DateTime.Now.Year.ToString());
+            if (filteredPoint.Any())
+            {
+                foreach (DataRow dr in filteredPoint.CopyToDataTable().Rows)
+                {
+                    totalPoint += int.Parse(dr["Point"].ToString());
+                }
+            }
+            lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
         }
     }
 }

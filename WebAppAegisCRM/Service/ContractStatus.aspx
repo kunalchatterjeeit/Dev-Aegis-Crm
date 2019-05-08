@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="CONTRACT STATUS REPORT" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ContractStatus.aspx.cs" Inherits="WebAppAegisCRM.Service.ContractStatus" %>
+
 <%@ Import Namespace="Business.Common" %>
 <%@ Import Namespace="Entity.Common" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -64,11 +65,17 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
+                                        Product Serial No :
+                                        <asp:TextBox ID="txtProductSerialNo" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
                                         Machine Id :
                                         <asp:TextBox ID="txtMachineId" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         From Date :
                                         <asp:TextBox ID="txtFromContractDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -77,7 +84,7 @@
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         To Date :
                                         <asp:TextBox ID="txtToContractDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -86,7 +93,7 @@
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <br />
                                     <asp:Button ID="btnMachineSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success"
                                         OnClientClick="return ValidationForSave();" OnClick="btnMachineSearch_Click" />
@@ -109,8 +116,19 @@
                                                         <%#  (gvContractStatusList.PageIndex * gvContractStatusList.PageSize) + (Container.DataItemIndex + 1) %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Customer Name
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <span title='<%# Eval("CustomerName") %>'>
+                                                            <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                        </span>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField HeaderText="Serial No" DataField="ProductSerialNumber" />
                                                 <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
+                                                <asp:BoundField HeaderText="Contact Person" DataField="ContactPerson" />
                                                 <asp:BoundField HeaderText="Contract Type" DataField="ContractName" />
                                                 <asp:TemplateField HeaderText="Expire on">
                                                     <ItemTemplate>
@@ -121,7 +139,7 @@
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <span id="anchorContract" runat="server">
-                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryString() %>&source=contractStatus&contractId=<%# Eval("ContractId").ToString().EncryptQueryString() %>'>
+                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryStringSafe() %>&source=contractStatus&contractId=<%# Eval("ContractId").ToString().EncryptQueryStringSafe() %>'>
                                                                 <img src="../images/go_icon.gif" width="15px" alt="" />
                                                             </a>
                                                         </span>

@@ -36,6 +36,7 @@ namespace WebAppAegisCRM.Service
             contract.MachineId = txtMachineId.Text.Trim();
             contract.FromDate = (txtFromContractDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromContractDate.Text.Trim());
             contract.ToDate = (txtToContractDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToContractDate.Text.Trim());
+            contract.ProductSerialNo = txtProductSerialNo.Text.Trim();
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 contract.AssignEngineer = 0;
             else

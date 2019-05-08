@@ -95,7 +95,28 @@ namespace DataAccess.HR
                 }
             }
             return rowsAffacted;
-        }       
+        }
+
+        public static int HR_PasswordReset_Save(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_PasswordReset_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeMasterId", employeeMaster.EmployeeMasterId);
+                    cmd.Parameters.AddWithValue("@Password", employeeMaster.Password);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
 
         public static int EmployeeDelete(Entity.HR.EmployeeMaster objElEmployeeMaster)
         {
@@ -254,11 +275,52 @@ namespace DataAccess.HR
                     {
                         while (dr.Read())
                         {
-                            user.UserId = (dr[0] == DBNull.Value) ? 0 : Convert.ToInt32(dr[0].ToString());
-                            user.EmployeeCode = (dr[1] == DBNull.Value) ? "" : dr[1].ToString();
-                            user.Password = (dr[2] == DBNull.Value) ? "" : dr[2].ToString();
-                            user.Roles = (dr[3] == DBNull.Value) ? "" : dr[3].ToString();
-                            user.EmployeeName = (dr[4] == DBNull.Value) ? "" : dr[4].ToString();
+                            user.UserId = (dr["EmployeeMasterId"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["EmployeeMasterId"].ToString());
+                            user.EmployeeCode = (dr["EmployeeCode"] == DBNull.Value) ? "" : dr["EmployeeCode"].ToString();
+                            user.Password = (dr["Password"] == DBNull.Value) ? "" : dr["Password"].ToString();
+                            user.Roles = (dr["Roles"] == DBNull.Value) ? "" : dr["Roles"].ToString();
+                            user.EmployeeName = (dr["EmployeeName"] == DBNull.Value) ? "" : dr["EmployeeName"].ToString();
+                            user.IsActive = (dr["IsActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsActive"].ToString());
+                            user.IsLoginActive = (dr["IsLoginActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsLoginActive"].ToString());
+                            user.IsPasswordChangeRequired = (dr["IsPasswordChangeRequired"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsPasswordChangeRequired"].ToString());
+                            user.Image = (dr["Image"] == DBNull.Value) ? "" : dr["Image"].ToString();
+                        }
+
+                        con.Close();
+                        return user;
+                    }
+
+                    con.Close();
+                    return null;
+                }
+            }
+        }
+
+        public static Entity.HR.EmployeeMaster AutoAuthenticateUserByDevice(string deviceId)
+        {
+            Entity.HR.EmployeeMaster user = new Entity.HR.EmployeeMaster();
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "GetUserNameByDevice";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DeviceId", deviceId);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            user.UserId = (dr["EmployeeMasterId"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["EmployeeMasterId"].ToString());
+                            user.EmployeeCode = (dr["EmployeeCode"] == DBNull.Value) ? "" : dr["EmployeeCode"].ToString();
+                            user.Roles = (dr["Roles"] == DBNull.Value) ? "" : dr["Roles"].ToString();
+                            user.EmployeeName = (dr["EmployeeName"] == DBNull.Value) ? "" : dr["EmployeeName"].ToString();
+                            user.IsActive = (dr["IsActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsActive"].ToString());
+                            user.IsLoginActive = (dr["IsLoginActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsLoginActive"].ToString());
+                            user.IsPasswordChangeRequired = (dr["IsPasswordChangeRequired"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsPasswordChangeRequired"].ToString());
                         }
 
                         con.Close();
@@ -311,6 +373,72 @@ namespace DataAccess.HR
                     cmd.Parameters.AddWithValue("@EmployeeId", employeeMaster.EmployeeMasterId);
                     cmd.Parameters.AddWithValue("@LeaveStatus", employeeMaster.LeaveActive);
 
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int LinkedDevices_Save(int employeeId, string deviceId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_LinkedDevices_Save";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                    cmd.Parameters.AddWithValue("@DeviceId", deviceId);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable LinkedDevices_GetByUserId(int userId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_HR_LinkedDevices_GetByUserId";
+                        cmd.Parameters.AddWithValue("@EmployeeId", userId);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static int LiknedDevices_Delete(int linkedDeviceId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_LiknedDevices_Delete";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@LinkedDeviceId", linkedDeviceId);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

@@ -95,11 +95,29 @@ namespace WebAppAegisCRM.Service
                 customer.AssignEngineer = 0;
             else
                 customer.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
-            DataTable dt = objCustomer.Customer_Customer_GetByAssignEngineerId(customer);
+            customer.PageIndex = gvCustomerMaster.PageIndex;
+            customer.PageSize = gvCustomerMaster.PageSize;
 
-            gvCustomerMaster.DataSource = dt;
-            gvCustomerMaster.DataBind();
+            DataSet ds = objCustomer.Customer_CustomerMaster_GetByAssignEngineerIdWithPaging(customer);
+            if (ds.Tables.Count > 0)
+            {
+                gvCustomerMaster.DataSource = ds.Tables[0];
+                gvCustomerMaster.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
+                gvCustomerMaster.DataBind();
+            }
+            else
+            {
+                gvCustomerMaster.DataSource = null;
+                gvCustomerMaster.DataBind();
+            }
         }
+
+        protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCustomerMaster.PageIndex = e.NewPageIndex;
+            LoadCustomerforSearch();
+        }
+
         protected bool ComplainValidation()
         {
             bool retValue = false;

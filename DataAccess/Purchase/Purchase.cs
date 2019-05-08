@@ -204,7 +204,7 @@ namespace DataAccess.Purchase
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_PurchaseDetails_GetByPurchaseId";
-                        cmd.Parameters.Add("@PurchaseId", purchaseId);
+                        cmd.Parameters.AddWithValue("@PurchaseId", purchaseId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))

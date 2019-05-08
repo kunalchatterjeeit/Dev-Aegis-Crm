@@ -54,6 +54,18 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Name
+                                        <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 left">
+                                    <br />
+                                    <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success pull-left extra-margin" OnClick="btnSearch_Click" />
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="table-responsive">
                                     <div class="col-lg-12">
                                         <asp:GridView ID="gvCustomerMaster" DataKeyNames="CustomerMasterId" runat="server"
@@ -70,7 +82,16 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField HeaderText="Customer Id" DataField="CustomerCode" />
-                                                <asp:BoundField HeaderText="Customer Name" DataField="CustomerName" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Customer Name
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <span title='<%# Eval("CustomerName") %>'>
+                                                            <%# (Eval("CustomerName").ToString().Length>30)?Eval("CustomerName").ToString().Substring(0,30)+"...":Eval("CustomerName").ToString() %>
+                                                        </span>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Customer Type">
                                                     <ItemTemplate>
                                                         <%# ((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.APlus)? "A+": (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.A)? "A" : (((int)Eval("CustomerType") == (int)Business.Common.Constants.CustomerType.B)? "B" : "N/A")) %>

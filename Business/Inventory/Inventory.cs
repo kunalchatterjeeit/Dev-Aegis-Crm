@@ -31,5 +31,15 @@ namespace Business.Inventory
         {
             return DataAccess.Inventory.Inventory.Inventory_GetApprovedInventorySpareByServiceBookId(serviceBookId, assetLocation, itemType);
         }
+
+        public DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName)
+        {
+            return DataAccess.Inventory.Inventory.Inventory_GetInventoryItem(assetLocation, itemType, itemName);
+        }
+
+        public int Inventory_Movement(Entity.Inventory.Inventory inventory)
+        {
+            return DataAccess.Inventory.Inventory.Inventory_Movement(inventory);
+        }
     }
 }

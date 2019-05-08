@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -97,6 +98,7 @@
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Sales\Account.cs" />
+    <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Sales\Calls.cs" />
     <Compile Include="Sales\CallStatus.cs" />
     <Compile Include="Sales\Campaign.cs" />
@@ -132,6 +134,7 @@
       <Name>Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

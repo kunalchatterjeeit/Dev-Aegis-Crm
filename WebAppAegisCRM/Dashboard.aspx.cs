@@ -12,25 +12,18 @@ namespace WebAppAegisCRM
 {
     public partial class Dashboard : System.Web.UI.Page
     {
-        //private DashBoardElements _Callback;
-        //private static DashboardEvent _DashboardEvent { get; set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
+
             if (!IsPostBack)
             {
                 LoadDocket(gvDocketAsync.PageIndex,gvDocketAsync.PageSize);
-                LoadTonerRequest(gvTonnerRequestAsync.PageIndex,gvTonnerRequestAsync.PageSize);
-                LoadContractExpiringList(gvExpiringSoonAsync.PageIndex,gvExpiringSoonAsync.PageSize);
-                LoadContractExpiredList(gvExpiredListAsync.PageIndex,gvExpiredListAsync.PageSize);
+                LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
+                LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
+                LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);
             }
-
-            //if (!Page.IsCallback)
-            //{
-            //    ltCallback.Text = ClientScript.GetCallbackEventReference(this, "'bindDocketgrid'", "EndGetDocketData", "'asyncgrid1'", true);
-            //}
 
             DocketListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
             TonerListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_TONER_LIST);
@@ -65,11 +58,9 @@ namespace WebAppAegisCRM
             docket.PageSize = pageSize;
 
             DataSet response = objDocket.Service_Docket_GetByCallStatusIds(docket);
-            Business.Common.Context.DocketList = response;
             gvDocketAsync.DataSource = response.Tables[0];
             gvDocketAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvDocketAsync.DataBind();
-            //lblDocketTotal.Text = string.Concat("Total records: {0}", gvDocketAsync.VirtualItemCount);
         }
 
         private void LoadTonerRequest(int pageIndex, int pageSize)
@@ -93,12 +84,11 @@ namespace WebAppAegisCRM
                 tonerRequest.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
 
             DataSet response = objTonnerRequest.Service_TonnerRequest_GetAllMinimal(tonerRequest);
-            Business.Common.Context.TonerList = response;
             gvTonnerRequestAsync.DataSource = response.Tables[0];
             gvTonnerRequestAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvTonnerRequestAsync.DataBind();
-            //lblTonerTotal.Text = string.Concat("Total records: ", gvTonnerRequestAsync.VirtualItemCount);
         }
+
 
         protected void LoadContractExpiredList(int pageIndex, int pageSize)
         {
@@ -171,7 +161,7 @@ namespace WebAppAegisCRM
         protected void gvTonnerRequestAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTonnerRequestAsync.PageIndex = e.NewPageIndex;
-            LoadTonerRequest(e.NewPageIndex, gvDocketAsync.PageSize);
+            LoadTonerRequest(e.NewPageIndex, gvTonnerRequestAsync.PageSize);
         }
 
         protected void gvExpiredListAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)

@@ -40,6 +40,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// liClock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClock;
+        
+        /// <summary>
         /// liAttendance control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,33 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkAttendaceLogout;
+        
+        /// <summary>
+        /// imgUserImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgUserImage;
+        
+        /// <summary>
+        /// lblUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsername;
+        
+        /// <summary>
+        /// lblLoyalityPoint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLoyalityPoint;
         
         /// <summary>
         /// liHolidayList control.
@@ -364,6 +400,24 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liInventory;
         
         /// <summary>
+        /// liVendorMaster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorMaster;
+        
+        /// <summary>
+        /// liVendorList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorList;
+        
+        /// <summary>
         /// liPurchaseRequisitionEntry control.
         /// </summary>
         /// <remarks>
@@ -400,22 +454,22 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStockLookup;
         
         /// <summary>
-        /// liVendorMaster control.
+        /// liSaleEntry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorMaster;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSaleEntry;
         
         /// <summary>
-        /// liVendorList control.
+        /// liSaleChallanList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liVendorList;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSaleChallanList;
         
         /// <summary>
         /// liSales control.
@@ -544,6 +598,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liTagCustomerModel;
         
         /// <summary>
+        /// liCustomerPurchaseAssignEngineer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liCustomerPurchaseAssignEngineer;
+        
+        /// <summary>
         /// liDocketEntry control.
         /// </summary>
         /// <remarks>
@@ -650,6 +713,15 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveReport;
+        
+        /// <summary>
+        /// liAttendanceReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAttendanceReport;
         
         /// <summary>
         /// liSpareTonerUsage control.

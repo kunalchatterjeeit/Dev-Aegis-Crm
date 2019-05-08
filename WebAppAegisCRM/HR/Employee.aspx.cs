@@ -209,7 +209,7 @@ namespace WebAppAegisCRM.Employee
                     if (txtPassword.Text.Trim() == string.Empty)
                         employeeMaster.Password = EmployeePassword;
                     else
-                        employeeMaster.Password = txtPassword.Text.Trim().EncryptQueryString();
+                        employeeMaster.Password = txtPassword.Text.Trim().EncodePasswordToBase64();
                     employeeMaster.PANNo = txtPANnumber.Text.Trim();
 
                     employeeMaster.TAddress = txtpresentaddress.Text.Trim();
@@ -371,7 +371,7 @@ namespace WebAppAegisCRM.Employee
                     rbtnListLeaveStatus.Items[1].Selected = true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.WriteException();
                 MessageBox.IsSuccess = false;
@@ -431,6 +431,17 @@ namespace WebAppAegisCRM.Employee
                     LeaveEmployeeWiseApprovalConfiguration_GetAll();
                     TabContainer1.ActiveTab = AddApproval;
                     ModalPopupExtender1.Show();
+                }
+                else if (e.CommandName == "RemoveMobile")
+                {
+                    Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                    int i = 0;
+                    i = objEmployeeMaster.LiknedDevices_Delete(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (i > 0)
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Device unlinked successfully.');", true);
+                        EmployeeMaster_GetAll();
+                    }
                 }
             }
             catch (Exception ex)
@@ -592,7 +603,7 @@ namespace WebAppAegisCRM.Employee
                 Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                 Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
                 employeeMaster.EmployeeMasterId = EmployeeMasterId;
-                employeeMaster.LeaveActive = Convert.ToBoolean(rbtnListLeaveStatus.SelectedValue);                
+                employeeMaster.LeaveActive = Convert.ToBoolean(rbtnListLeaveStatus.SelectedValue);
                 int response = objEmployeeMaster.EmployeeLeave_Update(employeeMaster);
                 if (response > 0)
                 {

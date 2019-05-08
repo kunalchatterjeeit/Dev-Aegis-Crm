@@ -102,13 +102,13 @@ namespace DataAccess.Service
                         else
                             cmd.Parameters.AddWithValue("@TonerRequestId", tonerRequest.TonerRequestId);
                         if (tonerRequest.RequestNo == "")
-                            cmd.Parameters.AddWithValue("@RequestNo", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@RequestNo", string.Empty);
                         else
                             cmd.Parameters.AddWithValue("@RequestNo", tonerRequest.RequestNo);
-                        if (tonerRequest.CustomerId == 0)
-                            cmd.Parameters.AddWithValue("@CustomerId_FK", DBNull.Value);
+                        if (string.IsNullOrEmpty(tonerRequest.CustomerName))
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@CustomerId_FK", tonerRequest.CustomerId);
+                            cmd.Parameters.AddWithValue("@CustomerName", tonerRequest.CustomerName);
                         if (tonerRequest.ProductId == 0)
                             cmd.Parameters.AddWithValue("@ProductId_FK", DBNull.Value);
                         else

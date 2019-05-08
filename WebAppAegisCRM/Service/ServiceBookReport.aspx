@@ -72,9 +72,8 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
-                                        Customer :
-                                    <asp:DropDownList ID="ddlCustomer" CssClass="form-control" runat="server">
-                                    </asp:DropDownList>
+                                        Customer Name :
+                                    <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -156,7 +155,7 @@
                                                             <%# Convert.ToDateTime(Eval("CallDate")).ToString("dd/MM/yy") %>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
-                                                    <asp:BoundField HeaderText="Call Time" DataField="CallTime" ItemStyle-Width="60px"/>
+                                                    <asp:BoundField HeaderText="Call Time" DataField="CallTime" ItemStyle-Width="60px" />
                                                     <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
                                                     <asp:BoundField HeaderText="Machine Id" DataField="MachineId" />
                                                     <asp:BoundField HeaderText="Problem Observed" DataField="ProblemObserved" />
