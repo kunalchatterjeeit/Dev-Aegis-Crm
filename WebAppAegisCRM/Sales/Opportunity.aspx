@@ -3,16 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(function () {
-                prepareDateTimeControls();
-            });
-        });
-        function prepareDateTimeControls() {
-            $('#ContentPlaceHolder1_txtExpectedCloseDate').datetimepicker({ format: 'DD MMM YYYY' });
-        }
-    </script>
+    
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -58,7 +49,10 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         Expected Close Date
-                                        <input type="text" id="txtExpectedCloseDate" runat="server" class="form-control" />
+                                        <asp:TextBox ID="txtExpectedCloseDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtExpectedCloseDate"
+                                            Format="dd MMM yyyy" Enabled="True">
+                                        </asp:CalendarExtender>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
@@ -140,7 +134,14 @@
                                             <asp:BoundField DataField="Name" HeaderText="Name" />
                                             <asp:BoundField DataField="BestPrice" HeaderText="Best Price" />
                                             <asp:BoundField DataField="CommitStage" HeaderText="Commit Stage" />
-                                            <asp:BoundField DataField="ExpectedCloseDate" HeaderText="Expected Close Date" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Expected Close Date
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("ExpectedCloseDate")==null)?"":Convert.ToDateTime(Eval("ExpectedCloseDate").ToString()).ToString("dd MMM yyyy") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"

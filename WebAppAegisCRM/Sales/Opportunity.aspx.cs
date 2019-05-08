@@ -71,7 +71,7 @@ namespace WebAppAegisCRM.Sales
             Message.Show = false;
             txtBestPrice.Text = string.Empty;
             txtDescription.Text = string.Empty;
-            txtExpectedCloseDate.Value = string.Empty;
+            txtExpectedCloseDate.Text = string.Empty;
             txtLikelyPrice.Text = string.Empty;
             txtName.Text = string.Empty;
             txtSourceName.Text = string.Empty;
@@ -136,7 +136,7 @@ namespace WebAppAegisCRM.Sales
             {
                 txtName.Text = Opportunity.Name;
                 txtDescription.Text = Opportunity.Description;
-                txtExpectedCloseDate.Value = Opportunity.ExpectedCloseDate == null ? string.Empty : Opportunity.ExpectedCloseDate.ToString();
+                txtExpectedCloseDate.Text = Opportunity.ExpectedCloseDate == null ? string.Empty : Opportunity.ExpectedCloseDate.GetValueOrDefault().ToString("dd MMM yyyy");
                 txtLikelyPrice.Text = Opportunity.LikelyPrice == null ? string.Empty : Opportunity.LikelyPrice.ToString();
                 txtBestPrice.Text = Opportunity.BestPrice == null ? string.Empty : Opportunity.BestPrice.ToString();
                 txtWorstPrice.Text = Opportunity.WorstPrice == null ? string.Empty : Opportunity.WorstPrice.ToString();
@@ -158,7 +158,7 @@ namespace WebAppAegisCRM.Sales
                     Description = txtDescription.Text,
                     Name = txtName.Text,
                     SourceName = txtSourceName.Text,
-                    ExpectedCloseDate = txtExpectedCloseDate.Value == "" ? (DateTime?)null : Convert.ToDateTime(txtExpectedCloseDate.Value),
+                    ExpectedCloseDate = txtExpectedCloseDate.Text == "" ? (DateTime?)null : Convert.ToDateTime(txtExpectedCloseDate.Text),
                     BestPrice = txtBestPrice.Text == "" ? (decimal?)null : Convert.ToDecimal(txtBestPrice.Text),
                     LikelyPrice = txtLikelyPrice.Text == "" ? (decimal?)null : Convert.ToDecimal(txtLikelyPrice.Text),
                     WorstPrice = txtWorstPrice.Text == "" ? (decimal?)null : Convert.ToDecimal(txtWorstPrice.Text),
