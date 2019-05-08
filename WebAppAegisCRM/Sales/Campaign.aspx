@@ -1,18 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Campaign.aspx.cs" Inherits="WebAppAegisCRM.Sales.Campaign" %>
+﻿<%@ Page Title="ADD/EDIT CAMPAIGN" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Campaign.aspx.cs" Inherits="WebAppAegisCRM.Sales.Campaign" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script type="text/javascript">
-        $(document).ready(function () {
-            $(function () {
-                prepareDateTimeControls();
-            });
-        });
-        function prepareDateTimeControls() {
-            $('#ContentPlaceHolder1_txtStartDate').datetimepicker({ format: 'DD MMM YYYY' });
-            $('#ContentPlaceHolder1_txtEndDate').datetimepicker({ format: 'DD MMM YYYY' });
-        }
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -63,13 +52,19 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                        Start Date
-                                        <input type="text" id="txtStartDate" runat="server" class="form-control" />
+                                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtStartDate"
+                                            Format="dd MMM yyyy" Enabled="True">
+                                        </asp:CalendarExtender>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         End Date
-                                      <input type="text" id="txtEndDate" runat="server" class="form-control" />
+                                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control"></asp:TextBox>
+                                        <asp:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtEndDate"
+                                            Format="dd MMM yyyy" Enabled="True">
+                                        </asp:CalendarExtender>
                                     </div>
                                 </div>                                
                                 <div class="clearfix"></div>
@@ -105,8 +100,22 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Name" />
                                             <asp:BoundField DataField="Reason" HeaderText="Reason" />
-                                           <asp:BoundField DataField="StartDate" HeaderText="Start Date" />
-                                            <asp:BoundField DataField="EndDate" HeaderText="End Date" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    Start Date
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("StartDate")==null)?"":Convert.ToDateTime(Eval("StartDate").ToString()).ToString("dd MMM yyyy") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>
+                                                    End Date
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <%# (Eval("EndDate")==null)?"":Convert.ToDateTime(Eval("EndDate").ToString()).ToString("dd MMM yyyy") %>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
