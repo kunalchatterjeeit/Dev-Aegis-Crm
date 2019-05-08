@@ -31,7 +31,7 @@ namespace Business.Sales
             CampaignDataAccess.GetAllCampaigns(p).CopyListTo(CampaignList);
             return CampaignList;
         }
-        public List<Entity.Sales.GetOpportunity> GetAllLeads(Entity.Sales.GetOpportunityParam Param)
+        public List<Entity.Sales.GetOpportunity> GetAllOpportunity(Entity.Sales.GetOpportunityParam Param)
         {
             List<Entity.Sales.GetOpportunity> AllOpportunityList = new List<Entity.Sales.GetOpportunity>();
             GetOpportunityParamDbModel p = new GetOpportunityParamDbModel();
