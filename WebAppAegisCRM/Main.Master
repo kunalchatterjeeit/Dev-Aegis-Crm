@@ -476,6 +476,9 @@
                                 <li id="liTasks" runat="server" visible="false">
                                     <a href="../Sales/Task.aspx">Add/Edit Tasks</a>
                                 </li>
+                                <li id="liCampaign" runat="server" visible="false">
+                                    <a href="../Sales/Campaign.aspx">Add/Edit Campaign</a>
+                                </li> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

@@ -42,9 +42,9 @@ namespace WebAppAegisCRM.Sales
         {
             CampaignId = 0;
             Message.Show = false;
-            txtStartDate.Value = string.Empty;
+            txtStartDate.Text = string.Empty;
             txtDescription.Text = string.Empty;
-            txtEndDate.Value = string.Empty;
+            txtEndDate.Text = string.Empty;
             txtName.Text = string.Empty;
             txtReason.Text = string.Empty;
             btnSave.Text = "Save";
@@ -105,8 +105,8 @@ namespace WebAppAegisCRM.Sales
                 txtName.Text = Campaign.Name;
                 txtReason.Text = Campaign.Reason;
                 txtDescription.Text = Campaign.Description;
-                txtStartDate.Value = Campaign.EndDate == null ? string.Empty: Campaign.StartDate.ToString();
-                txtEndDate.Value = Campaign.EndDate == null ? string.Empty : Campaign.EndDate.ToString();
+                txtStartDate.Text = Campaign.EndDate == null ? string.Empty: Campaign.StartDate.GetValueOrDefault().ToString("dd MMM yyyy");
+                txtEndDate.Text = Campaign.EndDate == null ? string.Empty : Campaign.EndDate.GetValueOrDefault().ToString("dd MMM yyyy");
             }
         }
         private void Save()
@@ -121,8 +121,8 @@ namespace WebAppAegisCRM.Sales
                     Description = txtDescription.Text,
                     Name = txtName.Text,
                     Reason=txtReason.Text,
-                    StartDate = txtStartDate.Value == "" ? (DateTime?)null : Convert.ToDateTime(txtStartDate.Value),
-                    EndDate = txtEndDate.Value == "" ? (DateTime?)null : Convert.ToDateTime(txtEndDate.Value),
+                    StartDate = txtStartDate.Text == "" ? (DateTime?)null : Convert.ToDateTime(txtStartDate.Text),
+                    EndDate = txtEndDate.Text == "" ? (DateTime?)null : Convert.ToDateTime(txtEndDate.Text),
                     IsActive = true
                 };
                 int rows = Obj.SaveCampaign(Model);

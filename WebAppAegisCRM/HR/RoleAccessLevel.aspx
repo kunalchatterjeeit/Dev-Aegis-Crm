@@ -188,6 +188,8 @@
                                 </asp:ListItem>
                                 <asp:ListItem Value="804" Text="&nbsp;&nbsp;&nbsp;SALES TASKS">
                                 </asp:ListItem>
+                                <asp:ListItem Value="811" Text="&nbsp;&nbsp;&nbsp;SALES CAMPAIGN">
+                                </asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
