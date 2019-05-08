@@ -85,6 +85,7 @@ namespace WebAppAegisCRM
                     liTasks.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_TASKS);
                     liAccounts.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_ACCOUNTS);
                     liLeads.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_LEADS);
+                    liCampaign.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SALES_CAMPAIGN);
                 }
 
                 //SERVICE
