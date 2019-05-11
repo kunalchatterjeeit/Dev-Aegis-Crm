@@ -18,7 +18,6 @@ namespace DataAccessEntity
         {
             Database.SetInitializer<CRMContext>(null);
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Sales.CallsDbModel>()
                 .ToTable("tbl_Sales_Calls");
             modelBuilder.Entity<Sales.CallStatusDbModel>()
@@ -61,6 +60,10 @@ namespace DataAccessEntity
               .ToTable("tbl_Sales_Accounts");
             modelBuilder.Entity<Sales.DesignationMasterDbModel>()
              .ToTable("tbl_HR_DesignationMaster");
+            modelBuilder.Entity<Sales.CommitStageDbModel>()
+            .ToTable("tbl_Sales_CommitStage");
+            modelBuilder.Entity<Sales.OpportunityDbModel>()
+           .ToTable("tbl_Sales_Opportunity");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -84,5 +87,7 @@ namespace DataAccessEntity
         public DbSet<Sales.LeadSourceDbModel> LeadSource { get; set; }
         public DbSet<Sales.AccountsDbModel> Accounts { get; set; }
         public DbSet<Sales.DesignationMasterDbModel> Designations { get; set; }
+        public DbSet<Sales.CommitStageDbModel> CommitStage { get; set; }
+        public DbSet<Sales.OpportunityDbModel> Opportunity { get; set; }
     }
 }
