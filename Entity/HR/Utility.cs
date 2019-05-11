@@ -101,6 +101,7 @@ namespace Entity.HR
         public const string SALES_MEETING_TYPE = "809";
         public const string SALES_TASK_STATUS = "810";
         public const string SALES_CAMPAIGN = "811";
+        public const string SALES_OPPORTUNITY = "812";
 
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";

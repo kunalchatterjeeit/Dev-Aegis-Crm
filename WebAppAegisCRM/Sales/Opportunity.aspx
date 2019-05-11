@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Opportunity.aspx.cs" Inherits="WebAppAegisCRM.Sales.Opportunity" %>
+﻿<%@ Page Title="ADD/EDIT OPPORTUNITY" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Opportunity.aspx.cs" Inherits="WebAppAegisCRM.Sales.Opportunity" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>

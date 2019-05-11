@@ -464,6 +464,9 @@
                                  <li id="liLeads" runat="server" visible="false">
                                     <a href="../Sales/Lead.aspx">Add/Edit Leads</a>
                                 </li>
+                                 <li id="liOpportunity" runat="server" visible="false">
+                                    <a href="../Sales/Opportunity.aspx">Add/Edit Opportunity</a>
+                                </li>
                                 <li id="liCalls" runat="server" visible="false">
                                     <a href="../Sales/Calls.aspx">Add/Edit Calls</a>
                                 </li>
