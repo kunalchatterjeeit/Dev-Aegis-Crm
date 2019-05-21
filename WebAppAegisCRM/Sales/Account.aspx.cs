@@ -2,6 +2,7 @@
 using Entity.Common;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -62,6 +63,18 @@ namespace WebAppAegisCRM.Sales
             gvTasks.DataSource = Obj.GetAllTasks(Param);
             gvTasks.DataBind();
         }
+        private void LoadAssginments()
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            if (dt != null)
+            {
+                gvAssignedEmployee.DataSource = dt;
+            }
+            gvAssignedEmployee.DataBind();
+        }   
         private void PopulateItems()
         {
             if (AccountId == 0)
@@ -70,6 +83,7 @@ namespace WebAppAegisCRM.Sales
                 btnCreateNewMeeting.Enabled = false;
                 btnCreateNewNote.Enabled = false;
                 btnCreateNewTask.Enabled = false;
+                btnCreateEmployee.Enabled = false;
             }
             else
             {
@@ -77,11 +91,13 @@ namespace WebAppAegisCRM.Sales
                 btnCreateNewMeeting.Enabled = true;
                 btnCreateNewNote.Enabled = true;
                 btnCreateNewTask.Enabled = true;
+                btnCreateEmployee.Enabled = true;
 
                 LoadCallList();
                 LoadMeetingList();
                 LoadNotesList();
                 LoadTaskList();
+                LoadAssginments();
                 SetCreateLinks();
             }
         }
@@ -169,6 +185,7 @@ namespace WebAppAegisCRM.Sales
             btnCreateNewMeeting.PostBackUrl = string.Concat("Meeting.aspx?id=", AccountId, "&itemtype=", SalesLinkType.Account);
             btnCreateNewNote.PostBackUrl = string.Concat("Notes.aspx?id=", AccountId, "&itemtype=", SalesLinkType.Account);
             btnCreateNewTask.PostBackUrl = string.Concat("Task.aspx?id=", AccountId, "&itemtype=", SalesLinkType.Account);
+            btnCreateEmployee.PostBackUrl = string.Concat("~/HR/Employee.aspx?id=", AccountId, "&itemtype=", SalesLinkType.Account);
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -376,6 +393,30 @@ namespace WebAppAegisCRM.Sales
                 }
                 Message.Show = true;
             }
+        }
+
+        protected void gvAssignedEmployee_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+        }
+
+        protected void chkAssigned_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void rbtnIsLead_CheckedChanged(object sender, EventArgs e)
+        {
+            //Clear the existing selected row 
+            foreach (GridViewRow oldrow in gvAssignedEmployee.Rows)
+            {
+                ((RadioButton)oldrow.FindControl("rbtnIsLead")).Checked = false;
+            }
+
+            //Set the new selected row
+            RadioButton rb = (RadioButton)sender;
+            GridViewRow row = (GridViewRow)rb.NamingContainer;
+            ((RadioButton)row.FindControl("rbtnIsLead")).Checked = true;
         }
     }
 }

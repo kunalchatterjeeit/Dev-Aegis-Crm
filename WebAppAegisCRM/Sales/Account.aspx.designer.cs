@@ -175,6 +175,24 @@ namespace WebAppAegisCRM.Sales {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
+        /// btnCreateEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCreateEmployee;
+        
+        /// <summary>
+        /// gvAssignedEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvAssignedEmployee;
+        
+        /// <summary>
         /// btnCreateNewCall control.
         /// </summary>
         /// <remarks>
