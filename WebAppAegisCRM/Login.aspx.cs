@@ -61,6 +61,8 @@ namespace WebAppAegisCRM
                             roles = string.Concat(roles, userSettings);
                             Business.Common.Context.Username = employeeMaster.EmployeeName;
                             Business.Common.Context.Image = employeeMaster.Image;
+                            Business.Common.Context.UserGender = employeeMaster.GenderId;
+
 
                             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
                                                                            1,

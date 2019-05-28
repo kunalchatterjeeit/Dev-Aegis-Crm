@@ -108,12 +108,16 @@
     <Content Include="dist\css\timeline.css" />
     <Content Include="dist\js\custom.js" />
     <Content Include="dist\js\sb-admin-2.js" />
+    <Content Include="EmailMockups\ForgotPassword.html" />
+    <Content Include="EmailMockups\UpdateEmailConfirm.html" />
     <Content Include="Error.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="EmailMockup.htm" />
+    <Content Include="EmailMockups\LowToner.htm" />
     <Content Include="HR\AttendanceList.aspx" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
+    <Content Include="HR\Claim.aspx" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
@@ -123,6 +127,7 @@
     <Content Include="HR\HolidayList.aspx" />
     <Content Include="HR\HolidayProfile.aspx" />
     <Content Include="HR\IndividualLoyalityPoint.aspx" />
+    <Content Include="HR\PersonalInfo.aspx" />
     <Content Include="images\aegis_attendance.png" />
     <Content Include="images\aegis_crm.png" />
     <Content Include="images\aegis_dms.png" />
@@ -324,6 +329,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -340,6 +352,13 @@
     </Compile>
     <Compile Include="HR\AttendanceLogInOut.aspx.designer.cs">
       <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\Claim.aspx.cs">
+      <DependentUpon>Claim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\Claim.aspx.designer.cs">
+      <DependentUpon>Claim.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\Employee.aspx.cs">
       <DependentUpon>Employee.aspx</DependentUpon>
@@ -389,6 +408,13 @@
     </Compile>
     <Compile Include="HR\IndividualLoyalityPoint.aspx.designer.cs">
       <DependentUpon>IndividualLoyalityPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\PersonalInfo.aspx.cs">
+      <DependentUpon>PersonalInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\PersonalInfo.aspx.designer.cs">
+      <DependentUpon>PersonalInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>
@@ -919,6 +945,7 @@
   <ItemGroup>
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
+    <Folder Include="HR\ClaimAttachments\" />
     <Folder Include="js\" />
     <Folder Include="LeaveManagement\LeaveAttachment\" />
     <Folder Include="less\" />
