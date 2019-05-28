@@ -284,6 +284,7 @@ namespace DataAccess.HR
                             user.IsLoginActive = (dr["IsLoginActive"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsLoginActive"].ToString());
                             user.IsPasswordChangeRequired = (dr["IsPasswordChangeRequired"] == DBNull.Value) ? false : Convert.ToBoolean(dr["IsPasswordChangeRequired"].ToString());
                             user.Image = (dr["Image"] == DBNull.Value) ? "" : dr["Image"].ToString();
+                            user.GenderId = (dr["GenderId"] == DBNull.Value) ? 0 : Convert.ToInt32(dr["GenderId"].ToString());
                         }
 
                         con.Close();
@@ -439,6 +440,30 @@ namespace DataAccess.HR
                     cmd.Parameters.AddWithValue("@LinkedDeviceId", linkedDeviceId);
 
                     cmd.CommandType = CommandType.StoredProcedure;
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Employee_Update(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_Employee_Update";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@EmployeeMasterId", employeeMaster.EmployeeMasterId);
+                    if (employeeMaster.Image == "")
+                        cmd.Parameters.AddWithValue("@Image", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Image", employeeMaster.Image);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

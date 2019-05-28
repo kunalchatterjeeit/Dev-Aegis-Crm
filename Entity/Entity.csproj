@@ -49,6 +49,7 @@
     <Compile Include="Common\Auth.cs" />
     <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Common\City.cs" />
+    <Compile Include="Common\PlaceholderTypeEnum.cs" />
     <Compile Include="Common\ContractType.cs" />
     <Compile Include="Common\CryptographyMode.cs" />
     <Compile Include="Common\DashboardEvent.cs" />
@@ -61,6 +62,10 @@
     <Compile Include="Common\QuarterlyEnum.cs" />
     <Compile Include="Common\SalesLinkType.cs" />
     <Compile Include="HR\Attendance.cs" />
+    <Compile Include="HR\Claim.cs" />
+    <Compile Include="HR\ClaimCategoryEnum.cs" />
+    <Compile Include="HR\ClaimDetails.cs" />
+    <Compile Include="HR\ClaimStatusEnum.cs" />
     <Compile Include="HR\EmployeeHolidayProfileMapping.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\Holiday.cs" />

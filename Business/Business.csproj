@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ApplicationConfiguration.cs" />
     <Compile Include="Common\ApplicationModules.cs" />
     <Compile Include="Common\ExtensionHelper.cs" />
     <Compile Include="Common\GlobalCache.cs" />
@@ -63,13 +64,16 @@
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Common\Login.cs" />
     <Compile Include="Common\MailFunctionality.cs" />
+    <Compile Include="Common\PageContent.cs" />
     <Compile Include="Common\PdfConverter.cs" />
     <Compile Include="Common\Settings.cs" />
     <Compile Include="Common\SettingsConfigurationSection.cs" />
+    <Compile Include="Communication\Placeholder.cs" />
     <Compile Include="Customer\Contract.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAddress.cs" />
     <Compile Include="Customer\CustomerContactDetails.cs" />
+    <Compile Include="HR\Claim.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
     <Compile Include="HR\Attendance.cs" />
