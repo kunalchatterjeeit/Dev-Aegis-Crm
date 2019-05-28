@@ -98,6 +98,7 @@
     <Compile Include="Purchase\PurchaseRequisition.cs" />
     <Compile Include="Purchase\Vendor.cs" />
     <Compile Include="Sales\Account.cs" />
+    <Compile Include="Sales\Assignment.cs" />
     <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Sales\Calls.cs" />
     <Compile Include="Sales\CallStatus.cs" />
