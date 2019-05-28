@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .button {
+            border-radius: 4px;
+            background-color: #f4511e;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 12px;
+            padding: 16px;
+            width: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+            .button span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+
+                .button span:after {
+                    content: '\00bb';
+                    position: absolute;
+                    opacity: 0;
+                    top: 0;
+                    right: -20px;
+                    transition: 0.5s;
+                }
+
+            .button:hover span {
+                padding-right: 25px;
+            }
+
+                .button:hover span:after {
+                    opacity: 1;
+                    right: 0;
+                }
+    </style>
+</head>
+<body>
+    <div style='width: 99%; font-family:Verdana; color: #565656; margin:10px; font-size:10pt'>
+        <center>
+            <img src='http://aegiscrm.in/images/Aegis_CRM.png' alt='AEGIS CRM' height="70px" />
+            <h2>Aegis Customer Relationship Management</h2><br />
+        </center>
+        Date:- {{CURRENT_DATE}}<br /><br />
+        Dear {{USER_NAME}},<br /><br />
+
+        Your personal email verification is pending. Click the button below to confirm your email address.<br /><br />
+        <button class="button"><span>Validate your email </span></button>
+        <br /><br />
+        
+        If you're having trouble clicking the above button, copy and paste the below link into your web browser.<br />
+        {{PERSONAL_EMAIL_VERIFICATION_LINK}}<br /><br />
+
+        If you did not request a email update, please ignore this email or reply to complaint@aegissolutions.in  and let us know.
+        This password reset is only valid for next 30 minutes.<br /><br />
+
+        Thanks,<br />
+        Aegis CRM Team<br /><br />
+
+        Click to login into portal <a href='http://aegiscrm.in'>http://aegiscrm.in/</a><br /><br />
+        <hr />
+        <center style='color:#C68E17'>*** This is system generated mail. Please do not reply. ***</center>
+    </div>
+</body>
+</html>

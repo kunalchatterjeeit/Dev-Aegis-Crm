@@ -15,6 +15,7 @@ namespace WebAppAegisCRM
 
             lblUsername.Text = Business.Common.Context.Username;
             imgUserImage.Src = "HR\\EmployeeImage\\" + Business.Common.Context.Image;
+            imgUserImage.Attributes.Add("sex", Business.Common.Context.UserGender.ToString());
 
             Attendance_GetByEmployeeId();
 

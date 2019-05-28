@@ -29,6 +29,20 @@
             newWindow = window.open('ViewEmoployeeDetails.aspx?ID=' + Id + '', '_blank', 'location=yes,height=600,width=1000,scrollbars=yes,status=yes');
             return true;
         }
+
+        $(window).load(function () {
+            $('img').each(function () {
+                if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                    // image was broken, replace with your new image
+                    if (this.getAttribute("sex") == "Male")
+                        this.src = '/Images/male-avatar.png';
+                    else if (this.getAttribute("sex") == "Female")
+                        this.src = '/Images/female-avatar.jpg';
+                    else
+                        this.src = '/Images/male-avatar.png';
+                }
+            });
+        });
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -289,7 +303,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField>
                                             <ItemTemplate>
-                                                <img src='<%# Eval("Image") %>' alt="Not found" width="100px" />
+                                                <img src='<%# Eval("Image") %>' alt="Not found" width="100px" sex='<%# Eval("GenderId") %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Code" DataField="EmployeeCode" />

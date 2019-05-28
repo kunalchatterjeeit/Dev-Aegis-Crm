@@ -52,10 +52,12 @@
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Common\City.cs" />
     <Compile Include="Common\Login.cs" />
+    <Compile Include="Communication\Placeholder.cs" />
     <Compile Include="Customer\Contract.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAddress.cs" />
     <Compile Include="Customer\CustomerContactDetails.cs" />
+    <Compile Include="HR\Claim.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
     <Compile Include="HR\Attendance.cs" />

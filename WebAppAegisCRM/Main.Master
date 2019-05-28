@@ -55,28 +55,6 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
 
-
-        //gps location
-        //$(function () {
-        //    navigator.geolocation.getCurrentPosition(function (position) {
-        //        setLocation(position);
-        //    });
-        //});
-
-        function setLocation(position) {
-            //$("#location").html(
-            //    'latitude: ' + position.coords.latitude
-            //    + ' longitude: ' + position.coords.longitude
-            //    + ' altitude: ' + position.coords.altitude
-            //    + ' accuracy: ' + position.coords.accuracy
-            //    + ' altitudeAccuracy: ' + position.coords.altitudeAccuracy
-            //    + ' heading: ' + position.coords.heading
-            //    + ' speed: ' + position.coords.speed)
-            //$("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&latitude=" + position.coords.latitude);
-            //$("#lnkAttendaceLogin").attr("href", $("#lnkAttendaceLogin").attr("href") + "&longitude=" + position.coords.longitude);
-            //$("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&latitude=" + position.coords.latitude);
-            //$("#lnkAttendaceLogout").attr("href", $("#lnkAttendaceLogout").attr("href") + "&longitude=" + position.coords.longitude);
-        }
     </script>
     <script type="text/javascript">
         $(function () {
@@ -103,6 +81,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <%--DateTime picker related End--%>
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#imgUserImage').each(function () {
+                if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                    // image was broken, replace with your new image
+                    if (this.getAttribute("sex") == "Male")
+                        this.src = '/Images/male-avatar.png';
+                    else if (this.getAttribute("sex") == "Female")
+                        this.src = '/Images/female-avatar.jpg';
+                    else
+                        this.src = '/Images/male-avatar.png';
+                }
+            });
+        });
+    </script>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -284,6 +278,9 @@
                         <span id="lblLoyalityPoint" runat="server" style="color:#2aaf2a!important; font-weight:bold"></span> <b class="caret"></b>
                     </a>
                         <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="../HR/PersonalInfo.aspx"><i class="fa fa-fw fa-user"></i> User Profile</a>
+                            </li>
                             <li class="dropdown-item">
                                 <a href="../HR/IndividualLoyalityPoint.aspx"><i class="fa fa-fw fa-puzzle-piece"></i> Loyality Point List</a>
                             </li>

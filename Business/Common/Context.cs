@@ -237,11 +237,11 @@ namespace Business.Common
         {
             get
             {
-                return (HttpContext.Current.Session["Username"] != null) ? HttpContext.Current.Session["Username"].ToString() : string.Empty;
+                return (HttpContext.Current.Cache["Username"] != null) ? HttpContext.Current.Cache["Username"].ToString() : string.Empty;
             }
             set
             {
-                HttpContext.Current.Session["Username"] = value;
+                HttpContext.Current.Cache["Username"] = value;
             }
         }
 
@@ -249,11 +249,35 @@ namespace Business.Common
         {
             get
             {
-                return (HttpContext.Current.Session["Image"] != null) ? HttpContext.Current.Session["Image"].ToString() : string.Empty;
+                return (HttpContext.Current.Cache["Image"] != null) ? HttpContext.Current.Cache["Image"].ToString() : string.Empty;
             }
             set
             {
-                HttpContext.Current.Session["Image"] = value;
+                HttpContext.Current.Cache["Image"] = value;
+            }
+        }
+
+        public static int UserGender
+        {
+            get
+            {
+                return (HttpContext.Current.Cache["UserGender"] != null) ? Convert.ToInt16(HttpContext.Current.Cache["UserGender"]) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Cache["UserGender"] = value;
+            }
+        }
+
+        public static DataTable ClaimDetails
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ClaimDetails"] != null) ? (DataTable)HttpContext.Current.Session["ClaimDetails"] : new DataTable();
+            }
+            set
+            {
+                HttpContext.Current.Session["ClaimDetails"] = value;
             }
         }
     }

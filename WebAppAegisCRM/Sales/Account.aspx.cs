@@ -101,6 +101,20 @@ namespace WebAppAegisCRM.Sales
                 SetCreateLinks();
             }
         }
+
+        private void LoadAssginments()
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            if (dt != null)
+            {
+                gvAssignedEmployee.DataSource = dt;
+            }
+            gvAssignedEmployee.DataBind();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)

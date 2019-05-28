@@ -88,5 +88,10 @@ namespace Business.HR
         {
             return DataAccess.HR.EmployeeMaster.LiknedDevices_Delete(linkedDeviceId);
         }
+
+        public int Employee_Update(Entity.HR.EmployeeMaster employeeMaster)
+        {
+            return DataAccess.HR.EmployeeMaster.Employee_Update(employeeMaster);
+        }
     }
 }
