@@ -395,11 +395,6 @@ namespace WebAppAegisCRM.Sales
             }
         }
 
-        protected void gvAssignedEmployee_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-
-        }
-
         protected void chkAssigned_CheckedChanged(object sender, EventArgs e)
         {
             try
