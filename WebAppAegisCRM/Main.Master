@@ -56,7 +56,7 @@
         })();
 
     </script>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         $(function () {
             startTime();
         });
@@ -75,7 +75,7 @@
             if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
             return i;
         }
-    </script>
+    </script>--%>
 
     <%--DateTime picker related--%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
@@ -260,8 +260,8 @@
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>--%>
-                <li id="liClock" runat="server" style="color:#23527C" class="dropdown glyphicon">
-                </li>
+                <%--<li id="liClock" runat="server" style="color:#23527C" class="dropdown glyphicon">
+                </li>--%>
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
