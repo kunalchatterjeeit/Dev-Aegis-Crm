@@ -120,6 +120,80 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
+                            <a id="hrefAssigned" data-toggle="collapse" data-parent="#accordion" href="#section6" title="Click to expand">
+                                <i class="fa fa-chevron-down fa-fw"></i>Assigned To
+                            </a>
+                            <asp:LinkButton ID="btnCreateEmployee" runat="server" CssClass="pull-right" Enabled="false">Create New</asp:LinkButton>
+                        </div>
+                        <div class="panel-collapse collapse out" id="section6">
+                            <div class="panel-body">
+                                <div class="table-responsive" style="height: 20vh; overflow: scroll">
+                                    <center>
+                                        <asp:GridView ID="gvAssignedEmployee" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                            GridLines="None" AllowPaging="false" DataKeyNames="EmployeeMasterId" OnRowDataBound="gvAssignedEmployee_RowDataBound" CellPadding="0" CellSpacing="0" ForeColor="#333333">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="SL" ItemStyle-Width="25px">
+                                                    <ItemTemplate>
+                                                        <%#Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="25px">
+                                                    <HeaderTemplate>
+                                                        Assign
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="chkAssigned" runat="server" OnCheckedChanged="chkAssigned_CheckedChanged" AutoPostBack="true" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="25px">
+                                                    <HeaderTemplate>
+                                                        Lead
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:RadioButton ID="rbtnIsLead" runat="server" OnCheckedChanged="rbtnIsLead_CheckedChanged" AutoPostBack="true" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Assign Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# (Eval("AssignedDate")==null)?"":Convert.ToDateTime(Eval("AssignedDate").ToString()).ToString("dd MMM yyyy") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Revoke Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# (Eval("RevokeDate")==null)?"":Convert.ToDateTime(Eval("RevokeDate").ToString()).ToString("dd MMM yyyy") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                LastPageText="Last" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
                             <a data-toggle="collapse" data-parent="#accordion" href="#section4" title="Click to expand">
                                 <i class="fa fa-chevron-down fa-fw"></i>Calls List
                             </a>
@@ -455,8 +529,10 @@
                     loadForm();
                 });
                 function loadForm() {
-                    if ($('#hdnOpenForm').val() == "true")
+                    if ($('#hdnOpenForm').val() == "true") {
                         $('#hrefForm').click();
+                        $('#hrefAssigned').click();
+                    }
                 }
                 Sys.Application.add_load(loadForm);
             </script>

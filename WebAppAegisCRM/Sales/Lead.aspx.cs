@@ -62,6 +62,13 @@ namespace WebAppAegisCRM.Sales
             gvTasks.DataSource = Obj.GetAllTasks(Param);
             gvTasks.DataBind();
         }
+        private void LoadAssginments()
+        {
+            Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+            Entity.Sales.GetAssignmentParam Param = new Entity.Sales.GetAssignmentParam { ActivityId = LeadId, ActivityTypeId = Convert.ToInt32(ActityType.Lead) };
+            gvAssignedEmployee.DataSource = Obj.GetAllAssignments(Param);
+            gvAssignedEmployee.DataBind();
+        }
         private void PopulateItems()
         {
             if (LeadId == 0)
@@ -82,6 +89,7 @@ namespace WebAppAegisCRM.Sales
                 LoadMeetingList();
                 LoadNotesList();
                 LoadTaskList();
+                LoadAssginments();
                 SetCreateLinks();
             }
         }
@@ -373,6 +381,98 @@ namespace WebAppAegisCRM.Sales
                     Message.Text = "Data Dependency Exists";
                 }
                 Message.Show = true;
+            }
+        }
+        protected void chkAssigned_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Entity.Sales.AssignmentAllocation Model = new Entity.Sales.AssignmentAllocation();
+                Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+                CheckBox checkBox = (CheckBox)sender;
+                GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+                if (checkBox.Checked)
+                {
+                    Model.ActivityId = LeadId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Lead);
+                    Model.IsActive = true;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                    Model.IsLead = null;
+                    Model.AssignedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    Model.RevokedBy = null;
+                }
+                else
+                {
+                    Model.ActivityId = LeadId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Lead);
+                    Model.IsActive = false;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                    Model.IsLead = null;
+                    Model.AssignedBy = null;
+                    Model.RevokedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                }
+                int a = Obj.AssignmentAllocation(Model);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
+        }
+        protected void gvAssignedEmployee_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    CheckBox chkAssigned = (CheckBox)e.Row.FindControl("chkAssigned");
+                    RadioButton rbtnIsLead = (RadioButton)e.Row.FindControl("rbtnIsLead");
+                    chkAssigned.Checked = ((List<Entity.Sales.GetAssignment>)gvAssignedEmployee.DataSource)[e.Row.RowIndex].IsActive.GetValueOrDefault();
+                    rbtnIsLead.Checked = ((List<Entity.Sales.GetAssignment>)gvAssignedEmployee.DataSource)[e.Row.RowIndex].IsLead.GetValueOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
+        }
+        protected void rbtnIsLead_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //Clear the existing selected row 
+                foreach (GridViewRow oldrow in gvAssignedEmployee.Rows)
+                {
+                    ((RadioButton)oldrow.FindControl("rbtnIsLead")).Checked = false;
+                }
+
+                //Set the new selected row
+                RadioButton rb = (RadioButton)sender;
+                GridViewRow row = (GridViewRow)rb.NamingContainer;
+                if (((CheckBox)row.FindControl("chkAssigned")).Checked)
+                {
+                    ((RadioButton)row.FindControl("rbtnIsLead")).Checked = true;
+                    Entity.Sales.AssignmentAllocation Model = new Entity.Sales.AssignmentAllocation();
+                    Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+                    Model.ActivityId = LeadId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Lead);
+                    Model.IsActive = false;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[row.RowIndex].Values[0].ToString());
+                    Model.IsLead = true;
+                    Model.AssignedBy = null;
+                    Model.RevokedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    int a = Obj.AssignmentAllocation(Model);
+                }
+                else
+                {
+                    ((RadioButton)row.FindControl("rbtnIsLead")).Checked = false;
+                    Message.IsSuccess = false;
+                    Message.Text = "Please select an employee to assign";
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
             }
         }
     }
