@@ -20,7 +20,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = AccountId,
@@ -32,7 +33,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadMeetingList()
         {
             Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam {
+            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = AccountId,
@@ -44,7 +46,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadNotesList()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam {
+            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam
+            {
                 LinkId = AccountId,
                 LinkType = SalesLinkType.Account
             };
@@ -54,7 +57,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadTaskList()
         {
             Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam {
+            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = AccountId,
@@ -92,14 +96,9 @@ namespace WebAppAegisCRM.Sales
 
         private void LoadAssginments()
         {
-            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
-            employeeMaster.CompanyId_FK = 1;
-            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
-            if (dt != null)
-            {
-                gvAssignedEmployee.DataSource = dt;
-            }
+            Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+            Entity.Sales.GetAssignmentParam Param = new Entity.Sales.GetAssignmentParam { ActivityId = AccountId, ActivityTypeId = Convert.ToInt32(ActityType.Account) };
+            gvAssignedEmployee.DataSource = Obj.GetAllAssignments(Param);
             gvAssignedEmployee.DataBind();
         }
 
@@ -133,7 +132,6 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
             Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
             gvAccounts.DataSource = Obj.GetAllAccounts(Param);
             gvAccounts.DataBind();
         }
@@ -404,21 +402,95 @@ namespace WebAppAegisCRM.Sales
 
         protected void chkAssigned_CheckedChanged(object sender, EventArgs e)
         {
-
+            try
+            {
+                Entity.Sales.AssignmentAllocation Model = new Entity.Sales.AssignmentAllocation();
+                Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+                CheckBox checkBox = (CheckBox)sender;
+                GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+                if (checkBox.Checked)
+                {
+                    Model.ActivityId = AccountId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Account);
+                    Model.IsActive = true;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                    Model.IsLead = null;
+                    Model.AssignedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    Model.RevokedBy = null;
+                }
+                else
+                {
+                    Model.ActivityId = AccountId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Account);
+                    Model.IsActive = false;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                    Model.IsLead = null;
+                    Model.AssignedBy = null;
+                    Model.RevokedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                }
+                int a = Obj.AssignmentAllocation(Model);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
         }
-
+        protected void gvAssignedEmployee_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {                    
+                    CheckBox chkAssigned = (CheckBox)e.Row.FindControl("chkAssigned");
+                    RadioButton rbtnIsLead = (RadioButton)e.Row.FindControl("rbtnIsLead");
+                    chkAssigned.Checked = ((List<Entity.Sales.GetAssignment>)gvAssignedEmployee.DataSource)[e.Row.RowIndex].IsActive.GetValueOrDefault();
+                    rbtnIsLead.Checked = ((List<Entity.Sales.GetAssignment>)gvAssignedEmployee.DataSource)[e.Row.RowIndex].IsLead.GetValueOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
+        }
         protected void rbtnIsLead_CheckedChanged(object sender, EventArgs e)
         {
-            //Clear the existing selected row 
-            foreach (GridViewRow oldrow in gvAssignedEmployee.Rows)
+            try
             {
-                ((RadioButton)oldrow.FindControl("rbtnIsLead")).Checked = false;
-            }
+                //Clear the existing selected row 
+                foreach (GridViewRow oldrow in gvAssignedEmployee.Rows)
+                {
+                    ((RadioButton)oldrow.FindControl("rbtnIsLead")).Checked = false;
+                }
 
-            //Set the new selected row
-            RadioButton rb = (RadioButton)sender;
-            GridViewRow row = (GridViewRow)rb.NamingContainer;
-            ((RadioButton)row.FindControl("rbtnIsLead")).Checked = true;
+                //Set the new selected row
+                RadioButton rb = (RadioButton)sender;
+                GridViewRow row = (GridViewRow)rb.NamingContainer;
+                if (((CheckBox)row.FindControl("chkAssigned")).Checked)
+                {
+                    ((RadioButton)row.FindControl("rbtnIsLead")).Checked = true;
+                    Entity.Sales.AssignmentAllocation Model = new Entity.Sales.AssignmentAllocation();
+                    Business.Sales.Assignment Obj = new Business.Sales.Assignment();
+                    Model.ActivityId = AccountId;
+                    Model.ActivityTypeId = Convert.ToInt32(ActityType.Account);
+                    Model.IsActive = false;
+                    Model.EmployeeId = Convert.ToInt32(gvAssignedEmployee.DataKeys[row.RowIndex].Values[0].ToString());
+                    Model.IsLead = true;
+                    Model.AssignedBy = null;
+                    Model.RevokedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    int a = Obj.AssignmentAllocation(Model);
+                }
+                else
+                {
+                    ((RadioButton)row.FindControl("rbtnIsLead")).Checked = false;
+                    Message.IsSuccess = false;
+                    Message.Text = "Please select an employee to assign";
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
         }
     }
 }

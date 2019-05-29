@@ -130,7 +130,7 @@
                                 <div class="table-responsive" style="height: 20vh; overflow: scroll">
                                     <center>
                                         <asp:GridView ID="gvAssignedEmployee" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                            GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" ForeColor="#333333" OnRowCommand="gvAssignedEmployee_RowCommand">
+                                            GridLines="None" AllowPaging="false" DataKeyNames="EmployeeMasterId" OnRowDataBound="gvAssignedEmployee_RowDataBound" CellPadding="0" CellSpacing="0" ForeColor="#333333" OnRowCommand="gvAssignedEmployee_RowCommand">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="SL" ItemStyle-Width="25px">
                                                     <ItemTemplate>
@@ -151,6 +151,22 @@
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
                                                         <asp:RadioButton ID="rbtnIsLead" runat="server" OnCheckedChanged="rbtnIsLead_CheckedChanged" AutoPostBack="true" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                 <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Assign Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# (Eval("AssignedDate")==null)?"":Convert.ToDateTime(Eval("AssignedDate").ToString()).ToString("dd MMM yyyy") %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                 <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        Revoke Date
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# (Eval("RevokeDate")==null)?"":Convert.ToDateTime(Eval("RevokeDate").ToString()).ToString("dd MMM yyyy") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
