@@ -34,6 +34,7 @@ namespace WebAppAegisCRM
         {
             return Request.Headers["User-Agent"].ToString();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             

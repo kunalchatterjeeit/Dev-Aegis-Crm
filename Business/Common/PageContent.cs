@@ -22,6 +22,7 @@ namespace Business.Common
             // we're simply building our HTTP request to shoot off to google...
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.AutomaticDecompression = DecompressionMethods.GZip;
+            request.UserAgent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
 
             // Right now... this is what our HTTP Request has been built in to...
             /*

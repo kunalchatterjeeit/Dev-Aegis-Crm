@@ -237,11 +237,11 @@ namespace Business.Common
         {
             get
             {
-                return (HttpContext.Current.Cache["Username"] != null) ? HttpContext.Current.Cache["Username"].ToString() : string.Empty;
+                return (HttpContext.Current.Session["Username"] != null) ? HttpContext.Current.Session["Username"].ToString() : string.Empty;
             }
             set
             {
-                HttpContext.Current.Cache["Username"] = value;
+                HttpContext.Current.Session["Username"] = value;
             }
         }
 
@@ -249,11 +249,11 @@ namespace Business.Common
         {
             get
             {
-                return (HttpContext.Current.Cache["Image"] != null) ? HttpContext.Current.Cache["Image"].ToString() : string.Empty;
+                return (HttpContext.Current.Session["Image"] != null) ? HttpContext.Current.Session["Image"].ToString() : string.Empty;
             }
             set
             {
-                HttpContext.Current.Cache["Image"] = value;
+                HttpContext.Current.Session["Image"] = value;
             }
         }
 
@@ -261,11 +261,11 @@ namespace Business.Common
         {
             get
             {
-                return (HttpContext.Current.Cache["UserGender"] != null) ? Convert.ToInt16(HttpContext.Current.Cache["UserGender"]) : 0;
+                return (HttpContext.Current.Session["UserGender"] != null) ? Convert.ToInt16(HttpContext.Current.Session["UserGender"]) : 0;
             }
             set
             {
-                HttpContext.Current.Cache["UserGender"] = value;
+                HttpContext.Current.Session["UserGender"] = value;
             }
         }
 
