@@ -13,9 +13,10 @@ namespace WebAppAegisCRM
             if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/MainLogout.aspx");
 
-            lblUsername.Text = Business.Common.Context.Username;
-            imgUserImage.Src = "HR\\EmployeeImage\\" + Business.Common.Context.Image;
-            imgUserImage.Attributes.Add("sex", Business.Common.Context.UserGender.ToString());
+            lblUsername.Text = (string.IsNullOrEmpty(lblUsername.Text.Trim())) ? Business.Common.Context.Username : lblUsername.Text.Trim();
+            imgUserImage.Src = "HR\\EmployeeImage\\" + ((string.IsNullOrEmpty(imgUserImage.Src)) ? Business.Common.Context.Image : imgUserImage.Src);
+            if (string.IsNullOrEmpty(imgUserImage.Src))
+                imgUserImage.Attributes.Add("sex", Business.Common.Context.UserGender.ToString());
 
             Attendance_GetByEmployeeId();
 

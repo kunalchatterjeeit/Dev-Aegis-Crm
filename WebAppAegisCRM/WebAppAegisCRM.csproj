@@ -690,6 +690,17 @@
     <Compile Include="Sales\Opportunity.aspx.designer.cs">
       <DependentUpon>Opportunity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\SaleChallan.aspx.designer.cs">
+      <DependentUpon>SaleChallan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sale\SaleChallanList.aspx.cs">
+      <DependentUpon>SaleChallanList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Sale\SaleChallanList.aspx.designer.cs">
       <DependentUpon>SaleChallanList.aspx</DependentUpon>
     </Compile>
