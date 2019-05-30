@@ -690,6 +690,13 @@
     <Compile Include="Sales\Opportunity.aspx.designer.cs">
       <DependentUpon>Opportunity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sale\AssetSelection.aspx.cs">
+      <DependentUpon>AssetSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sale\AssetSelection.aspx.designer.cs">
+      <DependentUpon>AssetSelection.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sale\SaleChallan.aspx.cs">
       <DependentUpon>SaleChallan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
