@@ -85,6 +85,7 @@
                             </div>
                             <div class="col-lg-1">
                                 <div class="form-group">
+                                    <br />
                                     <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />
                                 </div>
                             </div>

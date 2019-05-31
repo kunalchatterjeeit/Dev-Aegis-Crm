@@ -133,7 +133,7 @@ namespace WebAppAegisCRM.ControlPanel
                 {
                     Entity.Service.ServiceCallAttendance serviceCallAttendance = new Entity.Service.ServiceCallAttendance();
 
-                    GridViewRow gvCallAttendanceRow = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                    GridViewRow gvCallAttendanceRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
 
                     TextBox txtInDate = (TextBox)gvCallAttendanceRow.FindControl("txtInDate");
                     DropDownList ddlInTimeHH = (DropDownList)gvCallAttendanceRow.FindControl("ddlInTimeHH");

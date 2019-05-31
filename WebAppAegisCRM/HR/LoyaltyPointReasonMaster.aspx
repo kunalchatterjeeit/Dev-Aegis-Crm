@@ -80,21 +80,20 @@
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Designation" DataField="DesignationName" />
                                     <asp:BoundField HeaderText="Reason" DataField="Reason" />
-                                    <asp:TemplateField ShowHeader="false" HeaderStyle-Width="25px">
-                                        <ItemTemplate>
-                                            <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="Ed"
-                                                ImageUrl="~/Images/edit_button.png" ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px"
-                                                Height="20px" CommandArgument='<%# Eval("LoyaltyPointReasonId") %>' />
-                                        </ItemTemplate>
-                                        <HeaderStyle Width="25px"></HeaderStyle>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderStyle-Width="25px">
-                                        <ItemTemplate>
-                                            <asp:ImageButton ID="btnDelete" runat="server" CommandName="Del" ImageUrl="~/Images/delete_button.png"
-                                                Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("LoyaltyPointReasonId") %>' />
-                                        </ItemTemplate>
-                                        <HeaderStyle Width="25px"></HeaderStyle>
-                                    </asp:TemplateField>
+                                    
+                                    <asp:TemplateField ItemStyle-Width="15px">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("LoyaltyPointReasonId") %>' Style="font-size: 16px;"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                    CommandName="Del" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                    CommandArgument='<%# Eval("LoyaltyPointReasonId") %>'></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                 </Columns>
                                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                 <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

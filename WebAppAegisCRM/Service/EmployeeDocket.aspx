@@ -183,14 +183,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <div class="form-group has-error">
+                                    <div class="form-group" style="border:none">
                                         Time :
-                                        <div class="form-control">
-                                            <asp:DropDownList ID="ddlTimeHH" runat="server">
+                                        <div class="form-control" style="border:none">
+                                            <asp:DropDownList ID="ddlTimeHH" runat="server" Style="border-color: #F9625F; margin-top:-4px; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                             </asp:DropDownList>
-                                            <asp:DropDownList ID="ddlTimeMM" runat="server">
+                                            <asp:DropDownList ID="ddlTimeMM" runat="server" Style="border-color: #F9625F; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                             </asp:DropDownList>
-                                            <asp:DropDownList ID="ddlTimeTT" runat="server">
+                                            <asp:DropDownList ID="ddlTimeTT" runat="server" Style="border-color: #F9625F; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                 <asp:ListItem Value="AM" Text="AM"></asp:ListItem>
                                                 <asp:ListItem Value="PM" Text="PM"></asp:ListItem>
                                             </asp:DropDownList>

@@ -389,7 +389,7 @@
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         Select Associated Engineers:
-                                        <div style="height: 30vh; overflow: scroll">
+                                        <div style="height: 30vh; width: 100%; overflow: scroll">
                                             <asp:GridView ID="gvAssociatedEngineers" DataKeyNames="EmployeeMasterId" runat="server"
                                                 AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                                 class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvAssociatedEngineers_RowDataBound">
@@ -414,15 +414,15 @@
                                                             In Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border: none; background: #fff; width: 60px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedInDate" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px; background: #fff; width: 80px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtAssociatedInDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
-                                                            <asp:DropDownList ID="ddlAssociatedInTimeHH" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedInTimeHH" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
-                                                            <asp:DropDownList ID="ddlAssociatedInTimeMM" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedInTimeMM" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
-                                                            <asp:DropDownList ID="ddlAssociatedInTimeTT" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedInTimeTT" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
@@ -431,15 +431,15 @@
                                                             Out Time
                                                         </HeaderTemplate>
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border: none; background: #fff; width: 60px" disabled></asp:TextBox>
+                                                            <asp:TextBox ID="txtAssociatedOutDate" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px; background: #fff; width: 80px" disabled></asp:TextBox>
                                                             <asp:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtAssociatedOutDate"
                                                                 Format="dd MMM yyyy" Enabled="True">
                                                             </asp:CalendarExtender>
-                                                            <asp:DropDownList ID="ddlAssociatedOutTimeHH" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedOutTimeHH" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
-                                                            <asp:DropDownList ID="ddlAssociatedOutTimeMM" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedOutTimeMM" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
-                                                            <asp:DropDownList ID="ddlAssociatedOutTimeTT" runat="server">
+                                                            <asp:DropDownList ID="ddlAssociatedOutTimeTT" runat="server" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;">
                                                             </asp:DropDownList>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>

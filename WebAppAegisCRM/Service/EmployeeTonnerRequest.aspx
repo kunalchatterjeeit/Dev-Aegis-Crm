@@ -185,7 +185,7 @@
                                                 <asp:TemplateField>
                                                     <HeaderTemplate>Quantity</HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1"></asp:TextBox>
+                                                        <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group has-error">
-                                        Last A3 B/W Meter Reading:
+                                        Last A3 B/W Reading:
                                         <asp:Label ID="lblA3BWLastMeterReading" runat="server" CssClass="form-control"></asp:Label>
                                     </div>
                                 </div>

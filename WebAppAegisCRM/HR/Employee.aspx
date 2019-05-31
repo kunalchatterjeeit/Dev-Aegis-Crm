@@ -313,25 +313,28 @@
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnRemoveMobile" runat="server" class="fa fa-android fa-fw" CommandName="RemoveMobile" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("LinkedDeviceId") %>' Visible='<%# (Eval("LinkedDeviceId")==DBNull.Value)? false : true %>' ToolTip="Remove Linked Mobile"></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("LinkedDeviceId") %>' 
+                                                    Visible='<%# (Eval("LinkedDeviceId")==DBNull.Value)? false : true %>' 
+                                                    ToolTip="Remove Linked Mobile"  Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="btnSettings" runat="server" class="fa fa-leaf fa-fw" CommandName="Leave" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Leave Settings"></asp:LinkButton>
+                                                <asp:LinkButton ID="btnSettings" runat="server" class="fa fa-leaf fa-fw" CommandName="Leave" 
+                                                    CausesValidation="false" CommandArgument='<%# Eval("EmployeeMasterId") %>' 
+                                                    ToolTip="Leave Settings"  Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="E" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Edit"></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Edit"  Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false" ToolTip="Delete"
-                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');"  Style="font-size: 16px;margin-top:-3px" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

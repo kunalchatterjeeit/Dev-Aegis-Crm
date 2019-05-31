@@ -96,20 +96,18 @@
                                     <asp:BoundField HeaderText="City" DataField="CityName" />
                                     <asp:BoundField HeaderText="District" DataField="DistrictName" />
                                     <asp:BoundField HeaderText="STD" DataField="STD" />
-                                    <asp:TemplateField ShowHeader="false" HeaderStyle-Width="25px">
+                                    <asp:TemplateField ItemStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="Ed"
-                                                ImageUrl="~/Images/edit_button.png" ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px"
-                                                Height="20px" CommandArgument='<%# Eval("CityId") %>' />
+                                            <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                CommandArgument='<%# Eval("CityId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                         </ItemTemplate>
-                                        <HeaderStyle Width="25px"></HeaderStyle>
                                     </asp:TemplateField>
-                                    <asp:TemplateField HeaderStyle-Width="25px">
+                                    <asp:TemplateField ItemStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="btnDelete" runat="server" CommandName="Del" ImageUrl="~/Images/delete_button.png"
-                                                Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("CityId") %>' />
+                                            <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                CommandName="Del" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                CommandArgument='<%# Eval("CityId") %>'></asp:LinkButton>
                                         </ItemTemplate>
-                                        <HeaderStyle Width="25px"></HeaderStyle>
                                     </asp:TemplateField>
                                 </Columns>
                                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />

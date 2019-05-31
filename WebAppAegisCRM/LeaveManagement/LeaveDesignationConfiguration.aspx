@@ -107,18 +107,18 @@
                                         <asp:BoundField DataField="CarryForwardCount" HeaderText="Carry Forward Count" />
                                         <asp:BoundField DataField="MinApplyDays" HeaderText="Min Apply Days" />
                                         <asp:BoundField DataField="MaxApplyDays" HeaderText="Max Apply Days" />
-                                        <asp:TemplateField>
+                                      
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/Images/edit_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="E" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>' ImageUrl="~/images/delete_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
+                                                <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                    CommandArgument='<%# Eval("LeaveDesignationConfigId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

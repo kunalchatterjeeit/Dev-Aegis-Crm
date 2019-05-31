@@ -189,20 +189,19 @@
                                                     CommandName="Address">Add Address</asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/Images/edit_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Edit" Width="20px" Height="20px" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
-                                        <asp:TemplateField>
-                                            <ItemTemplate>
-                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("CustomerMasterId") %>' ImageUrl="~/images/delete_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are you sure?');" />
-                                            </ItemTemplate>
-                                        </asp:TemplateField>
+                                   
+                                         <asp:TemplateField ItemStyle-Width="15px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="E" CausesValidation="false"
+                                                        CommandArgument='<%# Eval("CustomerMasterId") %>' Style="font-size: 16px;"></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField ItemStyle-Width="15px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                        CommandName="D" Style="font-size: 16px;" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("CustomerMasterId") %>'></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                     </Columns>
                                     <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                     <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

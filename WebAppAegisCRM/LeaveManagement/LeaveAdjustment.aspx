@@ -55,10 +55,11 @@
                                         <asp:BoundField HeaderText="Designation" DataField="DesignationName" />
                                         <asp:BoundField HeaderText="Mobile" DataField="PersonalMobileNo" />
                                         <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
-                                        <asp:TemplateField>
+                                      
+                                         <asp:TemplateField ItemStyle-Width="25px">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="lnk" runat="server" CommandArgument='<%# Eval("EmployeeMasterId") %>'
-                                                    CommandName="Leave">Update</asp:LinkButton>
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Leave" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

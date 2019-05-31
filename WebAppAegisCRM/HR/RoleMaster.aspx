@@ -7,8 +7,8 @@
     <script type="text/javascript">
         function Validation() {
             if (!checkforvaliddata(eval('document.forms[0].' + '<%=txtRole.ClientID%>'), "Role Name", 1)) return false;
-        return true;
-    }
+            return true;
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -44,8 +44,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            
+        <div class="col-lg-12">
+            <div class="panel panel-default">
                 <div class="panel-heading">
                     Role List
                 </div>
@@ -63,14 +63,15 @@
                                     <asp:BoundField DataField="RoleName" HeaderText="Role" />
                                     <asp:TemplateField ItemStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"
-                                                Width="15px" Height="15px" CommandArgument='<%# Eval("RoleId") %>' />
+                                            <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                CommandArgument='<%# Eval("RoleId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField ItemStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/Images/delete_button.png"
-                                                CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("RoleId") %>' />
+                                            <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                CommandName="Del" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                CommandArgument='<%# Eval("RoleId") %>'></asp:LinkButton>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                 </Columns>
@@ -93,5 +94,6 @@
                 </div>
             </div>
         </div>
-    
+    </div>
+
 </asp:Content>

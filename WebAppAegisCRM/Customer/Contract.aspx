@@ -80,13 +80,12 @@
                                     </asp:TemplateField>
                                     <asp:BoundField HeaderText="Contract Type" DataField="ContractName" />
                                     <asp:BoundField HeaderText="Description" DataField="Description" />
-                                    <asp:TemplateField ShowHeader="false" HeaderStyle-Width="25px">
+                                  
+                                    <asp:TemplateField ItemStyle-Width="15px">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="Ed"
-                                                ImageUrl="~/Images/edit_button.png" ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px"
-                                                Height="20px" CommandArgument='<%# Eval("ContractTypeId") %>' />
+                                            <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                CommandArgument='<%# Eval("ContractTypeId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                         </ItemTemplate>
-                                        <HeaderStyle Width="25px"></HeaderStyle>
                                     </asp:TemplateField>
                                 </Columns>
                                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />

@@ -44,7 +44,7 @@
                             <asp:TemplateField>
                                 <HeaderTemplate>Quantity</HeaderTemplate>
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1"></asp:TextBox>
+                                    <asp:TextBox ID="txtRequisiteQty" runat="server" TextMode="Number" Text="1" Style="border-color: #CCCCCC; line-height: 1.42857143; height: 30px; padding: 0px 6px;"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

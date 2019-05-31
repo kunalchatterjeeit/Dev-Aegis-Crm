@@ -33,17 +33,17 @@
                                 <asp:BoundField HeaderText="Email" DataField="MailID" />
                                 <asp:BoundField HeaderText="City" DataField="CityName" />
                                 <asp:BoundField HeaderText="Status" DataField="Status" />
-                                <asp:TemplateField>
+                              
+                                <asp:TemplateField ItemStyle-Width="15px">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="Edit"
-                                            ImageUrl="~/Images/edit_button.png" ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px"
-                                            Height="20px" />
+                                        <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Edit" CausesValidation="false"
+                                            Style="font-size: 16px;"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderStyle-Width="25px">
+                                <asp:TemplateField ItemStyle-Width="15px">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="btnDelete" runat="server" CommandName="Delete" ImageUrl="~/Images/delete_button.png"
-                                            Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
+                                        <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                            CommandName="Delete" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"></asp:LinkButton>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>

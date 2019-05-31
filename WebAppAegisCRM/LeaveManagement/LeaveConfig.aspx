@@ -41,7 +41,7 @@
                                     <div class="form-group has-error">
                                         Leave Frequency
                                          <asp:DropDownList ID="ddlLeaveFrequency" CssClass="form-control" runat="server">
-                                        </asp:DropDownList>
+                                         </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -98,18 +98,18 @@
                                         <asp:BoundField DataField="LeaveAccrueDate" HeaderText="Leave Accure Date" />
                                         <asp:BoundField DataField="LeaveFrequency" HeaderText="Leave Frequency" />
                                         <asp:BoundField DataField="Encashable" HeaderText="Encashable" />
-                                        <asp:TemplateField>
+
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/Images/edit_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="E" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:ImageButton ID="ImgDelete" runat="server" CausesValidation="false" CommandName="D"
-                                                    CommandArgument='<%# Eval("LeaveConfigId") %>' ImageUrl="~/images/delete_button.png"
-                                                    ImageAlign="AbsMiddle" ToolTip="Delete" Width="20px" Height="20px" OnClientClick="return confirm('Are You Sure?');" />
+                                                <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                    CommandArgument='<%# Eval("LeaveConfigId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

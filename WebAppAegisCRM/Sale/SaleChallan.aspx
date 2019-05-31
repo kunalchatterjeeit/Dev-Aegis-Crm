@@ -11,7 +11,7 @@
 
     <script type="text/javascript">
         function ValidationSubmit() {
-            
+
         }
         function ValidationItemAdd() {
             if (document.getElementById("<%=ddlItem.ClientID %>").value == '0') {
@@ -179,13 +179,13 @@
                                                     <asp:BoundField HeaderText="Rate" DataField="Rate" />
                                                     <asp:BoundField HeaderText="GST" DataField="GST" />
                                                     <asp:BoundField HeaderText="HSN Code" DataField="HSNCode" />
-                                                    <asp:TemplateField>
+                                                 
+                                                    <asp:TemplateField ItemStyle-Width="15px">
                                                         <ItemTemplate>
-                                                            <asp:ImageButton ID="btnDelete" runat="server" CommandName="D" ImageUrl="~/Images/delete_button.png"
-                                                                CommandArgument='<%#Eval("ItemIdType") %>' Width="20px" Height="20px"
-                                                                OnClientClick="return confirm('Are You Sure?');" />
+                                                            <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                                CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                                CommandArgument='<%# Eval("ItemIdType") %>'></asp:LinkButton>
                                                         </ItemTemplate>
-                                                        <HeaderStyle Width="25px" />
                                                     </asp:TemplateField>
                                                 </Columns>
                                                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
@@ -210,7 +210,7 @@
                                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-outline btn-success" OnClientClick="return ValidationSubmit();" OnClick="btnSubmit_Click" />
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <uc3:Message ID="Message" runat="server" />

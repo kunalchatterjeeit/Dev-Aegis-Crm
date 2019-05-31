@@ -78,16 +78,18 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="HolidayProfileName" HeaderText="Holiday Profile" />
                                             <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
+                                            
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <asp:ImageButton ID="btnEdit" runat="server" ImageUrl="~/Images/edit_button.png" CommandName="Ed"
-                                                        Width="15px" Height="15px" CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>' />
+                                                    <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                        CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <asp:ImageButton ID="btnDelete" runat="server" ImageUrl="~/Images/delete_button.png"
-                                                        CommandName="Del" Width="15px" Height="15px" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>' />
+                                                    <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                        CommandName="Del" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                        CommandArgument='<%# Eval("EmployeeHolidayProfileMappingId") %>'></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>

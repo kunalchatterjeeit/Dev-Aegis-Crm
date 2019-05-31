@@ -113,7 +113,7 @@
                                         <asp:TemplateField ItemStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnSaleDetails" runat="server" ToolTip="View details" class="fa fa-eye fa-fw" CommandName="SaleDetails" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("SaleChallanId") %>'></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("SaleChallanId") %>' Style="font-size: 14px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
