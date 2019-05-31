@@ -44,7 +44,7 @@ namespace DataAccess.Customer
             return rowsAffacted;
         }
 
-        public static DataSet GetAllCustomer(Entity.Customer.Customer customer)
+        public static DataSet Customer_GetAll(Entity.Customer.Customer customer)
         {
             using (DataSet ds = new DataSet())
             {

@@ -93,3 +93,23 @@ $(window).load(function () {
         $('.fancyTab a', this).height(highestBox / 1.3);
     });
 });
+
+function GetAutoCompleteCustomer(obj) {
+    $(obj).autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: "../WebServices/InternalServices.asmx/LoadAutoCompleteCustomer",
+                data: "{'searchContent':'" + obj.value + "'}",
+                dataType: "json",
+                success: function (data) {
+                    response(data.d);
+                },
+                error: function (result) {
+                    alert(result.responseText);
+                }
+            });
+        }
+    });
+}

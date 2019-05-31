@@ -4,6 +4,11 @@
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../js/AutoComplete/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/AutoComplete/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../dist/js/custom.js"></script>
+
     <script type="text/javascript">
         function ValidationSubmit() {
             if (document.getElementById("<%=ddlChallanType.ClientID %>").value == '0') {
@@ -59,6 +64,19 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        Customer
+                                <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        Note
+                                <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         Challan No.

@@ -33,5 +33,21 @@ namespace WebAppAegisCRM.WebServices
             result = dtAssets.AsEnumerable().Select(x => x[1].ToString()).ToList();
             return result;
         }
+
+        [WebMethod]
+        public List<string> LoadAutoCompleteCustomer(string searchContent)
+        {
+            List<string> result = new List<string>();
+            DataTable dtCustomer = GlobalCache.ExecuteCache<DataTable>(typeof(Business.Customer.Customer), "Customer_GetAll", new Entity.Customer.Customer());
+
+            using (DataView dvCustomers = new DataView(dtCustomer))
+            {
+                dvCustomers.RowFilter = "CustomerName LIKE '%" + searchContent + "%'";
+                dtCustomer = dvCustomers.ToTable();
+            }
+            result = dtCustomer.AsEnumerable().Select(x => x[2].ToString()).ToList();
+
+            return result;
+        }
     }
 }

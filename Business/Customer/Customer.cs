@@ -17,7 +17,12 @@ namespace Business.Customer
 
         public DataSet GetAllCustomer(Entity.Customer.Customer customer)
         {
-            return DataAccess.Customer.Customer.GetAllCustomer(customer);
+            return DataAccess.Customer.Customer.Customer_GetAll(customer);
+        }
+
+        public static DataTable Customer_GetAll(Entity.Customer.Customer customer)
+        {
+            return DataAccess.Customer.Customer.Customer_Customer_GetByAssignEngineerId(customer);
         }
 
         public DataTable Customer_Customer_GetByAssignEngineerId(Entity.Customer.Customer customer)
