@@ -14,6 +14,9 @@ namespace Entity.Sale
             SaleChallanDetailsCollection = new Collection<SaleChallanDetails>();
         }
         public int SaleChallanId { get; set; }
+        public long CustomerMasterId { get; set; }
+        public string CustomerName { get; set; }
+        public string Note { get; set; }
         public string ChallanNo { get; set; }
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }

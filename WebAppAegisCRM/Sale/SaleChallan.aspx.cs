@@ -90,6 +90,30 @@ namespace WebAppAegisCRM.Sale
         {
             bool retValue = true;
 
+            if (GetCustomerIdByName(txtCustomerName.Text.Trim()) == 0)
+            {
+                retValue = false;
+                Message.Text = "Something went wrong! Customer ID not found. Please select customer from list while typing.";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+
+            if (retValue && string.IsNullOrEmpty(txtCustomerName.Text.Trim()))
+            {
+                retValue = false;
+                Message.Text = "Please select customer name";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+
+            if (retValue && string.IsNullOrEmpty(txtChallanNo.Text.Trim()))
+            {
+                retValue = false;
+                Message.Text = "Please enter challan no.";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+
             if (retValue && string.IsNullOrEmpty(txtOrderDate.Text.Trim()))
             {
                 retValue = false;
@@ -172,6 +196,32 @@ namespace WebAppAegisCRM.Sale
             txtHsnCode.Text = string.Empty;
             //_ItemsList = null;
             ddlItem.Focus();
+        }
+
+        private long GetCustomerIdByName(string name)
+        {
+            long retValue = 0;
+            try
+            {
+                DataTable dtCustomer = GlobalCache.ExecuteCache<DataTable>(typeof(Business.Customer.Customer), "Customer_GetAll", new Entity.Customer.Customer());
+
+                using (DataView dvCustomers = new DataView(dtCustomer))
+                {
+                    dvCustomers.RowFilter = "CustomerName = '" + name + "'";
+                    dtCustomer = dvCustomers.ToTable();
+                    if (dtCustomer == null || dtCustomer.Rows.Count == 0)
+                        throw new Exception("Something went wrong! Customer ID not found.");
+                }
+                retValue = Convert.ToInt64(dtCustomer.AsEnumerable().Select(x => x[0].ToString()).ToList().FirstOrDefault());           
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+            return retValue;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -272,13 +322,20 @@ namespace WebAppAegisCRM.Sale
                     Entity.Inventory.Inventory inventory = new Entity.Inventory.Inventory();
                     Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
 
+                    saleChallan.CustomerMasterId = GetCustomerIdByName(txtCustomerName.Text.Trim());
+                    saleChallan.Note = txtNote.Text.Trim();
                     saleChallan.ChallanNo = (!string.IsNullOrEmpty(txtChallanNo.Text.Trim())) ? txtChallanNo.Text.Trim() : string.Empty;
                     saleChallan.OrderNo = (!string.IsNullOrEmpty(txtOrderNo.Text.Trim())) ? txtOrderNo.Text.Trim() : string.Empty;
                     saleChallan.OrderDate = (!string.IsNullOrEmpty(txtOrderDate.Text.Trim())) ? Convert.ToDateTime(txtOrderDate.Text.Trim()) : DateTime.MinValue;
                     saleChallan.CallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
                     saleChallan.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
                     int saleChallanId = objSaleChallan.SaleChallan_Save(saleChallan);
-                    int purchaseDetailsResponse = SaveSaleChallanDetails(saleChallan, objSaleChallan, saleChallanId);
+                    
+                    int purchaseDetailsResponse = 0;
+                    if (saleChallanId > 0)
+                        purchaseDetailsResponse = SaveSaleChallanDetails(saleChallan, objSaleChallan, saleChallanId);
+                    else
+                        throw new Exception("Something went wrong! Sale challan master value not inserted.");
 
                     if (purchaseDetailsResponse > 0)
                     {

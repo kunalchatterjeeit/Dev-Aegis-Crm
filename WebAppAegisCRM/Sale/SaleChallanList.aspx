@@ -30,6 +30,12 @@
                         <div class="panel-body">
                             <div class="col-lg-3">
                                 <div class="form-group">
+                                    Customer Name :
+                                <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
                                     Challan No :
                                 <asp:TextBox ID="txtChallanNo" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
@@ -69,6 +75,7 @@
                             </div>
                             <div class="col-lg-1">
                                 <div class="form-group">
+                                    <br />
                                     <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />
                                 </div>
                             </div>
@@ -86,7 +93,7 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvSale" DataKeyNames="SaleChallanId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
-                                    class="table table-striped" GridLines="None" Style="text-align: left" 
+                                    class="table table-striped" GridLines="None" Style="text-align: left"
                                     PageSize="20" AllowPaging="true" OnPageIndexChanging="gvSale_PageIndexChanging"
                                     OnRowCommand="gvSale_RowCommand">
                                     <Columns>
@@ -98,14 +105,15 @@
                                                 <%# Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
                                         <asp:BoundField HeaderText="Challan No" DataField="ChallanNo" />
                                         <asp:BoundField HeaderText="Order No" DataField="OrderNo" />
                                         <asp:BoundField HeaderText="Order Date" DataField="OrderDate" />
                                         <asp:BoundField HeaderText="Sale Date" DataField="SaleDate" />
-                                        <asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="25px">
                                             <ItemTemplate>
-                                                <asp:Button ID="btnSaleDetails" runat="server" Text="Details" CommandName="SaleDetails" class="btn btn-outline btn-success"
-                                                    CommandArgument='<%# Eval("SaleChallanId") %>' />
+                                                <asp:LinkButton ID="btnSaleDetails" runat="server" ToolTip="View details" class="fa fa-eye fa-fw" CommandName="SaleDetails" CausesValidation="false"
+                                                    CommandArgument='<%# Eval("SaleChallanId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

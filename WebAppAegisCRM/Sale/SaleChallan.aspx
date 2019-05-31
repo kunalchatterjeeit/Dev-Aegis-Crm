@@ -5,17 +5,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../js/AutoComplete/jquery-ui.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>
+    <%--<script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>--%>
     <script type="text/javascript" src="../js/AutoComplete/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../dist/js/custom.js"></script>
 
     <script type="text/javascript">
         function ValidationSubmit() {
-            if (document.getElementById("<%=ddlChallanType.ClientID %>").value == '0') {
-                alert('Please select challan type');
-                document.getElementById("<%=ddlChallanType.ClientID %>").focus();
-                return false;
-            }
+            
         }
         function ValidationItemAdd() {
             if (document.getElementById("<%=ddlItem.ClientID %>").value == '0') {
@@ -59,26 +55,21 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Customer
-                                <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
+                                        <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         Note
-                                <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtNote" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-3">
-                                    <div class="form-group">
+                                    <div class="form-group has-error">
                                         Challan No.
                                 <asp:TextBox ID="txtChallanNo" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
@@ -218,6 +209,11 @@
                                     <div class="form-group">
                                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-outline btn-success" OnClientClick="return ValidationSubmit();" OnClick="btnSubmit_Click" />
                                     </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <uc3:Message ID="Message" runat="server" />
                                 </div>
                             </div>
                         </div>

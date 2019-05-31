@@ -107,12 +107,13 @@ namespace WebAppAegisCRM.Sales
             if (!IsPostBack)
             {
                 Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadAccountsDropdowns();
+                LoadCustomerType();
+                LoadLeadSource();
                 LoadAccountList();
                 Message.Show = false;
             }
         }
-        private void LoadAccountsDropdowns()
+        private void LoadCustomerType()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
 
@@ -121,13 +122,19 @@ namespace WebAppAegisCRM.Sales
             ddlCustomerType.DataValueField = "Id";
             ddlCustomerType.DataBind();
             ddlCustomerType.InsertSelect();
+        }
 
+        private void LoadLeadSource()
+        {
+            Business.Sales.Account Obj = new Business.Sales.Account();
+            
             ddlLeadSource.DataSource = Obj.GetLeadSource();
             ddlLeadSource.DataTextField = "Name";
             ddlLeadSource.DataValueField = "Id";
             ddlLeadSource.DataBind();
             ddlLeadSource.InsertSelect();
         }
+
         private void LoadAccountList()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();

@@ -53,32 +53,52 @@ namespace WebAppAegisCRM.Sales
         }
         private void LoadCallsDropdowns()
         {
-            Business.Sales.Calls Obj = new Business.Sales.Calls();
+            LoadCallDirection();
+            LoadCallRelatedTo();
+            LoadCallRepeatType();
+            LoadCallStatus();
+        }
 
+        private void LoadCallDirection()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
             ddlCallDirection.DataSource = Obj.GetCallDirection();
             ddlCallDirection.DataTextField = "Name";
             ddlCallDirection.DataValueField = "Id";
             ddlCallDirection.DataBind();
             ddlCallDirection.InsertSelect();
+        }
 
-            ddlCallRelatedTo.DataSource = Obj.GetCallRelated();
-            ddlCallRelatedTo.DataTextField = "Name";
-            ddlCallRelatedTo.DataValueField = "Id";
-            ddlCallRelatedTo.DataBind();
-            ddlCallRelatedTo.InsertSelect();
-
-            ddlCallRepeatType.DataSource = Obj.GetCallRepeatType();
-            ddlCallRepeatType.DataTextField = "Name";
-            ddlCallRepeatType.DataValueField = "Id";
-            ddlCallRepeatType.DataBind();
-            ddlCallRepeatType.InsertSelect();
-
+        private void LoadCallStatus()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
             ddlCallStatus.DataSource = Obj.GetCallStatus();
             ddlCallStatus.DataTextField = "Name";
             ddlCallStatus.DataValueField = "Id";
             ddlCallStatus.DataBind();
             ddlCallStatus.InsertSelect();
         }
+
+        private void LoadCallRelatedTo()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
+            ddlCallRelatedTo.DataSource = Obj.GetCallRelated();
+            ddlCallRelatedTo.DataTextField = "Name";
+            ddlCallRelatedTo.DataValueField = "Id";
+            ddlCallRelatedTo.DataBind();
+            ddlCallRelatedTo.InsertSelect();
+        }
+
+        private void LoadCallRepeatType()
+        {
+            Business.Sales.Calls Obj = new Business.Sales.Calls();
+            ddlCallRepeatType.DataSource = Obj.GetCallRepeatType();
+            ddlCallRepeatType.DataTextField = "Name";
+            ddlCallRepeatType.DataValueField = "Id";
+            ddlCallRepeatType.DataBind();
+            ddlCallRepeatType.InsertSelect();
+        }
+
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();

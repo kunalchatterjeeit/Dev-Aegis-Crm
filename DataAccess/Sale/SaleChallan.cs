@@ -22,6 +22,16 @@ namespace DataAccess.Sale
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@SaleChallanId", saleChallan.SaleChallanId).Direction = ParameterDirection.InputOutput;
+                    cmd.Parameters.AddWithValue("@CustomerMasterId", saleChallan.CustomerMasterId);
+
+                    if (saleChallan.Note != string.Empty)
+                    {
+                        cmd.Parameters.AddWithValue("@Note", saleChallan.Note);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@Note", DBNull.Value);
+                    }
                     if (saleChallan.ChallanNo != string.Empty)
                     {
                         cmd.Parameters.AddWithValue("@ChallanNo", saleChallan.ChallanNo);
@@ -55,6 +65,11 @@ namespace DataAccess.Sale
                     cmd.ExecuteNonQuery();
                     purchaseId = Convert.ToInt32(cmd.Parameters["@SaleChallanId"].Value);
                     con.Close();
+
+                    if (!string.IsNullOrEmpty(cmd.Parameters["@Error"].Value.ToString()))
+                    {
+                        throw new Exception(cmd.Parameters["@Error"].Value.ToString());
+                    }
                 }
             }
             return purchaseId;
@@ -105,6 +120,14 @@ namespace DataAccess.Sale
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Sale_Challan_GetAll";
+                        if (!string.IsNullOrEmpty(saleChallan.CustomerName))
+                        {
+                            cmd.Parameters.AddWithValue("@CustomerName", saleChallan.CustomerName);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
+                        }
                         if (!string.IsNullOrEmpty(saleChallan.ChallanNo))
                         {
                             cmd.Parameters.AddWithValue("@ChallanNo", saleChallan.ChallanNo);

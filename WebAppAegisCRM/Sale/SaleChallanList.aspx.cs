@@ -14,6 +14,7 @@ namespace WebAppAegisCRM.Sale
         {
             Business.Sale.SaleChallan objSaleChallan = new Business.Sale.SaleChallan();
             Entity.Sale.SaleChallan saleChallan = new Entity.Sale.SaleChallan();
+            saleChallan.CustomerName = txtCustomerName.Text.Trim();
             saleChallan.ChallanNo = txtChallanNo.Text.Trim();
             saleChallan.OrderNo = txtOrderNo.Text.Trim();
             saleChallan.OrderFromDate = (string.IsNullOrEmpty(txtSaleFromDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtSaleFromDate.Text.Trim());
