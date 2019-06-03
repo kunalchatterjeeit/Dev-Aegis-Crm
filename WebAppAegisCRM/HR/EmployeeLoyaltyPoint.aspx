@@ -85,7 +85,7 @@
                                 <asp:GridView ID="gvEmployeePoint" DataKeyNames="LoyaltyId" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="True" PageSize="20"
                                     class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeePoint_RowCommand"
-                                    OnRowDataBound="gvEmployeePoint_RowDataBound">
+                                    OnRowDataBound="gvEmployeePoint_RowDataBound" OnPageIndexChanging="gvEmployeePoint_PageIndexChanging">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAegisCRM", "WebAppAegisCRM\WebAppAegisCRM.csproj", "{97A2972C-7547-4776-8F62-502ED9796582}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessEntity", "DataAccessEntity\DataAccessEntity.csproj", "{81918A95-109E-41CF-A1DF-EB2BDA664604}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAppAegisCRM", "ApiAppAegisCRM\ApiAppAegisCRM.csproj", "{AE9CA169-F2CA-4AC7-8467-12FC1296EBB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppAegisCRM", "ConsoleAppAegisCRM\ConsoleAppAegisCRM.csproj", "{71F95502-89FF-4989-8AD9-7508EC61F007}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{AE9CA169-F2CA-4AC7-8467-12FC1296EBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE9CA169-F2CA-4AC7-8467-12FC1296EBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE9CA169-F2CA-4AC7-8467-12FC1296EBB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F95502-89FF-4989-8AD9-7508EC61F007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F95502-89FF-4989-8AD9-7508EC61F007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F95502-89FF-4989-8AD9-7508EC61F007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F95502-89FF-4989-8AD9-7508EC61F007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
