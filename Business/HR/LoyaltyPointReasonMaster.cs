@@ -12,7 +12,7 @@ namespace Business.HR
         {
             return DataAccess.HR.LoyaltyPointReasonMaster.Save(city);
         }
-        public DataTable GetAll(Entity.HR.LoyaltyPointReasonMaster city)
+        public static DataTable GetAll(Entity.HR.LoyaltyPointReasonMaster city)
         {
             return DataAccess.HR.LoyaltyPointReasonMaster.GetAll(city);
         }

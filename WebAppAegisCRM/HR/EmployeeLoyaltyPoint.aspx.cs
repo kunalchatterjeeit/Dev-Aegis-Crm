@@ -57,8 +57,7 @@ namespace WebAppAegisCRM.HR
         }
         protected void LoadLoyaltyPointReasonMaster(DropDownList ddlReason, int designationId)
         {
-            Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
-            DataTable dt = objLoyaltyPointReasonMaster.GetAll(new Entity.HR.LoyaltyPointReasonMaster());
+            DataTable dt = GlobalCache.ExecuteCache<DataTable>(typeof(Business.HR.LoyaltyPointReasonMaster), "GetAll", new Entity.HR.LoyaltyPointReasonMaster());
             using (DataView dv = new DataView(dt))
             {
                 dv.RowFilter = "DesignationMasterId = " + designationId + "";
@@ -90,7 +89,7 @@ namespace WebAppAegisCRM.HR
 
                 Entity.HR.EmployeeLoyaltyPoint employeeLoyaltyPoint = new Entity.HR.EmployeeLoyaltyPoint();
 
-                GridViewRow gvEmployeePoint = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                GridViewRow gvEmployeePoint = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
 
                 DropDownList ddlLaoyalPointReason = (DropDownList)gvEmployeePoint.FindControl("ddlLaoyalPointReason");
                 TextBox txtPoint = (TextBox)gvEmployeePoint.FindControl("txtPoint");
@@ -162,6 +161,12 @@ namespace WebAppAegisCRM.HR
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            EmployeeLoyaltyPoint_GetAll();
+        }
+
+        protected void gvEmployeePoint_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvEmployeePoint.PageIndex = e.NewPageIndex;
             EmployeeLoyaltyPoint_GetAll();
         }
     }

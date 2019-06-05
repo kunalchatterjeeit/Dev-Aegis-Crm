@@ -40,8 +40,7 @@ namespace WebAppAegisCRM.HR
 
         protected void LoadLoyaltyPointReasonMaster()
         {
-            Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
-            DataTable dt = objLoyaltyPointReasonMaster.GetAll(new Entity.HR.LoyaltyPointReasonMaster());
+            DataTable dt = Business.HR.LoyaltyPointReasonMaster.GetAll(new Entity.HR.LoyaltyPointReasonMaster());
 
             gvLoyaltyReason.DataSource = dt;
             gvLoyaltyReason.DataBind();

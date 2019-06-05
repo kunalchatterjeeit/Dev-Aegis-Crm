@@ -83,9 +83,9 @@
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <asp:GridView ID="gvEmployeePoint" DataKeyNames="LoyaltyId" runat="server"
-                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="True" PageSize="20"
+                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="False" PageSize="20"
                                     class="table table-striped" GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeePoint_RowCommand"
-                                    OnRowDataBound="gvEmployeePoint_RowDataBound">
+                                    OnRowDataBound="gvEmployeePoint_RowDataBound" OnPageIndexChanging="gvEmployeePoint_PageIndexChanging">
                                     <Columns>
                                         <asp:TemplateField>
                                             <HeaderTemplate>
@@ -115,14 +115,14 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-edit fa-fw" CommandName="Ed" CausesValidation="false"
+                                                <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-save fa-fw" CommandName="E" CausesValidation="false"
                                                     CommandArgument='<%# Eval("EmployeeMasterId") %>' Style="font-size: 16px;margin-top:7px"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
-                                                    CommandName="Del" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;margin-top:5px"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;margin-top:5px"
                                                     CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
