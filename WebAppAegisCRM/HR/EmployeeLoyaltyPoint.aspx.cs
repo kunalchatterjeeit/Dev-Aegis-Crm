@@ -57,8 +57,7 @@ namespace WebAppAegisCRM.HR
         }
         protected void LoadLoyaltyPointReasonMaster(DropDownList ddlReason, int designationId)
         {
-            Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
-            DataTable dt = objLoyaltyPointReasonMaster.GetAll(new Entity.HR.LoyaltyPointReasonMaster());
+            DataTable dt = GlobalCache.ExecuteCache<DataTable>(typeof(Business.HR.LoyaltyPointReasonMaster), "GetAll", new Entity.HR.LoyaltyPointReasonMaster());
             using (DataView dv = new DataView(dt))
             {
                 dv.RowFilter = "DesignationMasterId = " + designationId + "";
