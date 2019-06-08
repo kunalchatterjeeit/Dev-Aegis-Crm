@@ -280,5 +280,17 @@ namespace Business.Common
                 HttpContext.Current.Session["ClaimDetails"] = value;
             }
         }
+
+        public static int EmployeeId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["EmployeeId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["EmployeeId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["EmployeeId"] = value;
+            }
+        }
     }
 }

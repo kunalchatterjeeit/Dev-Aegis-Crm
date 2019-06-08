@@ -31,13 +31,13 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form2;
         
         /// <summary>
-        /// ScriptManager1 control.
+        /// ToolkitScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
         /// UpdateProgress1 control.
@@ -58,13 +58,13 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// lblNewPassword control.
+        /// Panel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNewPassword;
+        protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
         /// txtNewPassword control.
@@ -74,15 +74,6 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
-        
-        /// <summary>
-        /// lblReNewPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblReNewPassword;
         
         /// <summary>
         /// txtReNewPassword control.
@@ -112,15 +103,6 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator Regex5;
         
         /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMessage;
-        
-        /// <summary>
         /// btnChange control.
         /// </summary>
         /// <remarks>
@@ -128,5 +110,14 @@ namespace WebAppAegisCRM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnChange;
+        
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblMessage;
     }
 }

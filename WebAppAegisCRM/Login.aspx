@@ -17,11 +17,23 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="dist/css/custom-login.css" rel="Stylesheet" />
-
+    <link href="dist/css/custom03052019.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form2" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+         <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
+        <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
+            <ProgressTemplate>
+                <div class="divWaiting">
+                    <div class="loading">
+                        <%--<div class="loading-bar"></div>
+                        <div class="loading-bar"></div>
+                        <div class="loading-bar"></div>
+                        <div class="loading-bar"></div>--%>
+                    </div>
+                </div>
+            </ProgressTemplate>
+        </asp:UpdateProgress>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <div class="bg-image"></div>

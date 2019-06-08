@@ -97,15 +97,15 @@
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Name" DataField="EmployeeName" />
                                         <asp:BoundField HeaderText="Designation" DataField="DesignationName" />
-                                        <asp:TemplateField HeaderText="Call Status">
+                                        <asp:TemplateField HeaderText="Call Status" ItemStyle-Width="150px">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlLaoyalPointReason" CssClass="form-control" runat="server">
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="Point">
+                                        <asp:TemplateField HeaderText="Point" ItemStyle-Width="60px">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="txtPoint" runat="server" CssClass="form-control" TextMode="Number" MaxLength="4" Width="100px"></asp:TextBox>
+                                                <asp:TextBox ID="txtPoint" runat="server" CssClass="form-control" TextMode="Number" MaxLength="4" Width="60px"></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Note">

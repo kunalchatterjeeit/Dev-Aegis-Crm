@@ -214,25 +214,6 @@ namespace Business.Common
 
         }
 
-        public static string EncryptQueryStringSafe(this string clearText)
-        {
-            byte[] plaintextBytes = Encoding.UTF8.GetBytes(clearText);
-            string EncryptionKey = (string)(new AppSettingsReader()).GetValue("HashKey", typeof(String));
-            //---- Encrypt text.
-            string encryptedValue = Convert.ToBase64String(MachineKey.Protect(plaintextBytes, EncryptionKey));
-            //--- URL encode to make encrypted value URL compatible.
-            encryptedValue = HttpUtility.UrlEncode(encryptedValue);
-            return encryptedValue;
-        }
-
-        public static string DecryptQueryStringSafe(this string cipherText)
-        {
-            var bytes = Convert.FromBase64String(cipherText);
-            string EncryptionKey = (string)(new AppSettingsReader()).GetValue("HashKey", typeof(String));
-            var output = MachineKey.Unprotect(bytes, EncryptionKey);
-            return Encoding.UTF8.GetString(output);
-        }
-
         public static string EncodePasswordToBase64(this string password)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(password);
