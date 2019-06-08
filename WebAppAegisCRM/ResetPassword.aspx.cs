@@ -30,7 +30,9 @@ namespace WebAppAegisCRM
                 {
                     Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                     Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
-                    employeeMaster.EmployeeMasterId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    employeeMaster.EmployeeMasterId = (Business.Common.Context.EmployeeId == 0) ?
+                        Convert.ToInt32(HttpContext.Current.User.Identity.Name) :
+                        Business.Common.Context.EmployeeId;
                     employeeMaster.Password = txtNewPassword.Text.Trim().EncodePasswordToBase64();
                     int employeeId = 0;
                     employeeId = objEmployeeMaster.HR_PasswordReset_Save(employeeMaster);

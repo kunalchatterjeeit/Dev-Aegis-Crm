@@ -1,5 +1,16 @@
-﻿<%@ Page Title="VALIDATE LINK" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ValidateLink.aspx.cs" Inherits="WebAppAegisCRM.ValidateLink" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-</asp:Content>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ValidateLink.aspx.cs" Inherits="WebAppAegisCRM.ValidateLink" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>VALIDATE LINK</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    
+    </div>
+    </form>
+</body>
+</html>
