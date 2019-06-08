@@ -15,6 +15,15 @@ namespace WebAppAegisCRM
                 string dcr = enc.DecryptQueryString();
 
                 string[] info = dcr.Split('&');
+
+                string timestamp = info.Where(p => p.Contains("Timestamp")).FirstOrDefault();
+                timestamp = timestamp.Split('=')[1];
+                if (DateTime.FromFileTime(Convert.ToInt64(timestamp)).AddMinutes(30) < DateTime.Now)
+                {
+                    Response.Write("Link expired...");
+                    return;
+                }
+
                 string source = info.Where(p => p.Contains("Source")).FirstOrDefault();
 
                 switch (source.Split('=')[1])
