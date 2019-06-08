@@ -70,6 +70,7 @@
                                     <div class="form-group">
                                         <asp:Button ID="btnUserLogin" runat="server" Text="Login" OnClick="btnUserLogin_Click" CssClass="btnSubmit" />
                                     </div>
+                                    <a href="ForgotPassword.aspx" style="color:white">Forgot password</a>
                                 </asp:Panel>
                                 <span id="lblUserMessage" runat="server" style="color: white"></span>
                             </div>

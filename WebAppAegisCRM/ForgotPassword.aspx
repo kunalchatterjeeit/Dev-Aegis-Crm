@@ -54,6 +54,7 @@
                                     <div class="form-group">
                                         <asp:Button ID="btnValidate" runat="server" Text="Validate" OnClick="btnValidate_Click" CssClass="btnSubmit" />
                                     </div>
+                                    <a href="Login.aspx" style="color:white">Login</a>
                                 </asp:Panel>
                                 <span id="lblUserMessage" runat="server" style="color: white"></span>
                             </div>
