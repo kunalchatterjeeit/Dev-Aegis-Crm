@@ -28,7 +28,7 @@ namespace WebAppAegisCRM
 
                 if (dtValidate != null && dtValidate.Rows.Count > 0)
                 {
-                    validationLink = string.Concat("EmployeeId=", dtValidate.Rows[0]["EmployeeMasterId"].ToString(), "&Email=", txtEmailId.Text.Trim(), "&UserName=", txtUserName.Text.Trim(), "&Source=ForgotPassword");
+                    validationLink = string.Concat("EmployeeId=", dtValidate.Rows[0]["EmployeeMasterId"].ToString(), "&Email=", txtEmailId.Text.Trim(), "&UserName=", txtUserName.Text.Trim(), "&Timestamp=", DateTime.Now.ToFileTime(), "&Source=ForgotPassword");
 
                     validationLink = "http://" + HttpContext.Current.Request.Url.Authority + "/ValidateLinks.aspx?enc=" + validationLink.EncryptQueryString();
 
