@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleAppAegisCRM
@@ -10,13 +11,20 @@ namespace ConsoleAppAegisCRM
     {
         static void Main(string[] args)
         {
-            Logger logger = new Logger();
-            logger.WriteLog(PrepareLogging());
+            try
+            {
+               
+            }
+            catch (Exception ex)
+            {
+                ILogger logger = new TextFileLogger();
+                logger.WriteLog(ex.Message);
+            }
         }
 
-        private static string PrepareLogging()
+        private static string PrepareLogging(string rawContent)
         {
-            return "Working2";
+            return rawContent;
         }
     }
 }

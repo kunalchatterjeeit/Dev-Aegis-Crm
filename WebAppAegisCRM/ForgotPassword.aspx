@@ -36,6 +36,9 @@
                                         <asp:TextBox ID="txtUserName" runat="server" class="form-control" placeholder="Your Username *"></asp:TextBox>
                                     </div>
                                     <div class="form-group">
+                                        <asp:TextBox ID="txtEmailId" runat="server" class="form-control" placeholder="Your Email Id *" TextMode="Email"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
                                         <asp:Button ID="btnValidate" runat="server" Text="Validate" OnClick="btnValidate_Click" CssClass="btnSubmit" />
                                     </div>
                                 </asp:Panel>

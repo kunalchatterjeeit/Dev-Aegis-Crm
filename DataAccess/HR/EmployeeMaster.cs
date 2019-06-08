@@ -427,6 +427,30 @@ namespace DataAccess.HR
             }
         }
 
+        public static DataTable ValidateForgotPassword(string userName, string emailId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_HR_ValidateForgotPassword";
+                        cmd.Parameters.AddWithValue("@EmailId", emailId);
+                        cmd.Parameters.AddWithValue("@UserName", userName);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
         public static int LiknedDevices_Delete(int linkedDeviceId)
         {
             int rowsAffacted = 0;
