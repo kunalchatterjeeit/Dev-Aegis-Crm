@@ -30,7 +30,7 @@ namespace WebAppAegisCRM
                 {
                     validationLink = string.Concat("EmployeeId=", dtValidate.Rows[0]["EmployeeMasterId"].ToString(), "&Email=", txtEmailId.Text.Trim(), "&UserName=", txtUserName.Text.Trim(), "&Source=ForgotPassword");
 
-                    validationLink = "http://" + HttpContext.Current.Request.Url.Authority + "/ValidateLink.aspx?enc=" + validationLink.EncryptQueryString();
+                    validationLink = "http://" + HttpContext.Current.Request.Url.Authority + "/ValidateLinks.aspx?enc=" + validationLink.EncryptQueryString();
 
                     SendEmailValidationLink(txtEmailId.Text.Trim(), dtValidate.Rows[0]["EmployeeName"].ToString(), validationLink);
                     lblUserMessage.InnerText = "Validation link is sent to your office email id.";
