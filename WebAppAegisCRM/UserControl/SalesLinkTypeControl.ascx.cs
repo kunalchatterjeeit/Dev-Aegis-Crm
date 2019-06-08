@@ -14,7 +14,7 @@ namespace WebAppAegisCRM.UserControl
         {
             Business.Sales.Account objAccount = new Business.Sales.Account();
             Entity.Sales.GetAccountsParam getAccountsParam = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
-            
+
             ddlAccounts.DataSource = objAccount.GetAllAccounts(getAccountsParam);
             ddlAccounts.DataTextField = "Name";
             ddlAccounts.DataValueField = "Id";
@@ -24,7 +24,7 @@ namespace WebAppAegisCRM.UserControl
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
             Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null };
-            
+
             ddlLead.DataSource = Obj.GetAllLeads(Param);
             ddlLead.DataTextField = "Name";
             ddlLead.DataValueField = "Id";
@@ -37,8 +37,19 @@ namespace WebAppAegisCRM.UserControl
             {
                 LoadAccountList();
                 LoadLeadList();
-                ddlOpportunity.Items.Add(new ListItem() { Text = "Opportunity1", Value = "3" });
+                LoadOpportunity();
             }
+        }
+
+        private void LoadOpportunity()
+        {
+            Business.Sales.Opportunity Obj = new Business.Sales.Opportunity();
+            Entity.Sales.GetOpportunityParam Param = new Entity.Sales.GetOpportunityParam { BestPrice = null, CommitStageId = null, Name = null };
+
+            ddlOpportunity.DataSource = Obj.GetAllOpportunity(Param);
+            ddlOpportunity.DataTextField = "Name";
+            ddlOpportunity.DataValueField = "Id";
+            ddlOpportunity.DataBind();
         }
 
         protected void btnContinue_Click(object sender, EventArgs e)

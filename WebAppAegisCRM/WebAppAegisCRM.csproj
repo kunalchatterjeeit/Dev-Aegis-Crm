@@ -104,10 +104,12 @@
     <Content Include="dist\css\custom-popup.css" />
     <Content Include="dist\css\custom03052019.css" />
     <Content Include="dist\css\sb-admin-2.css" />
+    <Content Include="dist\css\select2.min.css" />
     <Content Include="dist\css\signature-pad.css" />
     <Content Include="dist\css\timeline.css" />
     <Content Include="dist\js\custom.js" />
     <Content Include="dist\js\sb-admin-2.js" />
+    <Content Include="dist\js\select2.min.js" />
     <Content Include="EmailMockups\ForgotPassword.html" />
     <Content Include="EmailMockups\UpdateEmailConfirm.html" />
     <Content Include="Error.html" />
@@ -240,6 +242,7 @@
     <Content Include="Settings\UserSettings.aspx" />
     <Content Include="UserControl\Message.ascx" />
     <Content Include="UserControl\SalesLinkTypeControl.ascx" />
+    <Content Include="ValidateLink.aspx" />
     <Content Include="WebServices\InternalServices.asmx" />
     <Content Include="WebServices\WebServiceChart.asmx" />
   </ItemGroup>
@@ -934,6 +937,13 @@
     </Compile>
     <Compile Include="UserControl\SalesLinkTypeControl.ascx.designer.cs">
       <DependentUpon>SalesLinkTypeControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ValidateLink.aspx.cs">
+      <DependentUpon>ValidateLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ValidateLink.aspx.designer.cs">
+      <DependentUpon>ValidateLink.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebServices\InternalServices.asmx.cs">
       <DependentUpon>InternalServices.asmx</DependentUpon>

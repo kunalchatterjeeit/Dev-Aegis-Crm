@@ -84,6 +84,11 @@ namespace Business.HR
             return DataAccess.HR.EmployeeMaster.LinkedDevices_GetByUserId(userId);
         }
 
+        public DataTable ValidateForgotPassword(string userName, string emailId)
+        {
+            return DataAccess.HR.EmployeeMaster.ValidateForgotPassword(userName, emailId);
+        }
+
         public int LiknedDevices_Delete(int linkedDeviceId)
         {
             return DataAccess.HR.EmployeeMaster.LiknedDevices_Delete(linkedDeviceId);

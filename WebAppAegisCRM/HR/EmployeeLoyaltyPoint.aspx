@@ -116,13 +116,13 @@
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-save fa-fw" CommandName="E" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' Style="font-size: 16px;margin-top:7px"></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' Style="font-size: 16px; margin-top: 7px"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
-                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;margin-top:5px"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px; margin-top: 5px"
                                                     CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>

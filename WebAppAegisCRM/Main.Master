@@ -11,7 +11,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Bootstrap Core CSS -->
-
+    
+    <link href="/dist/css/select2.min.css" rel="stylesheet" />
     <%--DateTime picker related--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
     <%--DateTime picker related End--%>
@@ -25,6 +26,7 @@
     <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
         type="text/css">
     <link href="/dist/css/custom03052019.css" rel="stylesheet" />
+
 
     <!-- jQuery -->
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -269,6 +271,18 @@
                                 <li id="liModelSpareMapping" runat="server" visible="false">
                                     <a href="../Inventory/ProductSpareMapping.aspx">Model Spare Mapping</a>
                                 </li>
+                                 <li id="liDepartment" runat="server" visible="false">
+                                    <a href="../Sales/Department.aspx">Add/Edit Sales Department</a>
+                                </li> 
+                                <li id="liLeadSource" runat="server" visible="false">
+                                    <a href="../Sales/LeadSource.aspx">Add/Edit Sales Lead Source</a>
+                                </li> 
+                                 <li id="liMeetingType" runat="server" visible="false">
+                                    <a href="../Sales/MeetingType.aspx">Add/Edit Sales Meeting Type</a>
+                                </li> 
+                                <li id="liTaskStatus" runat="server" visible="false">
+                                    <a href="../Sales/TaskStatus.aspx">Add/Edit Sales Task Status</a>
+                                </li> 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -362,18 +376,6 @@
                         <li id="liSales" runat="server" visible="false">
                             <a href="#"><i class="fa fa-line-chart fa-fw"></i> Sales<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li id="liDepartment" runat="server" visible="false">
-                                    <a href="../Sales/Department.aspx">Add/Edit Department</a>
-                                </li> 
-                                <li id="liLeadSource" runat="server" visible="false">
-                                    <a href="../Sales/LeadSource.aspx">Add/Edit Lead Source</a>
-                                </li> 
-                                 <li id="liMeetingType" runat="server" visible="false">
-                                    <a href="../Sales/MeetingType.aspx">Add/Edit Meeting Type</a>
-                                </li> 
-                                <li id="liTaskStatus" runat="server" visible="false">
-                                    <a href="../Sales/TaskStatus.aspx">Add/Edit Task Status</a>
-                                </li> 
                                 <li id="liAccounts" runat="server" visible="false">
                                     <a href="../Sales/Account.aspx">Add/Edit Accounts</a>
                                 </li>
@@ -382,6 +384,9 @@
                                 </li>
                                  <li id="liOpportunity" runat="server" visible="false">
                                     <a href="../Sales/Opportunity.aspx">Add/Edit Opportunity</a>
+                                </li>
+                                <li id="liContacts" runat="server" visible="false">
+                                    <a href="../Sales/Contacts.aspx">Add/Edit Contacts</a>
                                 </li>
                                 <li id="liCalls" runat="server" visible="false">
                                     <a href="../Sales/Calls.aspx">Add/Edit Calls</a>
@@ -488,4 +493,11 @@
         }
     </script>
 </body>
+
+<script src="/dist/js/select2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').select2();
+    });
+</script>
 </html>

@@ -17,29 +17,46 @@ namespace WebAppAegisCRM
 
         }
 
-        protected void btnReset_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected void btnValidate_Click(object sender, EventArgs e)
         {
-            string mockupPath = "http://" + HttpContext.Current.Request.Url.Authority + "/EmailMockups/ForgotPassword.html";
-
             try
             {
-                string mockupPage = Business.Common.PageContent.Read(mockupPath);
-                mockupPage = mockupPage.Replace("{{CURRENT_DATE}}", DateTime.Now.ToString("dd MMM yyyy"));
-                mockupPage = mockupPage.Replace("{{USER_NAME}}", "Kunal Chatterjee");
-                mockupPage = mockupPage.Replace("{{PERSONAL_EMAIL_VERIFICATION_LINK}}", "emailverificationlink");
+                string validationLink = string.Empty;
 
-                MailFunctionality.SendMail_Hostgator("", "", mockupPage);
+                Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                DataTable dtValidate = objEmployeeMaster.ValidateForgotPassword(txtUserName.Text.Trim(), txtEmailId.Text.Trim());
+
+                if (dtValidate != null && dtValidate.Rows.Count > 0)
+                {
+                    validationLink = string.Concat("Email=", txtEmailId.Text.Trim(), "&UserName=" + txtUserName.Text.Trim(), "&Source=ForgotPassword");
+
+                    validationLink = "http://" + HttpContext.Current.Request.Url.Authority + "/ValidateLink.aspx?enc=" + validationLink.EncryptQueryStringSafe();
+
+                    SendEmailValidationLink(txtEmailId.Text.Trim(), dtValidate.Rows[0]["EmployeeName"].ToString(), validationLink);
+                    lblUserMessage.InnerText = "Validation link is sent to your office email id.";
+                }
+                else
+                {
+                    lblUserMessage.InnerText = "Username and Email Id not found!";
+                }
             }
             catch (Exception ex)
             {
-                lblUserMessage.InnerText = mockupPath;
+                lblUserMessage.InnerText = ex.Message;
                 ex.WriteException();
             }
+        }
+
+        private void SendEmailValidationLink(string userEmail, string name, string link)
+        {
+            string mockupPath = "http://" + HttpContext.Current.Request.Url.Authority + "/EmailMockups/ForgotPassword.html";
+
+            string mockupPage = PageContent.Read(mockupPath);
+            mockupPage = mockupPage.Replace("{{CURRENT_DATE}}", DateTime.Now.ToString("dd MMM yyyy"));
+            mockupPage = mockupPage.Replace("{{USER_NAME}}", name);
+            mockupPage = mockupPage.Replace("{{PERSONAL_EMAIL_VERIFICATION_LINK}}", link);
+
+            MailFunctionality.SendMail_Hostgator(userEmail, "Forgot password validation", mockupPage);
         }
     }
 }

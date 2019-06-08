@@ -163,7 +163,7 @@ namespace WebAppAegisCRM.HR
         {
             EmployeeLoyaltyPoint_GetAll();
         }
-
+        
         protected void gvEmployeePoint_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvEmployeePoint.PageIndex = e.NewPageIndex;
