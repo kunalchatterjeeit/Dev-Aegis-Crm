@@ -13,7 +13,7 @@ namespace WebAppAegisCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            if (!HttpContext.Current.User.Identity.IsAuthenticated && Business.Common.Context.EmployeeId == 0)
                 Response.Redirect("~/MainLogout.aspx");
 
             if (!IsPostBack)
