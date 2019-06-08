@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using System;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Business.Common;
 
 namespace WebAppAegisCRM
 {
-    public partial class ValidateLink : System.Web.UI.Page
+    public partial class ValidateLinks : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

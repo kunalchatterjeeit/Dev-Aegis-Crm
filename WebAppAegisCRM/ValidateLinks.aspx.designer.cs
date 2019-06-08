@@ -11,7 +11,7 @@ namespace WebAppAegisCRM
 {
 
 
-    public partial class ValidateLink
+    public partial class ValidateLinks
     {
 
         /// <summary>
