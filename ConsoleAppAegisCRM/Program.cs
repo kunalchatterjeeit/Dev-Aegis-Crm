@@ -13,7 +13,8 @@ namespace ConsoleAppAegisCRM
         {
             try
             {
-               
+                ILogger logger = new ConsoleLogger();
+                new Process().Execute(logger);
             }
             catch (Exception ex)
             {
@@ -22,9 +23,6 @@ namespace ConsoleAppAegisCRM
             }
         }
 
-        private static string PrepareLogging(string rawContent)
-        {
-            return rawContent;
-        }
+        
     }
 }

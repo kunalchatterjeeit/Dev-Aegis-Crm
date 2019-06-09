@@ -167,5 +167,15 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_GetLastMeterReadingOfSpare(callId, callType, itemId);
         }
+
+        public DataTable Service_GetCustomerPurchaseForPMCall(DateTime assesmentDate)
+        {
+            return DataAccess.Service.ServiceBook.Service_GetCustomerPurchaseForPMCall(assesmentDate);
+        }
+
+        public int Service_Amcv_Calculate_Save(long customerPurchaseId, DateTime assesmentDate)
+        {
+            return DataAccess.Service.ServiceBook.Service_Amcv_Calculate_Save(customerPurchaseId, assesmentDate);
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace WebAppAegisCRM
         {
             try
             {
-                Response.Write("Please wait...");
+                //Response.Write("Please wait...");
                 string enc = Request.QueryString["enc"].ToString();
                 string dcr = enc.DecryptQueryString();
 
