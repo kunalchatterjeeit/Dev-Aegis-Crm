@@ -76,6 +76,8 @@
     <Compile Include="Sales\NotesEntity.cs" />
     <Compile Include="Sales\OpportunityDataAccess.cs" />
     <Compile Include="Sales\OpportunityEntity.cs" />
+    <Compile Include="Sales\QuoteDataAccess.cs" />
+    <Compile Include="Sales\QuoteEntity.cs" />
     <Compile Include="Sales\TasksDataAccess.cs" />
     <Compile Include="Sales\TasksEntity.cs" />
     <Compile Include="Sales\TaskStatusDataAccess.cs" />
