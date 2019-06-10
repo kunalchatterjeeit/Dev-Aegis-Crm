@@ -182,6 +182,8 @@
                                 </asp:ListItem>
                                 <asp:ListItem Value="812" Text="&nbsp;&nbsp;&nbsp;SALES OPPORTUNITY">
                                 </asp:ListItem>
+                                <asp:ListItem Value="814" Text="&nbsp;&nbsp;&nbsp;SALES QUOTE">
+                                </asp:ListItem>
                                 <asp:ListItem Value="813" Text="&nbsp;&nbsp;&nbsp;SALES CONTACTS">
                                 </asp:ListItem>
                                 <asp:ListItem Value="801" Text="&nbsp;&nbsp;&nbsp;SALES CALLS">

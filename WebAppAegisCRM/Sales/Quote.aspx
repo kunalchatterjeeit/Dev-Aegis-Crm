@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Quote.aspx.cs" Inherits="WebAppAegisCRM.Sales.Quote" %>
+﻿<%@ Page Title="ADD/EDIT QUOTE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Quote.aspx.cs" Inherits="WebAppAegisCRM.Sales.Quote" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="font-size: large;">
+                        <div class="panel-heading">
                             Quote 
                         </div>
                         <div class="panel-body">
@@ -118,7 +118,7 @@
             
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="font-size: large;">
+                        <div class="panel-heading">
                             Quote Stage 
                         </div>
                         <div class="panel-body">                            
@@ -155,7 +155,7 @@
             
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading" style="font-size: large;">
+                        <div class="panel-heading">
                             Quote Line Item 
                         </div>
                         <div class="panel-body">
@@ -174,13 +174,13 @@
                                 </asp:DropDownList>
                                     </div>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         Part Number
                                 <asp:TextBox ID="txtPartnumber" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         Unit Price
                                 <asp:TextBox ID="txtRate" CssClass="form-control" runat="server"></asp:TextBox>
@@ -198,10 +198,10 @@
                                 <asp:TextBox ID="txtQuantity" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                     <div class="form-group">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-outline btn-success" OnClick="btnAdd_Click" OnClientClick="return ValidationItemAdd();" />
+                                        <br />
+                                <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-outline btn-success pull-right" OnClick="btnAdd_Click" OnClientClick="return ValidationItemAdd();" />
                                     </div>
                                 </div>
                             </div>
