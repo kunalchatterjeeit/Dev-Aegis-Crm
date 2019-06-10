@@ -64,6 +64,10 @@ namespace DataAccessEntity
             .ToTable("tbl_Sales_CommitStage");
             modelBuilder.Entity<Sales.OpportunityDbModel>()
            .ToTable("tbl_Sales_Opportunity");
+            modelBuilder.Entity<Sales.QuoteStageDbModel>()
+           .ToTable("tbl_Sales_QuoteStage");
+            modelBuilder.Entity<Sales.PaymentTermDbModel>()
+          .ToTable("tbl_Sales_PaymentTerm");
 
         }
         public DbSet<Sales.CallsDbModel> Calls { get; set; }
@@ -89,5 +93,7 @@ namespace DataAccessEntity
         public DbSet<Sales.DesignationMasterDbModel> Designations { get; set; }
         public DbSet<Sales.CommitStageDbModel> CommitStage { get; set; }
         public DbSet<Sales.OpportunityDbModel> Opportunity { get; set; }
+        public DbSet<Sales.QuoteStageDbModel> QuoteStages { get; set; }
+        public DbSet<Sales.PaymentTermDbModel> PaymentTerm { get; set; }
     }
 }

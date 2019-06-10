@@ -197,6 +197,7 @@
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="Sales\Opportunity.aspx" />
+    <Content Include="Sales\Quote.aspx" />
     <Content Include="Sale\AssetSelection.aspx" />
     <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Sale\SaleChallanList.aspx" />
@@ -692,6 +693,13 @@
     </Compile>
     <Compile Include="Sales\Opportunity.aspx.designer.cs">
       <DependentUpon>Opportunity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Quote.aspx.cs">
+      <DependentUpon>Quote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\Quote.aspx.designer.cs">
+      <DependentUpon>Quote.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sale\AssetSelection.aspx.cs">
       <DependentUpon>AssetSelection.aspx</DependentUpon>
