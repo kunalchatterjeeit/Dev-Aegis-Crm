@@ -385,6 +385,9 @@
                                  <li id="liOpportunity" runat="server" visible="false">
                                     <a href="../Sales/Opportunity.aspx">Add/Edit Opportunity</a>
                                 </li>
+                                <li id="liQuote" runat="server" visible="false">
+                                    <a href="../Sales/Quote.aspx">Add/Edit Quote</a>
+                                </li>
                                 <li id="liContacts" runat="server" visible="false">
                                     <a href="../Sales/Contacts.aspx">Add/Edit Contacts</a>
                                 </li>
