@@ -139,7 +139,7 @@
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
                                                         <span id="anchorContract" runat="server">
-                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString().EncryptQueryStringSafe() %>&source=contractStatus&contractId=<%# Eval("ContractId").ToString().EncryptQueryStringSafe() %>'>
+                                                            <a target="_blank" href='../Customer/CustomerPurchase.aspx?customerId=<%# Eval("CustomerId").ToString() %>&source=contractStatus&contractId=<%# Eval("ContractId").ToString() %>'>
                                                                 <img src="../images/go_icon.gif" width="15px" alt="" />
                                                             </a>
                                                         </span>
