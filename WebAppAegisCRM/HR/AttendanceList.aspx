@@ -99,8 +99,18 @@
                                                     <%# (Eval("TotalHours") != DBNull.Value)? TimeSpan.FromMinutes(Convert.ToDouble(Eval("TotalHours").ToString())).ToString(@"dd\:hh\:mm"):"" %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="InLocation" HeaderText="In Location" />
-                                            <asp:BoundField DataField="OutLocation" HeaderText="Out Location" />
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>In Location</HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <a target="_blank" title="Click to open map" href='<%# string.Concat("https://www.google.co.in/search?q=",Eval("InLocation").ToString()) %>'><%# Eval("InLocation").ToString() %></a>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField>
+                                                <HeaderTemplate>Out Location</HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <a target="_blank" title="Click to open map" href='<%# string.Concat("https://www.google.co.in/search?q=",Eval("OutLocation").ToString()) %>'><%# Eval("OutLocation").ToString() %></a>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                             <asp:BoundField DataField="Source" HeaderText="Source" />
                                             <%--<asp:TemplateField>
                                                 <ItemTemplate>
