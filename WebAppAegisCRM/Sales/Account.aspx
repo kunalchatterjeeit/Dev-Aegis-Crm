@@ -3,6 +3,10 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../js/AutoComplete/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <%--<script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="../js/AutoComplete/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../dist/js/custom.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -33,6 +37,20 @@
                         <div class="panel-collapse collapse out" id="section5">
                             <div class="panel-body">
                                 <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group has-error">
+                                            Link Type
+                                <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Link Name
+                                <asp:TextBox ID="txtCustomerName" CssClass="form-control"  runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
+                                            <asp:Button ID="Button1" runat="server" Text="Find" class="btn btn-outline btn-success" OnClick="btnFind_Click" />
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="form-group has-error">
                                             Lead Name
@@ -482,6 +500,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Account Name" />
+                                            <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
                                             <asp:BoundField DataField="OfficePhone" HeaderText="Office Phone" />
                                             <asp:BoundField DataField="EmployeeStrength" HeaderText="Employee Strength" />
                                             <asp:BoundField DataField="Industry" HeaderText="Industry" />

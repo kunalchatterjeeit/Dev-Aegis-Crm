@@ -203,16 +203,7 @@ namespace WebAppAegisCRM.Sale
             long retValue = 0;
             try
             {
-                DataTable dtCustomer = GlobalCache.ExecuteCache<DataTable>(typeof(Business.Customer.Customer), "Customer_GetAll", new Entity.Customer.Customer());
-
-                using (DataView dvCustomers = new DataView(dtCustomer))
-                {
-                    dvCustomers.RowFilter = "CustomerName = '" + name + "'";
-                    dtCustomer = dvCustomers.ToTable();
-                    if (dtCustomer == null || dtCustomer.Rows.Count == 0)
-                        throw new Exception("Something went wrong! Customer ID not found.");
-                }
-                retValue = Convert.ToInt64(dtCustomer.AsEnumerable().Select(x => x[0].ToString()).ToList().FirstOrDefault());           
+                retValue = Business.Customer.Customer.GetCustomerIdByNameFromCache(name);
             }
             catch (Exception ex)
             {
@@ -330,7 +321,7 @@ namespace WebAppAegisCRM.Sale
                     saleChallan.CallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
                     saleChallan.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
                     int saleChallanId = objSaleChallan.SaleChallan_Save(saleChallan);
-                    
+
                     int purchaseDetailsResponse = 0;
                     if (saleChallanId > 0)
                         purchaseDetailsResponse = SaveSaleChallanDetails(saleChallan, objSaleChallan, saleChallanId);

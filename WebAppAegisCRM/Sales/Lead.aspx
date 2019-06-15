@@ -35,6 +35,20 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group has-error">
+                                            Link Type
+                                <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Link Name
+                                <asp:DropDownList ID="ddlLinkName" AutoPostBack="true" OnSelectedIndexChanged="ddlLinkName_SelectedIndexChange" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group has-error">
                                             Lead Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -483,6 +497,7 @@
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Lead Name" />
                                             <asp:BoundField DataField="Email" HeaderText="Email Id" />
+                                             <asp:BoundField DataField="AccountName" HeaderText="Account Name" />
                                             <asp:BoundField DataField="OfficePhone" HeaderText="Office Phone" />
                                             <asp:BoundField DataField="LeadScore" HeaderText="Lead Score" />
                                             <asp:TemplateField ItemStyle-Width="15px">

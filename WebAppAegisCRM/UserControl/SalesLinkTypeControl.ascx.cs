@@ -1,4 +1,5 @@
 ﻿using AjaxControlToolkit;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace WebAppAegisCRM.UserControl
         private void LoadAccountList()
         {
             Business.Sales.Account objAccount = new Business.Sales.Account();
-            Entity.Sales.GetAccountsParam getAccountsParam = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
+            Entity.Sales.GetAccountsParam getAccountsParam = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Customer), ChildActivityTypeId = Convert.ToInt32(ActityType.Account) };
 
             ddlAccounts.DataSource = objAccount.GetAllAccounts(getAccountsParam);
             ddlAccounts.DataTextField = "Name";
@@ -23,7 +24,8 @@ namespace WebAppAegisCRM.UserControl
         private void LoadLeadList()
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
-            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null };
+            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam
+            { CampaignId = null, DepartmentId = null, Name = null, Email = null , SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
 
             ddlLead.DataSource = Obj.GetAllLeads(Param);
             ddlLead.DataTextField = "Name";

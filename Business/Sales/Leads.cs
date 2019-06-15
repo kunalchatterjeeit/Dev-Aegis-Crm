@@ -28,10 +28,10 @@ namespace Business.Sales
             Model.CopyPropertiesTo(DbModel);
             return LeadsDataAccess.SaveLeads(DbModel);
         }
-        public Entity.Sales.Leads GetLeadById(int Id)
+        public Entity.Sales.Leads GetLeadById(int Id,int SourceTypeId,int ChildTypeId)
         {
             Entity.Sales.Leads Lead = new Entity.Sales.Leads();
-            LeadsDataAccess.GetLeadById(Id).CopyPropertiesTo(Lead);
+            LeadsDataAccess.GetLeadById(Id, SourceTypeId, ChildTypeId).CopyPropertiesTo(Lead);
             return Lead;
         }
         public int DeleteLeads(int Id)

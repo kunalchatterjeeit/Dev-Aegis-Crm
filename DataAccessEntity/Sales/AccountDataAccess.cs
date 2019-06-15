@@ -23,11 +23,13 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetAccountsDbModel>(
-                                "exec dbo.[usp_Sales_Accounts_GetAll] @Name,@OfficePhone",
+                                "exec dbo.[usp_Sales_Accounts_GetAll] @Name,@OfficePhone,@SourceActivityTypeId,@ChildActivityTypeId",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
-                                    new SqlParameter("OfficePhone", DBNull.Value)
+                                    new SqlParameter("OfficePhone", DBNull.Value),
+                                    new SqlParameter("SourceActivityTypeId", Param.SourceActivityTypeId),
+                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId)
                                 }
                              ).ToList();
             }
@@ -38,7 +40,8 @@ namespace DataAccessEntity.Sales
             {
                 return Context.Database.ExecuteSqlCommand(
                                 "exec dbo.[usp_Sales_Accounts_Save] @Id,@Name,@Description,@Website,@Industry,@CustomerTypeId," +
-                                "@OfficePhone,@EmployeeStrenth,@AnnualRevenue,@AccountScore,@LeadSourceId,@SourceName,@CreatedBy,@IsActive",
+                                "@OfficePhone,@EmployeeStrenth,@AnnualRevenue,@AccountScore,@LeadSourceId,@SourceName,@CreatedBy,@IsActive,@SourceActivityTypeId,"+
+                                "@SourceActivityId,@ChildActivityTypeId,@ActivityLinkId",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
@@ -54,20 +57,26 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("LeadSourceId", Model.LeadSourceId==null?(object)DBNull.Value:Model.LeadSourceId),
                                     new SqlParameter("SourceName", Model.SourceName),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
-                                    new SqlParameter("IsActive", Model.IsActive)
+                                    new SqlParameter("IsActive", Model.IsActive),
+                                    new SqlParameter("SourceActivityTypeId", Model.SourceActivityTypeId),
+                                    new SqlParameter("SourceActivityId", Model.SourceActivityId==null?(object)DBNull.Value:Model.SourceActivityId),
+                                    new SqlParameter("ChildActivityTypeId", Model.ChildActivityTypeId),
+                                    new SqlParameter("ActivityLinkId", Model.ActivityLinkId)
                                 }
                              );
             }
         }
-        public static AccountsDbModel GetAccountById(int Id)
+        public static AccountsDbModel GetAccountById(int Id,int SourceTypeId,int ChildTypeId)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<AccountsDbModel>(
-                                "exec dbo.[usp_Sales_Accounts_GetById] @Id",
+                                "exec dbo.[usp_Sales_Accounts_GetById] @Id,@SourceActivityTypeId,@ChildActivityTypeId",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id", Id)
+                                    new SqlParameter("Id", Id),
+                                    new SqlParameter("SourceActivityTypeId", SourceTypeId),
+                                    new SqlParameter("ChildActivityTypeId", ChildTypeId)
                                 }
                              ).FirstOrDefault();
             }

@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,9 @@ namespace WebAppAegisCRM.Sales
             Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam
             {
                 Name = null,
-                OfficePhone = null
+                OfficePhone = null,
+                SourceActivityTypeId = Convert.ToInt32(ActityType.Customer),
+                ChildActivityTypeId = Convert.ToInt32(ActityType.Account)
             };
             ddlAccount.DataSource = AccountObj.GetAllAccounts(Param);
             ddlAccount.DataTextField = "Name";
