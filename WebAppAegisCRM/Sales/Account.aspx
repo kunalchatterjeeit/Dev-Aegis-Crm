@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            Lead Description
+                                            Account Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                         </div>
                                     </div>

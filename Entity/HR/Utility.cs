@@ -103,6 +103,7 @@ namespace Entity.HR
         public const string SALES_CAMPAIGN = "811";
         public const string SALES_OPPORTUNITY = "812";
         public const string SALES_CONTACTS = "813";
+        public const string SALES_QUOTE = "814";
 
         //Dashboard Settings
         public const string DASHBOARD_DOCKET_LIST = "10001";
