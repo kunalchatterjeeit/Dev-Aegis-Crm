@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group has-error">
-                                            Lead Name
+                                            Account Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
