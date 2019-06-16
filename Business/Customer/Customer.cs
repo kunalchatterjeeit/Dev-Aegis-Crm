@@ -5,6 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using Entity.Customer;
+using Business.Common;
 
 namespace Business.Customer
 {
@@ -14,7 +15,23 @@ namespace Business.Customer
         {
             return DataAccess.Customer.Customer.Save(ObjElCustomer);
         }
+        public static long GetCustomerIdByNameFromCache(string name)
+        {
+            long retValue = 0;
 
+            DataTable dtCustomer = GlobalCache.ExecuteCache<DataTable>(typeof(Business.Customer.Customer), "Customer_GetAll", new Entity.Customer.Customer());
+
+            using (DataView dvCustomers = new DataView(dtCustomer))
+            {
+                dvCustomers.RowFilter = "CustomerName = '" + name + "'";
+                dtCustomer = dvCustomers.ToTable();
+                if (dtCustomer == null || dtCustomer.Rows.Count == 0)
+                    throw new Exception("Something went wrong! Customer ID not found.");
+            }
+            retValue = Convert.ToInt64(dtCustomer.AsEnumerable().Select(x => x[0].ToString()).ToList().FirstOrDefault());
+
+            return retValue;
+        }
         public DataSet GetAllCustomer(Entity.Customer.Customer customer)
         {
             return DataAccess.Customer.Customer.Customer_GetAll(customer);

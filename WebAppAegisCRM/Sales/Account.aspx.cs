@@ -17,6 +17,11 @@ namespace WebAppAegisCRM.Sales
             get { return Convert.ToInt32(ViewState["Id"]); }
             set { ViewState["Id"] = value; }
         }
+        public int ActivityLinkId
+        {
+            get { return Convert.ToInt32(ViewState["ActivityLinkId"]); }
+            set { ViewState["ActivityLinkId"] = value; }
+        }
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
@@ -102,6 +107,26 @@ namespace WebAppAegisCRM.Sales
             gvAssignedEmployee.DataBind();
         }
 
+        private void LoadLinkType()
+        {
+            ddlLinkType.Items.Insert(0, new ListItem() { Text = "Customer", Value = ActityType.Customer.ToString(), Selected = true, Enabled = true });
+        }
+        private long GetCustomerIdByName(string name)
+        {
+            long retValue = 0;
+            try
+            {
+                retValue = Business.Customer.Customer.GetCustomerIdByNameFromCache(name);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+            return retValue;
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -110,6 +135,7 @@ namespace WebAppAegisCRM.Sales
                 LoadCustomerType();
                 LoadLeadSource();
                 LoadAccountList();
+                LoadLinkType();
                 Message.Show = false;
             }
         }
@@ -138,7 +164,7 @@ namespace WebAppAegisCRM.Sales
         private void LoadAccountList()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
-            Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null };
+            Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null ,SourceActivityTypeId=Convert.ToInt32(ActityType.Customer),ChildActivityTypeId= Convert.ToInt32(ActityType.Account) };
             gvAccounts.DataSource = Obj.GetAllAccounts(Param);
             gvAccounts.DataBind();
         }
@@ -158,6 +184,7 @@ namespace WebAppAegisCRM.Sales
             txtSourceName.Text = string.Empty;
             ddlCustomerType.SelectedIndex = 0;
             ddlLeadSource.SelectedIndex = 0;
+            txtCustomerName.Text = string.Empty;
             btnSave.Text = "Save";
         }
         private bool AccountControlValidation()
@@ -202,6 +229,20 @@ namespace WebAppAegisCRM.Sales
         {
             Save();
         }
+        protected void btnFind_Click(object sender, EventArgs e)
+        {
+            hdnOpenForm.Value = "true";
+            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
+            Entity.Customer.Customer customer = new Entity.Customer.Customer();
+            customer.CustomerMasterId = GetCustomerIdByName(txtCustomerName.Text);
+            DataTable dt = objCustomer.FetchCustomerDetailsById(customer);
+            if (dt.Rows.Count > 0)
+            {
+                txtName.Text = dt.Rows[0]["CustomerName"].ToString();
+                //ddlCustomerType.SelectedValue = dt.Rows[0]["CustomerType"].ToString();
+                txtOfficePhone.Text = dt.Rows[0]["PhoneNo"].ToString();                
+            }
+        }
         protected void gvAccounts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Ed")
@@ -242,7 +283,7 @@ namespace WebAppAegisCRM.Sales
         private void GetAccountById()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
-            Entity.Sales.Accounts Account = Obj.GetAccountById(AccountId);
+            Entity.Sales.Accounts Account = Obj.GetAccountById(AccountId,Convert.ToInt32(ActityType.Customer),Convert.ToInt32(ActityType.Account));
             if (Account.Id != 0)
             {
                 ddlLeadSource.SelectedValue = Account.LeadSourceId == null ? "0" : Account.LeadSourceId.ToString();
@@ -256,6 +297,8 @@ namespace WebAppAegisCRM.Sales
                 txtOfficePhone.Text = Account.OfficePhone;
                 txtSourceName.Text = Account.SourceName;
                 txtWebsite.Text = Account.Website;
+                txtCustomerName.Text = Account.CustomerName;
+                ActivityLinkId= Account.ActivityLinkId;
             }
         }
         private void Save()
@@ -278,7 +321,11 @@ namespace WebAppAegisCRM.Sales
                     EmployeeStrength = Convert.ToInt32(txtEmployeeStrength.Text),
                     OfficePhone = txtOfficePhone.Text,
                     Website = txtWebsite.Text,
-                    IsActive = true
+                    IsActive = true,
+                    ActivityLinkId = ActivityLinkId,
+                    ChildActivityTypeId = Convert.ToInt32(ActityType.Account),
+                    SourceActivityTypeId = Convert.ToInt32(ActityType.Customer),
+                    SourceActivityId = txtCustomerName.Text == "" ? (int?)null : Convert.ToInt32( GetCustomerIdByName(txtCustomerName.Text))
                 };
                 int rows = Obj.SaveAccounts(Model);
                 if (rows > 0)

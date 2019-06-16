@@ -34,10 +34,10 @@ namespace Business.Sales
             Model.CopyPropertiesTo(DbModel);
             return AccountDataAccess.SaveAccounts(DbModel);
         }
-        public Entity.Sales.Accounts GetAccountById(int Id)
+        public Entity.Sales.Accounts GetAccountById(int Id,int SourceTypeId,int ChildTypeId)
         {
             Entity.Sales.Accounts Account = new Entity.Sales.Accounts();
-            AccountDataAccess.GetAccountById(Id).CopyPropertiesTo(Account);
+            AccountDataAccess.GetAccountById(Id, SourceTypeId, ChildTypeId).CopyPropertiesTo(Account);
             return Account;
         }
         public int DeleteAccounts(int Id)
