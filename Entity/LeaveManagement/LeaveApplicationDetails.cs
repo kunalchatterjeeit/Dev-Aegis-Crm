@@ -8,5 +8,6 @@ namespace Entity.LeaveManagement
         public int LeaveApplicationDetailId { get; set; }
         public int LeaveApplicationId { get; set; }
         public DateTime LeaveDate { get; set; }
+        public decimal AppliedForDay { get; set; }
     }
 }

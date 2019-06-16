@@ -35,7 +35,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 lblFromDate.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString();
                 lblToDate.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblLeaveAccumulationType.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"].ToString();
-                lblTotalLeaveCount.Text = ((Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()) - Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString())).TotalDays + 1).ToString();
+                lblTotalLeaveCount.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["TotalLeaveDays"].ToString();
                 lblReason.Text = dsLeaveApplicationDetails.Tables[0].Rows[0]["Reason"].ToString();
 
                 hdnAttachmentName.Value = (dsLeaveApplicationDetails.Tables[0].Rows[0]["LeaveAccumulationTypeName"] != null) ? dsLeaveApplicationDetails.Tables[0].Rows[0]["Attachment"].ToString() : string.Empty;
@@ -69,26 +69,26 @@ namespace WebAppAegisCRM.LeaveManagement
                 btnFollowup.Visible = false;
             }
 
-            DataTable dtDates = new DataTable();
-            dtDates.Columns.Add("Date");
-            dtDates.Columns.Add("Day");
+            //DataTable dtDates = new DataTable();
+            //dtDates.Columns.Add("Date");
+            //dtDates.Columns.Add("Day");
 
-            DateTime dateTime = Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString());
-            while (true)
-            {
-                if (Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()).AddDays(1).Date <= dateTime.Date)
-                    break;
-                else
-                    dtDates.Rows.Add();
+            //DateTime dateTime = Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString());
+            //while (true)
+            //{
+            //    if (Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()).AddDays(1).Date <= dateTime.Date)
+            //        break;
+            //    else
+            //        dtDates.Rows.Add();
 
-                dtDates.Rows[dtDates.Rows.Count - 1]["Date"] = dateTime.ToString("dd MMM yyyy");
-                dtDates.Rows[dtDates.Rows.Count - 1]["Day"] = dateTime.ToString("dddd");
-                dtDates.AcceptChanges();
+            //    dtDates.Rows[dtDates.Rows.Count - 1]["Date"] = dateTime.ToString("dd MMM yyyy");
+            //    dtDates.Rows[dtDates.Rows.Count - 1]["Day"] = dateTime.ToString("dddd");
+            //    dtDates.AcceptChanges();
 
-                dateTime = dateTime.AddDays(1);
-            }
+            //    dateTime = dateTime.AddDays(1);
+            //}
 
-            gvDates.DataSource = dtDates;
+            gvDates.DataSource = dsLeaveApplicationDetails.Tables[2];
             gvDates.DataBind();
         }
 

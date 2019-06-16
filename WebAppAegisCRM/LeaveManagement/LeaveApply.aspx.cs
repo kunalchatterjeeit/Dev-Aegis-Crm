@@ -187,6 +187,17 @@ namespace WebAppAegisCRM.LeaveManagement
                     Message.Show = true;
                     return false;
                 }
+
+                if (!string.IsNullOrEmpty(hdnHalfDayList.Value.Replace(',', ' ').Trim()))
+                {
+                    if (!(ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.CL).ToString()) && !(ddlLeaveType.SelectedValue == ((int)LeaveTypeEnum.LWP).ToString()))
+                    {
+                        Message.Text = "You cannot apply half day with leave type " + ddlLeaveType.SelectedItem.Text;
+                        Message.IsSuccess = false;
+                        Message.Show = true;
+                        return false;
+                    }
+                }
             }
             else
             {
@@ -230,7 +241,7 @@ namespace WebAppAegisCRM.LeaveManagement
             return leaveApplicationMaster;
         }
 
-        private int LeaveApplicationDetails_Save(int leaveApplicationId, DateTime leaveDate)
+        private int LeaveApplicationDetails_Save(int leaveApplicationId, DateTime leaveDate, decimal appliedForDay)
         {
             Entity.LeaveManagement.LeaveApplicationDetails leaveApplicationDetails = new Entity.LeaveManagement.LeaveApplicationDetails();
             Business.LeaveManagement.LeaveApplication objLeaveApplicationMaster = new Business.LeaveManagement.LeaveApplication();
@@ -238,6 +249,7 @@ namespace WebAppAegisCRM.LeaveManagement
             leaveApplicationDetails.LeaveApplicationDetailId = 0;
             leaveApplicationDetails.LeaveApplicationId = leaveApplicationId;
             leaveApplicationDetails.LeaveDate = leaveDate;
+            leaveApplicationDetails.AppliedForDay = appliedForDay;
             int response = objLeaveApplicationMaster.LeaveApplicationDetails_Save(leaveApplicationDetails);
             return response;
         }
@@ -298,9 +310,36 @@ namespace WebAppAegisCRM.LeaveManagement
                     Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = LeaveApplicationMaster_Save();
                     if (leaveApplicationMaster.LeaveApplicationId > 0)
                     {
-                        foreach (DateTime selectedDate in Business.Common.Context.SelectedDates)
+                        if (!string.IsNullOrEmpty(hdnHalfDayList.Value.Trim()))//Checking if has half day
                         {
-                            LeaveApplicationDetails_Save(leaveApplicationMaster.LeaveApplicationId, selectedDate);
+                            string[] halfdays = hdnHalfDayList.Value.Trim().Split(',');
+
+                            foreach (DateTime selectedDate in Business.Common.Context.SelectedDates)
+                            {
+                                foreach (string halfday in halfdays)
+                                {
+                                    if (!string.IsNullOrEmpty(halfday.Trim()))
+                                    {
+                                        if (selectedDate.Date == Convert.ToDateTime(halfday).Date)
+                                        {
+                                            LeaveApplicationDetails_Save(leaveApplicationMaster.LeaveApplicationId, selectedDate, 0.5M);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            LeaveApplicationDetails_Save(leaveApplicationMaster.LeaveApplicationId, selectedDate, 1);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else//If not half day
+                        {
+                            foreach (DateTime selectedDate in Business.Common.Context.SelectedDates)
+                            {
+                                LeaveApplicationDetails_Save(leaveApplicationMaster.LeaveApplicationId, selectedDate, 1);
+                            }
                         }
 
                         int approvalResponse = LeaveApprovalDetails_Save(leaveApplicationMaster.LeaveApplicationId);
@@ -341,6 +380,7 @@ namespace WebAppAegisCRM.LeaveManagement
         {
             Business.Common.Context.SelectedDates.Clear();
             Calendar1.SelectedDates.Clear();
+            hdnHalfDayList.Value = string.Empty;
         }
 
         public void Calendar1_DayRender(object sender, DayRenderEventArgs e)
@@ -358,6 +398,17 @@ namespace WebAppAegisCRM.LeaveManagement
             //    e.Cell.Text = e.Day.DayNumberText + "\nHello";
             //}
 
+            //e.Cell.Text = e.Day.DayNumberText + "\n";
+
+            //Adding half day checkbox in calendar cells
+            CheckBox chkHalfDay = new CheckBox();
+            chkHalfDay.Enabled = true;
+            chkHalfDay.Text = "Half Day";
+            chkHalfDay.Font.Size = FontUnit.Small;
+            string method = string.Concat("HalfDayList(this,'", e.Day.Date.ToShortDateString(), "')");
+            chkHalfDay.Attributes.Add("onchange", method);
+            e.Cell.Controls.AddAt(1, chkHalfDay);
+
             if (Business.Common.Context.SelectedDates.Any())
             {
                 foreach (DateTime dt in Business.Common.Context.SelectedDates)
@@ -369,6 +420,7 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
+            hdnHalfDayList.Value = string.Empty;
             Calendar calender = ((Calendar)sender);
 
             if (calender.ValidateContinueSelection())
@@ -400,5 +452,6 @@ namespace WebAppAegisCRM.LeaveManagement
                 lbTotalCount.Text = string.Empty;
             }
         }
+
     }
 }
