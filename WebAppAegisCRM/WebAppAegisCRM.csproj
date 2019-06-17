@@ -129,6 +129,7 @@
     <Content Include="HR\HolidayList.aspx" />
     <Content Include="HR\HolidayProfile.aspx" />
     <Content Include="HR\IndividualLoyalityPoint.aspx" />
+    <Content Include="HR\ManageAttendance.aspx" />
     <Content Include="HR\PersonalInfo.aspx" />
     <Content Include="images\aegis_attendance.png" />
     <Content Include="images\aegis_crm.png" />
@@ -412,6 +413,13 @@
     </Compile>
     <Compile Include="HR\IndividualLoyalityPoint.aspx.designer.cs">
       <DependentUpon>IndividualLoyalityPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\ManageAttendance.aspx.cs">
+      <DependentUpon>ManageAttendance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\ManageAttendance.aspx.designer.cs">
+      <DependentUpon>ManageAttendance.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\PersonalInfo.aspx.cs">
       <DependentUpon>PersonalInfo.aspx</DependentUpon>
