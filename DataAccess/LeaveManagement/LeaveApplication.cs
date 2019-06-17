@@ -171,6 +171,7 @@ namespace DataAccess.LeaveManagement
                     cmd.Parameters.AddWithValue("@LeaveApplicationDetailId", leaveApplicationDetails.LeaveApplicationDetailId);
                     cmd.Parameters.AddWithValue("@LeaveApplicationId", leaveApplicationDetails.LeaveApplicationId);
                     cmd.Parameters.AddWithValue("@LeaveDate", leaveApplicationDetails.LeaveDate);
+                    cmd.Parameters.AddWithValue("@AppliedForDay", leaveApplicationDetails.AppliedForDay);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();

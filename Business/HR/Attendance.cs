@@ -29,5 +29,15 @@ namespace Business.HR
         {
             return DataAccess.HR.Attendance.Attendance_GetByEmployeeId(employeeId, attendanceDate);
         }
+
+        public int Attendance_MarkLate(int attendanceId, bool isLate)
+        {
+            return DataAccess.HR.Attendance.Attendance_MarkLate(attendanceId, isLate);
+        }
+
+        public int Attendance_MarkHalfday(int attendanceId, bool isHalfday)
+        {
+            return DataAccess.HR.Attendance.Attendance_MarkHalfday(attendanceId, isHalfday);
+        }
     }
 }

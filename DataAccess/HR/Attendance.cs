@@ -50,7 +50,7 @@ namespace DataAccess.HR
             }
         }
 
-        public static DataTable Attendance_GetById(int AttendanceId)
+        public static DataTable Attendance_GetById(int attendanceId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -61,7 +61,7 @@ namespace DataAccess.HR
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_HR_Attendance_GetById";
-                        cmd.Parameters.AddWithValue("@AttendanceId", AttendanceId);
+                        cmd.Parameters.AddWithValue("@AttendanceId", attendanceId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -104,7 +104,7 @@ namespace DataAccess.HR
             }
         }
 
-        public static int Attendance_Save(Entity.HR.Attendance Attendance)
+        public static int Attendance_Save(Entity.HR.Attendance attendance)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -114,16 +114,16 @@ namespace DataAccess.HR
                     cmd.Connection = con;
                     cmd.CommandText = "usp_HR_Attendance_Save";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AttendanceId", Attendance.AttendanceId);
-                    cmd.Parameters.AddWithValue("@EmployeeId", Attendance.EmployeeId);
-                    cmd.Parameters.AddWithValue("@AttendanceDate", Attendance.AttendanceDate);
-                    cmd.Parameters.AddWithValue("@InDateTime", Attendance.InDateTime);
-                    cmd.Parameters.AddWithValue("@OutDateTime", Attendance.OutDateTime);
-                    cmd.Parameters.AddWithValue("@TotalHours", Attendance.TotalHours);
-                    cmd.Parameters.AddWithValue("@CreatedBy", Attendance.CreatedBy);
-                    cmd.Parameters.AddWithValue("@Latitude", Attendance.Latitude);
-                    cmd.Parameters.AddWithValue("@Longitude", Attendance.Longitude);
-                    cmd.Parameters.AddWithValue("@Source", Attendance.Source);
+                    cmd.Parameters.AddWithValue("@AttendanceId", attendance.AttendanceId);
+                    cmd.Parameters.AddWithValue("@EmployeeId", attendance.EmployeeId);
+                    cmd.Parameters.AddWithValue("@AttendanceDate", attendance.AttendanceDate);
+                    cmd.Parameters.AddWithValue("@InDateTime", attendance.InDateTime);
+                    cmd.Parameters.AddWithValue("@OutDateTime", attendance.OutDateTime);
+                    cmd.Parameters.AddWithValue("@TotalHours", attendance.TotalHours);
+                    cmd.Parameters.AddWithValue("@CreatedBy", attendance.CreatedBy);
+                    cmd.Parameters.AddWithValue("@Latitude", attendance.Latitude);
+                    cmd.Parameters.AddWithValue("@Longitude", attendance.Longitude);
+                    cmd.Parameters.AddWithValue("@Source", attendance.Source);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();
@@ -133,7 +133,7 @@ namespace DataAccess.HR
             return rowsAffacted;
         }
 
-        public static int Attendance_Delete(int AttendanceId)
+        public static int Attendance_Delete(int attendanceId)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -143,7 +143,49 @@ namespace DataAccess.HR
                     cmd.Connection = con;
                     cmd.CommandText = "usp_HR_Attendance_Delete";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@AttendanceId", AttendanceId);
+                    cmd.Parameters.AddWithValue("@AttendanceId", attendanceId);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Attendance_MarkLate(int attendanceId, bool isLate)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_Attendance_MarkLate";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@AttendanceId", attendanceId);
+                    cmd.Parameters.AddWithValue("@IsLate", isLate);
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static int Attendance_MarkHalfday(int attendanceId, bool isHalfday)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "usp_HR_Attendance_MarkHalfday";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@AttendanceId", attendanceId);
+                    cmd.Parameters.AddWithValue("@IsHalfDay", isHalfday);
                     if (con.State == ConnectionState.Closed)
                         con.Open();
                     rowsAffacted = cmd.ExecuteNonQuery();

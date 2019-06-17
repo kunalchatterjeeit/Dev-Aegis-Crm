@@ -41,15 +41,11 @@ namespace WebAppAegisCRM.HR
             gvAttendanceList.PageIndex = e.NewPageIndex;
             Attendance_GetAll();
         }
-
-        protected void gvAttendanceList_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            //ModalPopupExtender1.Show();
-        }
-
+        
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             Attendance_GetAll();
         }
+
     }
 }
