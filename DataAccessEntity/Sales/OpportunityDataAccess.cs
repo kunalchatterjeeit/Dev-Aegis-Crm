@@ -21,12 +21,14 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetOpportunityDbModel>(
-                                "exec dbo.[usp_Sales_Opportunity_GetAll] @Name,@CommitStageId,@BestPrice",
+                                "exec dbo.[usp_Sales_Opportunity_GetAll] @Name,@CommitStageId,@BestPrice,@SourceActivityTypeId,@ChildActivityTypeId",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
                                     new SqlParameter("CommitStageId", DBNull.Value),
-                                    new SqlParameter("BestPrice", DBNull.Value)
+                                    new SqlParameter("BestPrice", DBNull.Value),
+                                    new SqlParameter("SourceActivityTypeId", Param.SourceActivityTypeId),
+                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId)
                                 }
                              ).ToList();
             }
@@ -37,7 +39,8 @@ namespace DataAccessEntity.Sales
             {
                 return Context.Database.ExecuteSqlCommand(
                                 "exec dbo.[usp_Sales_Opportunity_Save] @Id,@Name,@Description,@ExpectedCloseDate,@LikelyPrice,@BestPrice," +
-                                "@WorstPrice,@CommitStageId,@LeadSource,@SourceName,@CampaignId,@CreatedBy,@IsActive",
+                                "@WorstPrice,@CommitStageId,@LeadSource,@SourceName,@CampaignId,@CreatedBy,@IsActive,@SourceActivityTypeId," +
+                                "@SourceActivityId,@ChildActivityTypeId,@ActivityLinkId",
                                 new Object[]
                                 {
                                     new SqlParameter("Id", Model.Id),
@@ -52,20 +55,26 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("SourceName", Model.SourceName),
                                     new SqlParameter("CampaignId", Model.CampaignId==null?(object)DBNull.Value:Model.CampaignId),
                                     new SqlParameter("CreatedBy", Model.CreatedBy),
-                                    new SqlParameter("IsActive", Model.IsActive)
+                                    new SqlParameter("IsActive", Model.IsActive),
+                                    new SqlParameter("SourceActivityTypeId", Model.SourceActivityTypeId),
+                                    new SqlParameter("SourceActivityId", Model.SourceActivityId==null?(object)DBNull.Value:Model.SourceActivityId),
+                                    new SqlParameter("ChildActivityTypeId", Model.ChildActivityTypeId),
+                                    new SqlParameter("ActivityLinkId", Model.ActivityLinkId)
                                 }
                              );
             }
         }
-        public static OpportunityDbModel GetOpportunityById(int Id)
+        public static OpportunityDbModel GetOpportunityById(int Id,int SourceTypeId, int ChildTypeId)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<OpportunityDbModel>(
-                                "exec dbo.[usp_Sales_Opportunity_GetById] @Id",
+                                "exec dbo.[usp_Sales_Opportunity_GetById] @Id,@SourceActivityTypeId,@ChildActivityTypeId",
                                 new Object[]
                                 {
-                                    new SqlParameter("Id", Id)
+                                    new SqlParameter("Id", Id),
+                                    new SqlParameter("SourceActivityTypeId", SourceTypeId),
+                                    new SqlParameter("ChildActivityTypeId", ChildTypeId)
                                 }
                              ).FirstOrDefault();
             }

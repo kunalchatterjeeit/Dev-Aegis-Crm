@@ -46,7 +46,7 @@ namespace WebAppAegisCRM.UserControl
         private void LoadOpportunity()
         {
             Business.Sales.Opportunity Obj = new Business.Sales.Opportunity();
-            Entity.Sales.GetOpportunityParam Param = new Entity.Sales.GetOpportunityParam { BestPrice = null, CommitStageId = null, Name = null };
+            Entity.Sales.GetOpportunityParam Param = new Entity.Sales.GetOpportunityParam { BestPrice = null, CommitStageId = null, Name = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Lead), ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity) };
 
             ddlOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             ddlOpportunity.DataTextField = "Name";
