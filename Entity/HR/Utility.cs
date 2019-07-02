@@ -33,6 +33,7 @@ namespace Entity.HR
         public const string EMPLOYEE_HOLIDAY_PROFILE_MAPPING = "208";
         public const string HOLIDAY_LIST = "209";
         public const string ATTENDANCE_LIST = "210";
+        public const string MANAGE_ATTENDANCE = "211";
 
 
 
