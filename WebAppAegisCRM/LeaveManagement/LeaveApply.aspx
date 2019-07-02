@@ -1,10 +1,34 @@
-﻿<%@ Page Title="Leave Apply" Language="C#" AutoEventWireup="true" CodeBehind="LeaveApply.aspx.cs" MasterPageFile="~/Main.Master"
+﻿<%@ Page Title="LEAVE APPLY" Language="C#" AutoEventWireup="true" CodeBehind="LeaveApply.aspx.cs" MasterPageFile="~/Main.Master"
     Inherits="WebAppAegisCRM.LeaveManagement.LeaveApply" %>
 
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="scriptcontent" ContentPlaceHolderID="head" runat="server">
-    
+    <script type="text/javascript">
+        function HalfDayList(obj, date) {
+            debugger;
+            var halfDayList = $("#ContentPlaceHolder1_hdnHalfDayList").val();
+
+            if ($(obj).find('input').is(':checked')) {
+                if (halfDayList == null || halfDayList == '') {
+                    halfDayList = date;
+                }
+                else {
+                    halfDayList += ',' + date;
+                }
+            }
+            else {
+                if (halfDayList == null || halfDayList == '') {
+                    halfDayList = '';
+                }
+                else {
+                    halfDayList = halfDayList.replace(date, '');
+                    halfDayList = halfDayList.replace(',,', ',');
+                }
+            }
+            $("#ContentPlaceHolder1_hdnHalfDayList").val(halfDayList);
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -24,6 +48,7 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div class="row">
+                <asp:HiddenField ID="hdnHalfDayList" runat="server" />
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -72,6 +97,10 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                 <div class="col-lg-12">
+                                        <uc3:Message ID="Message" runat="server" />
+                                
+                                </div>
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Leave Type
@@ -100,21 +129,28 @@
                                         <asp:Label ID="lbTotalCount" CssClass="form-control" runat="server" Text=""></asp:Label>
                                     </div>
                                 </div>
-
-
-                                <div class="col-lg-12" id="calender">
+                                <div class="clearfix"></div>
+                               
+                                <div class="col-lg-12" id="calender">                                    
+                                <span class="red">Note: Select all required dates from calendar then select half day checkbox</span>
                                     <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid"
                                         CellSpacing="1" Font-Names="Verdana"
                                         MultiSelectedDates="true" OnDayRender="Calendar1_DayRender"
                                         Font-Size="9pt" ForeColor="Black" NextPrevFormat="ShortMonth"
                                         OnSelectionChanged="Calendar1_SelectionChanged" SelectionMode="Day" Style="width: 100%; height: 45vh">
-                                        <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" />
-                                        <DayStyle BackColor="#CCCCCC" />
-                                        <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />
+                                        <DayHeaderStyle Font-Bold="True" Font-Size="12pt" ForeColor="#333333" BackColor="#83ad29" />
+                                        <DayStyle BackColor="#CCCCCC" Font-Size="X-Large" />
+                                        <NextPrevStyle Font-Bold="True" Font-Size="12pt" ForeColor="White" Font-Italic="true" />
                                         <OtherMonthDayStyle ForeColor="#999999" />
                                         <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                                        <TitleStyle BackColor="#333399" BorderStyle="Solid" Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="12pt" />
+                                        <TitleStyle BackColor="#5BC0DE" Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="36" />
                                         <TodayDayStyle BackColor="#999999" ForeColor="White" />
+                                        <DayStyle
+                                            BackColor="#ffce93"
+                                            BorderColor="Orange"
+                                            BorderWidth="1"
+                                            Font-Bold="true"
+                                            Font-Italic="true" Font-Size="XX-Large" />
                                     </asp:Calendar>
                                 </div>
 
@@ -125,7 +161,7 @@
                                         <asp:TextBox ID="txtReason" runat="server" class="form-control" cols="20" Rows="2"></asp:TextBox>
                                     </div>
                                 </div>
-                                 <div class="col-lg-12">
+                                <div class="col-lg-12">
                                     <div class="form-group">
                                         Attachment
                                          <br />
@@ -139,12 +175,7 @@
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" />
                                     </div>
                                 </div>
-                                <div class="col-lg-8">
-                                    <div class="form-group">
-                                        <br />
-                                        <uc3:Message ID="Message" runat="server" />
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>

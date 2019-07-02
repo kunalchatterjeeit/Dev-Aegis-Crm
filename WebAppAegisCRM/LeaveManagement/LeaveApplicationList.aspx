@@ -1,4 +1,4 @@
-﻿<%@ Page Title="LEAVE APPLICATION LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApplicationList.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplicationList" %>
+﻿<%@ Page Title="MY LEAVE APPLICATION LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApplicationList.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplicationList" %>
 
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -170,8 +170,23 @@
                                                                         <%# Container.DataItemIndex+1 %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:BoundField HeaderText="Date" DataField="Date" />
-                                                                <asp:BoundField HeaderText="Day" DataField="Day" />
+                                                                <asp:TemplateField>
+                                                                    <HeaderTemplate>
+                                                                        Date
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <%# Convert.ToDateTime(Eval("LeaveDate").ToString()).ToString("dd MMM yyyy") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField>
+                                                                    <HeaderTemplate>
+                                                                        Day
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <%# Convert.ToDateTime(Eval("LeaveDate").ToString()).ToString("dddd") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:BoundField HeaderText="Applied Day" DataField="AppliedForDay" />
                                                             </Columns>
                                                             <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                                             <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

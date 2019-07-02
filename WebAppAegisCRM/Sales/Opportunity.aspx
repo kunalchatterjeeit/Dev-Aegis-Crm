@@ -35,6 +35,20 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group has-error">
+                                            Link Type
+                                <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            Link Name
+                                <asp:DropDownList ID="ddlLinkName" AutoPostBack="true" OnSelectedIndexChanged="ddlLinkName_SelectedIndexChange" runat="server" CssClass="form-control">
+                                </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group has-error">
                                             Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
@@ -481,6 +495,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Name" HeaderText="Name" />
+                                            <asp:BoundField DataField="LeadName" HeaderText="Lead Name" />
                                             <asp:BoundField DataField="BestPrice" HeaderText="Best Price" />
                                             <asp:BoundField DataField="CommitStage" HeaderText="Commit Stage" />
                                             <asp:TemplateField>

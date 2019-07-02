@@ -19,6 +19,8 @@ namespace DataAccessEntity.Sales
     {
         public string Name { get; set; }
         public string OfficePhone { get; set; }
+        public int SourceActivityTypeId { get; set; }
+        public int ChildActivityTypeId { get; set; }
     }
     public class GetAccountsDbModel
     {
@@ -29,6 +31,7 @@ namespace DataAccessEntity.Sales
         public string Industry { get; set; }
         public string LeadSourceName { get; set; }
         public string CustomerTypeName { get; set; }
+        public string CustomerName { get; set; }
     }
     public class AccountsDbModel
     {
@@ -47,5 +50,10 @@ namespace DataAccessEntity.Sales
         public string SourceName { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int ActivityLinkId { get; set; }
+        public int? ChildActivityTypeId { get; set; }       
+        public int? SourceActivityId { get; set; }
+        public int? SourceActivityTypeId { get; set; }
+        public string CustomerName { get; set; }
     }
 }

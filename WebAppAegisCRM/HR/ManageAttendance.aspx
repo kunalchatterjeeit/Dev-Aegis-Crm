@@ -1,11 +1,9 @@
-﻿<%@ Page Title="ATTENDANCE LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="AttendanceList.aspx.cs" Inherits="WebAppAegisCRM.HR.AttendanceList" %>
-
+﻿<%@ Page Title="MANAGE ATTENDANCE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ManageAttendance.aspx.cs" Inherits="WebAppAegisCRM.HR.ManageAttendance" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-
+<%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
@@ -24,7 +22,7 @@
         <ContentTemplate>
             <div class="row">
                 <div class="col-lg-12">
-
+                    
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Attendance List
@@ -59,13 +57,16 @@
                             <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />
                         </div>
                         <div class="clearfix"></div>
+                         <div class="col-lg-12">
+                            <uc3:Message ID="MessageBox" runat="server" />
+                        </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
                                     <asp:GridView ID="gvAttendanceList" runat="server" AllowPaging="True" PageSize="20"
                                         AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                         GridLines="None" Style="text-align: left" OnPageIndexChanging="gvAttendanceList_PageIndexChanging"
-                                        AllowCustomPaging="true">
+                                        OnRowCommand="gvAttendanceList_RowCommand" AllowCustomPaging="true" OnRowDataBound="gvAttendanceList_RowDataBound">
                                         <Columns>
                                             <asp:TemplateField>
                                                 <HeaderTemplate>
@@ -119,14 +120,16 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:BoundField DataField="Source" HeaderText="Source" />
-                                            <asp:TemplateField HeaderText="Is Late">
+                                            <asp:TemplateField>
                                                 <ItemTemplate>
-                                                    <asp:CheckBox ID="chkLate" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsLate").ToString()) %>' />
+                                                    <asp:Button ID="btnMarkLate" runat="server" Text="Mark Late" ToolTip="Click to mark as late" CommandName="MarkLate" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-danger" Style="margin: 2px" />
+                                                    <asp:HiddenField ID="hdnMarkLate" runat="server" Value='<%# Eval("IsLate").ToString() %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:TemplateField HeaderText="Is Half-day">
+                                            <asp:TemplateField>
                                                 <ItemTemplate>
-                                                    <asp:CheckBox ID="chkHalfday" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsHalfday").ToString()) %>' />
+                                                    <asp:Button ID="btnMarkHalfDay" runat="server" Text="Mark Half-day" ToolTip="Click to mark as half-day" CommandName="MarkHalfDay" CommandArgument='<%# Eval("AttendanceId") %>' CssClass="btn btn-outline btn-danger" Style="margin: 2px" />
+                                                    <asp:HiddenField ID="hdnMarkHalfday" runat="server" Value='<%# Eval("IsHalfday").ToString() %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
@@ -148,20 +151,6 @@
                     </div>
                 </div>
             </div>
-            <a id="lnkLeave" runat="server"></a>
-            <asp:ModalPopupExtender ID="ModalPopupExtender1" BackgroundCssClass="myModalPopupbackGrnd"
-                runat="server" TargetControlID="lnkLeave" PopupControlID="Panel1" CancelControlID="imgbtn">
-            </asp:ModalPopupExtender>
-            <asp:Panel ID="Panel1" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
-                <asp:Panel ID="dragHandler" runat="server" class="popup-working-section" ScrollBars="Auto">
-                    <div class="accountInfo" style="width: 100%; float: left">
-                        <br />
-                        <fieldset class="login">
-                        </fieldset>
-                    </div>
-                </asp:Panel>
-                <img id="imgbtn" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
-            </asp:Panel>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

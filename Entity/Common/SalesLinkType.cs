@@ -15,6 +15,7 @@
         Note=4,
         Account=5,
         Lead=6,
-        Opportunity=9
+        Opportunity=9,
+        Customer=10
     }
 }

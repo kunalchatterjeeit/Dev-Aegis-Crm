@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -85,7 +86,7 @@ namespace DataAccess.LeaveManagement
             }
         }
 
-        public static DataTable GetLeaveApplications_ByApproverId(int approverId, int statusId)
+        public static DataTable GetLeaveApplications_ByApproverId(int approverId, int statusId, LeaveTypeEnum leaveType, DateTime fromApplicationDate, DateTime toApplicationDate)
         {
             using (DataTable dt = new DataTable())
             {
@@ -101,6 +102,18 @@ namespace DataAccess.LeaveManagement
                             cmd.Parameters.AddWithValue("@Status", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@Status", statusId);
+                        if (leaveType == LeaveTypeEnum.None)
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@LeaveTypeId", (int)leaveType);
+                        if (fromApplicationDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromLeaveApplicationDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromLeaveApplicationDate", fromApplicationDate);
+                        if (toApplicationDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToLeaveApplicationDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToLeaveApplicationDate", toApplicationDate);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);

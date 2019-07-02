@@ -45,10 +45,10 @@ namespace Business.Sales
             Model.CopyPropertiesTo(DbModel);
             return OpportunityDataAccess.SaveOpportunities(DbModel);
         }
-        public Entity.Sales.Opportunity GetOpportunityById(int Id)
+        public Entity.Sales.Opportunity GetOpportunityById(int Id, int SourceTypeId, int ChildTypeId)
         {
             Entity.Sales.Opportunity Opportunity = new Entity.Sales.Opportunity();
-            OpportunityDataAccess.GetOpportunityById(Id).CopyPropertiesTo(Opportunity);
+            OpportunityDataAccess.GetOpportunityById(Id, SourceTypeId, ChildTypeId).CopyPropertiesTo(Opportunity);
             return Opportunity;
         }
         public int DeleteOpportunities(int Id)

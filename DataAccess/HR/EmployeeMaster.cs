@@ -372,7 +372,7 @@ namespace DataAccess.HR
                     cmd.CommandText = "usp_HR_EmployeeLeave_Update";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@EmployeeId", employeeMaster.EmployeeMasterId);
-                    cmd.Parameters.AddWithValue("@LeaveStatus", employeeMaster.LeaveActive);
+                    cmd.Parameters.AddWithValue("@LeaveStatus", employeeMaster.LeaveBlocked);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
