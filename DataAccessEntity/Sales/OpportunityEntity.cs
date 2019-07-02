@@ -23,12 +23,15 @@ namespace DataAccessEntity.Sales
         public decimal? BestPrice { get; set; }
         public string CommitStage { get; set; }
         public DateTime? ExpectedCloseDate { get; set; }
+        public string LeadName { get; set; }
     }
     public class GetOpportunityParamDbModel
     {
         public string Name { get; set; }
         public int? CommitStageId { get; set; }
         public decimal? BestPrice { get; set; }
+        public int SourceActivityTypeId { get; set; }
+        public int ChildActivityTypeId { get; set; }
     }
     public class OpportunityDbModel
     {
@@ -46,5 +49,10 @@ namespace DataAccessEntity.Sales
         public int? CampaignId { get; set; }
         public int CreatedBy { get; set; }
         public bool IsActive { get; set; }
+        public int ActivityLinkId { get; set; }
+        public int? ChildActivityTypeId { get; set; }
+        public int? SourceActivityId { get; set; }
+        public int? SourceActivityTypeId { get; set; }
+        public string LeadName { get; set; }
     }
 }

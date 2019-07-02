@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
 using System.Reflection;
+using Entity.Common;
 
 namespace WebAppAegisCRM.Sales
 {
@@ -63,7 +64,9 @@ namespace WebAppAegisCRM.Sales
             {
                 BestPrice = null,
                 CommitStageId = null,
-                Name = null
+                Name = null,
+                SourceActivityTypeId = Convert.ToInt32(ActityType.Lead),
+                ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity)
             };
             ddlOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             ddlOpportunity.DataTextField = "Name";

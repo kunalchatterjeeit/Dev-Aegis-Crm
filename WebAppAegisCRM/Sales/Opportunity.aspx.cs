@@ -17,6 +17,8 @@ namespace WebAppAegisCRM.Sales
             {
                // Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
                 LoadOpportunityList();
+                LoadLinkType();
+                LoadLeadList();
                 LoadOpportunityDropdowns();
                 Message.Show = false;
                 if (OpportunityId > 0)
@@ -118,12 +120,19 @@ namespace WebAppAegisCRM.Sales
             get { return Convert.ToInt32(ViewState["Id"]); }
             set { ViewState["Id"] = value; }
         }
+        public int ActivityLinkId
+        {
+            get { return Convert.ToInt32(ViewState["ActivityLinkId"]); }
+            set { ViewState["ActivityLinkId"] = value; }
+        }
         private void LoadOpportunityList()
         {
             Business.Sales.Opportunity Obj = new Business.Sales.Opportunity();
             Entity.Sales.GetOpportunityParam Param = new Entity.Sales.GetOpportunityParam
             {
-                BestPrice = null, CommitStageId = null, Name = null
+                BestPrice = null, CommitStageId = null, Name = null,
+                SourceActivityTypeId = Convert.ToInt32(ActityType.Lead),
+                ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity)
             };
             gvOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             gvOpportunity.DataBind();
@@ -155,6 +164,21 @@ namespace WebAppAegisCRM.Sales
             ddlLeadSource.DataBind();
             ddlLeadSource.InsertSelect();
         }
+        private void LoadLinkType()
+        {
+            ddlLinkType.Items.Insert(0, new ListItem() { Text = "Lead", Value = ActityType.Lead.ToString(), Selected = true, Enabled = true });
+        }
+        private void LoadLeadList()
+        {
+            Business.Sales.Leads Obj = new Business.Sales.Leads();
+            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
+
+            ddlLinkName.DataSource = Obj.GetAllLeads(Param);
+            ddlLinkName.DataTextField = "Name";
+            ddlLinkName.DataValueField = "Id";
+            ddlLinkName.DataBind();
+            ddlLinkName.InsertSelect();
+        }
         private void ClearControls()
         {
             OpportunityId = 0;
@@ -169,6 +193,7 @@ namespace WebAppAegisCRM.Sales
             ddlCampaign.SelectedIndex = 0;
             ddlCommitStage.SelectedIndex = 0;
             ddlLeadSource.SelectedIndex = 0;
+            ddlLinkName.SelectedIndex = 0;
             btnSave.Text = "Save";
         }
         private bool OpportunityControlValidation()
@@ -190,6 +215,21 @@ namespace WebAppAegisCRM.Sales
         {
             Save();
         }
+        protected void ddlLinkName_SelectedIndexChange(object sender, EventArgs e)
+        {
+            hdnOpenForm.Value = "true";
+            if (ddlLinkName.SelectedIndex != 0)
+            {
+                Business.Sales.Leads Obj = new Business.Sales.Leads();
+                Entity.Sales.Leads Leads = Obj.GetLeadById(Convert.ToInt32(ddlLinkName.SelectedValue), Convert.ToInt32(ActityType.Account), Convert.ToInt32(ActityType.Lead));
+                if (Leads.Id != 0)
+                {
+                    ddlCampaign.SelectedValue = Leads.CampaignId == null ? "0" : Leads.CampaignId.ToString();                   
+                    txtDescription.Text = Leads.Description;
+                    txtName.Text = Leads.Name;                    
+                }
+            }
+        }
         protected void gvOpportunity_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "Ed")
@@ -198,6 +238,7 @@ namespace WebAppAegisCRM.Sales
                 GetOpportunityById();
                 Message.Show = false;
                 btnSave.Text = "Update";
+                hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "View")
             {
@@ -228,7 +269,7 @@ namespace WebAppAegisCRM.Sales
         private void GetOpportunityById()
         {
             Business.Sales.Opportunity Obj = new Business.Sales.Opportunity();
-            Entity.Sales.Opportunity Opportunity = Obj.GetOpportunityById(OpportunityId);
+            Entity.Sales.Opportunity Opportunity = Obj.GetOpportunityById(OpportunityId,Convert.ToInt32(ActityType.Lead), Convert.ToInt32(ActityType.Opportunity));
             if (Opportunity.Id != 0)
             {
                 txtName.Text = Opportunity.Name;
@@ -241,6 +282,8 @@ namespace WebAppAegisCRM.Sales
                 ddlCampaign.SelectedValue = Opportunity.CampaignId == null ? "0" : Opportunity.CampaignId.ToString();
                 ddlCommitStage.SelectedValue = Opportunity.CommitStageId == null ? "0" : Opportunity.CommitStageId.ToString();
                 ddlLeadSource.SelectedValue = Opportunity.LeadSource == null ? "0" : Opportunity.LeadSource.ToString();
+                ddlLinkName.SelectedValue = Opportunity.SourceActivityId == null ? "0" : Opportunity.SourceActivityId.ToString();
+                ActivityLinkId = Opportunity.ActivityLinkId;
             }
         }
         private void Save()
@@ -262,7 +305,11 @@ namespace WebAppAegisCRM.Sales
                     CampaignId = ddlCampaign.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCampaign.SelectedValue),
                     CommitStageId= ddlCommitStage.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlCommitStage.SelectedValue),
                     LeadSource = ddlLeadSource.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlLeadSource.SelectedValue),
-                    IsActive = true
+                    IsActive = true,
+                    ActivityLinkId = ActivityLinkId,
+                    ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity),
+                    SourceActivityTypeId = Convert.ToInt32(ActityType.Lead),
+                    SourceActivityId = ddlLinkName.SelectedValue == "0" ? (int?)null : Convert.ToInt32(ddlLinkName.SelectedValue)
                 };
                 int rows = Obj.SaveOpportunity(Model);
                 if (rows > 0)
