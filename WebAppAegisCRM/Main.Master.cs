@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Data;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace WebAppAegisCRM
             if (!IsPostBack)
             {
                 IndividualLoyalityPoint_ByEmployeeId();
+                CheckAttendanceBlocked();
+
                 //CONTROL PANEL
                 liControlPanel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CONTROLPANEL);
                 liServiceCallAttendanceManager.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICECALLATTENDANCEMANAGER);
@@ -160,6 +163,24 @@ namespace WebAppAegisCRM
                 }
             }
             lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
+        }
+
+        private void CheckAttendanceBlocked() {
+            DataTable dtLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplication().LeaveApplicationDetails_GetByDate(new Entity.LeaveManagement.LeaveApplicationMaster()
+            {
+                RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
+                FromLeaveDate = DateTime.Now.Date,
+                ToLeaveDate = DateTime.Now.Date,
+                LeaveStatuses = Convert.ToString((int)LeaveStatusEnum.Approved)
+            });
+            if (dtLeaveApplicationDetails != null && dtLeaveApplicationDetails.AsEnumerable().Any())
+            {
+                liAttendance.Visible = false;
+            }
+            else
+            {
+                liAttendance.Visible = true;
+            }
         }
     }
 }

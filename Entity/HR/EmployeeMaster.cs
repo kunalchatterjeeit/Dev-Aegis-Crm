@@ -226,7 +226,7 @@ namespace Entity.HR
 
         public int RoleId { get; set; }
         public int ReportingEmployeeId { get; set; }
-        public bool LeaveActive { get; set; }
+        public bool LeaveBlocked { get; set; }
         public bool IsPasswordChangeRequired { get; set; }
         public bool IsActive { get; set; }
         public bool IsLoginActive { get; set; }

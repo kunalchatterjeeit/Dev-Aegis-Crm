@@ -313,6 +313,9 @@
                                 <li id="liEmployeeHolidayProfileMapping" runat="server" visible="false">
                                     <a href="../HR/EmployeeHolidayProfileMapping.aspx">Employee Holiday Profile Mapping</a>
                                 </li>
+                                 <li id="liManageAttendance" runat="server" visible="false">
+                                    <a href="../HR/ManageAttendance.aspx">Manage Attendance</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -329,10 +332,10 @@
                                     <a href="../LeaveManagement/LeaveApply.aspx">Apply Leave</a>
                                 </li>
                                 <li id="liLeaveApprove" runat="server" visible="false">
-                                    <a href="../LeaveManagement/LeaveApprove.aspx">Leave Approve</a>
+                                    <a href="../LeaveManagement/LeaveApprove.aspx">Leave Approve/Reject/Cancel</a>
                                 </li>
                                  <li id="liLeaveApplicationList" runat="server" visible="false">
-                                    <a href="../LeaveManagement/LeaveApplicationList.aspx">Leave Application List</a>
+                                    <a href="../LeaveManagement/LeaveApplicationList.aspx">My Leave Application List</a>
                                 </li>
                                 <li id="liLeaveGenerate" runat="server" visible="false">
                                     <a href="../LeaveManagement/GenerateLeave.aspx">Generate Leave</a>

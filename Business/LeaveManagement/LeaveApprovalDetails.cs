@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using Entity.Common;
+using System;
+using System.Data;
 
 namespace Business.LeaveManagement
 {
@@ -9,9 +11,9 @@ namespace Business.LeaveManagement
             return DataAccess.LeaveManagement.LeaveApprovalDetails.LeaveApprovalDetails_Save(leaveApprovalDetails);
         }
 
-        public DataTable GetLeaveApplications_ByApproverId(int approverId, int statusId)
+        public DataTable GetLeaveApplications_ByApproverId(int approverId, int statusId, LeaveTypeEnum leaveType, DateTime fromApplicationDate, DateTime toApplicationDate)
         {
-            return DataAccess.LeaveManagement.LeaveApprovalDetails.GetLeaveApplications_ByApproverId(approverId, statusId);
+            return DataAccess.LeaveManagement.LeaveApprovalDetails.GetLeaveApplications_ByApproverId(approverId, statusId, leaveType, fromApplicationDate, toApplicationDate);
         }
 
         public int LeaveApprove(Entity.LeaveManagement.LeaveApprovalDetails leaveApprovalDetails)
