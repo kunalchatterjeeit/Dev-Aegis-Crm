@@ -37,48 +37,53 @@
                         <div class="panel-collapse collapse out" id="section5">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="form-group has-error">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
                                             Link Type
-                                <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
+                                            <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
+                                            </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             Link Name
-                                <asp:TextBox ID="txtCustomerName" CssClass="form-control"  runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
-                                            <asp:Button ID="Button1" runat="server" Text="Find" class="btn btn-outline btn-success" OnClick="btnFind_Click" />
+                                            <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <br />
+                                            <asp:Button ID="btnFind" runat="server" Text="Find" class="btn btn-outline btn-success pull-left" OnClick="btnFind_Click" />
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group has-error">
                                             Account Name
-                                <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             Account Description
-                                <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
+                                            <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             Website
-                                <asp:TextBox ID="txtWebsite" CssClass="form-control" runat="server" TextMode="Url"></asp:TextBox>
+                                            <asp:TextBox ID="txtWebsite" CssClass="form-control" runat="server" TextMode="Url"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             Industry
-                                <asp:TextBox ID="txtIndustry" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtIndustry" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group has-error">
                                             Office Phone
-                                <asp:TextBox ID="txtOfficePhone" CssClass="form-control" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="txtOfficePhone" CssClass="form-control" runat="server"></asp:TextBox>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -148,7 +153,7 @@
                                 <div class="table-responsive" style="height: 20vh; overflow: scroll">
                                     <center>
                                         <asp:GridView ID="gvAssignedEmployee" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                            GridLines="None" AllowPaging="false" DataKeyNames="EmployeeMasterId" OnRowDataBound="gvAssignedEmployee_RowDataBound" CellPadding="0" CellSpacing="0" ForeColor="#333333" >
+                                            GridLines="None" AllowPaging="false" DataKeyNames="EmployeeMasterId" OnRowDataBound="gvAssignedEmployee_RowDataBound" CellPadding="0" CellSpacing="0" ForeColor="#333333">
                                             <Columns>
                                                 <asp:TemplateField HeaderText="SL" ItemStyle-Width="25px">
                                                     <ItemTemplate>
@@ -160,7 +165,7 @@
                                                         Assign
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
-                                                        <asp:CheckBox ID="chkAssigned" runat="server" OnCheckedChanged="chkAssigned_CheckedChanged" AutoPostBack="true"/>
+                                                        <asp:CheckBox ID="chkAssigned" runat="server" OnCheckedChanged="chkAssigned_CheckedChanged" AutoPostBack="true" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField ItemStyle-Width="25px">
@@ -171,8 +176,8 @@
                                                         <asp:RadioButton ID="rbtnIsLead" runat="server" OnCheckedChanged="rbtnIsLead_CheckedChanged" AutoPostBack="true" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                 <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
-                                                 <asp:TemplateField>
+                                                <asp:BoundField DataField="EmployeeName" HeaderText="Employee Name" />
+                                                <asp:TemplateField>
                                                     <HeaderTemplate>
                                                         Assign Date
                                                     </HeaderTemplate>
@@ -180,14 +185,14 @@
                                                         <%# (Eval("AssignedDate")==null)?"":Convert.ToDateTime(Eval("AssignedDate").ToString()).ToString("dd MMM yyyy") %>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                 <asp:TemplateField>
+                                                <asp:TemplateField>
                                                     <HeaderTemplate>
                                                         Revoke Date
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
                                                         <%# (Eval("RevokeDate")==null)?"":Convert.ToDateTime(Eval("RevokeDate").ToString()).ToString("dd MMM yyyy") %>
                                                     </ItemTemplate>
-                                                </asp:TemplateField>                                               
+                                                </asp:TemplateField>
                                             </Columns>
                                             <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                             <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />

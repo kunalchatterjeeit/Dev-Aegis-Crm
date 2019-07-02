@@ -33,14 +33,14 @@
                         <div class="panel-collapse collapse out" id="section5">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group has-error">
                                             Link Type
                                 <asp:DropDownList ID="ddlLinkType" runat="server" CssClass="form-control">
                                 </asp:DropDownList>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             Link Name
                                 <asp:DropDownList ID="ddlLinkName" AutoPostBack="true" OnSelectedIndexChanged="ddlLinkName_SelectedIndexChange" runat="server" CssClass="form-control">
