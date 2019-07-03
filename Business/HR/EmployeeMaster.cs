@@ -98,5 +98,10 @@ namespace Business.HR
         {
             return DataAccess.HR.EmployeeMaster.Employee_Update(employeeMaster);
         }
+
+        public DataTable EmployeeWorkReport(DateTime fromDate, DateTime toDate)
+        {
+            return DataAccess.HR.EmployeeMaster.EmployeeWorkReport(fromDate, toDate);
+        }
     }
 }

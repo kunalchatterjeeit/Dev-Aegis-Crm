@@ -68,26 +68,6 @@ namespace WebAppAegisCRM.LeaveManagement
                 btnCancel.Visible = false;
                 btnFollowup.Visible = false;
             }
-
-            //DataTable dtDates = new DataTable();
-            //dtDates.Columns.Add("Date");
-            //dtDates.Columns.Add("Day");
-
-            //DateTime dateTime = Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString());
-            //while (true)
-            //{
-            //    if (Convert.ToDateTime(dsLeaveApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString()).AddDays(1).Date <= dateTime.Date)
-            //        break;
-            //    else
-            //        dtDates.Rows.Add();
-
-            //    dtDates.Rows[dtDates.Rows.Count - 1]["Date"] = dateTime.ToString("dd MMM yyyy");
-            //    dtDates.Rows[dtDates.Rows.Count - 1]["Day"] = dateTime.ToString("dddd");
-            //    dtDates.AcceptChanges();
-
-            //    dateTime = dateTime.AddDays(1);
-            //}
-
             gvDates.DataSource = dsLeaveApplicationDetails.Tables[2];
             gvDates.DataBind();
         }

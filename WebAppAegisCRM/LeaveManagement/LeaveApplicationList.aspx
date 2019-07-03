@@ -1,4 +1,4 @@
-﻿<%@ Page Title="LEAVE APPLICATION LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApplicationList.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplicationList" %>
+﻿<%@ Page Title="MY LEAVE APPLICATION LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApplicationList.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApplicationList" %>
 
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>

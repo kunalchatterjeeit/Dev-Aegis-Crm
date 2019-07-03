@@ -381,8 +381,8 @@
                                                 </td>
                                                 <td>
                                                     <asp:RadioButtonList ID="rbtnListLeaveStatus" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rbtnListLeaveStatus_SelectedIndexChanged" AutoPostBack="true">
-                                                        <asp:ListItem Value="true">Activated</asp:ListItem>
-                                                        <asp:ListItem Value="false">Blocked</asp:ListItem>
+                                                        <asp:ListItem Value="false">Activated</asp:ListItem>
+                                                        <asp:ListItem Value="true">Blocked</asp:ListItem>
                                                     </asp:RadioButtonList>
                                                 </td>
                                             </tr>

@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using Business.Common;
+using Entity.Common;
 
 namespace WebAppAegisCRM.Employee
 {
@@ -360,15 +361,25 @@ namespace WebAppAegisCRM.Employee
                 ddlRole.SelectedValue = dtEmployeeMaster.Rows[0]["UserRole_RoleId"].ToString();
                 Image1.ImageUrl = "EmployeeImage\\" + dtEmployeeMaster.Rows[0]["Image"].ToString();
                 ddlReporting.SelectedValue = (dtEmployeeMaster.Rows[0]["ReportingEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReportingEmployeeId"].ToString();
-                if (dtEmployeeMaster.Rows[0]["LeaveActive"] != DBNull.Value && Convert.ToBoolean(dtEmployeeMaster.Rows[0]["LeaveActive"].ToString()))
+
+                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Id, (int)LeaveTypeEnum.CL).Tables[0];
+                if (dtLeaveAccountBalance != null && dtLeaveAccountBalance.AsEnumerable().Any())
                 {
-                    rbtnListLeaveStatus.Items[0].Selected = true;
-                    rbtnListLeaveStatus.Items[1].Selected = false;
+                    if (Convert.ToBoolean(dtLeaveAccountBalance.Rows[0]["LeaveBlocked"].ToString()))
+                    {
+                        rbtnListLeaveStatus.Items[0].Selected = false;
+                        rbtnListLeaveStatus.Items[1].Selected = true;
+                    }
+                    else
+                    {
+                        rbtnListLeaveStatus.Items[0].Selected = true;
+                        rbtnListLeaveStatus.Items[1].Selected = false;
+                    }
                 }
                 else
                 {
-                    rbtnListLeaveStatus.Items[0].Selected = false;
-                    rbtnListLeaveStatus.Items[1].Selected = true;
+                    rbtnListLeaveStatus.Items[0].Selected = true;
+                    rbtnListLeaveStatus.Items[1].Selected = false;
                 }
             }
             catch (Exception ex)
@@ -603,7 +614,7 @@ namespace WebAppAegisCRM.Employee
                 Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
                 Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
                 employeeMaster.EmployeeMasterId = EmployeeMasterId;
-                employeeMaster.LeaveActive = Convert.ToBoolean(rbtnListLeaveStatus.SelectedValue);
+                employeeMaster.LeaveBlocked = Convert.ToBoolean(rbtnListLeaveStatus.SelectedValue);
                 int response = objEmployeeMaster.EmployeeLeave_Update(employeeMaster);
                 if (response > 0)
                 {

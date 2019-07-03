@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Data;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace WebAppAegisCRM
             if (!IsPostBack)
             {
                 IndividualLoyalityPoint_ByEmployeeId();
+                CheckAttendanceBlocked();
+
                 //CONTROL PANEL
                 liControlPanel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CONTROLPANEL);
                 liServiceCallAttendanceManager.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICECALLATTENDANCEMANAGER);
@@ -49,6 +52,7 @@ namespace WebAppAegisCRM
                     liHoliday.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HOLIDAY);
                     liEmployeeHolidayProfileMapping.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_HOLIDAY_PROFILE_MAPPING);
                     liHolidayList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HOLIDAY_LIST);
+                    liManageAttendance.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGE_ATTENDANCE);
 
                     //LEAVE MANAGEMENT
                     liLeaveApplicationList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_APPLICATION_LIST);
@@ -125,6 +129,8 @@ namespace WebAppAegisCRM
                 DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
+                    ShowLateNotification(dt);
+
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
                     {
                         lnkAttendaceLogin.Visible = true;
@@ -160,6 +166,51 @@ namespace WebAppAegisCRM
                 }
             }
             lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
+        }
+
+        private void CheckAttendanceBlocked() {
+            DataTable dtLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplication().LeaveApplicationDetails_GetByDate(new Entity.LeaveManagement.LeaveApplicationMaster()
+            {
+                RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
+                FromLeaveDate = DateTime.Now.Date,
+                ToLeaveDate = DateTime.Now.Date,
+                LeaveStatuses = Convert.ToString((int)LeaveStatusEnum.Approved)
+            });
+            if (dtLeaveApplicationDetails != null && dtLeaveApplicationDetails.AsEnumerable().Any())
+            {
+                liAttendance.Visible = false;
+            }
+            else
+            {
+                liAttendance.Visible = true;
+            }
+        }
+
+        private void ShowLateNotification(DataTable dtAttendance)
+        {
+            if (dtAttendance != null && dtAttendance.AsEnumerable().Any())
+            {
+                if (Convert.ToBoolean(dtAttendance.Rows[0]["IsLate"].ToString()) && Convert.ToBoolean(dtAttendance.Rows[0]["IsLateReduced"].ToString()))
+                {
+                    lblAttendanceLate.Text = "LATE (LEAVE DEDCUTED)";
+                }
+                else if (Convert.ToBoolean(dtAttendance.Rows[0]["IsLate"].ToString()))
+                {
+                    lblAttendanceLate.Text = "LATE";
+                }
+                else if (Convert.ToBoolean(dtAttendance.Rows[0]["IsHalfday"].ToString()))
+                {
+                    lblAttendanceLate.Text = "HALF-DAY";
+                }
+                else
+                {
+                    lblAttendanceLate.Text = string.Empty;
+                }
+            }
+            else
+            {
+                liAttendance.Visible = true;
+            }
         }
     }
 }

@@ -112,6 +112,7 @@
                                 <asp:ListItem Value="207" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT HOLIDAY"></asp:ListItem>
                                 <asp:ListItem Value="208" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE HOLIDAY PROFILE MAPPING"></asp:ListItem>
                                 <asp:ListItem Value="209" Text="&nbsp;&nbsp;&nbsp;HOLIDAY LIST"></asp:ListItem>
+                                <asp:ListItem Value="211" Text="&nbsp;&nbsp;&nbsp;MANAGE ATTENDANCE"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
@@ -129,8 +130,8 @@
                                 <asp:ListItem Value="701" Text="&nbsp;&nbsp;&nbsp;LEAVE CONFIGURATION"></asp:ListItem>
                                 <asp:ListItem Value="702" Text="&nbsp;&nbsp;&nbsp;LEAVE DESIGNATION CONFIGURATION"></asp:ListItem>
                                 <asp:ListItem Value="703" Text="&nbsp;&nbsp;&nbsp;APPLY LEAVE"></asp:ListItem>
-                                <asp:ListItem Value="704" Text="&nbsp;&nbsp;&nbsp;LEAVE APPROVE"></asp:ListItem>
-                                <asp:ListItem Value="705" Text="&nbsp;&nbsp;&nbsp;LEAVE APPLICATION LIST"></asp:ListItem>
+                                <asp:ListItem Value="704" Text="&nbsp;&nbsp;&nbsp;LEAVE APPROVE/REJECT/CANCEL"></asp:ListItem>
+                                <asp:ListItem Value="705" Text="&nbsp;&nbsp;&nbsp;MY LEAVE APPLICATION LIST"></asp:ListItem>
                                 <asp:ListItem Value="706" Text="&nbsp;&nbsp;&nbsp;GENERATE LEAVE"></asp:ListItem>
                                 <asp:ListItem Value="707" Text="&nbsp;&nbsp;&nbsp;LEAVE ADJUSTMENT"></asp:ListItem>
                                 <asp:ListItem Value="708" Text="&nbsp;&nbsp;&nbsp;LEAVE REPORT"></asp:ListItem>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="LEAVE APPROVE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApprove.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApprove" %>
+﻿<%@ Page Title="LEAVE APPROVE/REJECT/CANCEL" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="LeaveApprove.aspx.cs" Inherits="WebAppAegisCRM.LeaveManagement.LeaveApprove" %>
 
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
@@ -26,6 +26,56 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    Leave Search Criteria
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            Leave Type
+                            <asp:DropDownList ID="ddlLeaveType" CssClass="form-control" runat="server">
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            Leave Application From Date
+                            <asp:TextBox ID="txtFromLeaveDate" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender2" runat="server" Enabled="True"
+                                Format="dd MMM yyyy" TargetControlID="txtFromLeaveDate">
+                            </asp:CalendarExtender>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            Leave Application To Date
+                            <asp:TextBox ID="txtToLeaveDate" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:CalendarExtender ID="CalendarExtender1" runat="server" Enabled="True"
+                                Format="dd MMM yyyy" TargetControlID="txtToLeaveDate">
+                            </asp:CalendarExtender>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group has-error">
+                            <div class="checkbox">
+                                <label class="btn btn-warning">
+                                    <asp:CheckBox ID="ckShowAll" runat="server" Text="Show All" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <br />
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" class="btn btn-outline btn-success" OnClick="btnSearch_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     Leave Approval List
                 </div>
                 <div class="panel-body">
@@ -47,6 +97,7 @@
                                 <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
                                 <asp:BoundField DataField="FromDate" HeaderText="From" />
                                 <asp:BoundField DataField="ToDate" HeaderText="To" />
+                                <asp:BoundField DataField="LeaveStatusName" HeaderText="Status" />
                                 <asp:BoundField DataField="LeaveAccumulationTypeName" HeaderText="Accumulation Type" />
                                 <asp:TemplateField>
                                     <ItemTemplate>
@@ -167,8 +218,23 @@
                                                                         <%# Container.DataItemIndex+1 %>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:BoundField HeaderText="Date" DataField="Date" />
-                                                                <asp:BoundField HeaderText="Day" DataField="Day" />
+                                                                <asp:TemplateField>
+                                                                    <HeaderTemplate>
+                                                                        Date
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <%# Convert.ToDateTime(Eval("LeaveDate").ToString()).ToString("dd MMM yyyy") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField>
+                                                                    <HeaderTemplate>
+                                                                        Day
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        <%# Convert.ToDateTime(Eval("LeaveDate").ToString()).ToString("dddd") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:BoundField HeaderText="Applied Day" DataField="AppliedForDay" />
                                                             </Columns>
                                                             <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                                             <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
@@ -199,6 +265,7 @@
                                             <asp:Button ID="btnApprove" runat="server" Text="Approve" CssClass="btn btn-outline btn-success pull-left" OnClick="btnApprove_Click" />
                                         </td>
                                         <td colspan="2">
+                                            <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-outline btn-danger pull-right" OnClick="btnCancel_Click" />
                                             <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="btn btn-outline btn-warning pull-right" OnClick="btnReject_Click" />
                                         </td>
                                     </tr>
