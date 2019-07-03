@@ -112,6 +112,9 @@
             <!-- /.navbar-header -->
          
             <ul class="nav navbar-top-links navbar-right">                
+                <li id="li1" runat="server" class="dropdown">
+                    <asp:Label ID="lblAttendanceLate" runat="server" class="dropdown-toggle red blink_me" style="cursor:pointer; font-weight:bold;"></asp:Label>
+                </li>
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
@@ -130,7 +133,7 @@
                             <a href="../HR/PersonalInfo.aspx">
                                 <div>
                                     <p>
-                                        <strong>User Profile</strong>
+                                        <strong>Leave Module</strong>
                                         <span class="pull-right text-muted">100% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
@@ -147,11 +150,11 @@
                                 <div>
                                     <p>
                                         <strong>Sales module update</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
+                                        <span class="pull-right text-muted">90% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                            <span class="sr-only">90% Complete</span>
                                         </div>
                                     </div>
                                 </div>
@@ -162,28 +165,12 @@
                             <a href="#">
                                 <div>
                                     <p>
-                                        <strong>Forgot & Change password</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
+                                        <strong>AMCV Report</strong>
+                                        <span class="pull-right text-muted">90% Complete</span>
                                     </p>
                                     <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Email notification</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                            <span class="sr-only">90% Complete</span>
                                         </div>
                                     </div>
                                 </div>

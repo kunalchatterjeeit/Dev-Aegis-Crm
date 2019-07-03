@@ -124,6 +124,7 @@
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
+    <Content Include="HR\EmployeeWorkSummaryReport.aspx" />
     <Content Include="HR\Holiday.aspx" />
     <Content Include="HR\EmployeeHolidayProfileMapping.aspx" />
     <Content Include="HR\HolidayList.aspx" />
@@ -378,6 +379,13 @@
     </Compile>
     <Compile Include="HR\EmployeeLoyaltyPoint.aspx.designer.cs">
       <DependentUpon>EmployeeLoyaltyPoint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HR\EmployeeWorkSummaryReport.aspx.cs">
+      <DependentUpon>EmployeeWorkSummaryReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HR\EmployeeWorkSummaryReport.aspx.designer.cs">
+      <DependentUpon>EmployeeWorkSummaryReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\Holiday.aspx.cs">
       <DependentUpon>Holiday.aspx</DependentUpon>
