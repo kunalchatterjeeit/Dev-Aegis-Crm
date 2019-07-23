@@ -88,7 +88,7 @@ namespace DataAccess.HR
                                 employeeMaster.EmployeeMasterId : int.Parse(dt.Rows[0]["EmployeeMasterId"].ToString());
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                     }
                     con.Close();
@@ -495,6 +495,30 @@ namespace DataAccess.HR
                 }
             }
             return rowsAffacted;
+        }
+
+        public static DataTable EmployeeWorkReport(DateTime fromDate, DateTime toDate)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_HR_EmployeeWorkReport";
+                        cmd.Parameters.AddWithValue("@FromDate", fromDate);
+                        cmd.Parameters.AddWithValue("@ToDate", toDate);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
         }
     }
 }

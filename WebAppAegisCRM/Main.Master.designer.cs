@@ -40,6 +40,24 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// li1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li1;
+        
+        /// <summary>
+        /// lblAttendanceLate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAttendanceLate;
+        
+        /// <summary>
         /// liAttendance control.
         /// </summary>
         /// <remarks>
@@ -742,6 +760,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liServiceBookReport;
         
         /// <summary>
+        /// liSpareTonerUsage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSpareTonerUsage;
+        
+        /// <summary>
         /// liLeaveReport control.
         /// </summary>
         /// <remarks>
@@ -760,13 +787,13 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAttendanceReport;
         
         /// <summary>
-        /// liSpareTonerUsage control.
+        /// liEmployeeWorkSummaryReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSpareTonerUsage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEmployeeWorkSummaryReport;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

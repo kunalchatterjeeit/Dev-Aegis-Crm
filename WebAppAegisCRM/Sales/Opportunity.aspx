@@ -478,6 +478,80 @@
                         </div>
                     </div>
                 </div>
+                 <div class="col-md-12">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#section7" title="Click to expand">
+                                    <i class="fa fa-chevron-down fa-fw"></i>Social Media List
+                                </a>
+                            </div>
+                            <!--  End of heading -->
+                            <div class="panel-collapse collapse out" id="section7">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <center>
+                                            <asp:GridView ID="gvSocialMedia" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
+                                                GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="SocialMediaId" ForeColor="#333333" OnRowCommand="gvSocialMedia_RowCommand">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <%#Container.DataItemIndex+1 %>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:BoundField DataField="SocialMediaName" HeaderText="Social Media Name" />
+                                                    <asp:TemplateField>
+                                                        <HeaderTemplate>
+                                                            URL Link
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtUrl" runat="server" Text='<%#Bind("UrlLink")%>' />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField>
+                                                        <HeaderTemplate>
+                                                            Description
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <asp:TextBox ID="txtDescription" runat="server" Text='<%#Bind("Description")%>' />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <a id="btnOpen"   href='<%# Eval("UrlLink") %>' target="_blank"
+                                                                 
+                                                                style="font-size: 12px;">Open</a>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="btnSave" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Save" CausesValidation="false"
+                                                                CommandArgument='<%# Eval("SocialMediaMappingId") %>' Style="font-size: 16px;"></asp:LinkButton>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+
+                                                </Columns>
+                                                <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                                <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                <EditRowStyle BackColor="#999999" />
+                                                <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                <PagerSettings Mode="NumericFirstLast" PageButtonCount="12" FirstPageText="First"
+                                                    LastPageText="Last" />
+                                                <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                <EmptyDataTemplate>
+                                                    No Record Found...
+                                                </EmptyDataTemplate>
+                                            </asp:GridView>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">

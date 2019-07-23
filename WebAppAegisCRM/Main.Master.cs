@@ -44,6 +44,7 @@ namespace WebAppAegisCRM
                 liHR.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HR);
                 liAddEditRole.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITROLE);
                 liManageRoleAccess.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGEROLEACCESS);
+                liEmployeeWorkSummaryReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_WORK_SUMMARY_REPORT);
                 if (ApplicationModules.HrModule.ModulePermission())
                 {
                     liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
@@ -129,6 +130,8 @@ namespace WebAppAegisCRM
                 DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), DateTime.UtcNow.AddHours(5).AddMinutes(33));
                 if (dt != null && dt.AsEnumerable().Any())
                 {
+                    ShowLateNotification(dt);
+
                     if (dt.Rows[0]["OutDateTime"] != null && !string.IsNullOrEmpty(dt.Rows[0]["OutDateTime"].ToString()))
                     {
                         lnkAttendaceLogin.Visible = true;
@@ -177,6 +180,33 @@ namespace WebAppAegisCRM
             if (dtLeaveApplicationDetails != null && dtLeaveApplicationDetails.AsEnumerable().Any())
             {
                 liAttendance.Visible = false;
+            }
+            else
+            {
+                liAttendance.Visible = true;
+            }
+        }
+
+        private void ShowLateNotification(DataTable dtAttendance)
+        {
+            if (dtAttendance != null && dtAttendance.AsEnumerable().Any())
+            {
+                if (Convert.ToBoolean(dtAttendance.Rows[0]["IsLate"].ToString()) && Convert.ToBoolean(dtAttendance.Rows[0]["IsLateReduced"].ToString()))
+                {
+                    lblAttendanceLate.Text = "LATE (LEAVE DEDCUTED)";
+                }
+                else if (Convert.ToBoolean(dtAttendance.Rows[0]["IsLate"].ToString()))
+                {
+                    lblAttendanceLate.Text = "LATE";
+                }
+                else if (Convert.ToBoolean(dtAttendance.Rows[0]["IsHalfday"].ToString()))
+                {
+                    lblAttendanceLate.Text = "HALF-DAY";
+                }
+                else
+                {
+                    lblAttendanceLate.Text = string.Empty;
+                }
             }
             else
             {

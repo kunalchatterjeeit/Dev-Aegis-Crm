@@ -115,6 +115,11 @@ namespace WebAppAegisCRM.Sales
             btnCreateNewNote.PostBackUrl = string.Concat("Notes.aspx?id=", OpportunityId, "&itemtype=", SalesLinkType.Opportunity);
             btnCreateNewTask.PostBackUrl = string.Concat("Task.aspx?id=", OpportunityId, "&itemtype=", SalesLinkType.Opportunity);
         }
+        public int SocialMediaMappingId
+        {
+            get { return Convert.ToInt32(ViewState["SocialMediaMappingId"]); }
+            set { ViewState["SocialMediaMappingId"] = value; }
+        }
         public int OpportunityId
         {
             get { return Convert.ToInt32(ViewState["Id"]); }
@@ -179,6 +184,13 @@ namespace WebAppAegisCRM.Sales
             ddlLinkName.DataBind();
             ddlLinkName.InsertSelect();
         }
+        private void LoadSocialMediaList()
+        {
+            Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+            Entity.Sales.GetSocialMediaParam Param = new Entity.Sales.GetSocialMediaParam { LinkId = OpportunityId, LinkTypeId = Convert.ToInt32(ActityType.Opportunity) };
+            gvSocialMedia.DataSource = Obj.GetAllSocialMedia(Param);
+            gvSocialMedia.DataBind();
+        }
         private void ClearControls()
         {
             OpportunityId = 0;
@@ -236,6 +248,7 @@ namespace WebAppAegisCRM.Sales
             {
                 OpportunityId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetOpportunityById();
+                LoadSocialMediaList();
                 Message.Show = false;
                 btnSave.Text = "Update";
                 hdnOpenForm.Value = "true";
@@ -244,6 +257,7 @@ namespace WebAppAegisCRM.Sales
             {
                 OpportunityId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetOpportunityById();
+                LoadSocialMediaList();
                 PopulateItems();
                 hdnOpenForm.Value = "true";
             }
@@ -262,6 +276,40 @@ namespace WebAppAegisCRM.Sales
                 {
                     Message.IsSuccess = false;
                     Message.Text = "Data Dependency Exists";
+                }
+                Message.Show = true;
+            }
+        }
+        protected void gvSocialMedia_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Save")
+            {
+                SocialMediaMappingId = Convert.ToInt32(e.CommandArgument.ToString());
+                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
+                TextBox txtURL = (TextBox)row.FindControl("txtUrl");
+                Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+                Entity.Sales.SocialMedia Model = new Entity.Sales.SocialMedia
+                {
+                    Id = SocialMediaMappingId,
+                    Description = txtDescription.Text,
+                    LinkId = OpportunityId,
+                    LinkTypeId = Convert.ToInt32(ActityType.Opportunity),
+                    URL = txtURL.Text,
+                    SocialMediaId = Convert.ToInt32(gvSocialMedia.DataKeys[row.RowIndex].Values[0].ToString())
+                };
+                int rows = Obj.SaveSocialMedia(Model);
+                if (rows > 0)
+                {
+                    SocialMediaMappingId = 0;
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Unable to link.";
                 }
                 Message.Show = true;
             }

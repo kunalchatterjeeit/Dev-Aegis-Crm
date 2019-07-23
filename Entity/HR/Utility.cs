@@ -34,7 +34,7 @@ namespace Entity.HR
         public const string HOLIDAY_LIST = "209";
         public const string ATTENDANCE_LIST = "210";
         public const string MANAGE_ATTENDANCE = "211";
-
+        public const string EMPLOYEE_WORK_SUMMARY_REPORT = "212";
 
 
         //Inventory

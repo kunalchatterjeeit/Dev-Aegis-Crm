@@ -78,6 +78,8 @@
     <Compile Include="Sales\OpportunityEntity.cs" />
     <Compile Include="Sales\QuoteDataAccess.cs" />
     <Compile Include="Sales\QuoteEntity.cs" />
+    <Compile Include="Sales\SocialMediaDataAccess.cs" />
+    <Compile Include="Sales\SocialMediaEntity.cs" />
     <Compile Include="Sales\TasksDataAccess.cs" />
     <Compile Include="Sales\TasksEntity.cs" />
     <Compile Include="Sales\TaskStatusDataAccess.cs" />

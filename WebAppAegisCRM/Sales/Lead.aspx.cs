@@ -11,6 +11,11 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Lead : System.Web.UI.Page
     {
+        public int SocialMediaMappingId
+        {
+            get { return Convert.ToInt32(ViewState["SocialMediaMappingId"]); }
+            set { ViewState["SocialMediaMappingId"] = value; }
+        }
         public int LeadId
         {
             get { return Convert.ToInt32(ViewState["Id"]); }
@@ -87,6 +92,13 @@ namespace WebAppAegisCRM.Sales
             ddlLinkName.DataValueField = "Id";
             ddlLinkName.DataBind();
             ddlLinkName.InsertSelect();
+        }
+        private void LoadSocialMediaList()
+        {
+            Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+            Entity.Sales.GetSocialMediaParam Param = new Entity.Sales.GetSocialMediaParam { LinkId = LeadId, LinkTypeId = Convert.ToInt32(ActityType.Lead) };
+            gvSocialMedia.DataSource = Obj.GetAllSocialMedia(Param);
+            gvSocialMedia.DataBind();
         }
         private void PopulateItems()
         {
@@ -229,6 +241,7 @@ namespace WebAppAegisCRM.Sales
                 LeadId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetLeadById();
                 Message.Show = false;
+                LoadSocialMediaList();
                 btnSave.Text = "Update";
                 PopulateItems();
                 hdnOpenForm.Value = "true";
@@ -237,6 +250,7 @@ namespace WebAppAegisCRM.Sales
             {
                 LeadId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetLeadById();
+                LoadSocialMediaList();
                 PopulateItems();
                 hdnOpenForm.Value = "true";
             }
@@ -255,6 +269,40 @@ namespace WebAppAegisCRM.Sales
                 {
                     Message.IsSuccess = false;
                     Message.Text = "Data Dependency Exists";
+                }
+                Message.Show = true;
+            }
+        }
+        protected void gvSocialMedia_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Save")
+            {
+                SocialMediaMappingId = Convert.ToInt32(e.CommandArgument.ToString());
+                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
+                TextBox txtURL = (TextBox)row.FindControl("txtUrl");
+                Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+                Entity.Sales.SocialMedia Model = new Entity.Sales.SocialMedia
+                {
+                    Id = SocialMediaMappingId,
+                    Description = txtDescription.Text,
+                    LinkId = LeadId,
+                    LinkTypeId = Convert.ToInt32(ActityType.Lead),
+                    URL = txtURL.Text,
+                    SocialMediaId = Convert.ToInt32(gvSocialMedia.DataKeys[row.RowIndex].Values[0].ToString())
+                };
+                int rows = Obj.SaveSocialMedia(Model);
+                if (rows > 0)
+                {
+                    SocialMediaMappingId = 0;
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Unable to link.";
                 }
                 Message.Show = true;
             }
