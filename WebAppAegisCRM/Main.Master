@@ -447,14 +447,17 @@
                                 <li id="liServiceBookReport" runat="server" visible="false">
                                     <a href="../Service/ServiceBookReport.aspx">Service Book Report</a>
                                 </li>
+                                <li id="liSpareTonerUsage" runat="server" visible="false">
+                                    <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
+                                </li>                                
                                 <li id="liLeaveReport" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
                                 </li>
                                 <li id="liAttendanceReport" runat="server">
                                     <a href="../HR/AttendanceList.aspx">Attendance Report</a>
-                                </li>
-                                <li id="liSpareTonerUsage" runat="server" visible="false">
-                                    <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
+                                </li>                                
+                                <li id="liEmployeeWorkSummaryReport" runat="server" visible="false">
+                                    <a href="../HR/EmployeeWorkSummaryReport.aspx">Employee Work Summary Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

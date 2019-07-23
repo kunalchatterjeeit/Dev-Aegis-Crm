@@ -44,6 +44,7 @@ namespace WebAppAegisCRM
                 liHR.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HR);
                 liAddEditRole.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITROLE);
                 liManageRoleAccess.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGEROLEACCESS);
+                liEmployeeWorkSummaryReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_WORK_SUMMARY_REPORT);
                 if (ApplicationModules.HrModule.ModulePermission())
                 {
                     liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
