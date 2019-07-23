@@ -17,6 +17,11 @@ namespace WebAppAegisCRM.Sales
             get { return Convert.ToInt32(ViewState["Id"]); }
             set { ViewState["Id"] = value; }
         }
+        public int SocialMediaMappingId
+        {
+            get { return Convert.ToInt32(ViewState["SocialMediaMappingId"]); }
+            set { ViewState["SocialMediaMappingId"] = value; }
+        }
         public int ActivityLinkId
         {
             get { return Convert.ToInt32(ViewState["ActivityLinkId"]); }
@@ -153,20 +158,26 @@ namespace WebAppAegisCRM.Sales
         private void LoadLeadSource()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
-            
+
             ddlLeadSource.DataSource = Obj.GetLeadSource();
             ddlLeadSource.DataTextField = "Name";
             ddlLeadSource.DataValueField = "Id";
             ddlLeadSource.DataBind();
             ddlLeadSource.InsertSelect();
         }
-
         private void LoadAccountList()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
-            Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null ,SourceActivityTypeId=Convert.ToInt32(ActityType.Customer),ChildActivityTypeId= Convert.ToInt32(ActityType.Account) };
+            Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Customer), ChildActivityTypeId = Convert.ToInt32(ActityType.Account) };
             gvAccounts.DataSource = Obj.GetAllAccounts(Param);
             gvAccounts.DataBind();
+        }
+        private void LoadSocialMediaList()
+        {
+            Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+            Entity.Sales.GetSocialMediaParam Param = new Entity.Sales.GetSocialMediaParam { LinkId = AccountId, LinkTypeId = Convert.ToInt32(ActityType.Account) };
+            gvSocialMedia.DataSource = Obj.GetAllSocialMedia(Param);
+            gvSocialMedia.DataBind();
         }
         private void ClearControls()
         {
@@ -240,7 +251,7 @@ namespace WebAppAegisCRM.Sales
             {
                 txtName.Text = dt.Rows[0]["CustomerName"].ToString();
                 //ddlCustomerType.SelectedValue = dt.Rows[0]["CustomerType"].ToString();
-                txtOfficePhone.Text = dt.Rows[0]["PhoneNo"].ToString();                
+                txtOfficePhone.Text = dt.Rows[0]["PhoneNo"].ToString();
             }
         }
         protected void gvAccounts_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -249,6 +260,7 @@ namespace WebAppAegisCRM.Sales
             {
                 AccountId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetAccountById();
+                LoadSocialMediaList();
                 Message.Show = false;
                 btnSave.Text = "Update";
                 PopulateItems();
@@ -259,6 +271,7 @@ namespace WebAppAegisCRM.Sales
                 AccountId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetAccountById();
                 PopulateItems();
+                LoadSocialMediaList();
                 hdnOpenForm.Value = "true";
             }
             else if (e.CommandName == "Del")
@@ -280,10 +293,44 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
+        protected void gvSocialMedia_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "Save")
+            {
+                SocialMediaMappingId = Convert.ToInt32(e.CommandArgument.ToString());
+                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
+                TextBox txtURL = (TextBox)row.FindControl("txtUrl");
+                Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+                Entity.Sales.SocialMedia Model = new Entity.Sales.SocialMedia
+                {
+                    Id = SocialMediaMappingId,
+                    Description = txtDescription.Text,
+                    LinkId = AccountId,
+                    LinkTypeId = Convert.ToInt32(ActityType.Account),
+                    URL = txtURL.Text,
+                    SocialMediaId = Convert.ToInt32(gvSocialMedia.DataKeys[row.RowIndex].Values[0].ToString())
+                };
+                int rows = Obj.SaveSocialMedia(Model);
+                if (rows > 0)
+                {
+                    SocialMediaMappingId = 0;
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Unable to link.";
+                }
+                Message.Show = true;
+            }
+        }
         private void GetAccountById()
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
-            Entity.Sales.Accounts Account = Obj.GetAccountById(AccountId,Convert.ToInt32(ActityType.Customer),Convert.ToInt32(ActityType.Account));
+            Entity.Sales.Accounts Account = Obj.GetAccountById(AccountId, Convert.ToInt32(ActityType.Customer), Convert.ToInt32(ActityType.Account));
             if (Account.Id != 0)
             {
                 ddlLeadSource.SelectedValue = Account.LeadSourceId == null ? "0" : Account.LeadSourceId.ToString();
@@ -298,7 +345,7 @@ namespace WebAppAegisCRM.Sales
                 txtSourceName.Text = Account.SourceName;
                 txtWebsite.Text = Account.Website;
                 txtCustomerName.Text = Account.CustomerName;
-                ActivityLinkId= Account.ActivityLinkId;
+                ActivityLinkId = Account.ActivityLinkId;
             }
         }
         private void Save()
@@ -325,7 +372,7 @@ namespace WebAppAegisCRM.Sales
                     ActivityLinkId = ActivityLinkId,
                     ChildActivityTypeId = Convert.ToInt32(ActityType.Account),
                     SourceActivityTypeId = Convert.ToInt32(ActityType.Customer),
-                    SourceActivityId = txtCustomerName.Text == "" ? (int?)null : Convert.ToInt32( GetCustomerIdByName(txtCustomerName.Text))
+                    SourceActivityId = txtCustomerName.Text == "" ? (int?)null : Convert.ToInt32(GetCustomerIdByName(txtCustomerName.Text))
                 };
                 int rows = Obj.SaveAccounts(Model);
                 if (rows > 0)
@@ -489,7 +536,7 @@ namespace WebAppAegisCRM.Sales
             try
             {
                 if (e.Row.RowType == DataControlRowType.DataRow)
-                {                    
+                {
                     CheckBox chkAssigned = (CheckBox)e.Row.FindControl("chkAssigned");
                     RadioButton rbtnIsLead = (RadioButton)e.Row.FindControl("rbtnIsLead");
                     chkAssigned.Checked = ((List<Entity.Sales.GetAssignment>)gvAssignedEmployee.DataSource)[e.Row.RowIndex].IsActive.GetValueOrDefault();
