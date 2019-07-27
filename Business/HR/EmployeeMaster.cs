@@ -103,5 +103,20 @@ namespace Business.HR
         {
             return DataAccess.HR.EmployeeMaster.EmployeeWorkReport(fromDate, toDate);
         }
+
+        public int Employee_ActiveChange(int employeeId, bool active)
+        {
+            return DataAccess.HR.EmployeeMaster.Employee_ActiveChange(employeeId, active);
+        }
+
+        public int Employee_LoginChange(int employeeId, bool activateLogin)
+        {
+            return DataAccess.HR.EmployeeMaster.Employee_LoginChange(employeeId, activateLogin);
+        }
+
+        public DataTable Employee_GetAll_Active(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
+        {
+            return DataAccess.HR.EmployeeMaster.Employee_GetAll_Active(ObjElEmployeeMaster);
+        }
     }
 }

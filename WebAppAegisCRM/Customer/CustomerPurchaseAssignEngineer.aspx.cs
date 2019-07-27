@@ -14,7 +14,7 @@ namespace WebAppAegisCRM.Customer
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
 
             employeeMaster.CompanyId_FK = 1;
-            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            DataTable dt = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
             dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
             ddlAssignEngineer.DataSource = dt;
             ddlAssignEngineer.DataTextField = "EmployeeName";
@@ -49,7 +49,7 @@ namespace WebAppAegisCRM.Customer
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
 
             employeeMaster.CompanyId_FK = 1;
-            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            DataTable dt = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
             dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
             ddlAssignedEngineer.DataSource = dt;
             ddlAssignedEngineer.DataTextField = "EmployeeName";

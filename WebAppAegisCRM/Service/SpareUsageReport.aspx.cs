@@ -17,7 +17,7 @@ namespace WebAppAegisCRM.Service
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
             employeeMaster.CompanyId_FK = 1;
-            DataTable dt = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            DataTable dt = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
             if (dt != null)
             {
                 ddlEmployee.DataSource = dt;

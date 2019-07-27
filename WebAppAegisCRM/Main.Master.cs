@@ -149,7 +149,7 @@ namespace WebAppAegisCRM
                     lnkAttendaceLogout.Visible = false;
                 }
             }
-            catch
+            catch(Exception ex)
             { }
         }
 

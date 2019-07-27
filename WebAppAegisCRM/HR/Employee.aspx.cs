@@ -640,5 +640,21 @@ namespace WebAppAegisCRM.Employee
                 ModalPopupExtender1.Show();
             }
         }
+
+        protected void chkBlockLogin_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+            new Business.HR.EmployeeMaster().Employee_LoginChange(employeeId, checkBox.Checked);
+        }
+
+        protected void chkActiveEmployee_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+            new Business.HR.EmployeeMaster().Employee_ActiveChange(employeeId, checkBox.Checked);
+        }
     }
 }

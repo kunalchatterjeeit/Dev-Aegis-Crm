@@ -288,7 +288,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <asp:GridView ID="gvEmployeerMaster" DataKeyNames="EmployeeMasterId" runat="server"
+                                <asp:GridView ID="gvEmployeerMaster" DataKeyNames="EmployeeMasterId" runat="server" DataMember="EmployeeMasterId"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
                                     GridLines="None" Style="text-align: left" OnRowCommand="gvEmployeerMaster_RowCommand"
                                     HeaderStyle-HorizontalAlign="Center" OnSelectedIndexChanged="gvEmployeerMaster_SelectedIndexChanged">
@@ -310,6 +310,18 @@
                                         <asp:BoundField HeaderText="Name" DataField="EmployeeName" />
                                         <asp:BoundField HeaderText="Mobile" DataField="PersonalMobileNo" />
                                         <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
+                                        <asp:TemplateField HeaderText="Login">
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="chkLoginActive" runat="server" AutoPostBack="true" OnCheckedChanged="chkBlockLogin_CheckedChanged" 
+                                                    Checked='<%# Convert.ToBoolean(Eval("IsLoginActive").ToString()) %>' ToolTip="Turn Login On/Off"/>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Active">
+                                            <ItemTemplate>
+                                                <asp:CheckBox ID="chkActiveEmployee" runat="server" AutoPostBack="true" ToolTip="Turn Employee On/Off"
+                                                    OnCheckedChanged="chkActiveEmployee_CheckedChanged" Checked='<%# Convert.ToBoolean(Eval("IsActive").ToString()) %>'/>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnRemoveMobile" runat="server" class="fa fa-android fa-fw" CommandName="RemoveMobile" CausesValidation="false"

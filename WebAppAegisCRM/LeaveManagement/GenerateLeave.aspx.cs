@@ -301,7 +301,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     if (drLeaveConfiguration != null)
                     {
                         //Getting all Employees
-                        DataTable dtEmployees = new Business.HR.EmployeeMaster().EmployeeMaster_GetAll(new Entity.HR.EmployeeMaster() { CompanyId_FK = 1 });
+                        DataTable dtEmployees = new Business.HR.EmployeeMaster().Employee_GetAll_Active(new Entity.HR.EmployeeMaster() { CompanyId_FK = 1 });
                         //Getting all Designation wise Leave Configurations
                         DataTable dtLeaveDesignationConfigurations =
                             new Business.LeaveManagement.LeaveDesignationWiseConfiguration().LeaveDesignationConfig_GetAll(new Entity.LeaveManagement.LeaveDesignationWiseConfiguration());
