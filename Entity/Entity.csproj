@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClaimManagement\ClaimApplicationDetails.cs" />
+    <Compile Include="ClaimManagement\ClaimApplicationMaster.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalDetails.cs" />
+    <Compile Include="ClaimManagement\ClaimCategory.cs" />
+    <Compile Include="ClaimManagement\ClaimDesignationWiseConfiguration.cs" />
     <Compile Include="Common\AttendanceLog.cs" />
     <Compile Include="Common\Auth.cs" />
     <Compile Include="Common\BaseEntity.cs" />

@@ -66,6 +66,12 @@ namespace WebAppAegisCRM
                     liLeaveAdjustment.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_ADJUSTMENT);
                     liLeaveReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_REPORT);
                 }
+                liApplyClaim.Visible = true;
+                liClaimApprove.Visible = true;
+                liClaimConfiguration.Visible = true;
+                liClaimDesignationConfiguration.Visible = true;
+                liClaimList.Visible = true;
+                liClaimManagement.Visible = true;
 
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);

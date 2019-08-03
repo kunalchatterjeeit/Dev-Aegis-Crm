@@ -1,4 +1,4 @@
-﻿<%@ Page Title="CLAIM EXPENSE" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Claim.aspx.cs" Inherits="WebAppAegisCRM.HR.Claim" %>
+﻿<%@ Page Title="CLAIM APPLICATION" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ClaimApplication.aspx.cs" Inherits="WebAppAegisCRM.ClaimManagement.ClaimApplication" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -77,22 +77,28 @@
                                         </asp:DropDownList>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <div class="form-group has-error">
                                     Cost
                                         <asp:TextBox ID="txtCost" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div class="form-group has-error">
-                                    Attachment
-                                       <asp:FileUpload ID="fuAttachment" runat="server" />
+                                    Description
+                                        <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" ></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    Attachment
+                                       <asp:FileUpload ID="fuAttachment" runat="server" style="border:0px" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     <br />
-                                    <asp:Button ID="btnAdd" runat="server" Text="Add into bucket" class="btn btn-outline btn-success pull-right"
+                                    <asp:Button ID="btnAdd" runat="server" Text="Add" class="btn btn-outline btn-success pull-right"
                                         OnClick="btnAdd_Click" />
                                 </div>
                             </div>
@@ -154,3 +160,4 @@
         </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
+

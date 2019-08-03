@@ -24,7 +24,7 @@ namespace Business.HR
             return DataAccess.HR.EmployeeMaster.EmployeeDelete(ObjElEmployeeMaster);
         }
 
-        public System.Data.DataTable EmployeeMaster_GetAll(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
+        public DataTable EmployeeMaster_GetAll(Entity.HR.EmployeeMaster ObjElEmployeeMaster)
         {
             return DataAccess.HR.EmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
         }
@@ -34,12 +34,12 @@ namespace Business.HR
             return DataAccess.HR.EmployeeMaster.EmployeeMaster_ById(employeeMaster);
         }
 
-        public System.Data.DataTable City_GetAll()
+        public DataTable City_GetAll()
         {
             return DataAccess.HR.EmployeeMaster.City_GetAll();
         }
 
-        public System.Data.DataTable DesignationMaster_GetAll(Entity.HR.EmployeeMaster employeeMaster)
+        public DataTable DesignationMaster_GetAll(Entity.HR.EmployeeMaster employeeMaster)
         {
             return DataAccess.HR.EmployeeMaster.DesignationMaster_GetAll(employeeMaster);
         }

@@ -1,0 +1,305 @@
+﻿using Business.Common;
+using Entity.HR;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebAppAegisCRM.ClaimManagement
+{
+    public partial class ClaimApplication : System.Web.UI.Page
+    {
+        private DataTable _ClaimDetails
+        {
+            get
+            {
+                return Business.Common.Context.ClaimDetails;
+            }
+
+            set { Business.Common.Context.ClaimDetails = value; }
+        }
+
+        private string _ClaimNo
+        {
+            get
+            {
+                return DateTime.Now.Ticks.ToString();
+            }
+        }
+        private string _AttachmentName
+        {
+            get
+            {
+                return DateTime.Now.Ticks.ToString();
+            }
+        }
+
+        private void ClearAllControl()
+        {
+            txtExpenseDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+            txtPeriodFrom.Text = DateTime.Now.ToString("dd MMM yyyy");
+            txtPeriodTo.Text = DateTime.Now.ToString("dd MMM yyyy");
+            ddlCategory.SelectedIndex = 0;
+            txtCost.Text = "0";
+            Message.Show = false;
+            _ClaimDetails.Clear();
+            LoadClaimDetails();
+        }
+
+        private void LoadClaimCategory()
+        {
+            ddlCategory.DataSource = Enum.GetValues(typeof(ClaimCategoryEnum));
+            ddlCategory.DataBind();
+            ddlCategory.InsertSelect();
+        }
+
+        private bool ClaimApplyValidation()
+        {
+
+            return true;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                LoadClaimCategory();
+                ClearAllControl();
+            }
+        }
+
+        protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "D")
+            {
+                string autoId = e.CommandArgument.ToString();
+
+                if (DeleteItem(autoId))
+                {
+                    LoadClaimDetails();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                }
+
+            }
+        }
+
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ClaimApplyValidation())
+                {
+                    Entity.ClaimManagement.ClaimApplicationMaster claimApplicationMaster = ClaimApplicationMaster_Save();
+
+                    foreach (DataRow drClaimDetail in _ClaimDetails.Rows)
+                    {
+                        ClaimApplicationDetails_Save(claimApplicationMaster.ClaimApplicationId,
+                            Convert.ToDateTime(drClaimDetail["ExpenseDate"].ToString()),
+                            drClaimDetail["Attachment"].ToString(),
+                            Convert.ToInt32(Enum.Parse(typeof(ClaimCategoryEnum), drClaimDetail["CategoryId"].ToString())),
+                            Convert.ToDecimal(drClaimDetail["Cost"].ToString()),
+                            drClaimDetail["Description"].ToString(),
+                            Convert.ToInt32(Enum.Parse(typeof(ClaimStatusEnum), drClaimDetail["Status"].ToString())));
+                    }
+
+                    int approvalResponse = ClaimApprovalDetails_Save(claimApplicationMaster.ClaimApplicationId);
+                    if (approvalResponse > 0)
+                    {
+                        Message.IsSuccess = true;
+                        Message.Text = string.Format("Claim applied successfully. Your claim no. {0}", claimApplicationMaster.ClaimApplicationNumber);
+                        Message.Show = true;
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Claim approval send failed! Please contact system administrator.";
+                        Message.Show = true;
+                    }
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Claim apply failed! Please contact system administrator.";
+                    Message.Show = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+
+        private Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster_Save()
+        {
+            Entity.ClaimManagement.ClaimApplicationMaster claimApplicationMaster = new Entity.ClaimManagement.ClaimApplicationMaster();
+            Business.ClaimManagement.ClaimApplication objClaimApplicationMaster = new Business.ClaimManagement.ClaimApplication();
+
+            claimApplicationMaster.ClaimDateTime = DateTime.Now;
+            claimApplicationMaster.PeriodFrom = Convert.ToDateTime(txtPeriodFrom.Text);
+            claimApplicationMaster.PeriodTo = Convert.ToDateTime(txtPeriodTo.Text);
+            claimApplicationMaster.Status = (int)ClaimStatusEnum.Pending;
+            claimApplicationMaster.EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+            claimApplicationMaster.ClaimApplicationNumber = string.Empty;
+            claimApplicationMaster.TotalAmount = (decimal)_ClaimDetails.Compute("SUM(Cost)", string.Empty);
+            claimApplicationMaster.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+            claimApplicationMaster = objClaimApplicationMaster.ClaimApplicationMaster_Save(claimApplicationMaster);
+            return claimApplicationMaster;
+        }
+
+        private int ClaimApplicationDetails_Save(int claimApplicationId, DateTime expenseDate, string attachment, int categoryId, decimal cost, string description, int status)
+        {
+            Entity.ClaimManagement.ClaimApplicationDetails claimApplicationDetails = new Entity.ClaimManagement.ClaimApplicationDetails();
+            Business.ClaimManagement.ClaimApplication objClaimApplicationMaster = new Business.ClaimManagement.ClaimApplication();
+
+            claimApplicationDetails.ClaimApplicationDetailId = 0;
+            claimApplicationDetails.ClaimApplicationId = claimApplicationId;
+            claimApplicationDetails.ExpenseDate = expenseDate;
+            claimApplicationDetails.Attachment = attachment;
+            claimApplicationDetails.CategoryId = categoryId;
+            claimApplicationDetails.Cost = cost;
+            claimApplicationDetails.Description = description;
+            claimApplicationDetails.Status = status;
+            int response = objClaimApplicationMaster.ClaimApplicationDetails_Save(claimApplicationDetails);
+            return response;
+        }
+
+        private int ClaimApprovalDetails_Save(int claimApplicationId)
+        {
+            int response = 0;
+            Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+            DataTable dtClaimEmployeeWiseApprovalConfiguration = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_GetAll(
+                new Entity.ClaimManagement.ClaimApprovalConfiguration()
+                {
+                    EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
+                });
+
+
+            Business.ClaimManagement.ClaimApprovalDetails objClaimApprovalDetails = new Business.ClaimManagement.ClaimApprovalDetails();
+            Entity.ClaimManagement.ClaimApprovalDetails ClaimApprovalDetails = new Entity.ClaimManagement.ClaimApprovalDetails();
+
+            //If ClaimEmployeeWiseApprovalConfiguration is configured
+            if (dtClaimEmployeeWiseApprovalConfiguration != null
+                && dtClaimEmployeeWiseApprovalConfiguration.AsEnumerable().Any()
+                && dtClaimEmployeeWiseApprovalConfiguration.Select("ApprovalLevel = 1").Any())
+            {
+                ClaimApprovalDetails.ApproverId = Convert.ToInt32(dtClaimEmployeeWiseApprovalConfiguration.Select("ApprovalLevel = 1").FirstOrDefault()["ApproverId"].ToString());
+            }
+            else //If not confiured then send approval to Reporting employee
+            {
+                DataTable dtEmployee = new Business.HR.EmployeeMaster().EmployeeMaster_ById(new Entity.HR.EmployeeMaster() { EmployeeMasterId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) });
+                if (dtEmployee != null && dtEmployee.AsEnumerable().Any())
+                {
+                    ClaimApprovalDetails.ApproverId = Convert.ToInt32(dtEmployee.Rows[0]["ReportingEmployeeId"].ToString());
+                }
+            }
+            ClaimApprovalDetails.ClaimApprovalDetailId = 0;
+            ClaimApprovalDetails.ClaimApplicationId = claimApplicationId;
+            ClaimApprovalDetails.Status = (int)ClaimStatusEnum.Pending;
+            ClaimApprovalDetails.Remarks = "APPROVAL PENDING";
+
+            response = objClaimApprovalDetails.ClaimApprovalDetails_Save(ClaimApprovalDetails);
+
+
+            return response;
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            ClearAllControl();
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearDetailsControls();
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (_ClaimDetails.Rows.Count == 0)
+            {
+                using (DataTable dtInstance = new DataTable())
+                {
+                    DataColumn column = new DataColumn("AutoId");
+                    column.AutoIncrement = true;
+                    column.ReadOnly = true;
+                    column.Unique = false;
+
+                    dtInstance.Columns.Add(column);
+                    dtInstance.Columns.Add("ExpenseDate");
+                    dtInstance.Columns.Add("CategoryName");
+                    dtInstance.Columns.Add("CategoryId");
+                    dtInstance.Columns.Add("Status");
+                    dtInstance.Columns.Add("Cost", typeof(decimal));
+                    dtInstance.Columns.Add("Attachment");
+                    dtInstance.Columns.Add("Description");
+                    _ClaimDetails = dtInstance;
+                }
+            }
+
+            DataRow drItem = _ClaimDetails.NewRow();
+            drItem["ExpenseDate"] = txtExpenseDate.Text;
+            drItem["CategoryName"] = ddlCategory.SelectedItem;
+            drItem["CategoryId"] = ddlCategory.SelectedValue;
+            drItem["Status"] = ClaimStatusEnum.Pending.ToString();
+            drItem["Cost"] = txtCost.Text;
+            drItem["Attachment"] = SaveAttachment();
+
+            _ClaimDetails.Rows.Add(drItem);
+            _ClaimDetails.AcceptChanges();
+
+            LoadClaimDetails();
+            ClearDetailsControls();
+        }
+
+        private void ClearDetailsControls()
+        {
+            txtExpenseDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+            ddlCategory.SelectedIndex = 0;
+            txtCost.Text = "0";
+        }
+
+        private string SaveAttachment()
+        {
+            string retValue = string.Empty;
+            if (fuAttachment.HasFile)
+            {
+                retValue = string.Format("{0}{1}", _AttachmentName, System.IO.Path.GetExtension(fuAttachment.FileName));
+                fuAttachment.PostedFile.SaveAs(Server.MapPath(" ") + "\\ClaimAttachments\\" + retValue);
+            }
+            return retValue;
+        }
+
+        private void LoadClaimDetails()
+        {
+            gvClaimDetails.DataSource = _ClaimDetails;
+            gvClaimDetails.DataBind();
+        }
+
+        private bool DeleteItem(string autoId)
+        {
+            bool retValue = false;
+            int lastCount = 0;
+            if (_ClaimDetails.Rows.Count > 0)
+            {
+                lastCount = _ClaimDetails.Rows.Count;
+                _ClaimDetails.Rows[_ClaimDetails.Rows.IndexOf(_ClaimDetails.Select("AutoId='" + autoId + "'").FirstOrDefault())].Delete();
+                _ClaimDetails.AcceptChanges();
+            }
+            if (lastCount > _ClaimDetails.Rows.Count)
+            {
+                retValue = true;
+            }
+            return retValue;
+        }
+    }
+}

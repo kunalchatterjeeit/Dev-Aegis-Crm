@@ -15,7 +15,7 @@ namespace WebAppAegisCRM.HR
         private void LoadHolidayList()
         {
             int holidayProfileId = 0;
-            Business.HR.EmployeeHolidayProfileMapping objEmployeeHolidayProfileMapping = new Business.HR.EmployeeHolidayProfileMapping();
+            Business.HR.HolidayProfile objEmployeeHolidayProfileMapping = new Business.HR.HolidayProfile();
             DataTable dtEmployeeHolidayProfileMapping = objEmployeeHolidayProfileMapping.EmployeeHolidayProfileMapping_GetAll(new Entity.HR.EmployeeHolidayProfileMapping());
             if (dtEmployeeHolidayProfileMapping != null 
                 && dtEmployeeHolidayProfileMapping.AsEnumerable().Any()

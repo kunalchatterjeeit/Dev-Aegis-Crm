@@ -74,7 +74,7 @@ namespace WebAppAegisCRM.HR
 
         private void EmployeeHolidayProfileMapping_GetById()
         {
-            Business.HR.EmployeeHolidayProfileMapping objEmployeeHolidayProfileMapping = new Business.HR.EmployeeHolidayProfileMapping();
+            Business.HR.HolidayProfile objEmployeeHolidayProfileMapping = new Business.HR.HolidayProfile();
             DataTable dt = objEmployeeHolidayProfileMapping.EmployeeHolidayProfileMapping_GetById(EmployeeHolidayProfileMappingId);
             if (dt != null && dt.AsEnumerable().Any())
             {

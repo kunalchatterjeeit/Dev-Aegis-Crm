@@ -312,41 +312,48 @@
                                         <asp:BoundField HeaderText="Email" DataField="PersonalEmailId" />
                                         <asp:TemplateField HeaderText="Login">
                                             <ItemTemplate>
-                                                <asp:CheckBox ID="chkLoginActive" runat="server" AutoPostBack="true" OnCheckedChanged="chkBlockLogin_CheckedChanged" 
-                                                    Checked='<%# Convert.ToBoolean(Eval("IsLoginActive").ToString()) %>' ToolTip="Turn Login On/Off"/>
+                                                <asp:CheckBox ID="chkLoginActive" runat="server" AutoPostBack="true" OnCheckedChanged="chkBlockLogin_CheckedChanged"
+                                                    Checked='<%# Convert.ToBoolean(Eval("IsLoginActive").ToString()) %>' ToolTip="Turn Login On/Off" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="Active">
                                             <ItemTemplate>
                                                 <asp:CheckBox ID="chkActiveEmployee" runat="server" AutoPostBack="true" ToolTip="Turn Employee On/Off"
-                                                    OnCheckedChanged="chkActiveEmployee_CheckedChanged" Checked='<%# Convert.ToBoolean(Eval("IsActive").ToString()) %>'/>
+                                                    OnCheckedChanged="chkActiveEmployee_CheckedChanged" Checked='<%# Convert.ToBoolean(Eval("IsActive").ToString()) %>' />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnRemoveMobile" runat="server" class="fa fa-android fa-fw" CommandName="RemoveMobile" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("LinkedDeviceId") %>' 
-                                                    Visible='<%# (Eval("LinkedDeviceId")==DBNull.Value)? false : true %>' 
-                                                    ToolTip="Remove Linked Mobile"  Style="font-size: 16px;"></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("LinkedDeviceId") %>'
+                                                    Visible='<%# (Eval("LinkedDeviceId")==DBNull.Value)? false : true %>'
+                                                    ToolTip="Remove Linked Mobile" Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
-                                                <asp:LinkButton ID="btnSettings" runat="server" class="fa fa-leaf fa-fw" CommandName="Leave" 
-                                                    CausesValidation="false" CommandArgument='<%# Eval("EmployeeMasterId") %>' 
-                                                    ToolTip="Leave Settings"  Style="font-size: 16px;"></asp:LinkButton>
+                                                <asp:LinkButton ID="btnSettings" runat="server" class="fa fa-leaf fa-fw" CommandName="Leave"
+                                                    CausesValidation="false" CommandArgument='<%# Eval("EmployeeMasterId") %>'
+                                                    ToolTip="Leave Settings" Style="font-size: 16px;"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="btnClaimSettings" runat="server" class="fa fa-money fa-fw" CommandName="Claim"
+                                                    CausesValidation="false" CommandArgument='<%# Eval("EmployeeMasterId") %>'
+                                                    ToolTip="Claim Settings" Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="E" CausesValidation="false"
-                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Edit"  Style="font-size: 16px;"></asp:LinkButton>
+                                                    CommandArgument='<%# Eval("EmployeeMasterId") %>' ToolTip="Edit" Style="font-size: 16px;"></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField ItemStyle-Width="15px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false" ToolTip="Delete"
-                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');"  Style="font-size: 16px;margin-top:-3px" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px; margin-top: -3px" CommandArgument='<%# Eval("EmployeeMasterId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>
@@ -514,7 +521,155 @@
                 </asp:Panel>
                 <img id="imgbtn" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
             </asp:Panel>
+            <a id="lnkClaim" runat="server"></a>
+            <asp:ModalPopupExtender ID="ModalPopupExtender2" BackgroundCssClass="myModalPopupbackGrnd"
+                runat="server" TargetControlID="lnkClaim" PopupControlID="Panel2" CancelControlID="img1">
+                <Animations>
+                 <OnShown><Fadein Duration="0.50" /></OnShown>
+                </Animations>
+            </asp:ModalPopupExtender>
+            <asp:Panel ID="Panel2" runat="server" CssClass="myModalPopup-8" Style="display: none; z-index: 10000; position: absolute">
+                <asp:Panel ID="Panel3" runat="server" class="popup-working-section" ScrollBars="Auto">
+                    <asp:TabContainer ID="TabContainer2" runat="server" Width="100%" CssClass="MyTabStyle"
+                        ActiveTabIndex="1">
+                        <asp:TabPanel ID="TabPanel1" runat="server">
+                            <HeaderTemplate>
+                                Claim General Settings
+                            </HeaderTemplate>
+                            <ContentTemplate>
+                                <div class="accountInfo" style="width: 100%; float: left">
+                                    <br />
+                                    <fieldset class="login">
+                                        <legend>Settings</legend>
+                                        <table class="popup-table">
+                                            <tr>
+                                                <td>Claim is 
+                                                </td>
+                                                <td>
+                                                    <asp:RadioButtonList ID="rbtnListClaimStatus" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rbtnListLeaveStatus_SelectedIndexChanged" AutoPostBack="true">
+                                                        <asp:ListItem Value="false">Activated</asp:ListItem>
+                                                        <asp:ListItem Value="true">Blocked</asp:ListItem>
+                                                    </asp:RadioButtonList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <uc3:Message ID="MessageGeneralClaim" runat="server" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                                </div>
+                            </ContentTemplate>
+                        </asp:TabPanel>
+                        <asp:TabPanel ID="TabPanel2" runat="server">
+                            <HeaderTemplate>
+                                Claim Approval Settings
+                            </HeaderTemplate>
+                            <ContentTemplate>
+                                <div class="accountInfo" style="width: 100%; float: left">
+                                    <br />
+                                    <fieldset class="login">
+                                        <legend>Enter approval details</legend>
+                                        <table class="popup-table">
+                                            <tr>
+                                                <td>Approver<span class="mandatory">*</span>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlClaimApproverEngineer" runat="server" CssClass="form-control">
+                                                    </asp:DropDownList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Approval Level <span class="mandatory">*</span>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlClaimApprovalLevel" CssClass="form-control" runat="server">
+                                                        <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                                        <asp:ListItem Value="1">1</asp:ListItem>
+                                                        <asp:ListItem Value="2">2</asp:ListItem>
+                                                        <asp:ListItem Value="3">3</asp:ListItem>
+                                                        <asp:ListItem Value="4">4</asp:ListItem>
+                                                        <asp:ListItem Value="5">5</asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <asp:Button ID="btnClaimSave" runat="server" Text="Save" OnClick="btnClaimSave_Click" CssClass="btn btn-outline btn-success pull-right" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <uc3:Message ID="MessageClaim" runat="server" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                                </div>
+                            </ContentTemplate>
+                        </asp:TabPanel>
+                        <asp:TabPanel ID="TabPanel3" runat="server">
+                            <HeaderTemplate>
+                                Approver List
+                            </HeaderTemplate>
+                            <ContentTemplate>
+                                <br />
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="gvClaimApproverDetails" DataKeyNames="ClaimEmployeeWiseApprovalConfigId" runat="server"
+                                            OnRowCommand="gvClaimApproverDetails_RowCommand" AutoGenerateColumns="False" Width="100%"
+                                            CellPadding="4" ForeColor="#333333" GridLines="None" Style="text-align: left">
+                                            <Columns>
+                                                <asp:TemplateField>
+                                                    <HeaderTemplate>
+                                                        SN.
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <%# Container.DataItemIndex+1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:BoundField HeaderText="Approver Name" DataField="ApproverName" />
+                                                <asp:BoundField HeaderText="Level" DataField="ApprovalLevel" />
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:ImageButton ID="ImgEdit" runat="server" CausesValidation="false" CommandName="E"
+                                                            CommandArgument='<%#Eval("ClaimEmployeeWiseApprovalConfigId") %>' ImageUrl="~/Images/edit_button.png"
+                                                            ImageAlign="AbsMiddle" ToolTip="EDIT" Width="20px" Height="20px" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField>
+                                                    <ItemTemplate>
+                                                        <asp:ImageButton ID="btnDelete" runat="server" CommandName="D" ImageUrl="~/Images/delete_button.png"
+                                                            CommandArgument='<%#Eval("ClaimEmployeeWiseApprovalConfigId") %>' Width="20px" Height="20px"
+                                                            OnClientClick="return confirm('Are You Sure?');" />
+                                                    </ItemTemplate>
+                                                    <HeaderStyle Width="25px" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField></asp:TemplateField>
+                                            </Columns>
+                                            <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                            <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                            <EditRowStyle BackColor="#999999" />
+                                            <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                            <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                            <PagerStyle CssClass="PagerStyle" BackColor="#379ed6" ForeColor="White" HorizontalAlign="Center" />
+                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                            <EmptyDataTemplate>
+                                                No Record Found...
+                                            </EmptyDataTemplate>
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:TabPanel>
+                    </asp:TabContainer>
+                </asp:Panel>
+                <img id="img1" runat="server" src="../images/close-button.png" alt="Close" class="popup-close" />
+            </asp:Panel>
         </ContentTemplate>
+
         <Triggers>
             <asp:PostBackTrigger ControlID="btnSubmit" />
         </Triggers>
