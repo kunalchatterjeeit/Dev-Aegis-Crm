@@ -17,6 +17,10 @@ namespace Business.ClaimManagement
         {
             return DataAccess.ClaimManagement.ClaimDesignationWiseConfiguration.ClaimDesignationConfig_GetAll(ClaimDesignationWiseConfiguration);
         }
+        public static DataTable ClaimDesignationConfig_GetAllCached(Entity.ClaimManagement.ClaimDesignationWiseConfiguration ClaimDesignationWiseConfiguration)
+        {
+            return DataAccess.ClaimManagement.ClaimDesignationWiseConfiguration.ClaimDesignationConfig_GetAll(ClaimDesignationWiseConfiguration);
+        }
         public int ClaimDesignationConfig_Delete(int ClaimDesignationWiseConfigurationId)
         {
             return DataAccess.ClaimManagement.ClaimDesignationWiseConfiguration.ClaimDesignationConfig_Delete(ClaimDesignationWiseConfigurationId);

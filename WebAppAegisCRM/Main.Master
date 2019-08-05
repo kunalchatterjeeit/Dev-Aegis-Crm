@@ -337,7 +337,7 @@
                             <a href="#"><i class="fa fa-life-saver fa-fw"></i> Claim Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li id="liClaimConfiguration" runat="server" visible="false">
-                                    <a href="../ClaimManagement/ClaimConfig.aspx">Claim Configuration</a>
+                                    <a href="../ClaimManagement/ClaimCategory.aspx">Add/Edit Claim Category</a>
                                 </li>
                                 <li id="liClaimDesignationConfiguration" runat="server" visible="false">
                                     <a href="../ClaimManagement/ClaimDesignationConfiguration.aspx">Claim Designation Configuration</a>
@@ -346,10 +346,10 @@
                                     <a href="../ClaimManagement/ClaimApplication.aspx">Apply Claim</a>
                                 </li>
                                 <li id="liClaimApprove" runat="server" visible="false">
-                                    <a href="../ClaimManagement/LeaveApprove.aspx">Claim Approve/Reject/Cancel</a>
+                                    <a href="../ClaimManagement/ClaimApprove.aspx">Claim Approve/Reject/Cancel</a>
                                 </li>
                                  <li id="liClaimList" runat="server" visible="false">
-                                    <a href="../ClaimManagement/LeaveApplicationList.aspx">My Claim Application List</a>
+                                    <a href="../ClaimManagement/ClaimApplicationList.aspx">My Claim Application List</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

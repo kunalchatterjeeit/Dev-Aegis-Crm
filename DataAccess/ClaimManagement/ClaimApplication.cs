@@ -22,6 +22,7 @@ namespace DataAccess.ClaimManagement
                     cmd.CommandText = "usp_HR_Claim_Save";
 
                     cmd.Parameters.AddWithValue("@ClaimId", claimApplicationMaster.ClaimApplicationId);
+                    cmd.Parameters.AddWithValue("@ClaimHeading", claimApplicationMaster.ClaimHeading);
                     cmd.Parameters.AddWithValue("@ClaimNo", claimApplicationMaster.ClaimApplicationNumber);
                     if (claimApplicationMaster.EmployeeId == 0)
                         cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);

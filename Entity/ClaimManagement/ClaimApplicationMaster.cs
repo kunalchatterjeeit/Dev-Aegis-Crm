@@ -10,6 +10,7 @@ namespace Entity.ClaimManagement
     {
         public int ClaimApplicationId { get; set; }
         public string ClaimApplicationNumber { get; set; }
+        public string ClaimHeading { get; set; }
         public int EmployeeId { get; set; }
         public DateTime PeriodFrom { get; set; }
         public DateTime PeriodTo { get; set; }

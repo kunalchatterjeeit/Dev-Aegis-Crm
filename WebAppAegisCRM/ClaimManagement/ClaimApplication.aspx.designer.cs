@@ -40,6 +40,15 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// txtClaimHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClaimHeader;
+        
+        /// <summary>
         /// txtPeriodFrom control.
         /// </summary>
         /// <remarks>

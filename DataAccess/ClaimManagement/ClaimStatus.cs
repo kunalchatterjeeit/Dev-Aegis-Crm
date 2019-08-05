@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
 namespace DataAccess.ClaimManagement
 {
-    public class ClaimCategory
+    public class ClaimStatus
     {
-        public static int ClaimCategory_Save(Entity.ClaimManagement.ClaimCategory objClaimCategory)
+        public static int ClaimStatus_Save(Entity.ClaimManagement.ClaimStatus objClaimStatus)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -21,10 +16,10 @@ namespace DataAccess.ClaimManagement
 
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_ClaimCategory_Save";
-                    cmd.Parameters.AddWithValue("@CategoryId", objClaimCategory.ClaimCategoryId);
-                    cmd.Parameters.AddWithValue("@CategoryName", objClaimCategory.ClaimCategoryName);
-                    cmd.Parameters.AddWithValue("@Description", objClaimCategory.ClaimCategoryDescription);
+                    cmd.CommandText = "usp_HR_ClaimStatus_Save";
+                    cmd.Parameters.AddWithValue("@ClaimStatusId", objClaimStatus.ClaimStatusId);
+                    cmd.Parameters.AddWithValue("@ClaimStatusName", objClaimStatus.ClaimStatusName);
+                    cmd.Parameters.AddWithValue("@ClaimStatusDescription", objClaimStatus.ClaimStatusDescription);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -35,7 +30,7 @@ namespace DataAccess.ClaimManagement
             return retValue;
         }
 
-        public static DataTable ClaimCategory_GetAll()
+        public static DataTable ClaimStatus_GetAll()
         {
             using (DataTable dt = new DataTable())
             {
@@ -45,7 +40,7 @@ namespace DataAccess.ClaimManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_ClaimCategory_GetAll";
+                        cmd.CommandText = "usp_HR_ClaimStatus_GetAll";
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);
@@ -57,7 +52,7 @@ namespace DataAccess.ClaimManagement
             }
         }
 
-        public static int ClaimCategory_Delete(Entity.ClaimManagement.ClaimCategory objClaimCategory)
+        public static int ClaimStatus_Delete(Entity.ClaimManagement.ClaimStatus objClaimStatus)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -66,9 +61,9 @@ namespace DataAccess.ClaimManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_ClaimCategory_Delete";
+                    cmd.CommandText = "usp_HR_ClaimStatus_Delete";
 
-                    cmd.Parameters.AddWithValue("ClaimCategoryId", objClaimCategory.ClaimCategoryId);
+                    cmd.Parameters.AddWithValue("@ClaimStatusId", objClaimStatus.ClaimStatusId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -77,31 +72,6 @@ namespace DataAccess.ClaimManagement
                 }
             }
             return rowsAffacted;
-        }
-
-        public static DataTable ClaimCategory_GetById(int categoryId)
-        {
-            using (DataTable dt = new DataTable())
-            {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = con;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_ClaimCategory_GetById";
-
-                        cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
-                        con.Close();
-                    }
-                }
-                return dt;
-            }
         }
     }
 }

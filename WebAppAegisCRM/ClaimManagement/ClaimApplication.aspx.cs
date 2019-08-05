@@ -12,16 +12,6 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApplication : System.Web.UI.Page
     {
-        private DataTable _ClaimDetails
-        {
-            get
-            {
-                return Business.Common.Context.ClaimDetails;
-            }
-
-            set { Business.Common.Context.ClaimDetails = value; }
-        }
-
         private string _ClaimNo
         {
             get
@@ -35,6 +25,16 @@ namespace WebAppAegisCRM.ClaimManagement
             {
                 return DateTime.Now.Ticks.ToString();
             }
+        }
+
+        private DataTable _ClaimDetails
+        {
+            get
+            {
+                return Business.Common.Context.ClaimDetails;
+            }
+
+            set { Business.Common.Context.ClaimDetails = value; }
         }
 
         private void ClearAllControl()
@@ -51,13 +51,81 @@ namespace WebAppAegisCRM.ClaimManagement
 
         private void LoadClaimCategory()
         {
-            ddlCategory.DataSource = Enum.GetValues(typeof(ClaimCategoryEnum));
+            ddlCategory.DataSource = new Business.ClaimManagement.ClaimCategory()
+                .ClaimCategoryGetAll(new Entity.ClaimManagement.ClaimCategory() { });
+            ddlCategory.DataTextField = "CategoryName";
+            ddlCategory.DataValueField = "ClaimCategoryId";
             ddlCategory.DataBind();
             ddlCategory.InsertSelect();
         }
 
         private bool ClaimApplyValidation()
         {
+
+            return true;
+        }
+
+        private bool ClaimAddValidation()
+        {
+            int designationId = 0;
+            DataTable dtEmployee = new Business.HR.EmployeeMaster().EmployeeMaster_ById(new EmployeeMaster() { EmployeeMasterId = Convert.ToInt32(HttpContext.Current.User.Identity.Name) });
+            if (dtEmployee != null && dtEmployee.AsEnumerable().Any())
+            {
+                designationId = Convert.ToInt32(dtEmployee.Rows[0]["DesignationMasterId_FK"].ToString());
+            }
+            else
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Employee details not found!  Contact administrator.";
+                Message.Show = true;
+                return false;
+            }
+            DataTable dtClaimDesignationWiseConfiguration = GlobalCache.ExecuteCache<DataTable>(typeof(Business.ClaimManagement.ClaimDesignationWiseConfiguration), "ClaimDesignationConfig_GetAllCached", new Entity.ClaimManagement.ClaimDesignationWiseConfiguration());
+            if (dtClaimDesignationWiseConfiguration != null && dtClaimDesignationWiseConfiguration.AsEnumerable().Any())
+            {
+                using (DataView dvClaimDesignationWiseConfiguration = new DataView(dtClaimDesignationWiseConfiguration))
+                {
+                    dvClaimDesignationWiseConfiguration.RowFilter = "DesignationId = " + designationId + " AND ClaimCategoryId = " + ddlCategory.SelectedValue + "";
+                    dtClaimDesignationWiseConfiguration = dvClaimDesignationWiseConfiguration.ToTable();
+                }
+            }
+            else
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Claim configuration for your designation not found! Contact administrator.";
+                Message.Show = true;
+                return false;
+            }
+            if (dtClaimDesignationWiseConfiguration != null && dtClaimDesignationWiseConfiguration.AsEnumerable().Any())
+            {
+                decimal totalCost = Convert.ToDecimal(txtCost.Text);
+
+                if (_ClaimDetails != null && _ClaimDetails.AsEnumerable().Any())
+                {
+                    using (DataView dvClaimDetails = new DataView(_ClaimDetails))
+                    {
+                        dvClaimDetails.RowFilter = "CategoryId = " + ddlCategory.SelectedValue;
+                        if (dvClaimDetails.ToTable() != null && dvClaimDetails.ToTable().AsEnumerable().Any())
+                        {
+                            totalCost += Convert.ToDecimal(dvClaimDetails.ToTable().Compute("SUM(Cost)", string.Empty));
+                        }
+                    }
+                }
+                if (totalCost > Convert.ToDecimal(dtClaimDesignationWiseConfiguration.Rows[0]["Limit"].ToString()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Your claim limit exceeded.";
+                    Message.Show = true;
+                    return false;
+                }
+            }
+            else
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Claim configuration for your designation not found! Contact administrator.";
+                Message.Show = true;
+                return false;
+            }
 
             return true;
         }
@@ -145,6 +213,7 @@ namespace WebAppAegisCRM.ClaimManagement
             Business.ClaimManagement.ClaimApplication objClaimApplicationMaster = new Business.ClaimManagement.ClaimApplication();
 
             claimApplicationMaster.ClaimDateTime = DateTime.Now;
+            claimApplicationMaster.ClaimHeading = txtClaimHeader.Text.Trim();
             claimApplicationMaster.PeriodFrom = Convert.ToDateTime(txtPeriodFrom.Text);
             claimApplicationMaster.PeriodTo = Convert.ToDateTime(txtPeriodTo.Text);
             claimApplicationMaster.Status = (int)ClaimStatusEnum.Pending;
@@ -225,40 +294,43 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_ClaimDetails.Rows.Count == 0)
+            if (ClaimAddValidation())
             {
-                using (DataTable dtInstance = new DataTable())
+                if (_ClaimDetails.Rows.Count == 0)
                 {
-                    DataColumn column = new DataColumn("AutoId");
-                    column.AutoIncrement = true;
-                    column.ReadOnly = true;
-                    column.Unique = false;
+                    using (DataTable dtInstance = new DataTable())
+                    {
+                        DataColumn column = new DataColumn("AutoId");
+                        column.AutoIncrement = true;
+                        column.ReadOnly = true;
+                        column.Unique = false;
 
-                    dtInstance.Columns.Add(column);
-                    dtInstance.Columns.Add("ExpenseDate");
-                    dtInstance.Columns.Add("CategoryName");
-                    dtInstance.Columns.Add("CategoryId");
-                    dtInstance.Columns.Add("Status");
-                    dtInstance.Columns.Add("Cost", typeof(decimal));
-                    dtInstance.Columns.Add("Attachment");
-                    dtInstance.Columns.Add("Description");
-                    _ClaimDetails = dtInstance;
+                        dtInstance.Columns.Add(column);
+                        dtInstance.Columns.Add("ExpenseDate");
+                        dtInstance.Columns.Add("CategoryName");
+                        dtInstance.Columns.Add("CategoryId");
+                        dtInstance.Columns.Add("Status");
+                        dtInstance.Columns.Add("Cost", typeof(decimal));
+                        dtInstance.Columns.Add("Attachment");
+                        dtInstance.Columns.Add("Description");
+                        _ClaimDetails = dtInstance;
+                    }
                 }
+
+                DataRow drItem = _ClaimDetails.NewRow();
+                drItem["ExpenseDate"] = txtExpenseDate.Text;
+                drItem["CategoryName"] = ddlCategory.SelectedItem;
+                drItem["CategoryId"] = ddlCategory.SelectedValue;
+                drItem["Status"] = ClaimStatusEnum.Pending.ToString();
+                drItem["Cost"] = txtCost.Text;
+                drItem["Attachment"] = SaveAttachment();
+
+                _ClaimDetails.Rows.Add(drItem);
+                _ClaimDetails.AcceptChanges();
+
+                LoadClaimDetails();
+                ClearDetailsControls();
             }
-
-            DataRow drItem = _ClaimDetails.NewRow();
-            drItem["ExpenseDate"] = txtExpenseDate.Text;
-            drItem["CategoryName"] = ddlCategory.SelectedItem;
-            drItem["CategoryId"] = ddlCategory.SelectedValue;
-            drItem["Status"] = ClaimStatusEnum.Pending.ToString();
-            drItem["Cost"] = txtCost.Text;
-            drItem["Attachment"] = SaveAttachment();
-
-            _ClaimDetails.Rows.Add(drItem);
-            _ClaimDetails.AcceptChanges();
-
-            LoadClaimDetails();
-            ClearDetailsControls();
         }
 
         private void ClearDetailsControls()
@@ -266,6 +338,7 @@ namespace WebAppAegisCRM.ClaimManagement
             txtExpenseDate.Text = DateTime.Now.ToString("dd MMM yyyy");
             ddlCategory.SelectedIndex = 0;
             txtCost.Text = "0";
+            txtDescription.Text = string.Empty;
         }
 
         private string SaveAttachment()

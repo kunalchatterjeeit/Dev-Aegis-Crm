@@ -26,5 +26,9 @@ namespace Business.ClaimManagement
         {
             return DataAccess.ClaimManagement.ClaimCategory.ClaimCategory_Delete(objClaimCategory);
         }
+        public DataTable ClaimCategory_GetById(int categoryId)
+        {
+            return DataAccess.ClaimManagement.ClaimCategory.ClaimCategory_GetById(categoryId);
+        }
     }
 }

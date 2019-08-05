@@ -30,6 +30,12 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group has-error">
+                                        Claim Header
+                                        <asp:TextBox ID="txtClaimHeader" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Period From

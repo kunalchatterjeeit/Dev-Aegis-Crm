@@ -57,6 +57,7 @@
     <Compile Include="ClaimManagement\ClaimApprovalDetails.cs" />
     <Compile Include="ClaimManagement\ClaimCategory.cs" />
     <Compile Include="ClaimManagement\ClaimDesignationWiseConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimStatus.cs" />
     <Compile Include="Common\ApplicationConfiguration.cs" />
     <Compile Include="Common\ApplicationModules.cs" />
     <Compile Include="Common\ExtensionHelper.cs" />
