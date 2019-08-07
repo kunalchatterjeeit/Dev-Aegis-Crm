@@ -3,6 +3,23 @@
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script type="text/javascript">
+        function calculateTotalApprovedAmount() {
+            var txtTotal = 0.00;
+
+            $(".approved-amount").each(function (index, value) {
+                var val = value.value;
+                val = val.replace(",", ".");
+                txtTotal = MathRound(parseFloat(txtTotal) + parseFloat(val));
+            });
+
+            document.getElementById("<%= lblTotalApprovedAmount.ClientID %>").innerText = txtTotal.toFixed(2);
+        }
+        function MathRound(number) {
+            var result = Math.round(number * 100) / 100;
+            return result;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -147,7 +164,7 @@
                                             <div style="height: 40vh; overflow: scroll">
                                                 <div class="panel-body">
                                                     <div class="table-responsive">
-                                                        <asp:GridView ID="gvClaimDetails" runat="server"
+                                                        <asp:GridView ID="gvClaimDetails" runat="server" OnRowCommand="gvClaimDetails_RowCommand"
                                                             AutoGenerateColumns="False" Width="100%" OnRowDataBound="gvClaimDetails_RowDataBound"
                                                             CellPadding="4" ForeColor="#333333" GridLines="None" Style="text-align: left">
                                                             <Columns>
@@ -175,7 +192,9 @@
                                                                         Approve Amount
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="txtApprovedAmount" runat="server" Text='<%# (Eval("ApprovedAmount")!=DBNull.Value && Convert.ToDecimal(Eval("ApprovedAmount"))>0)? Eval("ApprovedAmount").ToString() :Eval("Cost").ToString() %>'></asp:TextBox>
+                                                                        <asp:TextBox ID="txtApprovedAmount" runat="server" class="form-control approved-amount" 
+                                                                            Style="width: 100px" Text='<%# (Eval("ApprovedAmount")!=DBNull.Value && Convert.ToDecimal(Eval("ApprovedAmount"))>0)? Eval("ApprovedAmount").ToString() :Eval("Cost").ToString() %>'
+                                                                            onchange="calculateTotalApprovedAmount()"></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField>
@@ -183,7 +202,7 @@
                                                                         Remarks
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="txtApprovedRemarks" runat="server"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtApprovedRemarks" runat="server" class="form-control"></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField>
@@ -191,18 +210,19 @@
                                                                         Status
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <asp:DropDownList ID="ddlLineItemStatus" runat="server"></asp:DropDownList>
+                                                                        <asp:DropDownList ID="ddlLineItemStatus" runat="server" class="form-control" Style="width: 100px"></asp:DropDownList>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField>
                                                                     <ItemTemplate>
-                                                                        <asp:LinkButton ID="lnkBtnAttachment" runat="server" style="font-size: 16px;" class="fa fa-paperclip fa-fw" />
+                                                                        <asp:LinkButton ID="lnkBtnAttachment" runat="server" Style="font-size: 16px;" class="fa fa-paperclip fa-fw" />
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField ItemStyle-Width="15px">
                                                                     <ItemTemplate>
-                                                                        <asp:LinkButton ID="btnUpdate" runat="server" class="fa fa-save fa-fw" CommandName="E" CausesValidation="false"
-                                                                             CommandArgument='<%# Eval("ClaimDetailsId") %>' Style="font-size: 16px; margin-top: 7px" ToolTip="Save changes"></asp:LinkButton>
+                                                                        <asp:HiddenField ID="hdnChecked" runat="server" />
+                                                                        <asp:LinkButton ID="btnUpdate" runat="server" class="fa fa-save fa-fw" CommandName="U" CausesValidation="false"
+                                                                            CommandArgument='<%# Eval("ClaimDetailsId") %>' Style="font-size: 16px;" ToolTip="Save changes"></asp:LinkButton>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                             </Columns>
@@ -228,6 +248,13 @@
                                         </td>
                                         <td colspan="7" style="font-weight: bold">
                                             <asp:Label ID="lblTotalClaimCount" runat="server" class="pull-right"></asp:Label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">Total Approved Amount
+                                        </td>
+                                        <td colspan="7" style="font-weight: bold">
+                                            <asp:Label ID="lblTotalApprovedAmount" runat="server" class="pull-right" Text="0.00"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>

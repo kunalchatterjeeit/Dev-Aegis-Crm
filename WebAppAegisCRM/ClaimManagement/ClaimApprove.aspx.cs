@@ -44,6 +44,8 @@ namespace WebAppAegisCRM.ClaimManagement
             gvClaimDetails.DataSource = dsClaimApplicationDetails.Tables[2];
             gvClaimDetails.DataBind();
 
+            lblTotalApprovedAmount.Text = dsClaimApplicationDetails.Tables[2].Compute("SUM(Cost)", string.Empty).ToString();
+
             if ((Convert.ToInt32(dsClaimApplicationDetails.Tables[0].Rows[0]["Status"].ToString()) == (int)ClaimStatusEnum.Approved) &&
                 Convert.ToDateTime(dsClaimApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString()).Date >= DateTime.Now.Date)
             {
@@ -124,7 +126,7 @@ namespace WebAppAegisCRM.ClaimManagement
             }
             return true;
         }
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -435,6 +437,35 @@ namespace WebAppAegisCRM.ClaimManagement
             ddlLineItemStatus.DataTextField = "StatusName";
             ddlLineItemStatus.DataValueField = "ClaimStatusId";
             ddlLineItemStatus.DataBind();
+        }
+
+        protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "U")
+            {
+                GridViewRow gridViewRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                HiddenField hdnChecked = (HiddenField)gridViewRow.FindControl("hdnChecked");
+                hdnChecked.Value = "Checked";
+                gridViewRow.Font.Italic = true;
+                gridViewRow.Attributes.CssStyle.Add("color", "#038a10");
+                ModalPopupExtender1.Show();
+
+                ComputeTotalApprovedAmount();
+            }
+        }
+
+        private void ComputeTotalApprovedAmount()
+        {
+            decimal total = 0;
+            foreach (GridViewRow gvr in gvClaimDetails.Rows)
+            {
+                TextBox txtApprovedAmount = (TextBox)gvr.FindControl("txtApprovedAmount");
+                if (!string.IsNullOrEmpty(txtApprovedAmount.Text))
+                {
+                    total += Convert.ToDecimal(txtApprovedAmount.Text.Trim());
+                }
+            }
+            lblTotalApprovedAmount.Text = total.ToString();
         }
     }
 }
