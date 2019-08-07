@@ -79,7 +79,7 @@
                             <div class="col-lg-2">
                                 <div class="form-group has-error">
                                     Category
-                                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
+                                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control searchable">
                                         </asp:DropDownList>
                                 </div>
                             </div>

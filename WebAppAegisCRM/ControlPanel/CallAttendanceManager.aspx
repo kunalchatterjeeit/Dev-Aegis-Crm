@@ -49,7 +49,7 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     Engineer :
-                                         <asp:DropDownList ID="ddlEngineer" CssClass="form-control" runat="server">
+                                         <asp:DropDownList ID="ddlEngineer" CssClass="form-control searchable" runat="server">
                                          </asp:DropDownList>
                                 </div>
                             </div>

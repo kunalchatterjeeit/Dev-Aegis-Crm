@@ -44,7 +44,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Role Name
-                                        <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" Width="290px" CssClass="form-control"
+                                        <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" Width="290px" CssClass="form-control searchable"
                                             DataValueField="RoleId" DataTextField="RoleName" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged">
                                         </asp:DropDownList>
                                     </div>

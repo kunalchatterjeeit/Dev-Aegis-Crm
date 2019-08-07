@@ -311,7 +311,7 @@ namespace WebAppAegisCRM.LeaveManagement
                             foreach (DataRow drEmployee in dtEmployees.Rows)
                             {
                                 //Getting Designation of each employee
-                                int designationId = Convert.ToInt32(drEmployee["DesignationMasterId_FK"].ToString());
+                                int designationId = Convert.ToInt32(drEmployee["DesignationMasterId"].ToString());
                                 int leaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
                                 DataRow drLeaveDesignationConfiguration = dtLeaveDesignationConfigurations
                                     .Select("DesignationId = " + designationId + " AND LeaveTypeId = " + leaveTypeId.ToString()).FirstOrDefault();

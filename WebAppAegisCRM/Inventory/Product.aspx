@@ -43,13 +43,13 @@
                         <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Brand
-                                <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlBrand" runat="server" CssClass="form-control searchable"></asp:DropDownList>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group has-error">
                                 Model Category
-                                <asp:DropDownList ID="ddlProductCategory" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlProductCategory" runat="server" CssClass="form-control searchable"></asp:DropDownList>
                             </div>
                         </div>
                         <div class="col-lg-6">

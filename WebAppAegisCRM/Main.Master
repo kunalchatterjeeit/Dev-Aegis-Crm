@@ -514,7 +514,7 @@
 <script src="/dist/js/select2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('select').select2();
+        $('.searchable').select2();
     });
 </script>
 </html>
