@@ -475,6 +475,9 @@
     <Compile Include="HR\PersonalInfo.aspx.designer.cs">
       <DependentUpon>PersonalInfo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HR\RoleAccessLevel.aspx.designer.cs">
+      <DependentUpon>RoleAccessLevel.aspx</DependentUpon>
+    </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -541,9 +544,6 @@
     <Compile Include="HR\RoleAccessLevel.aspx.cs">
       <DependentUpon>RoleAccessLevel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HR\RoleAccessLevel.aspx.designer.cs">
-      <DependentUpon>RoleAccessLevel.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\RoleMaster.aspx.cs">
       <DependentUpon>RoleMaster.aspx</DependentUpon>
