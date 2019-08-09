@@ -44,7 +44,7 @@
                                 <div class="col-lg-5">
                                     <div class="form-group has-error">
                                         Model
-                                        <asp:DropDownList ID="ddlProduct" CssClass="form-control" runat="server">
+                                        <asp:DropDownList ID="ddlProduct" CssClass="form-control searchable" runat="server">
                                         </asp:DropDownList>
                                     </div>
                                 </div>

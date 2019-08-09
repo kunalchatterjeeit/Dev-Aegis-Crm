@@ -45,10 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClaimManagement\ClaimApplicationDetails.cs" />
+    <Compile Include="ClaimManagement\ClaimApplicationMaster.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalDetails.cs" />
+    <Compile Include="ClaimManagement\ClaimCategory.cs" />
+    <Compile Include="ClaimManagement\ClaimDesignationWiseConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimStatus.cs" />
     <Compile Include="Common\AttendanceLog.cs" />
     <Compile Include="Common\Auth.cs" />
     <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Common\City.cs" />
+    <Compile Include="Common\ClaimStatusEnum.cs" />
     <Compile Include="Common\PlaceholderTypeEnum.cs" />
     <Compile Include="Common\ContractType.cs" />
     <Compile Include="Common\CryptographyMode.cs" />

@@ -89,6 +89,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower_components\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="ClaimManagement\ClaimApplication.aspx" />
+    <Content Include="ClaimManagement\ClaimApplicationList.aspx" />
+    <Content Include="ClaimManagement\ClaimApprovalConfiguration.aspx" />
+    <Content Include="ClaimManagement\ClaimApprove.aspx" />
+    <Content Include="ClaimManagement\ClaimCategory.aspx" />
+    <Content Include="ClaimManagement\ClaimDesignationConfiguration.aspx" />
     <Content Include="Common\City.aspx" />
     <Content Include="ControlPanel\CallAttendanceManager.aspx" />
     <Content Include="CustomerDashboard.aspx" />
@@ -119,7 +125,6 @@
     <Content Include="EmailMockups\LowToner.htm" />
     <Content Include="HR\AttendanceList.aspx" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
-    <Content Include="HR\Claim.aspx" />
     <Content Include="HR\Employee.aspx" />
     <Content Include="HR\EmployeeImage\14.jpg" />
     <Content Include="HR\EmployeeImage\2.jpg" />
@@ -250,7 +255,48 @@
     <Content Include="WebServices\WebServiceChart.asmx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\HR\EmployeeHolidayProfileMapping.cs" />
+    <Compile Include="ClaimManagement\ClaimApplication.aspx.cs">
+      <DependentUpon>ClaimApplication.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApplication.aspx.designer.cs">
+      <DependentUpon>ClaimApplication.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApplicationList.aspx.cs">
+      <DependentUpon>ClaimApplicationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApplicationList.aspx.designer.cs">
+      <DependentUpon>ClaimApplicationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApprovalConfiguration.aspx.cs">
+      <DependentUpon>ClaimApprovalConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApprovalConfiguration.aspx.designer.cs">
+      <DependentUpon>ClaimApprovalConfiguration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApprove.aspx.cs">
+      <DependentUpon>ClaimApprove.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApprove.aspx.designer.cs">
+      <DependentUpon>ClaimApprove.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimCategory.aspx.cs">
+      <DependentUpon>ClaimCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimCategory.aspx.designer.cs">
+      <DependentUpon>ClaimCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimDesignationConfiguration.aspx.cs">
+      <DependentUpon>ClaimDesignationConfiguration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimDesignationConfiguration.aspx.designer.cs">
+      <DependentUpon>ClaimDesignationConfiguration.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Common\City.aspx.cs">
       <DependentUpon>City.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -358,13 +404,6 @@
     </Compile>
     <Compile Include="HR\AttendanceLogInOut.aspx.designer.cs">
       <DependentUpon>AttendanceLogInOut.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="HR\Claim.aspx.cs">
-      <DependentUpon>Claim.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HR\Claim.aspx.designer.cs">
-      <DependentUpon>Claim.aspx</DependentUpon>
     </Compile>
     <Compile Include="HR\Employee.aspx.cs">
       <DependentUpon>Employee.aspx</DependentUpon>
@@ -997,9 +1036,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClaimManagement\ClaimAttachments\" />
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
-    <Folder Include="HR\ClaimAttachments\" />
     <Folder Include="js\" />
     <Folder Include="LeaveManagement\LeaveAttachment\" />
     <Folder Include="less\" />

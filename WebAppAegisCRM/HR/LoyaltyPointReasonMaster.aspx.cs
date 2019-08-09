@@ -40,8 +40,8 @@ namespace WebAppAegisCRM.HR
 
         protected void LoadLoyaltyPointReasonMaster()
         {
-            DataTable dt = Business.HR.LoyaltyPointReasonMaster.GetAll(new Entity.HR.LoyaltyPointReasonMaster());
-
+            GlobalCache.RemoveAll();
+            DataTable dt = GlobalCache.ExecuteCache<DataTable>(typeof(Business.HR.LoyaltyPointReasonMaster), "GetAll", new Entity.HR.LoyaltyPointReasonMaster());          
             gvLoyaltyReason.DataSource = dt;
             gvLoyaltyReason.DataBind();
         }
