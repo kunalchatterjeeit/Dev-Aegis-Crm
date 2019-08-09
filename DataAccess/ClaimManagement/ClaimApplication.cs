@@ -22,8 +22,14 @@ namespace DataAccess.ClaimManagement
                     cmd.CommandText = "usp_HR_Claim_Save";
 
                     cmd.Parameters.AddWithValue("@ClaimId", claimApplicationMaster.ClaimApplicationId);
-                    cmd.Parameters.AddWithValue("@ClaimHeading", claimApplicationMaster.ClaimHeading);
-                    cmd.Parameters.AddWithValue("@ClaimNo", claimApplicationMaster.ClaimApplicationNumber);
+                    if (string.IsNullOrEmpty(claimApplicationMaster.ClaimHeading))
+                        cmd.Parameters.AddWithValue("@ClaimHeading", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ClaimHeading", claimApplicationMaster.ClaimHeading);
+                    if (string.IsNullOrEmpty(claimApplicationMaster.ClaimApplicationNumber))
+                        cmd.Parameters.AddWithValue("@ClaimNo", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ClaimNo", claimApplicationMaster.ClaimApplicationNumber);
                     if (claimApplicationMaster.EmployeeId == 0)
                         cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
                     else
@@ -40,15 +46,18 @@ namespace DataAccess.ClaimManagement
                         cmd.Parameters.AddWithValue("@CreatedBy", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@CreatedBy", claimApplicationMaster.CreatedBy);
-                    if (claimApplicationMaster.TotalAmount==0)
+                    if (claimApplicationMaster.TotalAmount == 0)
                         cmd.Parameters.AddWithValue("@TotalAmount", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@TotalAmount", claimApplicationMaster.TotalAmount);
-                    if (claimApplicationMaster.Status==0)
+                    if (claimApplicationMaster.Status == 0)
                         cmd.Parameters.AddWithValue("@Status", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@Status", claimApplicationMaster.Status);
-                    cmd.Parameters.AddWithValue("@ClaimDateTime", claimApplicationMaster.ClaimDateTime);
+                    if (claimApplicationMaster.ClaimDateTime == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@ClaimDateTime", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ClaimDateTime", claimApplicationMaster.ClaimDateTime);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -66,45 +75,45 @@ namespace DataAccess.ClaimManagement
             }
             return claimApplicationMaster;
         }
-        public static DataTable ClaimApplicationMaster_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
-        {
-            using (DataTable dt = new DataTable())
-            {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = con;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_ClaimApplicationMaster_GetAll";
+        //public static DataTable ClaimApplicationMaster_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
+        //{
+        //    using (DataTable dt = new DataTable())
+        //    {
+        //        using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand())
+        //            {
+        //                cmd.Connection = con;
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.CommandText = "usp_HR_ClaimApplicationMaster_GetAll";
 
-                        if (ClaimApplicationMaster.ClaimApplicationId == 0)
-                            cmd.Parameters.AddWithValue("@ClaimApplicationId", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@ClaimApplicationId", ClaimApplicationMaster.ClaimApplicationId);
-                        if (ClaimApplicationMaster.EmployeeId == 0)
-                            cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@EmployeeId", ClaimApplicationMaster.EmployeeId);
-                        if (ClaimApplicationMaster.PeriodFrom == DateTime.MinValue)
-                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@FromDate", ClaimApplicationMaster.PeriodFrom);
-                        if (ClaimApplicationMaster.PeriodTo == DateTime.MinValue)
-                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
-                        else
-                            cmd.Parameters.AddWithValue("@ToDate", ClaimApplicationMaster.PeriodTo);
+        //                if (ClaimApplicationMaster.ClaimApplicationId == 0)
+        //                    cmd.Parameters.AddWithValue("@ClaimApplicationId", DBNull.Value);
+        //                else
+        //                    cmd.Parameters.AddWithValue("@ClaimApplicationId", ClaimApplicationMaster.ClaimApplicationId);
+        //                if (ClaimApplicationMaster.EmployeeId == 0)
+        //                    cmd.Parameters.AddWithValue("@EmployeeId", DBNull.Value);
+        //                else
+        //                    cmd.Parameters.AddWithValue("@EmployeeId", ClaimApplicationMaster.EmployeeId);
+        //                if (ClaimApplicationMaster.PeriodFrom == DateTime.MinValue)
+        //                    cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+        //                else
+        //                    cmd.Parameters.AddWithValue("@FromDate", ClaimApplicationMaster.PeriodFrom);
+        //                if (ClaimApplicationMaster.PeriodTo == DateTime.MinValue)
+        //                    cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+        //                else
+        //                    cmd.Parameters.AddWithValue("@ToDate", ClaimApplicationMaster.PeriodTo);
 
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
-                        con.Close();
-                    }
-                }
-                return dt;
-            }
-        }
+        //                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+        //                {
+        //                    da.Fill(dt);
+        //                }
+        //                con.Close();
+        //            }
+        //        }
+        //        return dt;
+        //    }
+        //}
         public static int ClaimApplicationMaster_Delete(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
         {
             int rowsAffacted = 0;
@@ -139,12 +148,33 @@ namespace DataAccess.ClaimManagement
 
                     cmd.Parameters.AddWithValue("@ClaimDetailsId", ClaimApplicationDetails.ClaimApplicationDetailId);
                     cmd.Parameters.AddWithValue("@ClaimId", ClaimApplicationDetails.ClaimApplicationId);
-                    cmd.Parameters.AddWithValue("@ExpenseDate", ClaimApplicationDetails.ExpenseDate);
-                    cmd.Parameters.AddWithValue("@Attachment", ClaimApplicationDetails.Attachment);
-                    cmd.Parameters.AddWithValue("@CategoryId", ClaimApplicationDetails.CategoryId);
                     cmd.Parameters.AddWithValue("@Cost", ClaimApplicationDetails.Cost);
-                    cmd.Parameters.AddWithValue("@Description", ClaimApplicationDetails.Description);
-                    cmd.Parameters.AddWithValue("@Status", ClaimApplicationDetails.Status);
+                    if (ClaimApplicationDetails.ExpenseDate == DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("@ExpenseDate", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ExpenseDate", ClaimApplicationDetails.ExpenseDate);
+                    if (string.IsNullOrEmpty(ClaimApplicationDetails.Attachment))
+                        cmd.Parameters.AddWithValue("@Attachment", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Attachment", ClaimApplicationDetails.Attachment);
+                    if (ClaimApplicationDetails.CategoryId == 0)
+                        cmd.Parameters.AddWithValue("@CategoryId", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@CategoryId", ClaimApplicationDetails.CategoryId);
+                    if (string.IsNullOrEmpty(ClaimApplicationDetails.Description))
+                        cmd.Parameters.AddWithValue("@Description", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Description", ClaimApplicationDetails.Description);
+                    if (ClaimApplicationDetails.Status == 0)
+                        cmd.Parameters.AddWithValue("@Status", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Status", ClaimApplicationDetails.Status);
+                    if (string.IsNullOrEmpty(ClaimApplicationDetails.ApproverRemarks))
+                        cmd.Parameters.AddWithValue("@ApproverRemarks", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@ApproverRemarks", ClaimApplicationDetails.ApproverRemarks);
+
+                    cmd.Parameters.AddWithValue("@ApprovedAmount", ClaimApplicationDetails.ApprovedAmount);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -271,9 +301,9 @@ namespace DataAccess.ClaimManagement
                 return dt;
             }
         }
-        public static DataSet ClaimApplication_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
+        public static DataTable ClaimApplication_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
         {
-            using (DataSet ds = new DataSet())
+            using (DataTable ds = new DataTable())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
@@ -308,6 +338,28 @@ namespace DataAccess.ClaimManagement
                 }
                 return ds;
             }
+        }
+        public static int Claim_HeadingUpdate(Entity.ClaimManagement.ClaimApplicationMaster claimApplication)
+        {
+            int retValue = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_HR_Claim_HeadingUpdate";
+
+                    cmd.Parameters.AddWithValue("@ClaimId", claimApplication.ClaimApplicationId);
+                    cmd.Parameters.AddWithValue("@ClaimHeading", claimApplication.ClaimHeading);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    retValue = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return retValue;
         }
     }
 }

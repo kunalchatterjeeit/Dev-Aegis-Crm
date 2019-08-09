@@ -12,10 +12,10 @@ namespace Business.ClaimManagement
         {
             return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_Save(objClaimApplicationMaster);
         }
-        public DataTable ClaimApplicationMaster_GetAll(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
-        {
-            return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_GetAll(objClaimApplicationMaster);
-        }
+        //public DataTable ClaimApplicationMaster_GetAll(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
+        //{
+        //    return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_GetAll(objClaimApplicationMaster);
+        //}
         public int ClaimApplicationMaster_Delete(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
         {
             return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_Delete(objClaimApplicationMaster);
@@ -40,9 +40,13 @@ namespace Business.ClaimManagement
         {
             return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationDetails_GetByDate(ClaimApplicationMaster);
         }
-        public DataSet ClaimApplication_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
+        public DataTable ClaimApplication_GetAll(Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster)
         {
             return DataAccess.ClaimManagement.ClaimApplication.ClaimApplication_GetAll(ClaimApplicationMaster);
+        }
+        public int Claim_HeadingUpdate(Entity.ClaimManagement.ClaimApplicationMaster claimApplication)
+        {
+            return DataAccess.ClaimManagement.ClaimApplication.Claim_HeadingUpdate(claimApplication);
         }
     }
 }

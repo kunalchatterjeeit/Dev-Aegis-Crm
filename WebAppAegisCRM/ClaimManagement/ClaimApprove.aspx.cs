@@ -31,39 +31,38 @@ namespace WebAppAegisCRM.ClaimManagement
             {
                 lblClaimApplicationNumber.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimNo"].ToString();
                 lblName.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["Requestor"].ToString();
-                //lblClaimCategor.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimTypeName"].ToString();
                 lblFromDate.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString();
                 lblToDate.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
-                //lblClaimAccumulationType.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimAccumulationTypeName"].ToString();
                 lblTotalClaimCount.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["TotalAmount"].ToString();
-                //hdnAttachmentName.Value = dsClaimApplicationDetails.Tables[0].Rows[0]["ApprovedAmount"].ToString();
-                //lblReason.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["Reason"].ToString();
-
+                txtClaimHeader.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimHeading"].ToString();
             }
 
             gvClaimDetails.DataSource = dsClaimApplicationDetails.Tables[2];
             gvClaimDetails.DataBind();
 
-            lblTotalApprovedAmount.Text = dsClaimApplicationDetails.Tables[2].Compute("SUM(Cost)", string.Empty).ToString();
+            ComputeTotalApprovedAmount();
 
             if ((Convert.ToInt32(dsClaimApplicationDetails.Tables[0].Rows[0]["Status"].ToString()) == (int)ClaimStatusEnum.Approved) &&
                 Convert.ToDateTime(dsClaimApplicationDetails.Tables[0].Rows[0]["FromDate"].ToString()).Date >= DateTime.Now.Date)
             {
-                //btnCancel.Visible = true;
                 btnApprove.Visible = false;
                 btnReject.Visible = false;
             }
             else if (Convert.ToInt32(dsClaimApplicationDetails.Tables[0].Rows[0]["Status"].ToString()) == (int)ClaimStatusEnum.Pending)
             {
-                //btnCancel.Visible = false;
                 btnApprove.Visible = true;
                 btnReject.Visible = true;
             }
             else
             {
-                //btnCancel.Visible = false;
                 btnApprove.Visible = false;
                 btnReject.Visible = false;
+            }
+
+            if (dsClaimApplicationDetails.Tables.Count > 1)
+            {
+                gvApprovalHistory.DataSource = dsClaimApplicationDetails.Tables[1];
+                gvApprovalHistory.DataBind();
             }
         }
 
@@ -124,6 +123,18 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.Show = true;
                 return false;
             }
+
+            foreach (GridViewRow gvr in gvClaimDetails.Rows)
+            {
+                HiddenField hdnChecked = (HiddenField)gvr.FindControl("hdnChecked");
+                if (string.IsNullOrEmpty(hdnChecked.Value))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please check and save all claim line items.";
+                    Message.Show = true;
+                    return false;
+                }
+            }
             return true;
         }
 
@@ -167,13 +178,13 @@ namespace WebAppAegisCRM.ClaimManagement
                         Entity.ClaimManagement.ClaimApplicationMaster ClaimApplicationMaster = new Entity.ClaimManagement.ClaimApplicationMaster();
                         Business.ClaimManagement.ClaimApplication objClaimApplication = new Business.ClaimManagement.ClaimApplication();
                         ClaimApplicationMaster.ClaimApplicationId = Business.Common.Context.ClaimApplicationId;
-                        DataTable dtClaimApplication = objClaimApplication.ClaimApplicationMaster_GetAll(ClaimApplicationMaster);
+                        DataTable dtClaimApplication = objClaimApplication.ClaimApplication_GetAll(ClaimApplicationMaster);
 
                         Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
                         DataTable dtClaimEmployeeWiseApprovalConfiguration = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_GetAll(
                             new Entity.ClaimManagement.ClaimApprovalConfiguration()
                             {
-                                EmployeeId = (dtClaimApplication != null && dtClaimApplication.AsEnumerable().Any()) ? Convert.ToInt32(dtClaimApplication.Rows[0]["RequestorId"].ToString()) : 0
+                                EmployeeId = (dtClaimApplication != null && dtClaimApplication.AsEnumerable().Any()) ? Convert.ToInt32(dtClaimApplication.Rows[0]["EmployeeId"].ToString()) : 0
                             });
 
                         int currentClaimApproverLevel = 0;
@@ -216,24 +227,14 @@ namespace WebAppAegisCRM.ClaimManagement
                                                                                     ClaimApplicationId = Business.Common.Context.ClaimApplicationId,
                                                                                     Status = (int)ClaimStatusEnum.Approved
                                                                                 });
-                            int adjustResponse = 0;// ClaimAccontBalance_Deduct(Business.Common.Context.ClaimApplicationId);
-                            if (adjustResponse > 0)
-                            {
-                                GetClaimApplications_ByApproverId(ckShowAll.Checked ? (int)ClaimStatusEnum.None : (int)ClaimStatusEnum.Pending);
-                                MessageSuccess.IsSuccess = true;
-                                MessageSuccess.Text = "Claim approved.";
-                                MessageSuccess.Show = true;
-                                ModalPopupExtender1.Hide();
-                            }
-                            else
-                            {
-                                Message.IsSuccess = false;
-                                Message.Text = "Something went wrong! Please contact system administrator";
-                                Message.Show = true;
-                                TabContainer1.ActiveTab = Approval;
-                                ModalPopupExtender1.Show();
-                            }
+
+                            GetClaimApplications_ByApproverId(ckShowAll.Checked ? (int)ClaimStatusEnum.None : (int)ClaimStatusEnum.Pending);
+                            MessageSuccess.IsSuccess = true;
+                            MessageSuccess.Text = "Claim approved.";
+                            MessageSuccess.Show = true;
+                            ModalPopupExtender1.Hide();
                         }
+                        Claim_Heading_Update(Business.Common.Context.ClaimApplicationId, txtClaimHeader.Text.Trim())
                     }
                     else
                     {
@@ -313,24 +314,22 @@ namespace WebAppAegisCRM.ClaimManagement
             }
         }
 
-        protected void lnkBtnAttachment_Click(object sender, EventArgs e)
+        private void DownloadAttachment(string claimAttachmentName)
         {
             try
             {
-                //LinkButton lnkDownload = lnkBtnAttachment;
-                //ScriptManager.GetCurrent(this).RegisterPostBackControl(lnkDownload);
-                //string FileName = hdnAttachmentName.Value;
-                //string OriginalFileName = hdnAttachmentName.Value;
-                //string FilePath = Server.MapPath(" ") + "\\ClaimAttachment\\" + hdnAttachmentName.Value;
-                //FileInfo file = new FileInfo(FilePath);
-                //if (file.Exists)
-                //{
-                //    Response.ContentType = ContentType;
-                //    Response.AppendHeader("Content-Disposition", "attachment; filename=" + OriginalFileName);
-                //    Response.Headers.Set("Cache-Control", "private, max-age=0");
-                //    Response.WriteFile(FilePath);
-                //    Response.End();
-                //}
+                string FileName = claimAttachmentName;
+                string OriginalFileName = claimAttachmentName;
+                string FilePath = Server.MapPath(" ") + "\\ClaimAttachments\\" + FileName;
+                FileInfo file = new FileInfo(FilePath);
+                if (file.Exists)
+                {
+                    Response.ContentType = ContentType;
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + OriginalFileName);
+                    Response.Headers.Set("Cache-Control", "private, max-age=0");
+                    Response.WriteFile(FilePath);
+                    Response.End();
+                }
             }
             catch
             {
@@ -406,7 +405,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     LinkButton lnkBtnAttachment = (LinkButton)e.Row.FindControl("lnkBtnAttachment");
-                    if (string.IsNullOrEmpty(((DataTable)(gvClaimDetails.DataSource)).Rows[e.Row.RowIndex]["ClaimDetailsId"].ToString()))
+                    if (!string.IsNullOrEmpty(((DataTable)gvClaimDetails.DataSource).Rows[e.Row.RowIndex]["Attachment"].ToString()))
                     {
                         lnkBtnAttachment.CssClass = "fa fa-paperclip fa-fw";
                         lnkBtnAttachment.Enabled = true;
@@ -421,7 +420,15 @@ namespace WebAppAegisCRM.ClaimManagement
 
                     DropDownList ddlLineItemStatus = (DropDownList)e.Row.FindControl("ddlLineItemStatus");
                     LoadClaimStatus(ddlLineItemStatus);
-                    ddlLineItemStatus.SelectedValue = ((DataTable)(gvClaimDetails.DataSource)).Rows[e.Row.RowIndex]["ClaimDetailsId"].ToString();
+                    ddlLineItemStatus.SelectedValue = ((DataTable)(gvClaimDetails.DataSource)).Rows[e.Row.RowIndex]["Status"].ToString();
+
+                    HiddenField hdnChecked = (HiddenField)e.Row.FindControl("hdnChecked");
+                    if (!string.IsNullOrEmpty(((DataTable)gvClaimDetails.DataSource).Rows[e.Row.RowIndex]["ApprovedAmount"].ToString()))
+                    {
+                        hdnChecked.Value = "Checked";
+                        e.Row.Attributes.CssStyle.Add("color", "#038a10");
+                        e.Row.Font.Italic = true;
+                    }
                 }
             }
             catch (Exception ex)
@@ -441,16 +448,48 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "U")
+            try
             {
-                GridViewRow gridViewRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
-                HiddenField hdnChecked = (HiddenField)gridViewRow.FindControl("hdnChecked");
-                hdnChecked.Value = "Checked";
-                gridViewRow.Font.Italic = true;
-                gridViewRow.Attributes.CssStyle.Add("color", "#038a10");
-                ModalPopupExtender1.Show();
+                if (e.CommandName == "U")
+                {
+                    GridViewRow gridViewRow = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                    HiddenField hdnChecked = (HiddenField)gridViewRow.FindControl("hdnChecked");
+                    TextBox txtApprovedAmount = (TextBox)gridViewRow.FindControl("txtApprovedAmount");
+                    TextBox txtApprovedRemarks = (TextBox)gridViewRow.FindControl("txtApprovedRemarks");
+                    DropDownList ddlLineItemStatus = (DropDownList)gridViewRow.FindControl("ddlLineItemStatus");
+                    hdnChecked.Value = "Checked";
+                    gridViewRow.Font.Italic = true;
+                    gridViewRow.Attributes.CssStyle.Add("color", "#038a10");
 
-                ComputeTotalApprovedAmount();
+                    Business.ClaimManagement.ClaimApplication objClaimApplication = new Business.ClaimManagement.ClaimApplication();
+                    Entity.ClaimManagement.ClaimApplicationDetails claimApplicationDetails = new Entity.ClaimManagement.ClaimApplicationDetails()
+                    {
+                        ClaimApplicationDetailId = int.Parse(e.CommandArgument.ToString()),
+                        ApprovedAmount = Convert.ToDecimal(txtApprovedAmount.Text.Trim()),
+                        ApproverRemarks = txtApprovedRemarks.Text.Trim(),
+                        Status = Convert.ToInt32(ddlLineItemStatus.SelectedValue)
+                    };
+
+                    objClaimApplication.ClaimApplicationDetails_Save(claimApplicationDetails);
+
+                    ComputeTotalApprovedAmount();
+                }
+                else if (e.CommandName == "A")
+                {
+                    string claimAttachmentName = e.CommandArgument.ToString();
+                    DownloadAttachment(claimAttachmentName);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+            finally
+            {
+                ModalPopupExtender1.Show();
             }
         }
 
@@ -466,6 +505,16 @@ namespace WebAppAegisCRM.ClaimManagement
                 }
             }
             lblTotalApprovedAmount.Text = total.ToString();
+        }
+
+        private int Claim_Heading_Update(int claimApplicationId, string claimHeading)
+        {
+            Business.ClaimManagement.ClaimApplication objClaimApplication = new Business.ClaimManagement.ClaimApplication();
+            return objClaimApplication.Claim_HeadingUpdate(new Entity.ClaimManagement.ClaimApplicationMaster()
+            {
+                ClaimApplicationId = claimApplicationId,
+                ClaimHeading = claimHeading
+            });
         }
     }
 }

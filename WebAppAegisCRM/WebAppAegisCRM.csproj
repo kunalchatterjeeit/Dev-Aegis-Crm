@@ -90,6 +90,7 @@
   <ItemGroup>
     <Content Include="bower_components\bootstrap\dist\js\bootstrap.min.js" />
     <Content Include="ClaimManagement\ClaimApplication.aspx" />
+    <Content Include="ClaimManagement\ClaimApplicationList.aspx" />
     <Content Include="ClaimManagement\ClaimApprovalConfiguration.aspx" />
     <Content Include="ClaimManagement\ClaimApprove.aspx" />
     <Content Include="ClaimManagement\ClaimCategory.aspx" />
@@ -260,6 +261,13 @@
     </Compile>
     <Compile Include="ClaimManagement\ClaimApplication.aspx.designer.cs">
       <DependentUpon>ClaimApplication.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApplicationList.aspx.cs">
+      <DependentUpon>ClaimApplicationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimApplicationList.aspx.designer.cs">
+      <DependentUpon>ClaimApplicationList.aspx</DependentUpon>
     </Compile>
     <Compile Include="ClaimManagement\ClaimApprovalConfiguration.aspx.cs">
       <DependentUpon>ClaimApprovalConfiguration.aspx</DependentUpon>
