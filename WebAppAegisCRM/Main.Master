@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Bootstrap Core CSS -->
-    
+
     <link href="/dist/css/select2.min.css" rel="stylesheet" />
     <%--DateTime picker related--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
@@ -77,13 +77,13 @@
                 }
             });
         });
-    </script>
 
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" autocomplete="off">
 
         <div id="wrapper">
 
@@ -479,6 +479,9 @@
                                 </li>                                
                                 <li id="liEmployeeWorkSummaryReport" runat="server" visible="false">
                                     <a href="../HR/EmployeeWorkSummaryReport.aspx">Employee Work Summary Report</a>
+                                </li>
+                                <li id="liClaimReport" runat="server" visible="true">
+                                    <a href="../ClaimManagement/ClaimReport.aspx">Claim Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

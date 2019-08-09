@@ -134,7 +134,7 @@ namespace WebAppAegisCRM
                 liClaimConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_CONFIGURATION);
                 liClaimDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DESIGNATION_CONFIGURATION);
                 liClaimManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_MANAGEMENT);
-                //liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
+                liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
             }
         }
 

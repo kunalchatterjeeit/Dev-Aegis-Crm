@@ -246,6 +246,7 @@
                                 <asp:ListItem Value="503" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE LIST"></asp:ListItem>
                                 <asp:ListItem Value="210" Text="&nbsp;&nbsp;&nbsp;ATTENDANCE REPORT"></asp:ListItem>
                                 <asp:ListItem Value="212" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE WORK SUMMARY REPORT"></asp:ListItem>
+                                <asp:ListItem Value="906" Text="&nbsp;&nbsp;&nbsp;CLAIM REPORT"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
