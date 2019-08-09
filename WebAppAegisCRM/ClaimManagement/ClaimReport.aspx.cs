@@ -11,6 +11,18 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimReport : System.Web.UI.Page
     {
+        private void Status_GetAll()
+        {
+            Business.ClaimManagement.ClaimStatus objClaimStatus= new Business.ClaimManagement.ClaimStatus();
+            DataTable dt = objClaimStatus.ClaimStatus_GetAll(new Entity.ClaimManagement.ClaimStatus() { });
+
+            ddlStatus.DataSource = dt;
+            ddlStatus.DataTextField = "StatusName";
+            ddlStatus.DataValueField = "ClaimStatusId";
+            ddlStatus.DataBind();
+            ddlStatus.InsertSelect();
+        }
+
         private void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -31,6 +43,7 @@ namespace WebAppAegisCRM.ClaimManagement
             ClaimApplicationMaster.EmployeeId = Convert.ToInt32(ddlEmployee.SelectedValue);
             ClaimApplicationMaster.PeriodFrom = (string.IsNullOrEmpty(txtFromDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtFromDate.Text.Trim());
             ClaimApplicationMaster.PeriodTo = (string.IsNullOrEmpty(txtToDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtToDate.Text.Trim());
+            ClaimApplicationMaster.Status = Convert.ToInt32(ddlStatus.SelectedValue);
             Business.ClaimManagement.ClaimApplication objClaimApplication = new Business.ClaimManagement.ClaimApplication();
             DataTable dtClaimApplication = objClaimApplication.ClaimApplication_GetAll(ClaimApplicationMaster);
             if (dtClaimApplication != null)
@@ -44,6 +57,7 @@ namespace WebAppAegisCRM.ClaimManagement
         {
             if (!IsPostBack)
             {
+                Status_GetAll();
                 EmployeeMaster_GetAll();
                 ClaimApplication_GetAll();
             }

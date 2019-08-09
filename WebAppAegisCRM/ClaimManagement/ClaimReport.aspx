@@ -53,6 +53,13 @@
                                     </asp:CalendarExtender>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    Status :
+                                    <asp:DropDownList ID="ddlStatus" CssClass="form-control" runat="server">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
                             <div class="col-lg-2">
                                 <br />
                                 <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success" OnClick="btnSearch_Click" />

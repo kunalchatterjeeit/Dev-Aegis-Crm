@@ -329,6 +329,10 @@ namespace DataAccess.ClaimManagement
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ToDate", ClaimApplicationMaster.PeriodTo);
+                        if (ClaimApplicationMaster.Status == 0)
+                            cmd.Parameters.AddWithValue("@StatusId", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@StatusId", ClaimApplicationMaster.Status);
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(ds);
