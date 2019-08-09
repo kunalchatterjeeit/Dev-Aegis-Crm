@@ -125,6 +125,16 @@ namespace WebAppAegisCRM
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
                 liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
+
+
+                //CLAIM MANAGEMENT
+                liClaimList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLICATION_LIST);
+                liApplyClaim.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLY);
+                liClaimApprove.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPROVE);
+                liClaimConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_CONFIGURATION);
+                liClaimDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DESIGNATION_CONFIGURATION);
+                liClaimManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_MANAGEMENT);
+                //liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
             }
         }
 

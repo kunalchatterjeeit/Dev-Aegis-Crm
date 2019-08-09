@@ -234,7 +234,7 @@ namespace WebAppAegisCRM.ClaimManagement
                             MessageSuccess.Show = true;
                             ModalPopupExtender1.Hide();
                         }
-                        Claim_Heading_Update(Business.Common.Context.ClaimApplicationId, txtClaimHeader.Text.Trim())
+                        Claim_Heading_Update(Business.Common.Context.ClaimApplicationId, txtClaimHeader.Text.Trim());
                     }
                     else
                     {
