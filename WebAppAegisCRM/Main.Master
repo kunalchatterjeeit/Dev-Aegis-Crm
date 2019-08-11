@@ -480,7 +480,7 @@
                                 <li id="liEmployeeWorkSummaryReport" runat="server" visible="false">
                                     <a href="../HR/EmployeeWorkSummaryReport.aspx">Employee Work Summary Report</a>
                                 </li>
-                                <li id="liClaimReport" runat="server" visible="true">
+                                <li id="liClaimReport" runat="server" visible="false">
                                     <a href="../ClaimManagement/ClaimReport.aspx">Claim Report</a>
                                 </li>
                             </ul>
