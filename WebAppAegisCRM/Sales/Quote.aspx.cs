@@ -260,6 +260,11 @@ namespace WebAppAegisCRM.Sales
                 QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetQuoteById();
             }
+            else if (e.CommandName == "Print")
+            {
+                QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
+                Response.Redirect("QuoteBeforePrint.aspx?QuoteId=" + QuoteId + "");
+            }
         }
         private void Save()
         {
@@ -274,8 +279,9 @@ namespace WebAppAegisCRM.Sales
                         Discount = (!string.IsNullOrEmpty(drItem["Discount"].ToString())) ? Convert.ToDecimal(drItem["Discount"].ToString()) : 0,
                         Quantity = (!string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
                         PartNumber = drItem["PartNumber"].ToString(),
+                        ItemName = drItem["ItemName"].ToString(),
                         IsActive = true,
-                        UnitPrice = (!string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0
+                        UnitPrice = (!string.IsNullOrEmpty(drItem["UnitPrice"].ToString())) ? Convert.ToDecimal(drItem["UnitPrice"].ToString()) : 0
                     });
 
                 }

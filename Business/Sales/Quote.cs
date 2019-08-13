@@ -51,5 +51,15 @@ namespace Business.Sales
             QuoteDataAccess.GetQuoteById(Id).CopyPropertiesTo(Quote);
             return Quote;
         }
+        public List<Entity.Sales.GetQuoteById_Print> GetQuoteByIdPrint(int QuoteId)
+        {
+            List<Entity.Sales.GetQuoteById_Print> Quote = new List<Entity.Sales.GetQuoteById_Print>();
+            QuoteDataAccess.GetQuoteByIdPrint(QuoteId).CopyListTo(Quote);
+            return Quote;
+        }
+        public string GetQuoteJsonByStageId(int Id)
+        {
+            return QuoteDataAccess.GetQuoteByStageId(Id);
+        }
     }
 }

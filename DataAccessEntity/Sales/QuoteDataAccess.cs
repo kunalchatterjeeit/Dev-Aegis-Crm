@@ -36,6 +36,32 @@ namespace DataAccessEntity.Sales
                              ).ToList();
             }
         }
+        public static string GetQuoteByStageId(int Id)
+        {
+            using (var Context = new CRMContext())
+            {
+                return Context.Database.SqlQuery<string>(
+                                "exec dbo.[usp_Sales_GetQuoteJsonByStageId] @Id",
+                                new Object[]
+                                {
+                                    new SqlParameter("Id", Id)
+                                }
+                             ).FirstOrDefault();
+            }
+        }
+        public static List<GetQuoteById_PrintDbModel> GetQuoteByIdPrint(int QuoteId)
+        {
+            using (var Context = new CRMContext())
+            {
+                return Context.Database.SqlQuery<GetQuoteById_PrintDbModel>(
+                                "exec dbo.[usp_Sales_Quote_GetById_Print] @QuoteId",
+                                new Object[]
+                                {
+                                    new SqlParameter("QuoteId", QuoteId)
+                                }
+                             ).ToList();
+            }
+        }
         public static int SaveQuotes(QuoteDbModel Model)
         {
             using (var Context = new CRMContext())

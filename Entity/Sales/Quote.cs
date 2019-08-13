@@ -50,6 +50,14 @@ namespace Entity.Sales
         public string CurrencyCode { get; set; }
         public string CurrencyName { get; set; }
     }
+    public class GetQuoteById_Print
+    {
+        public int Id { get; set; }
+        public int QuoteId { get; set; }
+        public string StageName { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
+    }
     public class GetQuoteParam
     {
         public string QuoteNumber { get; set; }
@@ -63,5 +71,6 @@ namespace Entity.Sales
         public decimal? Discount { get; set; }
         public decimal? Quantity { get; set; }
         public bool IsActive { get; set; }
+        public decimal? Amount { get; set; }
     }
 }

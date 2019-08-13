@@ -71,6 +71,9 @@
       <HintPath>..\AJAX DLL\Kunal.Exception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -140,6 +143,30 @@
     <Content Include="images\aegis_sales.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\female-avatar.jpg" />
+    <Content Include="images\image001.png" />
+    <Content Include="images\image002.gif" />
+    <Content Include="images\image003.png" />
+    <Content Include="images\image004.png" />
+    <Content Include="images\image005.gif" />
+    <Content Include="images\image006.gif" />
+    <Content Include="images\image007.png" />
+    <Content Include="images\image008.gif" />
+    <Content Include="images\image009.png" />
+    <Content Include="images\image010.gif" />
+    <Content Include="images\image011.png" />
+    <Content Include="images\image012.gif" />
+    <Content Include="images\image013.png" />
+    <Content Include="images\image014.png" />
+    <Content Include="images\image015.png" />
+    <Content Include="images\image016.png" />
+    <Content Include="images\image017.png" />
+    <Content Include="images\image018.gif" />
+    <Content Include="images\image019.gif" />
+    <Content Include="images\image020.gif" />
+    <Content Include="images\image021.gif" />
+    <Content Include="images\image022.gif" />
+    <Content Include="images\image023.png" />
+    <Content Include="images\image024.gif" />
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
     <Content Include="LeaveManagement\GenerateLeave.aspx" />
@@ -199,7 +226,9 @@
     <Content Include="Purchase\VendorMasterView.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="Sales\Opportunity.aspx" />
+    <Content Include="Sales\PrintQuote.aspx" />
     <Content Include="Sales\Quote.aspx" />
+    <Content Include="Sales\QuoteBeforePrint.aspx" />
     <Content Include="Sale\AssetSelection.aspx" />
     <Content Include="Sale\SaleChallan.aspx" />
     <Content Include="Sale\SaleChallanList.aspx" />
@@ -710,12 +739,26 @@
     <Compile Include="Sales\Opportunity.aspx.designer.cs">
       <DependentUpon>Opportunity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Sales\PrintQuote.aspx.cs">
+      <DependentUpon>PrintQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\PrintQuote.aspx.designer.cs">
+      <DependentUpon>PrintQuote.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Quote.aspx.cs">
       <DependentUpon>Quote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Sales\Quote.aspx.designer.cs">
       <DependentUpon>Quote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\QuoteBeforePrint.aspx.cs">
+      <DependentUpon>QuoteBeforePrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sales\QuoteBeforePrint.aspx.designer.cs">
+      <DependentUpon>QuoteBeforePrint.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sale\AssetSelection.aspx.cs">
       <DependentUpon>AssetSelection.aspx</DependentUpon>

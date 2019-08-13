@@ -316,7 +316,13 @@
                                                     <asp:LinkButton ID="btnEdit" runat="server" ToolTip="Edit" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
                                                         CommandArgument='<%# Eval("Id") %>' Style="font-size: 16px;"></asp:LinkButton>
                                                 </ItemTemplate>
-                                            </asp:TemplateField>                                            
+                                            </asp:TemplateField>   
+                                             <asp:TemplateField ItemStyle-Width="15px">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="btnPrint" runat="server" ToolTip="Print" Text="Print" CommandName="Print" CausesValidation="false"
+                                                        CommandArgument='<%# Eval("Id") %>' Style="font-size: 16px;"></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
                                         </Columns>
                                         <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                         <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
