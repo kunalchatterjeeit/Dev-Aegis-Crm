@@ -89,7 +89,7 @@ namespace WebAppAegisCRM.HR
 
                 Entity.HR.EmployeeLoyaltyPoint employeeLoyaltyPoint = new Entity.HR.EmployeeLoyaltyPoint();
 
-                GridViewRow gvEmployeePoint = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+                GridViewRow gvEmployeePoint = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
 
                 DropDownList ddlLaoyalPointReason = (DropDownList)gvEmployeePoint.FindControl("ddlLaoyalPointReason");
                 TextBox txtPoint = (TextBox)gvEmployeePoint.FindControl("txtPoint");

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Manage Role Access" Language="C#" MasterPageFile="~/Main.Master"
-    AutoEventWireup="true" CodeBehind="RoleAccessLevel.aspx.cs" Inherits="WebAppAegisCRM.HR.RoleAccessLevel" %>
+    AutoEventWireup="True" CodeBehind="RoleAccessLevel.aspx.cs" Inherits="WebAppAegisCRM.HR.RoleAccessLevel" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -44,7 +44,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group has-error">
                                         Role Name
-                                        <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" Width="290px" CssClass="form-control"
+                                        <asp:DropDownList ID="ddlRole" runat="server" AutoPostBack="true" Width="290px" CssClass="form-control searchable"
                                             DataValueField="RoleId" DataTextField="RoleName" OnSelectedIndexChanged="ddlRole_SelectedIndexChanged">
                                         </asp:DropDownList>
                                     </div>
@@ -239,12 +239,31 @@
                                 <asp:ListItem Value="500" Text="&nbsp;&nbsp;&nbsp;REPORT"></asp:ListItem>
                                 <asp:ListItem Value="501" Text="&nbsp;&nbsp;&nbsp;CUSTOMER LIST"></asp:ListItem>
                                 <asp:ListItem Value="502" Text="&nbsp;&nbsp;&nbsp;CONTRACT STATUS REPORT"></asp:ListItem>
-                                <asp:ListItem Value="503" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE LIST"></asp:ListItem>
-                                <asp:ListItem Value="210" Text="&nbsp;&nbsp;&nbsp;ATTENDANCE REPORT"></asp:ListItem>
                                 <asp:ListItem Value="504" Text="&nbsp;&nbsp;&nbsp;TONER REQUEST LIST"></asp:ListItem>
                                 <asp:ListItem Value="505" Text="&nbsp;&nbsp;&nbsp;DOCKET LIST"></asp:ListItem>
                                 <asp:ListItem Value="506" Text="&nbsp;&nbsp;&nbsp;SERVICE BOOK LIST"></asp:ListItem>
                                 <asp:ListItem Value="507" Text="&nbsp;&nbsp;&nbsp;SPARE/TONER USAGE LIST"></asp:ListItem>
+                                <asp:ListItem Value="503" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE LIST"></asp:ListItem>
+                                <asp:ListItem Value="210" Text="&nbsp;&nbsp;&nbsp;ATTENDANCE REPORT"></asp:ListItem>
+                                <asp:ListItem Value="212" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE WORK SUMMARY REPORT"></asp:ListItem>
+                                <asp:ListItem Value="906" Text="&nbsp;&nbsp;&nbsp;CLAIM REPORT"></asp:ListItem>
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Claim Management
+                        </div>
+                        <div class="panel-body">
+                            <asp:CheckBoxList ID="chkListClaim" runat="server" AutoPostBack="True" OnSelectedIndexChanged="CheckListBox_SelectedIndexChanged">
+                                <asp:ListItem Value="900" Text="&nbsp;&nbsp;&nbsp;CLAIM MANAGEMENT"></asp:ListItem>
+                                <asp:ListItem Value="901" Text="&nbsp;&nbsp;&nbsp;CLAIM CONFIGURATION"></asp:ListItem>
+                                <asp:ListItem Value="902" Text="&nbsp;&nbsp;&nbsp;CLAIM DESIGNATION CONFIGURATION"></asp:ListItem>
+                                <asp:ListItem Value="903" Text="&nbsp;&nbsp;&nbsp;APPLY CLAIM"></asp:ListItem>
+                                <asp:ListItem Value="904" Text="&nbsp;&nbsp;&nbsp;CLAIM APPROVE/REJECT/CANCEL"></asp:ListItem>
+                                <asp:ListItem Value="905" Text="&nbsp;&nbsp;&nbsp;MY CLAIM APPLICATION LIST"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

@@ -301,7 +301,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     if (drLeaveConfiguration != null)
                     {
                         //Getting all Employees
-                        DataTable dtEmployees = new Business.HR.EmployeeMaster().EmployeeMaster_GetAll(new Entity.HR.EmployeeMaster() { CompanyId_FK = 1 });
+                        DataTable dtEmployees = new Business.HR.EmployeeMaster().Employee_GetAll_Active(new Entity.HR.EmployeeMaster() { CompanyId_FK = 1 });
                         //Getting all Designation wise Leave Configurations
                         DataTable dtLeaveDesignationConfigurations =
                             new Business.LeaveManagement.LeaveDesignationWiseConfiguration().LeaveDesignationConfig_GetAll(new Entity.LeaveManagement.LeaveDesignationWiseConfiguration());
@@ -311,7 +311,7 @@ namespace WebAppAegisCRM.LeaveManagement
                             foreach (DataRow drEmployee in dtEmployees.Rows)
                             {
                                 //Getting Designation of each employee
-                                int designationId = Convert.ToInt32(drEmployee["DesignationMasterId_FK"].ToString());
+                                int designationId = Convert.ToInt32(drEmployee["DesignationMasterId"].ToString());
                                 int leaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
                                 DataRow drLeaveDesignationConfiguration = dtLeaveDesignationConfigurations
                                     .Select("DesignationId = " + designationId + " AND LeaveTypeId = " + leaveTypeId.ToString()).FirstOrDefault();

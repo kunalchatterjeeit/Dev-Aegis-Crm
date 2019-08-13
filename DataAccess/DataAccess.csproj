@@ -49,6 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClaimManagement\ClaimApplication.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimApprovalDetails.cs" />
+    <Compile Include="ClaimManagement\ClaimCategory.cs" />
+    <Compile Include="ClaimManagement\ClaimDesignationWiseConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimDisbursement.cs" />
+    <Compile Include="ClaimManagement\ClaimStatus.cs" />
+    <Compile Include="ClaimManagement\Voucher.cs" />
+    <Compile Include="ClaimManagement\VoucherPayment.cs" />
+    <Compile Include="ClaimManagement\VoucherPaymentDetails.cs" />
     <Compile Include="Common\Helper.cs" />
     <Compile Include="Common\City.cs" />
     <Compile Include="Common\Login.cs" />
@@ -57,7 +67,6 @@
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAddress.cs" />
     <Compile Include="Customer\CustomerContactDetails.cs" />
-    <Compile Include="HR\Claim.cs" />
     <Compile Include="HR\EmployeeLoyaltyPoint.cs" />
     <Compile Include="HR\EmployeeMaster.cs" />
     <Compile Include="HR\Attendance.cs" />

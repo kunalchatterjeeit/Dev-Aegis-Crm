@@ -292,5 +292,17 @@ namespace Business.Common
                 HttpContext.Current.Session["EmployeeId"] = value;
             }
         }
+
+        public static int ClaimApplicationId
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ClaimApplicationId"] != null) ? Convert.ToInt32(HttpContext.Current.Session["ClaimApplicationId"].ToString()) : 0;
+            }
+            set
+            {
+                HttpContext.Current.Session["ClaimApplicationId"] = value;
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleAppAegisCRM
 {
-    interface ILogger
+    public interface ILogger
     {
         int WriteLog(string content);
     }

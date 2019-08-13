@@ -1029,5 +1029,59 @@ namespace DataAccess.Service
                 return dt;
             }
         }
+
+        public static DataTable Service_GetCustomerPurchaseForPMCall(DateTime assesmentDate)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using ( SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_GetCustomerPurchaseForPMCall";
+
+                            cmd.Parameters.AddWithValue("@AssesmentDate", assesmentDate);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static int Service_Amcv_Calculate_Save(long customerPurchaseId, DateTime assesmentDate)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_Amcv_Calculate_Save";
+
+                        cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerPurchaseId);
+                        cmd.Parameters.AddWithValue("@AssesmentDate", assesmentDate);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
     }
 }

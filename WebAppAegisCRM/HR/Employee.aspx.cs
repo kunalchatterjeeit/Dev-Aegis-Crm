@@ -159,6 +159,11 @@ namespace WebAppAegisCRM.Employee
 
             return true;
         }
+        private long ClaimEmployeeWiseApprovalConfigId
+        {
+            get { return Convert.ToInt64(ViewState["ClaimEmployeeWiseApprovalConfigId"]); }
+            set { ViewState["ClaimEmployeeWiseApprovalConfigId"] = value; }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -173,6 +178,8 @@ namespace WebAppAegisCRM.Employee
                 MessageBox.Show = false;
                 MessageGeneralLeave.Show = false;
                 MessageLeave.Show = false;
+                MessageClaim.Show = false;
+                MessageGeneralClaim.Show = false;
             }
         }
 
@@ -289,6 +296,20 @@ namespace WebAppAegisCRM.Employee
             ddlApproverEngineer.InsertSelect();
         }
 
+        private void LoadClaimApprover()
+        {
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            DataTable dtApprover = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+
+            ddlClaimApproverEngineer.DataSource = dtApprover;
+            ddlClaimApproverEngineer.DataTextField = "EmployeeName";
+            ddlClaimApproverEngineer.DataValueField = "EmployeeMasterId";
+            ddlClaimApproverEngineer.DataBind();
+            ddlClaimApproverEngineer.InsertSelect();
+        }
+
         private void LoadRoleList()
         {
             Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
@@ -308,8 +329,19 @@ namespace WebAppAegisCRM.Employee
 
             leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
             DataTable dt = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(leaveApprovalConfiguration);
-            gvApproverDetails.DataSource = dt;
-            gvApproverDetails.DataBind();
+            gvClaimApproverDetails.DataSource = dt;
+            gvClaimApproverDetails.DataBind();
+        }
+
+        private void ClaimEmployeeWiseApprovalConfiguration_GetAll()
+        {
+            Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+            Entity.ClaimManagement.ClaimApprovalConfiguration claimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+
+            claimApprovalConfiguration.EmployeeId = EmployeeMasterId;
+            DataTable dt = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_GetAll(claimApprovalConfiguration);
+            gvClaimApproverDetails.DataSource = dt;
+            gvClaimApproverDetails.DataBind();
         }
 
         public void ClearTextBoxes(Control parent)
@@ -454,6 +486,15 @@ namespace WebAppAegisCRM.Employee
                         EmployeeMaster_GetAll();
                     }
                 }
+                else if (e.CommandName == "Claim")
+                {
+                    EmployeeMasterId = Convert.ToInt32(e.CommandArgument.ToString());
+                    LoadClaimApprover();
+                    EmployeeMaster_ById(EmployeeMasterId);
+                    ClaimEmployeeWiseApprovalConfiguration_GetAll();
+                    TabContainer2.ActiveTab = TabPanel3;
+                    ModalPopupExtender2.Show();
+                }
             }
             catch (Exception ex)
             {
@@ -592,6 +633,54 @@ namespace WebAppAegisCRM.Employee
             }
         }
 
+        protected void btnClaimSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+                Entity.ClaimManagement.ClaimApprovalConfiguration claimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+
+                claimApprovalConfiguration.ClaimEmployeeWiseApprovalConfigurationId = ClaimEmployeeWiseApprovalConfigId;
+                claimApprovalConfiguration.EmployeeId = EmployeeMasterId;
+                claimApprovalConfiguration.ApproverId = Convert.ToInt32(ddlClaimApproverEngineer.SelectedValue);
+                claimApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlClaimApprovalLevel.SelectedValue);
+                claimApprovalConfiguration.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+                int response = 0;
+                response = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_Save(claimApprovalConfiguration);
+                if (response > 0)
+                {
+                    ClearTextBoxes(this);
+                    ddlClaimApproverEngineer.SelectedIndex = 0;
+                    ddlClaimApprovalLevel.SelectedIndex = 0;
+                    ClaimEmployeeWiseApprovalConfiguration_GetAll();
+                    ClaimEmployeeWiseApprovalConfigId = 0;
+
+                    MessageClaim.IsSuccess = true;
+                    MessageClaim.Text = "Claim setting updated.";
+
+                    TabContainer2.ActiveTab = TabPanel2;
+                    ModalPopupExtender2.Show();
+                }
+                else
+                {
+                    MessageClaim.IsSuccess = false;
+                    MessageClaim.Text = "Failed to save data.";
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                MessageClaim.IsSuccess = false;
+                MessageClaim.Text = ex.Message;
+            }
+            finally
+            {
+                MessageClaim.Show = true;
+                TabContainer2.ActiveTab = TabPanel2;
+                ModalPopupExtender2.Show();
+            }
+        }
+
         private void LeaveEmployeeWiseApprovalConfiguration_GetById()
         {
             Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
@@ -605,6 +694,21 @@ namespace WebAppAegisCRM.Employee
             }
             TabContainer1.ActiveTab = AddApproval;
             ModalPopupExtender1.Show();
+        }
+
+        private void ClaimEmployeeWiseApprovalConfiguration_GetById()
+        {
+            Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+            Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+            ClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfigurationId = ClaimEmployeeWiseApprovalConfigId;
+            DataTable dt = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_GetAll(ClaimApprovalConfiguration);
+            if (dt != null && dt.AsEnumerable().Any())
+            {
+                ddlClaimApproverEngineer.SelectedValue = dt.Rows[0]["ApproverId"].ToString();
+                ddlClaimApprovalLevel.SelectedValue = dt.Rows[0]["ApprovalLevel"].ToString();
+            }
+            TabContainer2.ActiveTab = TabPanel2;
+            ModalPopupExtender2.Show();
         }
 
         protected void rbtnListLeaveStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -638,6 +742,52 @@ namespace WebAppAegisCRM.Employee
                 MessageGeneralLeave.Show = true;
                 TabContainer1.ActiveTab = LeaveGeneral;
                 ModalPopupExtender1.Show();
+            }
+        }
+
+        protected void chkBlockLogin_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+            new Business.HR.EmployeeMaster().Employee_LoginChange(employeeId, checkBox.Checked);
+        }
+
+        protected void chkActiveEmployee_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+            new Business.HR.EmployeeMaster().Employee_ActiveChange(employeeId, checkBox.Checked);
+        }
+
+        protected void gvClaimApproverDetails_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            ClaimEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
+
+            if (e.CommandName == "E")
+            {
+                ClaimEmployeeWiseApprovalConfiguration_GetById();
+            }
+            else if (e.CommandName == "D")
+            {
+                Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+                Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+                ClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfigurationId = ClaimEmployeeWiseApprovalConfigId;
+                int response = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_Delete(ClaimEmployeeWiseApprovalConfigId);
+                if (response > 0)
+                {
+                    ClearTextBoxes(this);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
+                    ClaimEmployeeWiseApprovalConfiguration_GetAll();
+                    ClaimEmployeeWiseApprovalConfigId = 0;
+                    TabContainer2.ActiveTab = TabPanel3;
+                    ModalPopupExtender2.Show();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                }
             }
         }
     }

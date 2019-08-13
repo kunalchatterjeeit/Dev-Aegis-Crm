@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Bootstrap Core CSS -->
-    
+
     <link href="/dist/css/select2.min.css" rel="stylesheet" />
     <%--DateTime picker related--%>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
@@ -77,13 +77,13 @@
                 }
             });
         });
-    </script>
 
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" autocomplete="off">
 
         <div id="wrapper">
 
@@ -333,6 +333,27 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li  id="liClaimManagement" runat="server" visible="false">
+                            <a href="#"><i class="fa fa-life-saver fa-fw"></i> Claim Management<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li id="liClaimConfiguration" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimCategory.aspx">Add/Edit Claim Category</a>
+                                </li>
+                                <li id="liClaimDesignationConfiguration" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimDesignationConfiguration.aspx">Claim Designation Configuration</a>
+                                </li>
+                                <li id="liApplyClaim" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimApplication.aspx">Apply Claim</a>
+                                </li>
+                                <li id="liClaimApprove" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimApprove.aspx">Claim Approve/Reject/Cancel</a>
+                                </li>
+                                 <li id="liClaimList" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimApplicationList.aspx">My Claim Application List</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li id="liInventory" runat="server" visible="false">
                             <a href="#"><i class="fa fa-table fa-fw"></i> Inventory<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -447,14 +468,20 @@
                                 <li id="liServiceBookReport" runat="server" visible="false">
                                     <a href="../Service/ServiceBookReport.aspx">Service Book Report</a>
                                 </li>
+                                <li id="liSpareTonerUsage" runat="server" visible="false">
+                                    <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
+                                </li>                                
                                 <li id="liLeaveReport" runat="server" visible="false">
                                     <a href="../LeaveManagement/LeaveReport.aspx">Leave Report</a>
                                 </li>
                                 <li id="liAttendanceReport" runat="server">
                                     <a href="../HR/AttendanceList.aspx">Attendance Report</a>
+                                </li>                                
+                                <li id="liEmployeeWorkSummaryReport" runat="server" visible="false">
+                                    <a href="../HR/EmployeeWorkSummaryReport.aspx">Employee Work Summary Report</a>
                                 </li>
-                                <li id="liSpareTonerUsage" runat="server" visible="false">
-                                    <a href="../Service/SpareUsageReport.aspx">Spare Toner Usage Report</a>
+                                <li id="liClaimReport" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimReport.aspx">Claim Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -490,7 +517,7 @@
 <script src="/dist/js/select2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('select').select2();
+        $('.searchable').select2();
     });
 </script>
 </html>

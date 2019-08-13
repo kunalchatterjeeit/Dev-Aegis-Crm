@@ -51,6 +51,8 @@ namespace WebAppAegisCRM.HR
                     chkListLeaveManagement.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
                 else if (chkListSales.Items.FindByValue(dr["PermissionId"].ToString()) != null)
                     chkListSales.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
+                else if (chkListClaim.Items.FindByValue(dr["PermissionId"].ToString()) != null)
+                    chkListClaim.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
             }
         }
 
@@ -72,6 +74,9 @@ namespace WebAppAegisCRM.HR
                 lstItem.Selected = false;
 
             foreach (ListItem lstItem in chkListSales.Items)
+                lstItem.Selected = false;
+
+            foreach (ListItem lstItem in chkListClaim.Items)
                 lstItem.Selected = false;
         }
 

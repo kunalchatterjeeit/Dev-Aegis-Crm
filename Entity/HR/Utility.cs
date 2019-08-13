@@ -34,7 +34,7 @@ namespace Entity.HR
         public const string HOLIDAY_LIST = "209";
         public const string ATTENDANCE_LIST = "210";
         public const string MANAGE_ATTENDANCE = "211";
-
+        public const string EMPLOYEE_WORK_SUMMARY_REPORT = "212";
 
 
         //Inventory
@@ -112,5 +112,14 @@ namespace Entity.HR
         public const string DASHBOARD_CONTRACT_STATUS_CHART = "10003";
         public const string DASHBOARD_CONTRACT_EXPIRING_LIST = "10004";
         public const string DASHBOARD_CONTRACT_EXPIRED_LIST = "10005";
+
+        //Claim Management
+        public const string CLAIM_MANAGEMENT = "900";
+        public const string CLAIM_CONFIGURATION = "901";
+        public const string CLAIM_DESIGNATION_CONFIGURATION = "902";
+        public const string CLAIM_APPLY = "903";
+        public const string CLAIM_APPROVE = "904";
+        public const string CLAIM_APPLICATION_LIST = "905";
+        public const string CLAIM_REPORT = "906";
     }
 }

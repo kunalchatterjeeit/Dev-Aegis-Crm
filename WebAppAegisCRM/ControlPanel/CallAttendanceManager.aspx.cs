@@ -95,7 +95,7 @@ namespace WebAppAegisCRM.ControlPanel
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
             ObjElEmployeeMaster.CompanyId_FK = 1;
-            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+            DataTable dt = ObjBelEmployeeMaster.Employee_GetAll_Active(ObjElEmployeeMaster);
             dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
             ddlEngineer.DataSource = dt;
             ddlEngineer.DataTextField = "EmployeeName";

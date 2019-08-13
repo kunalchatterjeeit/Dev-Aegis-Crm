@@ -30,7 +30,7 @@ namespace WebAppAegisCRM.LeaveManagement
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
             ObjElEmployeeMaster.CompanyId_FK = 1;
-            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+            DataTable dt = ObjBelEmployeeMaster.Employee_GetAll_Active(ObjElEmployeeMaster);
 
             ddlEmployee.DataSource = dt;
             ddlEmployee.DataTextField = "EmployeeName";

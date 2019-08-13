@@ -445,6 +445,60 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liLeaveAdjustment;
         
         /// <summary>
+        /// liClaimManagement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimManagement;
+        
+        /// <summary>
+        /// liClaimConfiguration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimConfiguration;
+        
+        /// <summary>
+        /// liClaimDesignationConfiguration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimDesignationConfiguration;
+        
+        /// <summary>
+        /// liApplyClaim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liApplyClaim;
+        
+        /// <summary>
+        /// liClaimApprove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimApprove;
+        
+        /// <summary>
+        /// liClaimList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimList;
+        
+        /// <summary>
         /// liInventory control.
         /// </summary>
         /// <remarks>
@@ -760,6 +814,15 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liServiceBookReport;
         
         /// <summary>
+        /// liSpareTonerUsage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSpareTonerUsage;
+        
+        /// <summary>
         /// liLeaveReport control.
         /// </summary>
         /// <remarks>
@@ -778,13 +841,22 @@ namespace WebAppAegisCRM {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl liAttendanceReport;
         
         /// <summary>
-        /// liSpareTonerUsage control.
+        /// liEmployeeWorkSummaryReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSpareTonerUsage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liEmployeeWorkSummaryReport;
+        
+        /// <summary>
+        /// liClaimReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liClaimReport;
         
         /// <summary>
         /// ContentPlaceHolder1 control.

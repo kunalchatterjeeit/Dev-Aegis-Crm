@@ -44,6 +44,7 @@ namespace WebAppAegisCRM
                 liHR.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HR);
                 liAddEditRole.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITROLE);
                 liManageRoleAccess.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGEROLEACCESS);
+                liEmployeeWorkSummaryReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_WORK_SUMMARY_REPORT);
                 if (ApplicationModules.HrModule.ModulePermission())
                 {
                     liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
@@ -65,6 +66,12 @@ namespace WebAppAegisCRM
                     liLeaveAdjustment.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_ADJUSTMENT);
                     liLeaveReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_REPORT);
                 }
+                liApplyClaim.Visible = true;
+                liClaimApprove.Visible = true;
+                liClaimConfiguration.Visible = true;
+                liClaimDesignationConfiguration.Visible = true;
+                liClaimList.Visible = true;
+                liClaimManagement.Visible = true;
 
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);
@@ -118,6 +125,16 @@ namespace WebAppAegisCRM
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
                 liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
+
+
+                //CLAIM MANAGEMENT
+                liClaimList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLICATION_LIST);
+                liApplyClaim.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLY);
+                liClaimApprove.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPROVE);
+                liClaimConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_CONFIGURATION);
+                liClaimDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DESIGNATION_CONFIGURATION);
+                liClaimManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_MANAGEMENT);
+                liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
             }
         }
 
@@ -148,7 +165,7 @@ namespace WebAppAegisCRM
                     lnkAttendaceLogout.Visible = false;
                 }
             }
-            catch
+            catch(Exception ex)
             { }
         }
 
