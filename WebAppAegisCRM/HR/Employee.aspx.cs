@@ -287,7 +287,7 @@ namespace WebAppAegisCRM.Employee
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
             employeeMaster.CompanyId_FK = 1;
-            DataTable dtApprover = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            DataTable dtApprover = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
 
             ddlApproverEngineer.DataSource = dtApprover;
             ddlApproverEngineer.DataTextField = "EmployeeName";
@@ -301,7 +301,7 @@ namespace WebAppAegisCRM.Employee
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
             employeeMaster.CompanyId_FK = 1;
-            DataTable dtApprover = objEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
+            DataTable dtApprover = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
 
             ddlClaimApproverEngineer.DataSource = dtApprover;
             ddlClaimApproverEngineer.DataTextField = "EmployeeName";
@@ -329,8 +329,8 @@ namespace WebAppAegisCRM.Employee
 
             leaveApprovalConfiguration.EmployeeId = EmployeeMasterId;
             DataTable dt = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_GetAll(leaveApprovalConfiguration);
-            gvClaimApproverDetails.DataSource = dt;
-            gvClaimApproverDetails.DataBind();
+            gvApproverDetails.DataSource = dt;
+            gvApproverDetails.DataBind();
         }
 
         private void ClaimEmployeeWiseApprovalConfiguration_GetAll()

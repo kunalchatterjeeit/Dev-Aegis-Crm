@@ -14,7 +14,12 @@ namespace ConsoleAppAegisCRM
             try
             {
                 ILogger logger = new ConsoleLogger();
-                new Process().Execute(logger);
+                Process process = new Process();
+                Task amcvTask = Task.Run(() =>
+                {
+                    process.Execute(logger);
+                });
+                amcvTask.Wait();
             }
             catch (Exception ex)
             {
@@ -23,6 +28,6 @@ namespace ConsoleAppAegisCRM
             }
         }
 
-        
+
     }
 }

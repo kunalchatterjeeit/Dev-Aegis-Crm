@@ -177,5 +177,15 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_Amcv_Calculate_Save(customerPurchaseId, assesmentDate);
         }
+
+        public DataTable Service_AMCV_NotProcessed_GetAll(string customerName, string machineId)
+        {
+            return DataAccess.Service.ServiceBook.Service_AMCV_NotProcessed_GetAll(customerName, machineId);
+        }
+
+        public int Service_AmcvProcess_Save(long amcvId)
+        {
+            return DataAccess.Service.ServiceBook.Service_AmcvProcess_Save(amcvId);
+        }
     }
 }

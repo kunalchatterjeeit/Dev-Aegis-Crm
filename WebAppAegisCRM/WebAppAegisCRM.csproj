@@ -261,6 +261,7 @@
     <Content Include="Service\ActionTaken.aspx" />
     <Content Include="Service\CSR.aspx" />
     <Content Include="Service\Diagnosis.aspx" />
+    <Content Include="Service\ManageAmcv.aspx" />
     <Content Include="Service\ProblemObserved.aspx" />
     <Content Include="Service\CustomerDocket.aspx" />
     <Content Include="Service\CustomerTonnerRequest.aspx" />
@@ -918,6 +919,13 @@
     </Compile>
     <Compile Include="Service\Diagnosis.aspx.designer.cs">
       <DependentUpon>Diagnosis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\ManageAmcv.aspx.cs">
+      <DependentUpon>ManageAmcv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Service\ManageAmcv.aspx.designer.cs">
+      <DependentUpon>ManageAmcv.aspx</DependentUpon>
     </Compile>
     <Compile Include="Service\ProblemObserved.aspx.cs">
       <DependentUpon>ProblemObserved.aspx</DependentUpon>

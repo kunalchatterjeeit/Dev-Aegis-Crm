@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintQuote.aspx.cs" Inherits="WebAppAegisCRM.Sales.PrintQuote" EnableEventValidation="false"%>
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PrintQuote.aspx.cs" Inherits="WebAppAegisCRM.Sales.PrintQuote" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -56,14 +56,15 @@
         .rightimg {
             text-align: right !important;
         }
-        .tblrptr tr:nth-child(even){
-            background-color:grey;
+
+        .tblrptr tr:nth-child(even) {
+            background-color: grey;
         }
     </style>
     <title>PRINT QUOTE</title>
 </head>
 <body>
-    <form id="form1" runat="server"  onclick="Print()">
+    <form id="form1" runat="server" onclick="Print()">
         <div class="page" title="Click here to print/pdf" style="text-align: center;">
 
             <table cellspacing="0" cellpadding="0" border="0">
@@ -102,9 +103,7 @@
                                 </tr>
                             </table>
                         </td>
-
                     </tr>
-
                     <tr>
                         <td>
                             <table border="1" cellspacing="0" cellpadding="0" style="width: 65%; margin-left: 18%;">
@@ -128,22 +127,20 @@
                                 </tr>
                             </table>
                         </td>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                            <td>
-                                <table border="1" cellspacing="0" cellpadding="0" style="width: 90%;">
-                                    <tr>
-                                        <td style="width: 40%;">CUSTOMER</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 40%; font-weight: bold; text-align: left;" height="170">&nbsp;To,&nbsp;&nbsp;<asp:Label ID="lblCustomer" runat="server" Text=""></asp:Label></td>
-                                    </tr>
-                                </table>
-                            </td>
+                        <td>
+                            <table border="1" cellspacing="0" cellpadding="0" style="width: 90%;">
+                                <tr>
+                                    <td style="width: 40%;">CUSTOMER</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 40%; font-weight: bold; text-align: left;" height="170">&nbsp;To,&nbsp;&nbsp;<asp:Label ID="lblCustomer" runat="server" Text=""></asp:Label></td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
-
                     <tr>
                         <td>
-                            <table cellspacing="0" cellpadding="0" id ="tblrptr" border="1" style="width: 218%; margin-left: 18%;">
+                            <table cellspacing="0" cellpadding="0" id="tblrptr" border="1" style="width: 218%; margin-left: 18%;">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Sl. No.</th>
@@ -162,7 +159,8 @@
                                     <asp:Repeater ID="rptrRepeatLineItem" runat="server">
                                         <ItemTemplate>
                                             <tr>
-                                                <td><asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" /></td>
+                                                <td>
+                                                    <asp:Label ID="lblRowNumber" Text='<%# Container.ItemIndex + 1 %>' runat="server" /></td>
                                                 <td><%# Eval("ItemName") %></td>
                                                 <td><%# Eval("Quantity") %></td>
                                                 <td><%# Eval("UnitPrice") %></td>
@@ -192,7 +190,8 @@
                                     <tr style="text-align: left;">
                                         <td>VALIDITY</td>
                                         <td>15days</td>
-                                        <td>GST <asp:Label ID="lblTaxRate" runat="server" Text=""></asp:Label></td>
+                                        <td>GST
+                                            <asp:Label ID="lblTaxRate" runat="server" Text=""></asp:Label></td>
                                         <td>
                                             <asp:Label ID="lblGST" runat="server" Text=""></asp:Label></td>
                                     </tr>
@@ -222,7 +221,6 @@
                                 </tr>
                             </table>
                             <table border="1" cellspacing="0" cellpadding="0" style="width: 97%; margin-left: 18%;">
-
                                 <tr>
                                     <td style="width: 20%; text-align: left;" height="190">
                                         <p>&nbsp;for</p>
@@ -231,7 +229,6 @@
                                         <img class="leftimg" src="../images/image007.png" width="100" />
                                     </td>
                                 </tr>
-
                             </table>
                         </td>
                         <td>
@@ -256,7 +253,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="500">
+                        <td style="width: 100%; font-stretch: expanded" colspan="2">
                             <img class="leftimg" src="../images/image011.png" width="118" />&nbsp;&nbsp;
                             <img class="leftimg" src="../images/image013.png" width="118" />&nbsp;&nbsp;
                             <img class="leftimg" src="../images/image014.png" width="118" />&nbsp;&nbsp;

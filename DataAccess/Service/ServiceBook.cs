@@ -1034,7 +1034,7 @@ namespace DataAccess.Service
         {
             using (DataTable dt = new DataTable())
             {
-                using ( SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
@@ -1074,6 +1074,65 @@ namespace DataAccess.Service
 
                         cmd.Parameters.AddWithValue("@CustomerPurchaseId", customerPurchaseId);
                         cmd.Parameters.AddWithValue("@AssesmentDate", assesmentDate);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable Service_AMCV_NotProcessed_GetAll(string customerName, string machineId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_AMCV_NotProcessed_GetAll";
+
+                            if (string.IsNullOrEmpty(customerName))
+                                cmd.Parameters.AddWithValue("@CustomerName", DBNull.Value);
+                            else
+                                cmd.Parameters.AddWithValue("@CustomerName", customerName);
+                            if (string.IsNullOrEmpty(machineId))
+                                cmd.Parameters.AddWithValue("@MachineId", DBNull.Value);
+                            else
+                                cmd.Parameters.AddWithValue("@MachineId", machineId);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static int Service_AmcvProcess_Save(long amcvId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_AmcvProcess_Save";
+                        cmd.Parameters.AddWithValue("@AmcvId", amcvId);
                     }
                     if (con.State == ConnectionState.Closed)
                         con.Open();
