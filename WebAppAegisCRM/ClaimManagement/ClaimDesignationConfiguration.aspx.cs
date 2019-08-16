@@ -110,6 +110,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 if (response > 0)
                 {
                     Clear();
+                    GlobalCache.RemoveAll();
                     ClaimDesignationWiseConfiguration_GetAll();
                     Message.IsSuccess = true;
                     Message.Text = "Saved Successfully";

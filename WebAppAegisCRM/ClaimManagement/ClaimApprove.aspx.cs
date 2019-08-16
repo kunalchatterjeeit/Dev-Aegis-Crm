@@ -66,54 +66,6 @@ namespace WebAppAegisCRM.ClaimManagement
             }
         }
 
-        //private int ClaimAccontBalance_Deduct(int ClaimApplicationId)
-        //{
-        //    Entity.ClaimManagement.ClaimAccountBalance ClaimAccountBalance = new Entity.ClaimManagement.ClaimAccountBalance();
-        //    Business.ClaimManagement.ClaimAccountBalance objClaimAccountBalance = new Business.ClaimManagement.ClaimAccountBalance();
-
-        //    DataTable dtClaimApplicationMaster = new Business.ClaimManagement.ClaimApplication()
-        //        .ClaimApplicationMaster_GetAll(
-        //        new Entity.ClaimManagement.ClaimApplicationMaster()
-        //        {
-        //            ClaimApplicationId = ClaimApplicationId
-        //        });
-
-        //    if (dtClaimApplicationMaster != null && dtClaimApplicationMaster.AsEnumerable().Any())
-        //    {
-        //        ClaimAccountBalance.EmployeeId = Convert.ToInt32(dtClaimApplicationMaster.Rows[0]["RequestorId"].ToString());
-        //        ClaimAccountBalance.ClaimTypeId = Convert.ToInt32(dtClaimApplicationMaster.Rows[0]["ClaimTypeId"].ToString());
-        //        ClaimAccountBalance.Amount = -(Convert.ToDecimal(dtClaimApplicationMaster.Rows[0]["TotalClaimDays"].ToString()));
-        //        ClaimAccountBalance.Reason = "Claim APPROVED";
-        //    }
-
-        //    int response = objClaimAccountBalance.ClaimAccontBalance_Adjust(ClaimAccountBalance);
-        //    return response;
-        //}
-
-        //private int ClaimAccontBalance_Revert(int ClaimApplicationId)
-        //{
-        //    Entity.ClaimManagement.ClaimAccountBalance ClaimAccountBalance = new Entity.ClaimManagement.ClaimAccountBalance();
-        //    Business.ClaimManagement.ClaimAccountBalance objClaimAccountBalance = new Business.ClaimManagement.ClaimAccountBalance();
-
-        //    DataTable dtClaimApplicationMaster = new Business.ClaimManagement.ClaimApplication()
-        //        .ClaimApplicationMaster_GetAll(
-        //        new Entity.ClaimManagement.ClaimApplicationMaster()
-        //        {
-        //            ClaimApplicationId = ClaimApplicationId
-        //        });
-
-        //    if (dtClaimApplicationMaster != null && dtClaimApplicationMaster.AsEnumerable().Any())
-        //    {
-        //        ClaimAccountBalance.EmployeeId = Convert.ToInt32(dtClaimApplicationMaster.Rows[0]["RequestorId"].ToString());
-        //        ClaimAccountBalance.ClaimTypeId = Convert.ToInt32(dtClaimApplicationMaster.Rows[0]["ClaimTypeId"].ToString());
-        //        ClaimAccountBalance.Amount = (Convert.ToDecimal(dtClaimApplicationMaster.Rows[0]["TotalClaimDays"].ToString()));
-        //        ClaimAccountBalance.Reason = "Claim BALANCE REVERTED AS Claim IS CANCELLED";
-        //    }
-
-        //    int response = objClaimAccountBalance.ClaimAccontBalance_Adjust(ClaimAccountBalance);
-        //    return response;
-        //}
-
         private bool ClaimApprovalValidation()
         {
             if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
