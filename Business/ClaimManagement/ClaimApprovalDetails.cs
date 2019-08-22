@@ -19,9 +19,9 @@ namespace Business.ClaimManagement
             return DataAccess.ClaimManagement.ClaimApprovalDetails.GetClaimApplications_ByApproverId(approverId, statusId, fromApplicationDate, toApplicationDate);
         }
 
-        public int ClaimApprove(Entity.ClaimManagement.ClaimApprovalDetails ClaimApprovalDetails)
+        public int Claim_Approve(Entity.ClaimManagement.ClaimApprovalDetails ClaimApprovalDetails)
         {
-            return DataAccess.ClaimManagement.ClaimApprovalDetails.ClaimApprove(ClaimApprovalDetails);
+            return DataAccess.ClaimManagement.ClaimApprovalDetails.Claim_Approve(ClaimApprovalDetails);
         }
 
         public DataTable ClaimApprovalDetails_ByRequestorId(int requestorId, int statusId)

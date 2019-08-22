@@ -159,11 +159,21 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td style="font-weight: bold">
                                             Claim Heading
                                         </td>
-                                        <td colspan="7">
-                                            <asp:TextBox ID="txtClaimHeader" runat="server" Style="width: 100%"></asp:TextBox>
+                                        <td colspan="3">
+                                            <asp:TextBox ID="txtClaimHeader" runat="server" Style="width: 100%; height:22px" CssClass="form-control"></asp:TextBox>
+                                        </td>
+                                        <td style="font-weight: bold">Advance Balance <span class="pull-right">&#8377;</span>
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblAdvanceBalance" runat="server" CssClass="form-control pull-right text-right" Style="font-style: italic; background-color: #b9e8b9; height:22px; width:100px"></asp:Label>
+                                        </td>
+                                        <td style="font-weight: bold">Advance Adjust of <span class="pull-right">&#8377;</span>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtAdvanceAdjustAmount" runat="server" CssClass="form-control pull-right text-right" Style="font-style: italic; background-color: #b9e8b9; height:22px; width:100px" Text="0.00"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
@@ -193,14 +203,21 @@
                                                                 </asp:TemplateField>
                                                                 <asp:BoundField HeaderText="Category" DataField="CategoryName" />
                                                                 <asp:BoundField HeaderText="Description" DataField="Description" />
-                                                                <asp:BoundField HeaderText="Amount" DataField="Cost" />
                                                                 <asp:TemplateField>
                                                                     <HeaderTemplate>
-                                                                        Approve Amount
+                                                                        Claimed
+                                                                    </HeaderTemplate>
+                                                                    <ItemTemplate>
+                                                                        &#8377;<%# Eval("Cost") %>
+                                                                    </ItemTemplate>
+                                                                </asp:TemplateField>
+                                                                <asp:TemplateField>
+                                                                    <HeaderTemplate>
+                                                                        Approve &#8377;
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
                                                                         <asp:TextBox ID="txtApprovedAmount" runat="server" class="form-control approved-amount" 
-                                                                            Style="width: 100px" Text='<%# (Eval("ApprovedAmount")!=DBNull.Value && Convert.ToDecimal(Eval("ApprovedAmount"))>0)? Eval("ApprovedAmount").ToString() :Eval("Cost").ToString() %>'
+                                                                            Style="width: 100px; height:22px" Text='<%# (Eval("ApprovedAmount")!=DBNull.Value && Convert.ToDecimal(Eval("ApprovedAmount"))>0)? Eval("ApprovedAmount").ToString() :Eval("Cost").ToString() %>'
                                                                             onchange="calculateTotalApprovedAmount()"></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
@@ -209,7 +226,7 @@
                                                                         Remarks
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <asp:TextBox ID="txtApprovedRemarks" runat="server" class="form-control"></asp:TextBox>
+                                                                        <asp:TextBox ID="txtApprovedRemarks" runat="server" class="form-control" style="height:22px"></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField>
@@ -217,7 +234,7 @@
                                                                         Status
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
-                                                                        <asp:DropDownList ID="ddlLineItemStatus" runat="server" class="form-control" Style="width: 100px"></asp:DropDownList>
+                                                                        <asp:DropDownList ID="ddlLineItemStatus" runat="server" class="form-control" Style="width: 100px; height:22px; padding: 0px 12px"></asp:DropDownList>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
                                                                 <asp:TemplateField>
@@ -251,14 +268,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: bold">Total Claim Amount
+                                        <td style="font-weight: bold">Total Claim Amount <span class="pull-right">&#8377;</span>
                                         </td>
                                         <td colspan="7" style="font-weight: bold">
                                             <asp:Label ID="lblTotalClaimCount" runat="server" class="pull-right"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: bold">Total Approved Amount
+                                        <td style="font-weight: bold">Total Approved Amount <span class="pull-right">&#8377;</span>
                                         </td>
                                         <td colspan="7" style="font-weight: bold">
                                             <asp:Label ID="lblTotalApprovedAmount" runat="server" class="pull-right" Text="0.00"></asp:Label>
@@ -268,7 +285,7 @@
                                         <td style="font-weight: bold">Remarks
                                         </td>
                                         <td colspan="7">
-                                            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" Style="width: 100%" Rows="1"></asp:TextBox>
+                                            <asp:TextBox ID="txtRemarks" runat="server" TextMode="MultiLine" Style="width: 100%" Rows="1"  CssClass="form-control"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>

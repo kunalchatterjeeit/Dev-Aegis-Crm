@@ -23,6 +23,7 @@ namespace DataAccess.ClaimManagement
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_ClaimCategory_Save";
                     cmd.Parameters.AddWithValue("@CategoryId", objClaimCategory.ClaimCategoryId);
+                    cmd.Parameters.AddWithValue("@ClaimCategoryTypeId", objClaimCategory.ClaimCategoryTypeId);
                     cmd.Parameters.AddWithValue("@CategoryName", objClaimCategory.ClaimCategoryName);
                     cmd.Parameters.AddWithValue("@Description", objClaimCategory.ClaimCategoryDescription);
 

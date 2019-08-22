@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="CLAIM CATEGORY" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="ClaimCategory.aspx.cs" Inherits="WebAppAegisCRM.ClaimManagement.ClaimCategory" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
 
@@ -20,7 +21,7 @@
         </ProgressTemplate>
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>           
+        <ContentTemplate>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="panel panel-default">
@@ -31,7 +32,14 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group has-error">
-                                       Name
+                                        Claim Category Type
+                                        <asp:DropDownList ID="ddlCategoryType" runat="server" CssClass="form-control searchable">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group has-error">
+                                        Name
                                 <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
@@ -40,7 +48,7 @@
                                         Description
                                 <asp:TextBox ID="txtDescription" CssClass="form-control" runat="server" TextMode="MultiLine"></asp:TextBox>
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -65,7 +73,7 @@
                             <div class="table-responsive">
                                 <center>
                                     <asp:GridView ID="gvClaimCategory" runat="server" Width="100%" AutoGenerateColumns="false" class="table table-striped"
-                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="ClaimCategoryId" 
+                                        GridLines="None" AllowPaging="false" CellPadding="0" CellSpacing="0" DataKeyNames="ClaimCategoryId"
                                         ForeColor="#333333" OnRowCommand="gvClaimCategory_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="SL" ItemStyle-Width="15px">
@@ -73,7 +81,8 @@
                                                     <%#Container.DataItemIndex+1 %>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="CategoryName" HeaderText="Name" />  
+                                            <asp:BoundField DataField="CategoryTypeName" HeaderText="Type" />
+                                            <asp:BoundField DataField="CategoryName" HeaderText="Name" />
                                             <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-pencil-square-o fa-fw" CommandName="Ed" CausesValidation="false"
@@ -106,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

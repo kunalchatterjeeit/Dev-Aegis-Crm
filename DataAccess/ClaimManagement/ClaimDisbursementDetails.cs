@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.ClaimManagement
 {
-    public class VoucherPayment
+    public class ClaimDisbursementDetails
     {
-        public static int VoucherPayment_Save(Entity.ClaimManagement.VoucherPayment VoucherPayment)
+        public static int ClaimDisbursementDetails_Save(Entity.ClaimManagement.ClaimDisbursementDetails claimDisbursementDetails)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -20,23 +20,21 @@ namespace DataAccess.ClaimManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_HR_VoucherPayment_Save";
-                    cmd.Parameters.AddWithValue("@VoucherPaymentId", VoucherPayment.VoucherPaymentId).Direction = ParameterDirection.InputOutput;
-                    cmd.Parameters.AddWithValue("@VoucherId", VoucherPayment.VoucherId);
-                    cmd.Parameters.AddWithValue("@TotalAmount", VoucherPayment.TotalAmount);
-                    cmd.Parameters.AddWithValue("@CreatedBy", VoucherPayment.CreatedBy);
+                    cmd.CommandText = "usp_HR_ClaimDisbursementDetails_Save";
+                    cmd.Parameters.AddWithValue("@ClaimDisburseDetailsId", claimDisbursementDetails.ClaimDisburseDetailsId);
+                    cmd.Parameters.AddWithValue("@ClaimDisburseId", claimDisbursementDetails.ClaimDisburseId);
+                    cmd.Parameters.AddWithValue("@ClaimId", claimDisbursementDetails.ClaimId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
-                    cmd.ExecuteNonQuery();
-                    rowsAffacted = Convert.ToInt32(cmd.Parameters["@VoucherPaymentId"].Value);
+                    rowsAffacted = cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
             return rowsAffacted;
         }
 
-        public static DataTable VoucherPayment_GetById(int VoucherPaymentId)
+        public static DataTable ClaimDisbursementDetails_GetById(int claimDisbursementDetailsId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -46,8 +44,8 @@ namespace DataAccess.ClaimManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_VoucherPayment_GetById";
-                        cmd.Parameters.AddWithValue("@VoucherPaymentId", VoucherPaymentId);
+                        cmd.CommandText = "usp_HR_ClaimDisbursementDetails_GetById";
+                        cmd.Parameters.AddWithValue("@ClaimDisburseDetailsId", claimDisbursementDetailsId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -61,7 +59,7 @@ namespace DataAccess.ClaimManagement
             }
         }
 
-        public static DataTable VoucherPayment_GetAll(Entity.ClaimManagement.VoucherPayment VoucherPayment)
+        public static DataTable ClaimDisbursementDetails_GetAll(Entity.ClaimManagement.ClaimDisbursementDetails claimDisbursementDetails)
         {
             using (DataTable dt = new DataTable())
             {
@@ -71,11 +69,19 @@ namespace DataAccess.ClaimManagement
                     {
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_VoucherPayment_GetAll";
-                        if (string.IsNullOrEmpty(VoucherPayment.VoucherNo))
-                            cmd.Parameters.AddWithValue("@VoucherNo", DBNull.Value);
+                        cmd.CommandText = "usp_HR_ClaimDisbursementDetails_GetAll";
+                        if (string.IsNullOrEmpty(claimDisbursementDetails.ClaimNo))
+                            cmd.Parameters.AddWithValue("@ClaimNo", DBNull.Value);
                         else
-                            cmd.Parameters.AddWithValue("@VoucherNo", VoucherPayment.VoucherNo);
+                            cmd.Parameters.AddWithValue("@ClaimNo", claimDisbursementDetails.ClaimNo);
+                        if (claimDisbursementDetails.FromDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@FromDate", claimDisbursementDetails.FromDate);
+                        if (claimDisbursementDetails.ToDate == DateTime.MinValue)
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@ToDate", claimDisbursementDetails.ToDate);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -89,28 +95,5 @@ namespace DataAccess.ClaimManagement
             }
         }
 
-        public static DataTable VoucherPaymentMode_GetAll()
-        {
-            using (DataTable dt = new DataTable())
-            {
-                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
-                {
-                    using (SqlCommand cmd = new SqlCommand())
-                    {
-                        cmd.Connection = con;
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "usp_HR_VoucherPaymentMode_GetAll";
-                        if (con.State == ConnectionState.Closed)
-                            con.Open();
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            da.Fill(dt);
-                        }
-                        con.Close();
-                    }
-                }
-                return dt;
-            }
-        }
     }
 }

@@ -98,6 +98,7 @@
     <Content Include="ClaimManagement\ClaimApprove.aspx" />
     <Content Include="ClaimManagement\ClaimCategory.aspx" />
     <Content Include="ClaimManagement\ClaimDesignationConfiguration.aspx" />
+    <Content Include="ClaimManagement\ClaimDisbursementAndVoucher.aspx" />
     <Content Include="ClaimManagement\ClaimReport.aspx" />
     <Content Include="Common\City.aspx" />
     <Content Include="ControlPanel\CallAttendanceManager.aspx" />
@@ -327,6 +328,13 @@
     </Compile>
     <Compile Include="ClaimManagement\ClaimDesignationConfiguration.aspx.designer.cs">
       <DependentUpon>ClaimDesignationConfiguration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimDisbursementAndVoucher.aspx.cs">
+      <DependentUpon>ClaimDisbursementAndVoucher.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\ClaimDisbursementAndVoucher.aspx.designer.cs">
+      <DependentUpon>ClaimDisbursementAndVoucher.aspx</DependentUpon>
     </Compile>
     <Compile Include="ClaimManagement\ClaimReport.aspx.cs">
       <DependentUpon>ClaimReport.aspx</DependentUpon>

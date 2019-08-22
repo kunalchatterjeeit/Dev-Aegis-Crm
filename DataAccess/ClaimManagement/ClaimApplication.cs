@@ -58,6 +58,8 @@ namespace DataAccess.ClaimManagement
                         cmd.Parameters.AddWithValue("@ClaimDateTime", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@ClaimDateTime", claimApplicationMaster.ClaimDateTime);
+                    cmd.Parameters.AddWithValue("@AdjustRequestAmount", claimApplicationMaster.AdjustRequestAmount);
+                    cmd.Parameters.AddWithValue("@ApprovedAmount", claimApplicationMaster.ApprovedAmount);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -356,6 +358,28 @@ namespace DataAccess.ClaimManagement
 
                     cmd.Parameters.AddWithValue("@ClaimId", claimApplication.ClaimApplicationId);
                     cmd.Parameters.AddWithValue("@ClaimHeading", claimApplication.ClaimHeading);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    retValue = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return retValue;
+        }
+        public static int Claim_StatusUpdate(Entity.ClaimManagement.ClaimApplicationMaster claimApplication)
+        {
+            int retValue = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_HR_Claim_StatusUpdate";
+
+                    cmd.Parameters.AddWithValue("@ClaimId", claimApplication.ClaimApplicationId);
+                    cmd.Parameters.AddWithValue("@Status", claimApplication.Status);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();

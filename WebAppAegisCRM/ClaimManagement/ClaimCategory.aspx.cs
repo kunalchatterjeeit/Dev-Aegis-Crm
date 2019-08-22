@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,10 +11,19 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimCategory : System.Web.UI.Page
     {
-        public int ClaimCategoryId
+        private int ClaimCategoryId
         {
             get { return Convert.ToInt32(ViewState["ClaimCategoryId"]); }
             set { ViewState["ClaimCategoryId"] = value; }
+        }
+        private void ClaimCategoryType_GetAll()
+        {
+            Business.ClaimManagement.ClaimCategoryType objClaimCategoryType = new Business.ClaimManagement.ClaimCategoryType();
+            ddlCategoryType.DataSource = objClaimCategoryType.ClaimCategoryType_GetAll();
+            ddlCategoryType.DataTextField = "CategoryTypeName";
+            ddlCategoryType.DataValueField = "ClaimCategoryTypeId";
+            ddlCategoryType.DataBind();
+            ddlCategoryType.InsertSelect();
         }
         private void ClaimCategoryGetAll()
         {
@@ -27,10 +37,18 @@ namespace WebAppAegisCRM.ClaimManagement
             Message.Show = false;
             txtDescription.Text = string.Empty;
             txtName.Text = string.Empty;
+            ddlCategoryType.SelectedIndex = 0;
             btnSave.Text = "Save";
         }
         private bool ClaimControlValidation()
         {
+            if (ddlCategoryType.SelectedIndex == 0)
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please select claim category type";
+                Message.Show = true;
+                return false;
+            }
             if (txtName.Text.Trim() == string.Empty)
             {
                 Message.IsSuccess = false;
@@ -49,6 +67,7 @@ namespace WebAppAegisCRM.ClaimManagement
             {
                 txtDescription.Text = dtClaimCategory.Rows[0]["Description"].ToString();
                 txtName.Text = dtClaimCategory.Rows[0]["CategoryName"].ToString();
+                ddlCategoryType.SelectedValue = dtClaimCategory.Rows[0]["ClaimCategoryTypeId"].ToString();
             }
         }
         private void Save()
@@ -58,6 +77,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Business.ClaimManagement.ClaimCategory objClaimCategory = new Business.ClaimManagement.ClaimCategory();
                 Entity.ClaimManagement.ClaimCategory Model = new Entity.ClaimManagement.ClaimCategory
                 {
+                    ClaimCategoryTypeId = int.Parse(ddlCategoryType.SelectedValue),
                     ClaimCategoryId = ClaimCategoryId,
                     ClaimCategoryName = txtName.Text,
                     ClaimCategoryDescription = txtDescription.Text,
@@ -85,6 +105,7 @@ namespace WebAppAegisCRM.ClaimManagement
         {
             if (!IsPostBack)
             {
+                ClaimCategoryType_GetAll();
                 ClaimCategoryGetAll();
                 Message.Show = false;
                 if (ClaimCategoryId > 0)

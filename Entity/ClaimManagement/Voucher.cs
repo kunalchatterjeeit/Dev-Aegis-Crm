@@ -14,5 +14,6 @@ namespace Entity.ClaimManagement
         public int CreatedBy { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
+        public VoucherPayment voucherPayment { get; set; }
     }
 }

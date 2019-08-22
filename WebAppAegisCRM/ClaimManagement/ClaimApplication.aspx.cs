@@ -61,7 +61,30 @@ namespace WebAppAegisCRM.ClaimManagement
 
         private bool ClaimApplyValidation()
         {
-
+            if (string.IsNullOrEmpty(txtClaimHeader.Text.Trim()))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please enter claim header.";
+                Message.Show = true;
+            }
+            if (string.IsNullOrEmpty(txtPeriodFrom.Text.Trim()))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please enter claim period from.";
+                Message.Show = true;
+            }
+            if (string.IsNullOrEmpty(txtPeriodTo.Text.Trim()))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please enter claim period to.";
+                Message.Show = true;
+            }
+            if (!(_ClaimDetails != null && _ClaimDetails.Rows.Count > 0))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Please add claim details before submit.";
+                Message.Show = true;
+            }
             return true;
         }
 
@@ -130,12 +153,19 @@ namespace WebAppAegisCRM.ClaimManagement
             return true;
         }
 
+        private void GetClaimAccountBalance()
+        {
+            txtAdvanceAmount.Text = Convert.ToString(new Business.ClaimManagement.ClaimDisbursement()
+                .GetClaimAccountBalance(Convert.ToInt32(HttpContext.Current.User.Identity.Name)));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadClaimCategory();
                 ClearAllControl();
+                GetClaimAccountBalance();
             }
         }
 
@@ -221,6 +251,7 @@ namespace WebAppAegisCRM.ClaimManagement
             claimApplicationMaster.ClaimApplicationNumber = string.Empty;
             claimApplicationMaster.TotalAmount = (decimal)_ClaimDetails.Compute("SUM(Cost)", string.Empty);
             claimApplicationMaster.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+            claimApplicationMaster.AdjustRequestAmount = Convert.ToDecimal(txtAdjustAdvance.Text.Trim());
             claimApplicationMaster = objClaimApplicationMaster.ClaimApplicationMaster_Save(claimApplicationMaster);
             return claimApplicationMaster;
         }
@@ -304,8 +335,8 @@ namespace WebAppAegisCRM.ClaimManagement
                         column.AutoIncrement = true;
                         column.ReadOnly = true;
                         column.Unique = false;
-
                         dtInstance.Columns.Add(column);
+
                         dtInstance.Columns.Add("ExpenseDate");
                         dtInstance.Columns.Add("CategoryName");
                         dtInstance.Columns.Add("CategoryId");

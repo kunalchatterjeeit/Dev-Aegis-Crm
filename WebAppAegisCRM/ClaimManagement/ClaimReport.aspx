@@ -30,8 +30,8 @@
                         <div class="panel-body">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    Engineer :
-                                    <asp:DropDownList ID="ddlEmployee" CssClass="form-control" runat="server">
+                                    Employee :
+                                    <asp:DropDownList ID="ddlEmployee" CssClass="form-control searchable" runat="server">
                                     </asp:DropDownList>
                                 </div>
                             </div>

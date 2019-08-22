@@ -21,13 +21,14 @@ namespace DataAccess.ClaimManagement
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_Voucher_Save";
-                    cmd.Parameters.AddWithValue("@VoucherId", voucher.VoucherId);
+                    cmd.Parameters.AddWithValue("@VoucherId", voucher.VoucherId).Direction = ParameterDirection.InputOutput;
                     cmd.Parameters.AddWithValue("@VoucherJson", voucher.VoucherJson);
                     cmd.Parameters.AddWithValue("@CreatedBy", voucher.CreatedBy);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                    rowsAffacted = Convert.ToInt32(cmd.Parameters["@VoucherId"].Value);
                     con.Close();
                 }
             }

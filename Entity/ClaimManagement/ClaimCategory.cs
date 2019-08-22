@@ -16,5 +16,6 @@ namespace Entity.ClaimManagement
         public int ClaimCategoryId { get; set; }
         public string ClaimCategoryName { get; set; }
         public string ClaimCategoryDescription { get; set; }
+        public int ClaimCategoryTypeId { get; set; }
     }
 }

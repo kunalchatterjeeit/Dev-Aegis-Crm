@@ -17,5 +17,6 @@ namespace Entity.ClaimManagement
         public decimal TotalAmount { get; set; }
         public int CreatedBy { get; set; }
         public string VoucherNo { get; set; }
+        public List<VoucherPaymentDetails> VoucherPaymentDetailsList { get; set; }
     }
 }

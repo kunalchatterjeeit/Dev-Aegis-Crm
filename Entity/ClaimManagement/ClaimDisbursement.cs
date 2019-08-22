@@ -12,7 +12,8 @@ namespace Entity.ClaimManagement
         {
 
         }
-        public int ClaimDisburseId { get; set; }
+        public int ClaimDisbursementId { get; set; }
+
 
     }
 }

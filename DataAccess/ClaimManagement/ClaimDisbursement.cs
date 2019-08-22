@@ -21,7 +21,7 @@ namespace DataAccess.ClaimManagement
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_ClaimDisbursement_Save";
-                    cmd.Parameters.AddWithValue("@ClaimDisburseId", ClaimDisbursement.ClaimDisburseId);
+                    cmd.Parameters.AddWithValue("@ClaimDisburseId", ClaimDisbursement.ClaimDisbursementId);
                     cmd.Parameters.AddWithValue("@VoucherId", ClaimDisbursement.VoucherId);
                     cmd.Parameters.AddWithValue("@CreatedBy", ClaimDisbursement.CreatedBy);
 
@@ -92,6 +92,36 @@ namespace DataAccess.ClaimManagement
                     }
                 }
                 return dt;
+            }
+        }
+
+        public static decimal GetClaimAccountBalance(int employeeId)
+        {
+            decimal retValue = 0;
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_GetClaimAccountBalance";
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    retValue = Convert.ToDecimal(dt.Rows[0]["BalaceAmount"].ToString());
+                }
+                return retValue;
             }
         }
     }

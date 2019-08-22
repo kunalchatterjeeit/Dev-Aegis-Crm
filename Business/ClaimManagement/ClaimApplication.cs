@@ -48,5 +48,9 @@ namespace Business.ClaimManagement
         {
             return DataAccess.ClaimManagement.ClaimApplication.Claim_HeadingUpdate(claimApplication);
         }
+        public int Claim_StatusUpdate(Entity.ClaimManagement.ClaimApplicationMaster claimApplication)
+        {
+            return DataAccess.ClaimManagement.ClaimApplication.Claim_StatusUpdate(claimApplication);
+        }
     }
 }

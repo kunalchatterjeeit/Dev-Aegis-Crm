@@ -56,8 +56,14 @@
     <Compile Include="ClaimManagement\ClaimApprovalConfiguration.cs" />
     <Compile Include="ClaimManagement\ClaimApprovalDetails.cs" />
     <Compile Include="ClaimManagement\ClaimCategory.cs" />
+    <Compile Include="ClaimManagement\ClaimCategoryType.cs" />
     <Compile Include="ClaimManagement\ClaimDesignationWiseConfiguration.cs" />
+    <Compile Include="ClaimManagement\ClaimDisbursement.cs" />
+    <Compile Include="ClaimManagement\ClaimDisbursementDetails.cs" />
     <Compile Include="ClaimManagement\ClaimStatus.cs" />
+    <Compile Include="ClaimManagement\Voucher.cs" />
+    <Compile Include="ClaimManagement\VoucherPayment.cs" />
+    <Compile Include="ClaimManagement\VoucherPaymentDetails.cs" />
     <Compile Include="Common\ApplicationConfiguration.cs" />
     <Compile Include="Common\ApplicationModules.cs" />
     <Compile Include="Common\ExtensionHelper.cs" />

@@ -35,6 +35,8 @@ namespace WebAppAegisCRM.ClaimManagement
                 lblToDate.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblTotalClaimCount.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["TotalAmount"].ToString();
                 txtClaimHeader.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimHeading"].ToString();
+
+                GetClaimAccountBalance(Convert.ToInt32(dsClaimApplicationDetails.Tables[0].Rows[0]["EmployeeId"].ToString()));
             }
 
             gvClaimDetails.DataSource = dsClaimApplicationDetails.Tables[2];
@@ -90,6 +92,12 @@ namespace WebAppAegisCRM.ClaimManagement
             return true;
         }
 
+        private void GetClaimAccountBalance(int requestorId)
+        {
+            lblAdvanceBalance.Text = Convert.ToString(new Business.ClaimManagement.ClaimDisbursement()
+                .GetClaimAccountBalance(requestorId));
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -122,7 +130,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     ClaimApprovalDetails.ClaimApplicationId = Business.Common.Context.ClaimApplicationId;
                     ClaimApprovalDetails.Status = (int)ClaimStatusEnum.Approved;
                     ClaimApprovalDetails.Remarks = txtRemarks.Text.Trim();
-                    int response = new Business.ClaimManagement.ClaimApprovalDetails().ClaimApprove(ClaimApprovalDetails);
+                    int response = new Business.ClaimManagement.ClaimApprovalDetails().Claim_Approve(ClaimApprovalDetails);
 
                     if (response > 0)
                     {
@@ -177,7 +185,8 @@ namespace WebAppAegisCRM.ClaimManagement
                                                                                 new Entity.ClaimManagement.ClaimApplicationMaster()
                                                                                 {
                                                                                     ClaimApplicationId = Business.Common.Context.ClaimApplicationId,
-                                                                                    Status = (int)ClaimStatusEnum.Approved
+                                                                                    Status = (int)ClaimStatusEnum.Approved,
+                                                                                    ApprovedAmount = Convert.ToDecimal(lblTotalApprovedAmount.Text.Trim())
                                                                                 });
 
                             GetClaimApplications_ByApproverId(ckShowAll.Checked ? (int)ClaimStatusEnum.None : (int)ClaimStatusEnum.Pending);
@@ -224,7 +233,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     ClaimApprovalDetails.ClaimApplicationId = Business.Common.Context.ClaimApplicationId;
                     ClaimApprovalDetails.Status = (int)ClaimStatusEnum.Rejected;
                     //ClaimApprovalDetails.Remarks = txtRemarks.Text.Trim();
-                    int response = new Business.ClaimManagement.ClaimApprovalDetails().ClaimApprove(ClaimApprovalDetails);
+                    int response = new Business.ClaimManagement.ClaimApprovalDetails().Claim_Approve(ClaimApprovalDetails);
 
                     if (response > 0)
                     {
@@ -305,7 +314,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     claimApprovalDetails.ClaimApplicationId = Business.Common.Context.ClaimApplicationId;
                     claimApprovalDetails.Status = (int)ClaimStatusEnum.Rejected;
                     claimApprovalDetails.Remarks = txtRemarks.Text.Trim();
-                    int response = new Business.ClaimManagement.ClaimApprovalDetails().ClaimApprove(claimApprovalDetails);
+                    int response = new Business.ClaimManagement.ClaimApprovalDetails().Claim_Approve(claimApprovalDetails);
 
                     if (response > 0)
                     {

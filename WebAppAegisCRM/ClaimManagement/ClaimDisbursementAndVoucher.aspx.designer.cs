@@ -10,7 +10,7 @@
 namespace WebAppAegisCRM.ClaimManagement {
     
     
-    public partial class ClaimApprove {
+    public partial class ClaimDisbursementAndVoucher {
         
         /// <summary>
         /// ToolkitScriptManager1 control.
@@ -29,6 +29,15 @@ namespace WebAppAegisCRM.ClaimManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::WebAppAegisCRM.UserControl.Message MessageSuccess;
+        
+        /// <summary>
+        /// ddlEmployee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlEmployee;
         
         /// <summary>
         /// txtFromClaimDate control.
@@ -67,15 +76,6 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
         
         /// <summary>
-        /// ckShowAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckShowAll;
-        
-        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
@@ -85,13 +85,22 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::System.Web.UI.WebControls.Button btnSearch;
         
         /// <summary>
-        /// gvClaimApprovalList control.
+        /// btnPay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvClaimApprovalList;
+        protected global::System.Web.UI.WebControls.Button btnPay;
+        
+        /// <summary>
+        /// gvApprovedClaim control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvApprovedClaim;
         
         /// <summary>
         /// lnkClaim control.
@@ -157,6 +166,177 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
+        /// lblTotalClaimAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalClaimAmount;
+        
+        /// <summary>
+        /// lblTotalApprovedAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalApprovedAmount;
+        
+        /// <summary>
+        /// lblAdvanceBalance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdvanceBalance;
+        
+        /// <summary>
+        /// lblAdvanceAdjustAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdvanceAdjustAmount;
+        
+        /// <summary>
+        /// ddlPaymentModes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPaymentModes;
+        
+        /// <summary>
+        /// txtAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        
+        /// <summary>
+        /// txtPaymentDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPaymentDetails;
+        
+        /// <summary>
+        /// btnAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdd;
+        
+        /// <summary>
+        /// gvPaymentDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvPaymentDetails;
+        
+        /// <summary>
+        /// lblTotalAmountPaying control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalAmountPaying;
+        
+        /// <summary>
+        /// btnGenerateVoucher control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenerateVoucher;
+        
+        /// <summary>
+        /// ApprovalHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel ApprovalHistory;
+        
+        /// <summary>
+        /// gvApprovalHistory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvApprovalHistory;
+        
+        /// <summary>
+        /// imgbtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgbtn;
+        
+        /// <summary>
+        /// lnkClaimDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkClaimDetails;
+        
+        /// <summary>
+        /// ModalPopupExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupExtender2;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2;
+        
+        /// <summary>
+        /// Panel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel3;
+        
+        /// <summary>
+        /// Message1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebAppAegisCRM.UserControl.Message Message1;
+        
+        /// <summary>
         /// lblName control.
         /// </summary>
         /// <remarks>
@@ -193,31 +373,13 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::System.Web.UI.WebControls.Label lblToDate;
         
         /// <summary>
-        /// txtClaimHeader control.
+        /// lblClaimHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtClaimHeader;
-        
-        /// <summary>
-        /// lblAdvanceBalance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdvanceBalance;
-        
-        /// <summary>
-        /// txtAdvanceAdjustAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAdvanceAdjustAmount;
+        protected global::System.Web.UI.WebControls.Label lblClaimHeader;
         
         /// <summary>
         /// gvClaimDetails control.
@@ -238,66 +400,21 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::System.Web.UI.WebControls.Label lblTotalClaimCount;
         
         /// <summary>
-        /// lblTotalApprovedAmount control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalApprovedAmount;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// txtRemarks control.
+        /// img1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
-        /// <summary>
-        /// btnApprove control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnApprove;
-        
-        /// <summary>
-        /// btnReject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnReject;
-        
-        /// <summary>
-        /// ApprovalHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel ApprovalHistory;
-        
-        /// <summary>
-        /// gvApprovalHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvApprovalHistory;
-        
-        /// <summary>
-        /// imgbtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgbtn;
+        protected global::System.Web.UI.HtmlControls.HtmlImage img1;
     }
 }

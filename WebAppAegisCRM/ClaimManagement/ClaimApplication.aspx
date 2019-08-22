@@ -9,7 +9,7 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
-        <ProgressTemplate>
+        <progresstemplate>
             <div class="divWaiting">
                 <div class="loading">
                     <div class="loading-bar"></div>
@@ -18,10 +18,10 @@
                     <div class="loading-bar"></div>
                 </div>
             </div>
-        </ProgressTemplate>
+        </progresstemplate>
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
+        <contenttemplate>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -52,6 +52,12 @@
                                         <asp:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtPeriodTo"
                                             Format="dd MMM yyyy" Enabled="True">
                                         </asp:CalendarExtender>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group has-success">
+                                        Advance Balance:
+                                    <asp:TextBox ID="txtAdvanceAmount" runat="server" CssClass="form-control pull-right text-right" Style="font-style: italic; background-color: #b9e8b9" Enabled="false"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -92,13 +98,13 @@
                             <div class="col-lg-3">
                                 <div class="form-group has-error">
                                     Description
-                                        <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" ></asp:TextBox>
+                                        <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     Attachment
-                                       <asp:FileUpload ID="fuAttachment" runat="server" style="border:0px" />
+                                       <asp:FileUpload ID="fuAttachment" runat="server" Style="border: 0px" />
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -146,7 +152,12 @@
                                     </asp:GridView>
                                 </center>
                             </div>
-
+                            <div class="col-lg-3 pull-right">
+                                <div class="form-group has-success">
+                                    Adjust Advance:
+                                    <asp:TextBox ID="txtAdjustAdvance" runat="server" CssClass="form-control pull-right text-right" Style="font-style: italic; background-color: #b9e8b9" Text="0.00"></asp:TextBox>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <br />
@@ -160,10 +171,10 @@
                     </div>
                 </div>
             </div>
-        </ContentTemplate>
-        <Triggers>
+        </contenttemplate>
+        <triggers>
             <asp:PostBackTrigger ControlID="btnAdd" />
-        </Triggers>
+        </triggers>
     </asp:UpdatePanel>
 </asp:Content>
 

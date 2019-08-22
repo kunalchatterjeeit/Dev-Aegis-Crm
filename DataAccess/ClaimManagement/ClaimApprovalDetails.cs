@@ -116,7 +116,7 @@ namespace DataAccess.ClaimManagement
             }
         }
 
-        public static int ClaimApprove(Entity.ClaimManagement.ClaimApprovalDetails ClaimApprovalDetails)
+        public static int Claim_Approve(Entity.ClaimManagement.ClaimApprovalDetails ClaimApprovalDetails)
         {
             int retValue = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -125,7 +125,7 @@ namespace DataAccess.ClaimManagement
                 {
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "usp_ClaimApprove";
+                    cmd.CommandText = "usp_HR_Claim_Approve";
 
                     cmd.Parameters.AddWithValue("@ClaimApplicationId", ClaimApprovalDetails.ClaimApplicationId);
                     cmd.Parameters.AddWithValue("@ApproverId", ClaimApprovalDetails.ApproverId);

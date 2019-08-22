@@ -304,5 +304,16 @@ namespace Business.Common
                 HttpContext.Current.Session["ClaimApplicationId"] = value;
             }
         }
+        public static DataTable ClaimPaymentDetails
+        {
+            get
+            {
+                return (HttpContext.Current.Session["ClaimPaymentDetails"] != null) ? (DataTable)HttpContext.Current.Session["ClaimPaymentDetails"] : new DataTable();
+            }
+            set
+            {
+                HttpContext.Current.Session["ClaimPaymentDetails"] = value;
+            }
+        }
     }
 }

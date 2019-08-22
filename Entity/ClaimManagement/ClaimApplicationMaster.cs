@@ -18,5 +18,7 @@ namespace Entity.ClaimManagement
         public int CreatedBy { get; set; }
         public decimal TotalAmount { get; set; }
         public int Status { get; set; }
+        public decimal ApprovedAmount { get; set; }
+        public decimal AdjustRequestAmount { get; set; }
     }
 }
