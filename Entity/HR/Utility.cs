@@ -121,5 +121,7 @@ namespace Entity.HR
         public const string CLAIM_APPROVE = "904";
         public const string CLAIM_APPLICATION_LIST = "905";
         public const string CLAIM_REPORT = "906";
+        public const string CLAIM_DISBURSEMENT = "907";
+        public const string VOUCHER_REPORT = "908";
     }
 }

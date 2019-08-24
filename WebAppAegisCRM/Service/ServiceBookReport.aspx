@@ -146,7 +146,7 @@
                                         <br />
                                         <asp:Panel ID="pnlServiceDocket" runat="server" Visible="false">
                                             <asp:GridView ID="gvServiceDocket" runat="server" RowStyle-Font-Size="12px" AutoGenerateColumns="False"
-                                                Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped"
+                                                Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped" 
                                                 GridLines="None" Style="text-align: left" AllowPaging="True" OnPageIndexChanging="gvServiceDocket_PageIndexChanging">
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Docket Id" DataField="CallId" />

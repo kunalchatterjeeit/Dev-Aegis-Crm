@@ -247,6 +247,7 @@
                                 <asp:ListItem Value="210" Text="&nbsp;&nbsp;&nbsp;ATTENDANCE REPORT"></asp:ListItem>
                                 <asp:ListItem Value="212" Text="&nbsp;&nbsp;&nbsp;EMPLOYEE WORK SUMMARY REPORT"></asp:ListItem>
                                 <asp:ListItem Value="906" Text="&nbsp;&nbsp;&nbsp;CLAIM REPORT"></asp:ListItem>
+                                <asp:ListItem Value="908" Text="&nbsp;&nbsp;&nbsp;VOUCHER REPORT"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
@@ -264,6 +265,7 @@
                                 <asp:ListItem Value="903" Text="&nbsp;&nbsp;&nbsp;APPLY CLAIM"></asp:ListItem>
                                 <asp:ListItem Value="904" Text="&nbsp;&nbsp;&nbsp;CLAIM APPROVE/REJECT/CANCEL"></asp:ListItem>
                                 <asp:ListItem Value="905" Text="&nbsp;&nbsp;&nbsp;MY CLAIM APPLICATION LIST"></asp:ListItem>
+                                <asp:ListItem Value="907" Text="&nbsp;&nbsp;&nbsp;CLAIM DISBURSEMENT"></asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

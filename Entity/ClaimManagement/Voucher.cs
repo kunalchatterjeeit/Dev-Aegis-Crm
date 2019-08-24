@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Entity.Common;
+using System;
+using System.Collections.Generic;
 
 namespace Entity.ClaimManagement
 {
-    public class Voucher
+    public class Voucher : BaseEntity
     {
         public Voucher()
         {
-
+            VoucherPayment = new VoucherPayment();
         }
         public int VoucherId { get; set; }
         public string VoucherNo { get; set; }
@@ -14,6 +16,8 @@ namespace Entity.ClaimManagement
         public int CreatedBy { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public VoucherPayment voucherPayment { get; set; }
+        public VoucherPayment VoucherPayment { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        
     }
 }

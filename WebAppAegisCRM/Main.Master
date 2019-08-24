@@ -348,6 +348,9 @@
                                 <li id="liClaimApprove" runat="server" visible="false">
                                     <a href="../ClaimManagement/ClaimApprove.aspx">Claim Approve/Reject/Cancel</a>
                                 </li>
+                                <li id="liClaimDisbursement" runat="server" visible="false">
+                                    <a href="../ClaimManagement/ClaimDisbursementAndVoucher.aspx">Claim Disbursement</a>
+                                </li>
                                  <li id="liClaimList" runat="server" visible="false">
                                     <a href="../ClaimManagement/ClaimApplicationList.aspx">My Claim Application List</a>
                                 </li>
@@ -482,6 +485,9 @@
                                 </li>
                                 <li id="liClaimReport" runat="server" visible="false">
                                     <a href="../ClaimManagement/ClaimReport.aspx">Claim Report</a>
+                                </li>
+                                <li id="liVoucherReport" runat="server" visible="false">
+                                    <a href="../ClaimManagement/VoucherReport.aspx">Voucher Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

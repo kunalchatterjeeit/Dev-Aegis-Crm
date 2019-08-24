@@ -10,7 +10,7 @@ namespace Entity.ClaimManagement
     {
         public VoucherPayment()
         {
-
+            VoucherPaymentDetailsList = new List<VoucherPaymentDetails>();
         }
         public int VoucherPaymentId { get; set; }
         public int VoucherId { get; set; }

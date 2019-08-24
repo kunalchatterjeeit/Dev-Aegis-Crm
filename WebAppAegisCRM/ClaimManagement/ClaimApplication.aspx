@@ -9,7 +9,7 @@
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
     <br />
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1" DisplayAfter="1">
-        <progresstemplate>
+        <ProgressTemplate>
             <div class="divWaiting">
                 <div class="loading">
                     <div class="loading-bar"></div>
@@ -18,11 +18,14 @@
                     <div class="loading-bar"></div>
                 </div>
             </div>
-        </progresstemplate>
+        </ProgressTemplate>
     </asp:UpdateProgress>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <contenttemplate>
+        <ContentTemplate>
             <div class="row">
+                <div class="col-lg-12">
+                    <uc3:Message ID="Message" runat="server" />
+                </div>
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -60,9 +63,6 @@
                                     <asp:TextBox ID="txtAdvanceAmount" runat="server" CssClass="form-control pull-right text-right" Style="font-style: italic; background-color: #b9e8b9" Enabled="false"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <uc3:Message ID="Message" runat="server" />
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,13 +89,13 @@
                                         </asp:DropDownList>
                                 </div>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <div class="form-group has-error">
                                     Cost
                                         <asp:TextBox ID="txtCost" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group has-error">
                                     Description
                                         <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control"></asp:TextBox>
@@ -171,10 +171,10 @@
                     </div>
                 </div>
             </div>
-        </contenttemplate>
-        <triggers>
+        </ContentTemplate>
+        <Triggers>
             <asp:PostBackTrigger ControlID="btnAdd" />
-        </triggers>
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>
 

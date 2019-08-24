@@ -100,6 +100,8 @@
     <Content Include="ClaimManagement\ClaimDesignationConfiguration.aspx" />
     <Content Include="ClaimManagement\ClaimDisbursementAndVoucher.aspx" />
     <Content Include="ClaimManagement\ClaimReport.aspx" />
+    <Content Include="ClaimManagement\VoucherPrint.aspx" />
+    <Content Include="ClaimManagement\VoucherReport.aspx" />
     <Content Include="Common\City.aspx" />
     <Content Include="ControlPanel\CallAttendanceManager.aspx" />
     <Content Include="CustomerDashboard.aspx" />
@@ -176,6 +178,7 @@
     <Content Include="images\image024.gif" />
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
+    <Content Include="images\paid-icon.png" />
     <Content Include="LeaveManagement\GenerateLeave.aspx" />
     <Content Include="LeaveManagement\LeaveAdjustment.aspx" />
     <Content Include="LeaveManagement\LeaveApplicationList.aspx" />
@@ -342,6 +345,20 @@
     </Compile>
     <Compile Include="ClaimManagement\ClaimReport.aspx.designer.cs">
       <DependentUpon>ClaimReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\VoucherPrint.aspx.cs">
+      <DependentUpon>VoucherPrint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\VoucherPrint.aspx.designer.cs">
+      <DependentUpon>VoucherPrint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClaimManagement\VoucherReport.aspx.cs">
+      <DependentUpon>VoucherReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClaimManagement\VoucherReport.aspx.designer.cs">
+      <DependentUpon>VoucherReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Common\City.aspx.cs">
       <DependentUpon>City.aspx</DependentUpon>

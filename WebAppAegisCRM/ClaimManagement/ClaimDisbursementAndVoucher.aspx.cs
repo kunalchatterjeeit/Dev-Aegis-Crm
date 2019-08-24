@@ -242,13 +242,13 @@ namespace WebAppAegisCRM.ClaimManagement
                     Business.ClaimManagement.VoucherPaymentDetailsDetails objVoucherPaymentDetailsDetails = new Business.ClaimManagement.VoucherPaymentDetailsDetails();
                     int voucherId = objVoucher.Voucher_Save(voucher);
 
-                    VoucherPayment voucherPayment = voucher.voucherPayment;
+                    VoucherPayment voucherPayment = voucher.VoucherPayment;
                     voucherPayment.VoucherId = voucherId;
                     int voucherPaymentId = objVoucherPayment.VoucherPayment_Save(voucherPayment);
 
                     int retValue = 0;
                     List<VoucherPaymentDetails> voucherPaymentDetailsList = new List<VoucherPaymentDetails>();
-                    voucherPaymentDetailsList = voucher.voucherPayment.VoucherPaymentDetailsList;
+                    voucherPaymentDetailsList = voucher.VoucherPayment.VoucherPaymentDetailsList;
                     retValue = VoucherPaymentDetails_Save(objVoucherPaymentDetailsDetails, voucherPaymentId, retValue, voucherPaymentDetailsList);
 
                     DataTable dtVoucher = objVoucher.Voucher_GetById(voucherId);
@@ -258,6 +258,7 @@ namespace WebAppAegisCRM.ClaimManagement
                         int claimDisbursementId = ClaimDisbursement_Save(voucherId);
                         ClaimDisbursementDetails_Save(claimDisbursementId);
                         ClaimApplication_GetAll();
+                        ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('VoucherPrint.aspx?no=" + dtVoucher.Rows[0]["VoucherNo"].ToString() + "','mywindow','menubar=1,resizable=1,width=900,height=600');", true);
                         MessageSuccess.IsSuccess = true;
                         MessageSuccess.Text = string.Format("Voucher generated successfully. Voucher number is {0}", dtVoucher.Rows[0]["VoucherNo"].ToString());
                         MessageSuccess.Show = true;
@@ -363,13 +364,58 @@ namespace WebAppAegisCRM.ClaimManagement
 
             Voucher voucher = new Voucher()
             {
-                voucherPayment = voucherPayment,
+                VoucherPayment = voucherPayment,
                 CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
             };
 
-            voucher.VoucherJson = JsonConvert.SerializeObject(voucher);
+            voucher.VoucherJson = PrepareVoucherJson();
 
             return voucher;
+        }
+
+        private string PrepareVoucherJson()
+        {
+            string employeeName = string.Empty;
+            List<VoucherDescription> voucherDescriptionList = new List<VoucherDescription>();
+            foreach (GridViewRow gvr in gvApprovedClaim.Rows)
+            {
+                CheckBox chkSelect = (CheckBox)gvr.FindControl("chkitem");
+                if (chkSelect.Checked)
+                {
+                    Business.ClaimManagement.ClaimApplication objClaimApplication = new Business.ClaimManagement.ClaimApplication();
+                    DataSet dsClaim = objClaimApplication.GetClaimApplicationDetails_ByClaimApplicationId(Convert.ToInt32(gvApprovedClaim.DataKeys[gvr.RowIndex].Values[0].ToString()));
+                    if (dsClaim != null && dsClaim.Tables.Count > 0 && dsClaim.Tables[0] != null && dsClaim.Tables[0].Rows.Count > 0)
+                    {
+                        employeeName = dsClaim.Tables[0].Rows[0]["Requestor"].ToString();
+                        VoucherDescription voucherPaymentDetails = new VoucherDescription()
+                        {
+                            Amount = Convert.ToDecimal(dsClaim.Tables[0].Rows[0]["ApprovedAmount"].ToString()),
+                            Description = string.Format("{0}-{1}", dsClaim.Tables[0].Rows[0]["ClaimNo"].ToString(), dsClaim.Tables[0].Rows[0]["ClaimHeading"].ToString())
+                        };
+                        voucherDescriptionList.Add(voucherPaymentDetails);
+                    }
+                }
+            }
+
+            string chequeNo = string.Empty, payMethod = string.Empty;
+            foreach (DataRow dr in _ClaimPaymentDetails.Rows)
+            {
+                chequeNo += dr["PaymentDetails"] + ",";
+                payMethod += dr["PaymentModeName"] + ",";
+            }
+
+            VoucherJson voucherJson = new VoucherJson()
+            {
+                AmountInWords = "",
+                ChequeNo = chequeNo.TrimEnd(','),
+                CreateDate = DateTime.UtcNow.AddHours(5).AddMinutes(33),
+                EmployeeName = employeeName,
+                PayMethod = payMethod.TrimEnd(','),
+                TotalAmount = Convert.ToDecimal(lblTotalAmountPaying.Text),
+                VoucherDescriptionList = voucherDescriptionList
+            };
+
+            return JsonConvert.SerializeObject(voucherJson);
         }
 
         private bool ValidateGenerateVoucher()
@@ -431,12 +477,12 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
+            _ClaimPaymentDetails.Clear();
             FetchBasicDetails();
             GetClaimAccountBalance();
             VoucherPaymentMode_GetAll();
             ModalPopupExtender1.Show();
         }
-
 
         protected void gvClaimDetails_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -476,7 +522,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 ex.WriteException();
             }
         }
-
 
         private void DownloadAttachment(string claimAttachmentName)
         {

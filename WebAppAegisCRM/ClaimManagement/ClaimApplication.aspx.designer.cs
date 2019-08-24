@@ -40,6 +40,15 @@ namespace WebAppAegisCRM.ClaimManagement {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// Message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WebAppAegisCRM.UserControl.Message Message;
+        
+        /// <summary>
         /// txtClaimHeader control.
         /// </summary>
         /// <remarks>
@@ -92,15 +101,6 @@ namespace WebAppAegisCRM.ClaimManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAdvanceAmount;
-        
-        /// <summary>
-        /// Message control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
         /// txtExpenseDate control.
