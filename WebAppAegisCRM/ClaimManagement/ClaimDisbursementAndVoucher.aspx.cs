@@ -191,6 +191,25 @@ namespace WebAppAegisCRM.ClaimManagement
 
         private bool ValidatePaymentItem()
         {
+            if (ddlPaymentModes.SelectedValue == "4")
+            {
+                if (Convert.ToDecimal(txtAmount.Text.Trim()) > Convert.ToDecimal(lblAdvanceAdjustAmount.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Adjustment amount cannot be more than adjustment request amount.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (_ClaimPaymentDetails.AsEnumerable().Any() &&
+                    _ClaimPaymentDetails.Select("[PaymentModeId]='4'").Any() &&
+                    (Convert.ToDecimal(_ClaimPaymentDetails.Compute("SUM(Amount)", "[PaymentModeId]='4'")) + Convert.ToDecimal(txtAmount.Text.Trim())) > Convert.ToDecimal(lblAdvanceAdjustAmount.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Adjustment amount cannot be more than adjustment request amount.";
+                    Message.Show = true;
+                    return false;
+                }
+            }
             if (!(!string.IsNullOrEmpty(txtAmount.Text.Trim()) && Convert.ToDecimal(txtAmount.Text.Trim()) > 0))
             {
                 Message.IsSuccess = false;
@@ -206,6 +225,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.Show = true;
                 return false;
             }
+
             return true;
         }
 

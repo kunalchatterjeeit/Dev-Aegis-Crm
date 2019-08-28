@@ -116,7 +116,7 @@ namespace DataAccess.ClaimManagement
         //        return dt;
         //    }
         //}
-        public static int ClaimApplicationMaster_Delete(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
+        public static int ClaimApplicationMaster_Delete(int claimApplicationId)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -127,7 +127,7 @@ namespace DataAccess.ClaimManagement
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_ClaimApplicationMaster_Delete";
 
-                    cmd.Parameters.AddWithValue("@ClaimApplicationId", objClaimApplicationMaster);
+                    cmd.Parameters.AddWithValue("@ClaimApplicationId", claimApplicationId);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
@@ -388,6 +388,28 @@ namespace DataAccess.ClaimManagement
                 }
             }
             return retValue;
+        }
+        public static int Claim_AdjustAmount_Update(Entity.ClaimManagement.ClaimApplicationMaster claimApplicationMaster)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_HR_Claim_AdjustAmount_Update";
+
+                    cmd.Parameters.AddWithValue("@ClaimId", claimApplicationMaster.ClaimApplicationId);
+                    cmd.Parameters.AddWithValue("@AdjustRequestAmount", claimApplicationMaster.AdjustRequestAmount);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
         }
     }
 }

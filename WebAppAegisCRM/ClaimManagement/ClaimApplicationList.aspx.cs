@@ -35,6 +35,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 lblToDate.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblTotalClaimCount.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["TotalAmount"].ToString();
                 lblClaimHeader.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimHeading"].ToString();
+                lblAdvanceAdjust.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["AdjustRequestAmount"].ToString();
             }
 
             gvClaimDetails.DataSource = dsClaimApplicationDetails.Tables[2];

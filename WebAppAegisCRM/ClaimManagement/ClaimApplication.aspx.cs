@@ -209,6 +209,8 @@ namespace WebAppAegisCRM.ClaimManagement
                     int approvalResponse = ClaimApprovalDetails_Save(claimApplicationMaster.ClaimApplicationId);
                     if (approvalResponse > 0)
                     {
+                        ClearAllControl();
+                        _ClaimDetails.Clear();
                         Message.IsSuccess = true;
                         Message.Text = string.Format("Claim applied successfully. Your claim no. {0}", claimApplicationMaster.ClaimApplicationNumber);
                         Message.Show = true;
@@ -325,6 +327,7 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+            Message.Show = false;
             if (ClaimAddValidation())
             {
                 if (_ClaimDetails.Rows.Count == 0)
@@ -354,6 +357,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 drItem["CategoryId"] = ddlCategory.SelectedValue;
                 drItem["Status"] = ClaimStatusEnum.Pending.ToString();
                 drItem["Cost"] = txtCost.Text;
+                drItem["Description"] = txtDescription.Text.Trim();
                 drItem["Attachment"] = SaveAttachment();
 
                 _ClaimDetails.Rows.Add(drItem);

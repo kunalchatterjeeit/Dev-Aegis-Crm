@@ -229,14 +229,14 @@
                                                                         <asp:TextBox ID="txtApprovedRemarks" runat="server" class="form-control" style="height:22px"></asp:TextBox>
                                                                     </ItemTemplate>
                                                                 </asp:TemplateField>
-                                                                <asp:TemplateField>
+                                                                <%--<asp:TemplateField>
                                                                     <HeaderTemplate>
                                                                         Status
                                                                     </HeaderTemplate>
                                                                     <ItemTemplate>
                                                                         <asp:DropDownList ID="ddlLineItemStatus" runat="server" class="form-control" Style="width: 100px; height:22px; padding: 0px 12px"></asp:DropDownList>
                                                                     </ItemTemplate>
-                                                                </asp:TemplateField>
+                                                                </asp:TemplateField>--%>
                                                                 <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:LinkButton ID="lnkBtnAttachment" runat="server" Style="font-size: 16px;" class="fa fa-paperclip fa-fw" CommandName="A" CommandArgument='<%# Eval("Attachment") %>' />

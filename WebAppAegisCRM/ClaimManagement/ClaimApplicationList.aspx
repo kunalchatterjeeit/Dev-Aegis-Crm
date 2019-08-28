@@ -119,9 +119,15 @@
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold">
+                                            Advance Adjust of <span class="pull-right">&#8377;</span>
+                                        </td>
+                                        <td>
+                                            <asp:Label ID="lblAdvanceAdjust" runat="server"></asp:Label>
+                                        </td>
+                                        <td style="font-weight: bold">
                                             Claim Heading
                                         </td>
-                                        <td colspan="7">
+                                        <td colspan="5">
                                             <asp:Label ID="lblClaimHeader" runat="server"></asp:Label>
                                         </td>
                                     </tr>
@@ -180,14 +186,14 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: bold">Total Claim Amount
+                                        <td style="font-weight: bold">Total Claim Amount <span class="pull-right">&#8377;</span>
                                         </td>
                                         <td colspan="7" style="font-weight: bold">
                                             <asp:Label ID="lblTotalClaimCount" runat="server" class="pull-right"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-weight: bold">Total Approved Amount
+                                        <td style="font-weight: bold">Total Approved Amount <span class="pull-right">&#8377;</span>
                                         </td>
                                         <td colspan="7" style="font-weight: bold">
                                             <asp:Label ID="lblTotalApprovedAmount" runat="server" class="pull-right" Text="0.00"></asp:Label>

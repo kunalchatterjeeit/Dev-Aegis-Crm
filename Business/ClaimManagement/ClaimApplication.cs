@@ -16,9 +16,9 @@ namespace Business.ClaimManagement
         //{
         //    return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_GetAll(objClaimApplicationMaster);
         //}
-        public int ClaimApplicationMaster_Delete(Entity.ClaimManagement.ClaimApplicationMaster objClaimApplicationMaster)
+        public int ClaimApplicationMaster_Delete(int claimApplicationId)
         {
-            return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_Delete(objClaimApplicationMaster);
+            return DataAccess.ClaimManagement.ClaimApplication.ClaimApplicationMaster_Delete(claimApplicationId);
         }
         public int ClaimApplicationDetails_Save(Entity.ClaimManagement.ClaimApplicationDetails ClaimApplicationDetails)
         {
@@ -51,6 +51,10 @@ namespace Business.ClaimManagement
         public int Claim_StatusUpdate(Entity.ClaimManagement.ClaimApplicationMaster claimApplication)
         {
             return DataAccess.ClaimManagement.ClaimApplication.Claim_StatusUpdate(claimApplication);
+        }
+        public int Claim_AdjustAmount_Update(Entity.ClaimManagement.ClaimApplicationMaster claimApplicationMaster)
+        {
+            return DataAccess.ClaimManagement.ClaimApplication.Claim_AdjustAmount_Update(claimApplicationMaster);
         }
     }
 }

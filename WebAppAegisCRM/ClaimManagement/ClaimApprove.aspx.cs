@@ -35,6 +35,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 lblToDate.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ToDate"].ToString();
                 lblTotalClaimCount.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["TotalAmount"].ToString();
                 txtClaimHeader.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["ClaimHeading"].ToString();
+                txtAdvanceAdjustAmount.Text = dsClaimApplicationDetails.Tables[0].Rows[0]["AdjustRequestAmount"].ToString();
 
                 GetClaimAccountBalance(Convert.ToInt32(dsClaimApplicationDetails.Tables[0].Rows[0]["EmployeeId"].ToString()));
             }
@@ -70,6 +71,13 @@ namespace WebAppAegisCRM.ClaimManagement
 
         private bool ClaimApprovalValidation()
         {
+            if (Convert.ToDecimal(txtAdvanceAdjustAmount.Text.Trim()) > Convert.ToDecimal(lblTotalApprovedAmount.Text.Trim()))
+            {
+                Message.IsSuccess = false;
+                Message.Text = "Adjustment amount cannot be more than approved amount.";
+                Message.Show = true;
+                return false;
+            }
             if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
             {
                 Message.IsSuccess = false;
@@ -196,6 +204,7 @@ namespace WebAppAegisCRM.ClaimManagement
                             ModalPopupExtender1.Hide();
                         }
                         Claim_Heading_Update(Business.Common.Context.ClaimApplicationId, txtClaimHeader.Text.Trim());
+                        Claim_Adjust_Update();
                     }
                     else
                     {
@@ -222,6 +231,15 @@ namespace WebAppAegisCRM.ClaimManagement
             }
         }
 
+        private int Claim_Adjust_Update()
+        {
+            return new Business.ClaimManagement.ClaimApplication().Claim_AdjustAmount_Update(new Entity.ClaimManagement.ClaimApplicationMaster()
+            {
+                ClaimApplicationId = Business.Common.Context.ClaimApplicationId,
+                AdjustRequestAmount = Convert.ToDecimal(txtAdvanceAdjustAmount.Text.Trim())
+            });
+        }
+
         protected void btnReject_Click(object sender, EventArgs e)
         {
             try
@@ -232,7 +250,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     ClaimApprovalDetails.ApproverId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
                     ClaimApprovalDetails.ClaimApplicationId = Business.Common.Context.ClaimApplicationId;
                     ClaimApprovalDetails.Status = (int)ClaimStatusEnum.Rejected;
-                    //ClaimApprovalDetails.Remarks = txtRemarks.Text.Trim();
+                    ClaimApprovalDetails.Remarks = txtRemarks.Text.Trim();
                     int response = new Business.ClaimManagement.ClaimApprovalDetails().Claim_Approve(ClaimApprovalDetails);
 
                     if (response > 0)
@@ -379,9 +397,9 @@ namespace WebAppAegisCRM.ClaimManagement
                         lnkBtnAttachment.ToolTip = "No attachment";
                     }
 
-                    DropDownList ddlLineItemStatus = (DropDownList)e.Row.FindControl("ddlLineItemStatus");
-                    LoadClaimStatus(ddlLineItemStatus);
-                    ddlLineItemStatus.SelectedValue = ((DataTable)(gvClaimDetails.DataSource)).Rows[e.Row.RowIndex]["Status"].ToString();
+                    //DropDownList ddlLineItemStatus = (DropDownList)e.Row.FindControl("ddlLineItemStatus");
+                    //LoadClaimStatus(ddlLineItemStatus);
+                    //ddlLineItemStatus.SelectedValue = ((DataTable)(gvClaimDetails.DataSource)).Rows[e.Row.RowIndex]["Status"].ToString();
 
                     HiddenField hdnChecked = (HiddenField)e.Row.FindControl("hdnChecked");
                     if (!string.IsNullOrEmpty(((DataTable)gvClaimDetails.DataSource).Rows[e.Row.RowIndex]["ApprovedAmount"].ToString()))
@@ -398,14 +416,14 @@ namespace WebAppAegisCRM.ClaimManagement
             }
         }
 
-        private void LoadClaimStatus(DropDownList ddlLineItemStatus)
-        {
-            ddlLineItemStatus.DataSource = new Business.ClaimManagement.ClaimStatus().ClaimStatus_GetAll(
-                new Entity.ClaimManagement.ClaimStatus() { });
-            ddlLineItemStatus.DataTextField = "StatusName";
-            ddlLineItemStatus.DataValueField = "ClaimStatusId";
-            ddlLineItemStatus.DataBind();
-        }
+        //private void LoadClaimStatus(DropDownList ddlLineItemStatus)
+        //{
+        //    ddlLineItemStatus.DataSource = new Business.ClaimManagement.ClaimStatus().ClaimStatus_GetAll(
+        //        new Entity.ClaimManagement.ClaimStatus() { });
+        //    ddlLineItemStatus.DataTextField = "StatusName";
+        //    ddlLineItemStatus.DataValueField = "ClaimStatusId";
+        //    ddlLineItemStatus.DataBind();
+        //}
 
         protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -417,7 +435,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     HiddenField hdnChecked = (HiddenField)gridViewRow.FindControl("hdnChecked");
                     TextBox txtApprovedAmount = (TextBox)gridViewRow.FindControl("txtApprovedAmount");
                     TextBox txtApprovedRemarks = (TextBox)gridViewRow.FindControl("txtApprovedRemarks");
-                    DropDownList ddlLineItemStatus = (DropDownList)gridViewRow.FindControl("ddlLineItemStatus");
+                    //DropDownList ddlLineItemStatus = (DropDownList)gridViewRow.FindControl("ddlLineItemStatus");
                     hdnChecked.Value = "Checked";
                     gridViewRow.Font.Italic = true;
                     gridViewRow.Attributes.CssStyle.Add("color", "#038a10");
@@ -426,14 +444,15 @@ namespace WebAppAegisCRM.ClaimManagement
                     Entity.ClaimManagement.ClaimApplicationDetails claimApplicationDetails = new Entity.ClaimManagement.ClaimApplicationDetails()
                     {
                         ClaimApplicationDetailId = int.Parse(e.CommandArgument.ToString()),
-                        ApprovedAmount = Convert.ToDecimal(txtApprovedAmount.Text.Trim()),
+                        ApprovedAmount = (string.IsNullOrEmpty(txtApprovedAmount.Text.Trim())) ? 0 : Convert.ToDecimal(txtApprovedAmount.Text.Trim()),
                         ApproverRemarks = txtApprovedRemarks.Text.Trim(),
-                        Status = Convert.ToInt32(ddlLineItemStatus.SelectedValue)
+                        Status = (int)ClaimStatusEnum.Approved
                     };
 
                     objClaimApplication.ClaimApplicationDetails_Save(claimApplicationDetails);
 
                     ComputeTotalApprovedAmount();
+
                 }
                 else if (e.CommandName == "A")
                 {
@@ -453,7 +472,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 ModalPopupExtender1.Show();
             }
         }
-
         private void ComputeTotalApprovedAmount()
         {
             decimal total = 0;

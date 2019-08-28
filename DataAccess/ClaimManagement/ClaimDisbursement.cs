@@ -11,7 +11,7 @@ namespace DataAccess.ClaimManagement
 {
     public class ClaimDisbursement
     {
-        public static int ClaimDisbursement_Save(Entity.ClaimManagement.ClaimDisbursement ClaimDisbursement)
+        public static int ClaimDisbursement_Save(Entity.ClaimManagement.ClaimDisbursement claimDisbursement)
         {
             int rowsAffacted = 0;
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
@@ -21,13 +21,14 @@ namespace DataAccess.ClaimManagement
                     cmd.Connection = con;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "usp_HR_ClaimDisbursement_Save";
-                    cmd.Parameters.AddWithValue("@ClaimDisburseId", ClaimDisbursement.ClaimDisbursementId);
-                    cmd.Parameters.AddWithValue("@VoucherId", ClaimDisbursement.VoucherId);
-                    cmd.Parameters.AddWithValue("@CreatedBy", ClaimDisbursement.CreatedBy);
+                    cmd.Parameters.AddWithValue("@ClaimDisburseId", claimDisbursement.ClaimDisbursementId).Direction = ParameterDirection.InputOutput;
+                    cmd.Parameters.AddWithValue("@VoucherId", claimDisbursement.VoucherId);
+                    cmd.Parameters.AddWithValue("@CreatedBy", claimDisbursement.CreatedBy);
 
                     if (con.State == ConnectionState.Closed)
                         con.Open();
-                    rowsAffacted = cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
+                    rowsAffacted = Convert.ToInt32(cmd.Parameters["@ClaimDisburseId"].Value);
                     con.Close();
                 }
             }

@@ -11,7 +11,7 @@ namespace WebAppAegisCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            if (!HttpContext.Current.User.Identity.IsAuthenticated || string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
                 Response.Redirect("~/MainLogout.aspx");
 
             lblUsername.Text = (string.IsNullOrEmpty(lblUsername.Text.Trim())) ? Business.Common.Context.Username : lblUsername.Text.Trim();
