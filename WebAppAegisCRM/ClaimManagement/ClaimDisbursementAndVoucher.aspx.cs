@@ -407,10 +407,27 @@ namespace WebAppAegisCRM.ClaimManagement
                     if (dsClaim != null && dsClaim.Tables.Count > 0 && dsClaim.Tables[0] != null && dsClaim.Tables[0].Rows.Count > 0)
                     {
                         employeeName = dsClaim.Tables[0].Rows[0]["Requestor"].ToString();
+                        string claimCategories = string.Empty;
+                        DataTable dtClaimDetails = new Business.ClaimManagement.ClaimApplication().ClaimApplicationDetails_GetAll(new ClaimApplicationDetails()
+                        {
+                            ClaimApplicationId = Convert.ToInt32(dsClaim.Tables[0].Rows[0]["ClaimId"].ToString())
+                        });
+                        if (dtClaimDetails != null && dtClaimDetails.AsEnumerable().Any())
+                        {
+                            foreach (DataRow drClaimDetail in dtClaimDetails.Rows)
+                            {
+                                DataTable dtClaimCategory = new Business.ClaimManagement.ClaimCategory().ClaimCategory_GetById(Convert.ToInt32(drClaimDetail["CategoryId"].ToString()));
+                                if (dtClaimCategory != null && dtClaimCategory.AsEnumerable().Any())
+                                {
+                                    claimCategories = claimCategories + dtClaimCategory.Rows[0]["CategoryName"].ToString() + ",";
+                                }
+                            }
+                        }
+
                         VoucherDescription voucherPaymentDetails = new VoucherDescription()
                         {
                             Amount = Convert.ToDecimal(dsClaim.Tables[0].Rows[0]["ApprovedAmount"].ToString()),
-                            Description = string.Format("{0}-{1}", dsClaim.Tables[0].Rows[0]["ClaimNo"].ToString(), dsClaim.Tables[0].Rows[0]["ClaimHeading"].ToString())
+                            Description = string.Format("{0}-{1}-{2}", dsClaim.Tables[0].Rows[0]["ClaimNo"].ToString(), dsClaim.Tables[0].Rows[0]["ClaimHeading"].ToString(), claimCategories.Trim(','))
                         };
                         voucherDescriptionList.Add(voucherPaymentDetails);
                     }
