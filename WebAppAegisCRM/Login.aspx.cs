@@ -37,7 +37,20 @@ namespace WebAppAegisCRM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+#if release
+            if (Request.QueryString["id"] != null)
+            {
+                DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
+                if (dateTime < DateTime.UtcNow)
+                {
+                    Response.Redirect("https://aegissolutions.in/");
+                }
+            }
+            else
+            {
+                Response.Redirect("https://aegissolutions.in/");
+            }
+#endif
         }
 
         private void UserLogin()
