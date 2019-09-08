@@ -15,7 +15,6 @@ namespace WebAppAegisCRM
         {
             if (!IsPostBack)
             {
-#if release
                 if (Request.QueryString["id"] != null)
                 {
                     DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
@@ -28,7 +27,6 @@ namespace WebAppAegisCRM
                 {
                     Response.Redirect("https://aegissolutions.in/");
                 }
-#endif
                 Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
                 Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.Cache.SetNoStore();

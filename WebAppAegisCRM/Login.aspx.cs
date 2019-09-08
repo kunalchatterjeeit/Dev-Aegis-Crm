@@ -37,7 +37,6 @@ namespace WebAppAegisCRM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-#if release
             if (Request.QueryString["id"] != null)
             {
                 DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
@@ -50,7 +49,6 @@ namespace WebAppAegisCRM
             {
                 Response.Redirect("https://aegissolutions.in/");
             }
-#endif
         }
 
         private void UserLogin()
