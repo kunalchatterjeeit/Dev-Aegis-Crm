@@ -37,7 +37,7 @@ namespace WebAppAegisCRM
 
         protected void Timer1_Tick(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx");
+            Response.Redirect(string.Concat("Login.aspx", Request.QueryString["id"].ToString()));
         }
     }
 }
