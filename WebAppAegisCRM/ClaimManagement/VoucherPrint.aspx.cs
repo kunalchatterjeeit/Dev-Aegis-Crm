@@ -14,13 +14,15 @@ namespace WebAppAegisCRM.ClaimManagement
                 if (Request.QueryString["no"] != null)
                 {
                     Business.ClaimManagement.Voucher objVoucher = new Business.ClaimManagement.Voucher();
-                    DataTable dtVoucher = objVoucher.Voucher_GetAll(new Voucher()
+                    DataSet dsVoucher = objVoucher.Voucher_GetAll(new Voucher()
                     {
-                        VoucherNo = Request.QueryString["no"].ToString()
+                        VoucherNo = Request.QueryString["no"].ToString(),
+                        PageIndex = 0,
+                        PageSize = 10
                     });
                     VoucherJson voucher = new VoucherJson();
-                    voucher = JsonConvert.DeserializeObject<VoucherJson>(dtVoucher.Rows[0]["VoucherJson"].ToString());
-                    voucher.VoucherNo = dtVoucher.Rows[0]["VoucherNo"].ToString();
+                    voucher = JsonConvert.DeserializeObject<VoucherJson>(dsVoucher.Tables[0].Rows[0]["VoucherJson"].ToString());
+                    voucher.VoucherNo = dsVoucher.Tables[0].Rows[0]["VoucherNo"].ToString();
                     GenerateVoucher(voucher);
                 }
                 else

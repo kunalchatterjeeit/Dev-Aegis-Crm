@@ -24,7 +24,7 @@ namespace Business.ClaimManagement
             return DataAccess.ClaimManagement.Voucher.Voucher_GetById(VoucherId);
         }
 
-        public DataTable Voucher_GetAll(Entity.ClaimManagement.Voucher voucher)
+        public DataSet Voucher_GetAll(Entity.ClaimManagement.Voucher voucher)
         {
             return DataAccess.ClaimManagement.Voucher.Voucher_GetAll(voucher);
         }

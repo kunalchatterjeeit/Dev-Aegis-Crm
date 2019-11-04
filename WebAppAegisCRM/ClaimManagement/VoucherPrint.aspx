@@ -66,7 +66,7 @@
                     <tbody>
                         <tr>
                             <td style="width: 20%">
-                                <img class="leftimg" src="http://aegiscrm.in/images/Aegis_CRM_Logo.png" width="150" />
+                                <img class="leftimg" src="http://crm.aegissolutions.in/images/Aegis_CRM_Logo.png" width="150" />
                             </td>
                             <td>
                                 <h3>VOUCHER</h3>
@@ -75,7 +75,7 @@
                                     Contact No - 8335810009, Email - info@aegissolutions.in</h5>
                             </td>
                             <td style="width: 20%">
-                                <img class="rightimg" src="http://aegiscrm.in/images/Aegis_CRM.png" width="110" />
+                                <img class="rightimg" src="http://crm.aegissolutions.in/images/Aegis_CRM.png" width="110" />
                             </td>
                         </tr>
                     </tbody>

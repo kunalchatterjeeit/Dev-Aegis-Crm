@@ -88,7 +88,7 @@ namespace WebAppAegisCRM.ClaimManagement
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {            
             if (!IsPostBack)
             {
                 EmployeeMaster_GetAll();
@@ -280,7 +280,7 @@ namespace WebAppAegisCRM.ClaimManagement
                         ClaimApplication_GetAll();
                         ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('VoucherPrint.aspx?no=" + dtVoucher.Rows[0]["VoucherNo"].ToString() + "','mywindow','menubar=1,resizable=1,width=900,height=600');", true);
                         MessageSuccess.IsSuccess = true;
-                        MessageSuccess.Text = string.Format("Voucher generated successfully. Voucher number is {0}", dtVoucher.Rows[0]["VoucherNo"].ToString());
+                        MessageSuccess.Text = string.Format("Voucher generated successfully. Voucher number is <a target='_blank' href='../ClaimManagement/VoucherPrint.aspx?no={0}'>{0}</a>", dtVoucher.Rows[0]["VoucherNo"].ToString());
                         MessageSuccess.Show = true;
                     }
                     else
