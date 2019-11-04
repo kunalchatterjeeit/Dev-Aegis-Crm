@@ -107,6 +107,12 @@
                     <a id="tab3" href="#tabBody1" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-line-chart"></span><span class="hidden-xs">Sales</span></a>
                     <div class="whiteBlock"></div>
                 </li>
+
+                <li class="tab fancyTab">
+                <div class="arrow-down"><div class="arrow-down-inner"></div></div>
+                    <a id="tab4" href="#tabBody2" role="tab" aria-controls="tabBody4" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-sun-o"></span><span class="hidden-xs">Admin</span></a>
+                    <div class="whiteBlock"></div>
+                </li>
             </ul>
             <div id="myTabContent" class="tab-content fancyTabContent" aria-live="polite">
                 <div class="tab-pane  fade active in" id="tabBody0" role="tabpanel" aria-labelledby="tab0" aria-hidden="false" tabindex="0">
@@ -402,6 +408,136 @@
                 </div>
                 <div class="tab-pane  fade" id="tabBody1" role="tabpanel" aria-labelledby="tab1" aria-hidden="true" tabindex="0">
                     
+                </div>
+                <div class="tab-pane  fade" id="tabBody2" role="tabpanel" aria-labelledby="tab1" aria-hidden="true" tabindex="0">
+                    <div class="row">
+                        <div class="col-lg-6" id="LeaveDiv" runat="server">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <asp:Button ID="btnLeave" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()" />
+                                    &nbsp;&nbsp;&nbsp;Leave
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div style="min-height: 15vh;">
+                                            <div class="table-responsive" id="gvLeaveDiv">
+                                                <asp:GridView ID="gvLeavePending" DataKeyNames="LeaveApplicationId" runat="server" RowStyle-Font-Size="9px"
+                                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                                    class="table table-striped" GridLines="None" Style="text-align: left"
+                                                    OnRowDataBound="gvLeavePending_RowDataBound" OnPageIndexChanging="gvLeavePending_PageIndexChanging"
+                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="5">
+                                                    <Columns>
+                                                        <asp:TemplateField>
+                                                            <HeaderTemplate>
+                                                                SN.
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <%#  (gvLeavePending.PageIndex * gvLeavePending.PageSize) + (Container.DataItemIndex + 1) %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField HeaderText="No" DataField="LeaveApplicationNumber" />
+                                                        <asp:TemplateField>
+                                                            <HeaderTemplate>
+                                                                Name
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <span title='<%# Eval("Requestor") %>'>
+                                                                    <%# (Eval("Requestor").ToString().Length>30)?Eval("Requestor").ToString().Substring(0,30)+"...":Eval("Requestor").ToString() %>
+                                                                </span>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField DataField="LeaveTypeName" HeaderText="Leave Type" />
+                                                         <asp:BoundField DataField="FromDate" HeaderText="From" />
+                                                        <asp:BoundField DataField="ToDate" HeaderText="To" />
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <span id="anchorLeave" runat="server" title='<%# Eval("LeaveStatusName").ToString() + " | "+ Eval("LeaveAccumulationTypeName").ToString() %>'><a href='LeaveManagement/LeaveApprove.aspx?callid=<%# Eval("LeaveApplicationId").ToString() %>'>
+                                                                    <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                    <FooterStyle BackColor="#99CCFF" Font-Bold="True" ForeColor="White" />
+                                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                    <EditRowStyle BackColor="#999999" />
+                                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ED6" ForeColor="White" HorizontalAlign="Center" Font-Overline="False" Font-Underline="False" />
+                                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                    <EmptyDataTemplate>
+                                                        No Record Found...
+                                                    </EmptyDataTemplate>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="ClaimDiv" runat="server">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <asp:Button ID="btnClaim" runat="server" Text="X" ToolTip="Close" OnClick="btnDivClose_Click" OnClientClick="showSuccessDivClose()" />
+                                    &nbsp;&nbsp;&nbsp;Claim 
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div style="min-height: 15vh;">
+                                            <div class="table-responsive" id="gvClaimDiv">
+                                                <asp:GridView ID="gvClaimApprovalList" DataKeyNames="ClaimId" runat="server" RowStyle-Font-Size="9px"
+                                                    AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                                                    class="table table-striped" GridLines="None" Style="text-align: left"
+                                                    OnRowDataBound="gvClaimApprovalList_RowDataBound" OnPageIndexChanging="gvClaimApprovalList_PageIndexChanging"
+                                                    AllowPaging="true" AllowCustomPaging="true" PageSize="5">
+                                                    <Columns>
+                                                        <asp:TemplateField>
+                                                            <HeaderTemplate>
+                                                                SN.
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <%#  (gvClaimApprovalList.PageIndex * gvClaimApprovalList.PageSize) + (Container.DataItemIndex + 1) %>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField HeaderText="No" DataField="ClaimNo" />
+                                                        <asp:TemplateField>
+                                                            <HeaderTemplate>
+                                                                Name
+                                                            </HeaderTemplate>
+                                                            <ItemTemplate>
+                                                                <span title='<%# Eval("Requestor") %>'>
+                                                                    <%# (Eval("Requestor").ToString().Length>30)?Eval("Requestor").ToString().Substring(0,30)+"...":Eval("Requestor").ToString() %>
+                                                                </span>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                         <asp:BoundField DataField="FromDate" HeaderText="Period From" />
+                                                        <asp:BoundField DataField="ToDate" HeaderText="Period To" />
+                                                        <asp:BoundField DataField="StatusName" HeaderText="Status" />
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <span id="anchorClaim" runat="server"><a href='ClaimManagement/ClaimApprove.aspx?callid=<%# Eval("ClaimId").ToString() %>'>
+                                                                    <img src="images/go_icon.gif" width="13px" alt="GO" /></a></span>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                    <FooterStyle BackColor="#99CCFF" Font-Bold="True" ForeColor="White" />
+                                                    <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
+                                                    <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />
+                                                    <EditRowStyle BackColor="#999999" />
+                                                    <EmptyDataRowStyle CssClass="EditRowStyle" />
+                                                    <AlternatingRowStyle CssClass="AltRowStyle" BackColor="White" ForeColor="#284775" />
+                                                    <PagerStyle CssClass="PagerStyle" BackColor="#379ED6" ForeColor="White" HorizontalAlign="Center" Font-Overline="False" Font-Underline="False" />
+                                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                    <EmptyDataTemplate>
+                                                        No Record Found...
+                                                    </EmptyDataTemplate>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

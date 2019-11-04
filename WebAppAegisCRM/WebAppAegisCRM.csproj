@@ -1123,9 +1123,7 @@
     <Folder Include="ClaimManagement\ClaimAttachments\" />
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
-    <Folder Include="js\" />
     <Folder Include="LeaveManagement\LeaveAttachment\" />
-    <Folder Include="less\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">

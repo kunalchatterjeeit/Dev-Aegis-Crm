@@ -23,6 +23,8 @@ namespace WebAppAegisCRM
                 LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
                 LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
                 LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);
+                GetLeaveApplications_ByApproverId((int)LeaveStatusEnum.Pending);
+                GetClaimApplications_ByApproverId((int)ClaimStatusEnum.Pending);
             }
 
             DocketListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
@@ -30,6 +32,8 @@ namespace WebAppAegisCRM
             ChartDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART);
             ExpiringListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST);
             ExpiredListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
+            LeaveDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_LEAVE_PENDING_LIST);
+            ClaimDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CLAIM_PENDING_LIST);
 
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART))
             {
@@ -88,6 +92,29 @@ namespace WebAppAegisCRM
             gvTonnerRequestAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvTonnerRequestAsync.DataBind();
         }
+
+        private void GetLeaveApplications_ByApproverId(int statusId)
+        {
+            LeaveTypeEnum leaveType = LeaveTypeEnum.None;
+            DateTime fromApplicationDate = DateTime.MinValue;
+            DateTime toApplicationDate = DateTime.MinValue;
+            DataTable dtLeaveApplicationMaster =
+                new Business.LeaveManagement.LeaveApprovalDetails()
+                .GetLeaveApplications_ByApproverId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), statusId, leaveType, fromApplicationDate, toApplicationDate);
+            gvLeavePending.DataSource = dtLeaveApplicationMaster;
+            gvLeavePending.DataBind();
+        }
+        private void GetClaimApplications_ByApproverId(int statusId)
+        {
+            DateTime fromApplicationDate = DateTime.MinValue;
+            DateTime toApplicationDate = DateTime.MinValue;
+            DataTable dtClaimApplicationMaster =
+                new Business.ClaimManagement.ClaimApprovalDetails()
+                .GetClaimApplications_ByApproverId(Convert.ToInt32(HttpContext.Current.User.Identity.Name), statusId, fromApplicationDate, toApplicationDate);
+            gvClaimApprovalList.DataSource = dtClaimApplicationMaster;
+            gvClaimApprovalList.DataBind();
+        }
+
 
 
         protected void LoadContractExpiredList(int pageIndex, int pageSize)
@@ -261,6 +288,14 @@ namespace WebAppAegisCRM
                     settingName = "CONTRACT_EXPIRED_LIST";
                     settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
                     break;
+                case "btnLeave":
+                    settingName = "LEAVE_PENDING_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_LEAVE_PENDING_LIST);
+                    break;
+                case "btnClaim":
+                    settingName = "CLAIM_PENDING_LIST";
+                    settingValue = Convert.ToInt32(Entity.HR.Utility.DASHBOARD_CLAIM_PENDING_LIST);
+                    break;
             }
 
             SaveSettings(userId, settingName, settingValue, false);
@@ -278,6 +313,26 @@ namespace WebAppAegisCRM
                 UserId = userId
             };
             objUserSettings.Save(userSettings);
+        }
+
+        protected void gvLeavePending_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gvLeavePending_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+        }
+
+        protected void gvClaimApprovalList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+
+        protected void gvClaimApprovalList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
         }
     }
 }

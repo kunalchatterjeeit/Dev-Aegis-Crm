@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Common;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -60,9 +61,9 @@ namespace DataAccess.ClaimManagement
             }
         }
 
-        public static DataTable Voucher_GetAll(Entity.ClaimManagement.Voucher voucher)
+        public static DataSet Voucher_GetAll(Entity.ClaimManagement.Voucher voucher)
         {
-            using (DataTable dt = new DataTable())
+            using (DataSet ds = new DataSet())
             {
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
                 {
@@ -83,16 +84,18 @@ namespace DataAccess.ClaimManagement
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ToDate", voucher.ToDate);
+                        cmd.InsertPaging(voucher, voucher.VoucherId);
+
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            da.Fill(dt);
+                            da.Fill(ds);
                         }
                         con.Close();
                     }
                 }
-                return dt;
+                return ds;
             }
         }
     }

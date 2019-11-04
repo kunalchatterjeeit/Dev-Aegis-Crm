@@ -112,6 +112,8 @@ namespace Entity.HR
         public const string DASHBOARD_CONTRACT_STATUS_CHART = "10003";
         public const string DASHBOARD_CONTRACT_EXPIRING_LIST = "10004";
         public const string DASHBOARD_CONTRACT_EXPIRED_LIST = "10005";
+        public const string DASHBOARD_LEAVE_PENDING_LIST = "10006";
+        public const string DASHBOARD_CLAIM_PENDING_LIST = "10007";
 
         //Claim Management
         public const string CLAIM_MANAGEMENT = "900";

@@ -52,6 +52,8 @@
                                                 <asp:ListItem Value="10003" Text="&nbsp;&nbsp;&nbsp;CONTRACT STATUS CHART"></asp:ListItem>
                                                 <asp:ListItem Value="10004" Text="&nbsp;&nbsp;&nbsp;CONTRACT EXPIRING SOON LIST"></asp:ListItem>
                                                 <asp:ListItem Value="10005" Text="&nbsp;&nbsp;&nbsp;CONTRACT EXPIRED LIST"></asp:ListItem>
+                                                <asp:ListItem Value="10006" Text="&nbsp;&nbsp;&nbsp;LEAVE PENDING LIST"></asp:ListItem>
+                                                <asp:ListItem Value="10007" Text="&nbsp;&nbsp;&nbsp;CLAIM PENDING LIST"></asp:ListItem>
                                             </asp:CheckBoxList>
                                         </div>
                                     </div>
