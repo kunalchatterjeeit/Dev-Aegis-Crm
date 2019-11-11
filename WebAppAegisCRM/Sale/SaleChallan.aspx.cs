@@ -177,6 +177,15 @@ namespace WebAppAegisCRM.Sale
             return retValue;
         }
 
+        private void Sale_ChallanType_GetAll()
+        {
+            ddlChallanType.DataSource = new Business.Sale.ChallanType().Sale_ChallanType_GetAll();
+            ddlChallanType.DataTextField = "TypeName";
+            ddlChallanType.DataValueField = "ChallanTypeId";
+            ddlChallanType.DataBind();
+            ddlChallanType.InsertSelect();
+        }
+
         private void ClearMasterControls()
         {
             Message.Show = false;
@@ -219,6 +228,7 @@ namespace WebAppAegisCRM.Sale
         {
             if (!IsPostBack)
             {
+                Sale_ChallanType_GetAll();
                 LoadAllItem();
                 LoadItemList();
                 ClearMasterControls();
@@ -388,7 +398,7 @@ namespace WebAppAegisCRM.Sale
             return purchaseDetailsResponse;
         }
 
-        private static int SaveInventoryDetails(Entity.Inventory.Inventory inventory, Business.Inventory.Inventory objInventory, int saleChallanId, DataTable dtInventory)
+        private int SaveInventoryDetails(Entity.Inventory.Inventory inventory, Business.Inventory.Inventory objInventory, int saleChallanId, DataTable dtInventory)
         {
             dtInventory.Columns.Add("AssetId");
             dtInventory.Columns.Add("ItemId");
@@ -404,7 +414,7 @@ namespace WebAppAegisCRM.Sale
                 drInventoryItem["AssetId"] = drItem["AssetId"].ToString().ToUpper();
                 drInventoryItem["ItemId"] = drItem["ItemId"].ToString();
                 drInventoryItem["ItemType"] = drItem["ItemType"].ToString();
-                drInventoryItem["AssetLocationId"] = (int)AssetLocation.Sale; //Stock In
+                drInventoryItem["AssetLocationId"] = (ddlChallanType.SelectedValue.ToUpper().Equals(AssetLocation.Sale.ToString().ToUpper())) ? (int)AssetLocation.Sale : (int)AssetLocation.FOC; //Stock In
                 drInventoryItem["CustomerId"] = "";
                 drInventoryItem["SaleChallanId"] = saleChallanId;
                 drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);

@@ -11,7 +11,7 @@ namespace Entity.Inventory
         Store = 1,
         Staff = 2,
         Sale = 3,
-        Customer = 4,
+        FOC = 4,
         OfficeAsset = 5
     }
 }

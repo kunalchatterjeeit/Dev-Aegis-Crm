@@ -379,10 +379,10 @@
                                     <a href="../Inventory/StockSnap.aspx">Stock Lookup</a>
                                 </li>
                                 <li id="liSaleEntry" runat="server" visible="false">
-                                    <a href="../Sale/SaleChallan.aspx">Sale Challan Entry</a>
+                                    <a href="../Sale/SaleChallan.aspx">Sale/FOC Challan Entry</a>
                                 </li>
                                 <li id="liSaleChallanList" runat="server" visible="false">
-                                    <a href="../Sale/SaleChallanList.aspx">Sale Challan List</a>
+                                    <a href="../Sale/SaleChallanList.aspx">Sale/FOC Challan List</a>
                                 </li> 
                             </ul>
                             <!-- /.nav-second-level -->

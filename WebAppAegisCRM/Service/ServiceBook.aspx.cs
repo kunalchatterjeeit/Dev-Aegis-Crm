@@ -848,7 +848,7 @@ namespace WebAppAegisCRM.Service
                 dtSpare.Rows.Add();
                 dtSpare.Rows[dtSpare.Rows.Count - 1]["AssetId"] = drReplacedItem["AssetId"];
                 dtSpare.Rows[dtSpare.Rows.Count - 1]["ReplacedItemId_FK"] = drReplacedItem["ItemId"];
-                dtSpare.Rows[dtSpare.Rows.Count - 1]["AssetLocationId"] = (int)AssetLocation.Customer;
+                dtSpare.Rows[dtSpare.Rows.Count - 1]["AssetLocationId"] = (int)AssetLocation.FOC;
                 dtSpare.AcceptChanges();
             }
         }
@@ -1350,7 +1350,7 @@ namespace WebAppAegisCRM.Service
                         DataRow dr = serviceBook.ServiceBookDetails.NewRow();
                         dr["TonerId"] = long.Parse(drAsset["ItemId"].ToString());
                         dr["AssetId"] = drAsset["AssetId"].ToString();
-                        dr["AssetLocationId"] = (int)AssetLocation.Customer;
+                        dr["AssetLocationId"] = (int)AssetLocation.FOC;
                         serviceBook.ServiceBookDetails.Rows.Add(dr);
                         serviceBook.ServiceBookDetails.AcceptChanges();
                     }

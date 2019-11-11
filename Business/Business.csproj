@@ -116,6 +116,7 @@
     <Compile Include="Sales\Assignment.cs" />
     <Compile Include="Sales\Quote.cs" />
     <Compile Include="Sales\SocialMedia.cs" />
+    <Compile Include="Sale\ChallanType.cs" />
     <Compile Include="Sale\SaleChallan.cs" />
     <Compile Include="Sales\Calls.cs" />
     <Compile Include="Sales\CallStatus.cs" />

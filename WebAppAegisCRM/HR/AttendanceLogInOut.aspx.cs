@@ -54,7 +54,7 @@ namespace WebAppAegisCRM.HR
                         }
 
                     }
-                    Response.Redirect("http://aegiscrm.in/dashboard.aspx");
+                    Response.Redirect("http://crm.aegissolutions.in/dashboard.aspx");
                 }
             }
             catch (Exception ex)

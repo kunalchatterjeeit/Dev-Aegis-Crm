@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SALE CHALLAN" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallan.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallan" %>
+﻿<%@ Page Title="SALE/FOC CHALLAN" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallan.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallan" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -51,7 +51,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading" style="font-size: large;">
-                            Sale Challan 
+                            Sale/FOC Challan 
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -93,8 +93,6 @@
                                     <div class="form-group has-error">
                                         Challan Type
                                 <asp:DropDownList ID="ddlChallanType" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
-                                    <asp:ListItem Value="1">Sale</asp:ListItem>
                                 </asp:DropDownList>
                                     </div>
                                 </div>
