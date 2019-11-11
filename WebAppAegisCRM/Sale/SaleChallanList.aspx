@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SALE CHALLAN LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallanList.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallanList" %>
+﻿<%@ Page Title="SALE/FOC CHALLAN LIST" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallanList.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallanList" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    Sale From Date :
+                                    From Date :
                                 <asp:TextBox ID="txtSaleFromDate" CssClass="form-control" runat="server"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender4" runat="server" Enabled="True"
                                         Format="dd MMM yyyy" TargetControlID="txtSaleFromDate">
@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    Sale To Date :
+                                    To Date :
                                 <asp:TextBox ID="txtSaleToDate" CssClass="form-control" runat="server"></asp:TextBox>
                                     <asp:CalendarExtender ID="CalendarExtender3" runat="server" Enabled="True"
                                         Format="dd MMM yyyy" TargetControlID="txtSaleToDate">
@@ -87,7 +87,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Sale Challan List
+                            Challan List
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
@@ -106,6 +106,7 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Customer" DataField="CustomerName" />
+                                        <asp:BoundField HeaderText="Challan Type" DataField="TypeName" />
                                         <asp:BoundField HeaderText="Challan No" DataField="ChallanNo" />
                                         <asp:BoundField HeaderText="Order No" DataField="OrderNo" />
                                         <asp:BoundField HeaderText="Order Date" DataField="OrderDate" />
