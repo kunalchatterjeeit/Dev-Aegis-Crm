@@ -54,23 +54,5 @@ namespace WebAppAegisCRM.Inventory
             }
         }
 
-        protected void gvStockSnap_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            try
-            {
-                if (e.Row.RowType == DataControlRowType.DataRow)
-                {
-                    LinkButton btnShow = (LinkButton)e.Row.FindControl("btnShow");
-                    if (!(((DataTable)gvStockSnap.DataSource).Rows[e.Row.RowIndex]["Location"].ToString()).Equals("Store"))
-                    {
-                        btnShow.Visible = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ex.WriteException();
-            }
-        }
     }
 }

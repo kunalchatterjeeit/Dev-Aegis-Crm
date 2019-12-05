@@ -40,7 +40,7 @@
                     <asp:GridView ID="gvStockSnap" runat="server" AutoGenerateColumns="False"
                         Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped" GridLines="None"
                         Style="text-align: left" OnPageIndexChanging="gvStockSnap_PageIndexChanging" PageSize="20"
-                        AllowPaging="true" OnRowCommand="gvStockSnap_RowCommand" OnRowDataBound="gvStockSnap_RowDataBound">
+                        AllowPaging="true" OnRowCommand="gvStockSnap_RowCommand">
                         <Columns>
                             <asp:TemplateField>
                                 <HeaderTemplate>
@@ -56,7 +56,7 @@
                             <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="btnShow" runat="server" class="fa fa-folder-o fa-fw" CommandName="Details" CausesValidation="false"
+                                    <asp:LinkButton ID="btnShow" runat="server" Visible='<%# (Eval("Location").ToString().Equals("Store")? true:false) %>' class="fa fa-folder-o fa-fw" CommandName="Details" CausesValidation="false"
                                         CommandArgument='<%# Eval("ItemId")+"|"+Eval("ItemType") %>' Style="font-size: 16px;"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
