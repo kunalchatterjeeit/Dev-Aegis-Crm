@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,10 +29,20 @@ namespace WebAppAegisCRM.Sale
             gvSale.DataBind();
         }
 
+        private void Sale_ChallanType_GetAll()
+        {
+            ddlChallanType.DataSource = new Business.Sale.ChallanType().Sale_ChallanType_GetAll();
+            ddlChallanType.DataTextField = "TypeName";
+            ddlChallanType.DataValueField = "ChallanTypeId";
+            ddlChallanType.DataBind();
+            ddlChallanType.InsertSelect();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                Sale_ChallanType_GetAll();
                 txtSaleFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 txtSaleToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 Sale_GetAll();

@@ -168,7 +168,7 @@ legend {
     width: 90%;
     height: 400px;
     float: left;
-    margin: 20px;
+    margin: 20px 0px 20px 20px;
 }
 
 .popup-working-section-small {
@@ -578,7 +578,7 @@ li.fancyTab.active a {
 }
 
 .fancyTab .fa {
-    font-size: 40px;
+    font-size: 30px;
     width: 100%;
     padding: 15px 0 5px;
     color: #666;

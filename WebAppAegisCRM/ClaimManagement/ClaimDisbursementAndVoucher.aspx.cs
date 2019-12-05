@@ -290,6 +290,10 @@ namespace WebAppAegisCRM.ClaimManagement
                         Message.Show = true;
                         ModalPopupExtender1.Show();
                     }
+
+                    ClearPaymentDetailsControls();
+                    _ClaimPaymentDetails.Clear();
+                    LoadClaimPaymentDetails();
                 }
             }
             catch (Exception ex)

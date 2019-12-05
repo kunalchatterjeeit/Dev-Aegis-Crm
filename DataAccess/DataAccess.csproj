@@ -74,6 +74,9 @@
     <Compile Include="HR\Attendance.cs" />
     <Compile Include="HR\Holiday.cs" />
     <Compile Include="HR\HolidayProfile.cs" />
+    <Compile Include="Inventory\StockLocation.cs" />
+    <Compile Include="Inventory\StockLocationTransaction.cs" />
+    <Compile Include="Inventory\StoreMaster.cs" />
     <Compile Include="LeaveManagement\LeaveAccountBalance.cs" />
     <Compile Include="LeaveManagement\LeaveApplication.cs" />
     <Compile Include="LeaveManagement\LeaveApprovalConfiguration.cs" />

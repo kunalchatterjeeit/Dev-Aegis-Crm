@@ -74,6 +74,30 @@ namespace DataAccess.Inventory
             }
         }
 
+        public static DataTable Inventory_ProductGetByStoreId(int storeId, int companyId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_Inventory_ProductGetByStoreId";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@CompanyId", companyId);
+                        cmd.Parameters.AddWithValue("@StoreId", storeId);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
         public static Entity.Inventory.ProductMaster GetById(int ProductMasterId)
         {
             Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
@@ -167,7 +191,7 @@ namespace DataAccess.Inventory
                         cmd.CommandText = "usp_Inventory_ProductSpareMapping_GetById";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@ProductId", productid);
-                        if(itemType == ItemType.None)
+                        if (itemType == ItemType.None)
                             cmd.Parameters.AddWithValue("@ItemType", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ItemType", (int)itemType);

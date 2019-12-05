@@ -21,6 +21,11 @@ namespace Business.Inventory
             return DataAccess.Inventory.SpareMaster.GetAll(spareMaster);
         }
 
+        public DataTable Inventory_SpareGetByStoreId(int storeId)
+        {
+            return DataAccess.Inventory.SpareMaster.Inventory_SpareGetByStoreId(storeId);
+        }
+
         public Entity.Inventory.SpareMaster GetById(int SpareMasterId)
         {
             return DataAccess.Inventory.SpareMaster.GetById(SpareMasterId);

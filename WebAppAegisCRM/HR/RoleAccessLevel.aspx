@@ -91,6 +91,8 @@
                                 </asp:ListItem>
                                  <asp:ListItem Value="810" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT SALES TASK STATUS">
                                 </asp:ListItem>
+                                <asp:ListItem Value="108" Text="&nbsp;&nbsp;&nbsp;ADD/EDIT STORE LOCATION">
+                                </asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>

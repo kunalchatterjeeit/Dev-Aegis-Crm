@@ -20,6 +20,7 @@ namespace Entity.HR
         public const string ADDEDITMODEL = "105";
         public const string ADDEDITSPARE = "106";
         public const string MODELSPAREMAPPING = "107";
+        public const string ADDEDITSTOREMASTER = "108";
 
         //HR
         public const string HR = "200";

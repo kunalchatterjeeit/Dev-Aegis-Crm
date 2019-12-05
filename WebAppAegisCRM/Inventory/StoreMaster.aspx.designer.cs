@@ -10,105 +10,87 @@
 namespace WebAppAegisCRM.Inventory {
     
     
-    public partial class StockSnap {
+    public partial class StoreMaster {
         
         /// <summary>
-        /// ToolkitScriptManager1 control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// txtName control.
+        /// txtStoreName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtName;
+        protected global::System.Web.UI.WebControls.TextBox txtStoreName;
         
         /// <summary>
-        /// btnSearch control.
+        /// txtPhone control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearch;
+        protected global::System.Web.UI.WebControls.TextBox txtPhone;
         
         /// <summary>
-        /// gvStockSnap control.
+        /// ddlContactPerson control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStockSnap;
+        protected global::System.Web.UI.WebControls.DropDownList ddlContactPerson;
         
         /// <summary>
-        /// lnk2 control.
+        /// txtLocation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnk2;
+        protected global::System.Web.UI.WebControls.TextBox txtLocation;
         
         /// <summary>
-        /// ModalPopupExtender2 control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender ModalPopupExtender2;
+        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// Panel2 control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel2;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// Panel4 control.
+        /// Message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel4;
+        protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
-        /// popupHeader2 control.
+        /// gvStoreList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl popupHeader2;
-        
-        /// <summary>
-        /// gvStockLocation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvStockLocation;
-        
-        /// <summary>
-        /// imgbtn2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgbtn2;
+        protected global::System.Web.UI.WebControls.GridView gvStoreList;
     }
 }

@@ -49,6 +49,15 @@ namespace WebAppAegisCRM.Purchase {
         protected global::WebAppAegisCRM.UserControl.Message Message;
         
         /// <summary>
+        /// ddlStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
         /// ddlVendor control.
         /// </summary>
         /// <remarks>

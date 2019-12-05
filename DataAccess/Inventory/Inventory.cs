@@ -110,7 +110,7 @@ namespace DataAccess.Inventory
             }
         }
 
-        public static DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType)
+        public static DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType, int storeId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -127,6 +127,7 @@ namespace DataAccess.Inventory
                             cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
                         cmd.Parameters.AddWithValue("@AssetLocationId", (int)assetLocation);
                         cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
+                        cmd.Parameters.AddWithValue("@StoreId", storeId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -140,7 +141,7 @@ namespace DataAccess.Inventory
             }
         }
 
-        public static DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName)
+        public static DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName, int storeId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -154,6 +155,7 @@ namespace DataAccess.Inventory
                         cmd.Parameters.AddWithValue("@AssetLocationId", (int)assetLocation);
                         cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
                         cmd.Parameters.AddWithValue("@ItemName", itemName);
+                        cmd.Parameters.AddWithValue("@StoreId", storeId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -196,6 +198,32 @@ namespace DataAccess.Inventory
             }
 
             return rowsAffacted;
+        }
+
+        public static DataTable Inventory_StockLocationWiseQuantity(int itemId, ItemType itemType)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Inventory_StockLocationWiseQuantity";
+                        cmd.Parameters.AddWithValue("@ItemId", itemId);
+                        cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
         }
     }
 }

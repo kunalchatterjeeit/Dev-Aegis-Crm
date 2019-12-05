@@ -31,6 +31,16 @@ namespace WebAppAegisCRM.Purchase
             gvItem.DataBind();
         }
 
+        private void LoadStore()
+        {
+            Business.Inventory.StoreMaster objStoreMaster = new Business.Inventory.StoreMaster();
+            ddlStore.DataSource = objStoreMaster.GetAll();
+            ddlStore.DataTextField = "StoreName";
+            ddlStore.DataValueField = "StoreId";
+            ddlStore.DataBind();
+            ddlStore.InsertSelect();
+        }
+
         private void LoadVendor()
         {
             Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
@@ -137,6 +147,7 @@ namespace WebAppAegisCRM.Purchase
             txtBillAmount.Text = string.Empty;
             txtPaymentAmount.Text = string.Empty;
             txtPurchaseDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+            ddlStore.SelectedIndex = 0;
             _ItemsList = null;
         }
 
@@ -151,11 +162,12 @@ namespace WebAppAegisCRM.Purchase
             //_ItemsList = null;
             ddlItem.Focus();
         }
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                LoadStore();
                 LoadVendor();
                 LoadAllItem();
                 LoadItemList();
@@ -264,6 +276,7 @@ namespace WebAppAegisCRM.Purchase
                         dtInventory.Columns.Add("CustomerId");
                         dtInventory.Columns.Add("SaleChallanId");
                         dtInventory.Columns.Add("EmployeeId");
+                        dtInventory.Columns.Add("StoreId");
 
                         foreach (DataRow drItem in _ItemsList.Rows)
                         {
@@ -277,6 +290,7 @@ namespace WebAppAegisCRM.Purchase
                                 drInventoryItem["CustomerId"] = "";
                                 drInventoryItem["SaleChallanId"] = "";
                                 drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                                drInventoryItem["StoreId"] = Convert.ToInt32(ddlStore.SelectedValue);
                                 dtInventory.Rows.Add(drInventoryItem);
                                 dtInventory.AcceptChanges();
                             }

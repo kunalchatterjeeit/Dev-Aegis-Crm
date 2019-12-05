@@ -1,4 +1,4 @@
-﻿<%@ Page Title="SALE/FOC CHALLAN" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallan.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallan" %>
+﻿<%@ Page Title="SALE/FOC/STOCK TRANSFER CHALLAN" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="SaleChallan.aspx.cs" Inherits="WebAppAegisCRM.Sale.SaleChallan" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Src="../UserControl/Message.ascx" TagName="Message" TagPrefix="uc3" %>
@@ -51,23 +51,30 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading" style="font-size: large;">
-                            Sale/FOC Challan 
+                            Sale/FOC/Stock Transfer Challan 
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        Store
+                                <asp:DropDownList ID="ddlStore" CssClass="form-control searchable" runat="server" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Customer
                                         <asp:TextBox ID="txtCustomerName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         Note
                                 <asp:TextBox ID="txtNote" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                                <div class="clearfix"></div>
+                                <%--<div class="clearfix"></div>--%>
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Challan No.
@@ -92,7 +99,14 @@
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Challan Type
-                                <asp:DropDownList ID="ddlChallanType" CssClass="form-control" runat="server">
+                                <asp:DropDownList ID="ddlChallanType" CssClass="form-control" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlChallanType_SelectedIndexChanged">
+                                </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
+                                        To Store
+                                <asp:DropDownList ID="ddlToStore" CssClass="form-control searchable" runat="server" Enabled="false">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
@@ -120,7 +134,6 @@
                                     <div class="form-group has-error">
                                         Item
                                 <asp:DropDownList ID="ddlItem" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                                 </asp:DropDownList>
                                     </div>
                                 </div>
@@ -177,7 +190,7 @@
                                                     <asp:BoundField HeaderText="Rate" DataField="Rate" />
                                                     <asp:BoundField HeaderText="GST" DataField="GST" />
                                                     <asp:BoundField HeaderText="HSN Code" DataField="HSNCode" />
-                                                 
+
                                                     <asp:TemplateField ItemStyle-Width="15px">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"

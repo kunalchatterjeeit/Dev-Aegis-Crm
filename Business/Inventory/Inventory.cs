@@ -27,19 +27,24 @@ namespace Business.Inventory
             return DataAccess.Inventory.Inventory.Inventory_Transaction_GetByInventoryId(inventoryId);
         }
 
-        public DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType)
+        public DataTable Inventory_GetApprovedInventorySpareByServiceBookId(long serviceBookId, AssetLocation assetLocation, ItemType itemType, int storeId)
         {
-            return DataAccess.Inventory.Inventory.Inventory_GetApprovedInventorySpareByServiceBookId(serviceBookId, assetLocation, itemType);
+            return DataAccess.Inventory.Inventory.Inventory_GetApprovedInventorySpareByServiceBookId(serviceBookId, assetLocation, itemType, storeId);
         }
 
-        public DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName)
+        public DataTable Inventory_GetInventoryItem(AssetLocation assetLocation, ItemType itemType, string itemName, int storeId)
         {
-            return DataAccess.Inventory.Inventory.Inventory_GetInventoryItem(assetLocation, itemType, itemName);
+            return DataAccess.Inventory.Inventory.Inventory_GetInventoryItem(assetLocation, itemType, itemName, storeId);
         }
 
         public int Inventory_Movement(Entity.Inventory.Inventory inventory)
         {
             return DataAccess.Inventory.Inventory.Inventory_Movement(inventory);
+        }
+
+        public DataTable Inventory_StockLocationWiseQuantity(int itemId, ItemType itemType)
+        {
+            return DataAccess.Inventory.Inventory.Inventory_StockLocationWiseQuantity(itemId, itemType);
         }
     }
 }
