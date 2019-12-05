@@ -20,6 +20,10 @@ namespace Business.Inventory
         {
             return DataAccess.Inventory.ProductMaster.GetAll(productMaster);
         }
+        public DataTable Inventory_ProductGetByStoreId(int storeId, int companyId)
+        {
+            return DataAccess.Inventory.ProductMaster.Inventory_ProductGetByStoreId(storeId, companyId);
+        }
         public Entity.Inventory.ProductMaster GetById(int productMasterId)
         {
             return DataAccess.Inventory.ProductMaster.GetById(productMasterId);

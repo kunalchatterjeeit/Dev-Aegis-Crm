@@ -19,6 +19,7 @@ namespace Entity.Purchase
         public decimal BillAmount { get; set; }
         public decimal PaymentAmount { get; set; }
         public int CreatedBy { get; set; }
+        public int StoreId { get; set; }
 
         public DateTime InvoiceFromDate { get; set; }
         public DateTime InvoiceToDate { get; set; }

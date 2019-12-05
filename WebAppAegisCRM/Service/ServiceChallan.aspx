@@ -23,6 +23,9 @@
             <ContentTemplate>
                 <%--<asp:HiddenField ID="hdnProductId" runat="server" />--%>
                 <div style="overflow: scroll; height: 60vh;">
+                    <asp:DropDownList ID="ddlStore" Style="max-width: 100px; margin: 5px 10px; font-size: 11px" 
+                        CssClass="form-control myInputDropdown searchable" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged">
+                    </asp:DropDownList>
                     <asp:TextBox ID="txtItem" CssClass="form-control myInput"
                         Style="max-width: 400px; margin: 5px 10px; font-size: 11px" runat="server"
                         onkeydown="javascript:GetAutocompleteInventories()" placeholder="Search"></asp:TextBox>
@@ -46,7 +49,7 @@
                                     <td><%# Eval("Yield") %></td>
                                     <td>
                                         <asp:ImageButton ID="btnAdd" runat="server" ImageUrl="~/Images/add_to_cart.png" Width="17px" Height="17px" ToolTip="Add" CommandName="Add"
-                                            CommandArgument='<%# Eval("AssetId")+"|"+Eval("ItemId") %>' Enabled='<%# (Eval("IsSelected").ToString() == "1"?false:true)%>' />
+                                            CommandArgument='<%# Eval("AssetId")+"|"+Eval("ItemId")+"|"+Eval("StockLocationId") %>' Enabled='<%# (Eval("IsSelected").ToString() == "1"?false:true)%>' />
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -90,7 +93,7 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
-        <asp:Button ID="btnSign" runat="server" Text="Proceed to Sign" class="btn" OnClientClick="showSignaturePad(); return false;"  />
+        <asp:Button ID="btnSign" runat="server" Text="Proceed to Sign" class="btn" OnClientClick="showSignaturePad(); return false;" />
         <asp:Button ID="btnDone" runat="server" Text="Done" class="btn" OnClientClick="window.close();" />
 
         <div id="signature-pad" class="m-signature-pad" style="display: none">

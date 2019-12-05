@@ -66,6 +66,29 @@ namespace DataAccess.Inventory
             }
         }
 
+        public static DataTable Inventory_SpareGetByStoreId(int storeId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = "usp_Inventory_SpareGetByStoreId";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@StoreId", storeId);
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
         public static Entity.Inventory.SpareMaster GetById(int SpareMasterId)
         {
             Entity.Inventory.SpareMaster spareMaster = new Entity.Inventory.SpareMaster();

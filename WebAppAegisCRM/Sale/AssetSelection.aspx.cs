@@ -27,10 +27,15 @@ namespace WebAppAegisCRM.Sale
             get { return (ItemType)Enum.Parse(typeof(ItemType), ViewState["_ItemType"].ToString()); }
             set { ViewState["_ItemType"] = value; }
         }
+        public int _StoreId
+        {
+            get { return Convert.ToInt32(ViewState["_StoreId"].ToString()); }
+            set { ViewState["_StoreId"] = value; }
+        }
         private void LoadItemFromStore()
         {
             Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
-            DataTable dt = objInventory.Inventory_GetInventoryItem(AssetLocation.Store, _ItemType, _ItemName);
+            DataTable dt = objInventory.Inventory_GetInventoryItem(AssetLocation.Store, _ItemType, _ItemName, _StoreId);
             dt.Columns.Add("IsSelected");
             if (Business.Common.Context.SelectedSaleAssets.Rows.Count > 0)
             {
@@ -85,6 +90,10 @@ namespace WebAppAegisCRM.Sale
                     {
                         _Quantity = Convert.ToDecimal(Request.QueryString["Quantity"]);
                     }
+                    if (Request.QueryString["StoreId"] != null)
+                    {
+                        _StoreId = Convert.ToInt32(Request.QueryString["StoreId"]);
+                    }
                     _ItemName = itemNo.Substring(0, itemNo.Length - 4);
                     LoadItemFromStore();
                 }
@@ -103,6 +112,7 @@ namespace WebAppAegisCRM.Sale
                 Message.Show = false;
                 string assetId = e.CommandArgument.ToString().Split('|')[0];
                 string itemId = e.CommandArgument.ToString().Split('|')[1];
+                string stockLocationId = e.CommandArgument.ToString().Split('|')[2];
                 if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
                 {
                     Message.IsSuccess = false;
@@ -128,6 +138,7 @@ namespace WebAppAegisCRM.Sale
                         Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemName");
                         Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemType");
                         Business.Common.Context.SelectedSaleAssets.Columns.Add("Finalized");
+                        Business.Common.Context.SelectedSaleAssets.Columns.Add("StockLocationId");
                     }
                     DataRow dr = Business.Common.Context.SelectedSaleAssets.NewRow();
                     dr["AssetId"] = assetId;
@@ -135,6 +146,7 @@ namespace WebAppAegisCRM.Sale
                     dr["ItemName"] = _ItemName;
                     dr["ItemType"] = (int)_ItemType;
                     dr["Finalized"] = "False";
+                    dr["StockLocationId"] = stockLocationId;
                     Business.Common.Context.SelectedSaleAssets.Rows.Add(dr);
 
                     LoadItemFromStore();

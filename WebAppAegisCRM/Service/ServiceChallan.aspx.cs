@@ -18,7 +18,7 @@ namespace WebAppAegisCRM.Service
             try
             {
                 Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
-                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Spare);
+                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Spare, Convert.ToInt32(ddlStore.SelectedValue));
                 dt.Columns.Add("IsSelected");
                 if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
@@ -48,7 +48,7 @@ namespace WebAppAegisCRM.Service
             try
             {
                 Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
-                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Toner);
+                DataTable dt = objInventory.Inventory_GetApprovedInventorySpareByServiceBookId(Business.Common.Context.ServiceBookId, AssetLocation.Store, ItemType.Toner, Convert.ToInt32(ddlStore.SelectedValue));
                 dt.Columns.Add("IsSelected");
                 if (Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
@@ -83,20 +83,9 @@ namespace WebAppAegisCRM.Service
         {
             if (!IsPostBack)
             {
+                LoadStore();
                 Message.Show = false;
-                if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
-                {
-                    btnSign.Visible = true;
-                    btnDone.Visible = false;
-                    GetSpareInventory();
-                }
-                else if (Business.Common.Context.CallType == Entity.Service.CallType.Toner)
-                {
-                    btnSign.Visible = false;
-                    btnDone.Visible = true;
-                    GetTonerInventory();
-                }
-
+                
                 if (Business.Common.Context.SelectedAssets != null && Business.Common.Context.SelectedAssets.Rows.Count > 0)
                 {
                     LoadSelectedAssets();
@@ -112,6 +101,7 @@ namespace WebAppAegisCRM.Service
                 Message.Show = false;
                 string assetId = e.CommandArgument.ToString().Split('|')[0];
                 string itemId = e.CommandArgument.ToString().Split('|')[1];
+                string stockLocationId = e.CommandArgument.ToString().Split('|')[2];
                 if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
                 {
                     Message.IsSuccess = false;
@@ -134,10 +124,12 @@ namespace WebAppAegisCRM.Service
                         Business.Common.Context.SelectedAssets = new DataTable();
                         Business.Common.Context.SelectedAssets.Columns.Add("AssetId");
                         Business.Common.Context.SelectedAssets.Columns.Add("ItemId");
+                        Business.Common.Context.SelectedAssets.Columns.Add("StockLocationId");
                     }
                     DataRow dr = Business.Common.Context.SelectedAssets.NewRow();
                     dr["AssetId"] = assetId;
                     dr["ItemId"] = itemId;
+                    dr["StockLocationId"] = stockLocationId;
                     Business.Common.Context.SelectedAssets.Rows.Add(dr);
 
                     if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
@@ -183,6 +175,32 @@ namespace WebAppAegisCRM.Service
 
             Business.Common.Context.Signature = signature.Value;
             ClientScript.RegisterClientScriptBlock(Page.GetType(), "script", "window.close();", true);
+        }
+
+        private void LoadStore()
+        {
+            Business.Inventory.StoreMaster objStoreMaster = new Business.Inventory.StoreMaster();
+            ddlStore.DataSource = objStoreMaster.GetAll();
+            ddlStore.DataTextField = "StoreName";
+            ddlStore.DataValueField = "StoreId";
+            ddlStore.DataBind();
+            ddlStore.InsertSelect();
+        }
+
+        protected void ddlStore_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (Business.Common.Context.CallType == Entity.Service.CallType.Docket)
+            {
+                btnSign.Visible = true;
+                btnDone.Visible = false;
+                GetSpareInventory();
+            }
+            else if (Business.Common.Context.CallType == Entity.Service.CallType.Toner)
+            {
+                btnSign.Visible = false;
+                btnDone.Visible = true;
+                GetTonerInventory();
+            }
         }
     }
 }

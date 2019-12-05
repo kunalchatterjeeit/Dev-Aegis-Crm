@@ -41,7 +41,7 @@ namespace WebAppAegisCRM.Sale
 
                 Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
 
-                foreach (DataRow drItem in objProductMaster.GetAll(new Entity.Inventory.ProductMaster() { CompanyMasterId = 1 }).Rows)
+                foreach (DataRow drItem in objProductMaster.Inventory_ProductGetByStoreId(Convert.ToInt32(ddlStore.SelectedValue), 1).Rows)
                 {
                     DataRow drNewItem = dtItem.NewRow();
                     drNewItem["ItemIdType"] = drItem["ProductMasterId"].ToString() + "|" + (int)ItemType.Product;
@@ -52,7 +52,7 @@ namespace WebAppAegisCRM.Sale
 
                 Business.Inventory.SpareMaster objSpareMaster = new Business.Inventory.SpareMaster();
 
-                foreach (DataRow drItem in objSpareMaster.GetAll(new Entity.Inventory.SpareMaster() { }).Rows)
+                foreach (DataRow drItem in objSpareMaster.Inventory_SpareGetByStoreId(Convert.ToInt32(ddlStore.SelectedValue)).Rows)
                 {
                     DataRow drNewItem = dtItem.NewRow();
                     drNewItem["ItemIdType"] = drItem["SpareId"].ToString() + "|" + (int)ItemType.Spare;
@@ -188,11 +188,14 @@ namespace WebAppAegisCRM.Sale
 
         private void ClearMasterControls()
         {
-            Message.Show = false;
             txtOrderDate.Text = DateTime.Now.ToString("dd MMM yyyy");
             txtChallanNo.Text = string.Empty;
             txtOrderNo.Text = string.Empty;
             ddlChallanType.SelectedIndex = 0;
+            ddlStore.SelectedIndex = 0;
+            ddlToStore.SelectedIndex = 0;
+            txtCustomerName.Text = string.Empty;
+            txtOrderDate.Text = string.Empty;
             _ItemsList = null;
         }
 
@@ -224,15 +227,35 @@ namespace WebAppAegisCRM.Sale
             return retValue;
         }
 
+        private void LoadStore()
+        {
+            Business.Inventory.StoreMaster objStoreMaster = new Business.Inventory.StoreMaster();
+            ddlStore.DataSource = objStoreMaster.GetAll();
+            ddlStore.DataTextField = "StoreName";
+            ddlStore.DataValueField = "StoreId";
+            ddlStore.DataBind();
+            ddlStore.InsertSelect();
+        }
+
+        private void LoadToStore()
+        {
+            Business.Inventory.StoreMaster objStoreMaster = new Business.Inventory.StoreMaster();
+            ddlToStore.DataSource = objStoreMaster.GetAll();
+            ddlToStore.DataTextField = "StoreName";
+            ddlToStore.DataValueField = "StoreId";
+            ddlToStore.DataBind();
+            ddlToStore.InsertSelect();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                Message.Show = false;
                 Sale_ChallanType_GetAll();
-                LoadAllItem();
                 LoadItemList();
-                ClearMasterControls();
-                ClearItemControls();
+                LoadStore();
+                LoadToStore();
                 Business.Common.Context.SelectedSaleAssets.Clear();
             }
         }
@@ -267,7 +290,7 @@ namespace WebAppAegisCRM.Sale
             _ItemsList.AcceptChanges();
 
             LoadItemList();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "OpenWindow('AssetSelection.aspx?ItemNo=" + ddlItem.SelectedItem.Text + "&Quantity=" + txtQuantity.Text + "');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "OpenWindow('AssetSelection.aspx?ItemNo=" + ddlItem.SelectedItem.Text + "&Quantity=" + txtQuantity.Text + "&StoreId=" + ddlStore.SelectedValue + "');", true);
 
             ClearItemControls();
         }
@@ -342,22 +365,31 @@ namespace WebAppAegisCRM.Sale
                     {
                         using (DataTable dtInventory = new DataTable())
                         {
-                            int inventoryResponse = SaveInventoryDetails(inventory, objInventory, saleChallanId, dtInventory);
-
-                            if (inventoryResponse > 0)
+                            inventory = PrepareInventoryDetails(saleChallanId, inventory, dtInventory);
+                            if (ddlChallanType.SelectedValue == "3")//Stock Transfer
                             {
-                                ClearMasterControls();
-                                ClearItemControls();
-                                Business.Common.Context.SelectedSaleAssets.Clear();
-                                LoadItemList();
+                                StockLocation_Save(inventory);
+                                StockLocationTransaction_Save(inventory);
                                 Message.IsSuccess = true;
-                                Message.Text = "Sale Order saved";
+                                Message.Text = "Stock transfer successful.";
                             }
                             else
                             {
-                                Message.IsSuccess = false;
-                                Message.Text = "Inventory not saved";
+                                int inventoryResponse = SaveInventoryDetails(inventory, objInventory);
+                                StockLocation_Delete(inventory);
+                                if (inventoryResponse > 0)
+                                {
+                                    LoadItemList();
+                                    Message.IsSuccess = true;
+                                    Message.Text = "Sale Order saved";
+                                }
+                                else
+                                {
+                                    Message.IsSuccess = false;
+                                    Message.Text = "Inventory not saved";
+                                }
                             }
+                            ClearAllControls();
                         }
                     }
                     else
@@ -374,6 +406,50 @@ namespace WebAppAegisCRM.Sale
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+            }
+        }
+
+        private void ClearAllControls()
+        {
+            Business.Common.Context.SelectedSaleAssets.Clear();
+            ClearMasterControls();
+            ClearItemControls();
+            gvItem.DataSource = null;
+            gvItem.DataBind();
+        }
+
+        private void StockLocation_Save(Entity.Inventory.Inventory inventory)
+        {
+            Business.Inventory.StockLocation objStockLocation = new Business.Inventory.StockLocation();
+            foreach (DataRow dr in inventory.InventoryDetails.Rows)
+            {
+                objStockLocation.Save(new StockLocation()
+                {
+                    StockLocationId = Convert.ToInt64(dr["StockLocationId"].ToString()),
+                    StoreId = Convert.ToInt32(ddlToStore.SelectedValue)
+                });
+            }
+        }
+
+        private void StockLocationTransaction_Save(Entity.Inventory.Inventory inventory)
+        {
+            Business.Inventory.StockLocationTransaction objStockLocationTransaction = new Business.Inventory.StockLocationTransaction();
+            foreach (DataRow dr in inventory.InventoryDetails.Rows)
+            {
+                objStockLocationTransaction.Save(new StockLocationTransaction()
+                {
+                    StockLocationId = Convert.ToInt64(dr["StockLocationId"].ToString()),
+                    EmployeeId = Convert.ToInt32(HttpContext.Current.User.Identity.Name)
+                });
+            }
+        }
+
+        private void StockLocation_Delete(Entity.Inventory.Inventory inventory)
+        {
+            Business.Inventory.StockLocation objStockLocation = new Business.Inventory.StockLocation();
+            foreach (DataRow dr in inventory.InventoryDetails.Rows)
+            {
+                objStockLocation.Delete(Convert.ToInt64(dr["StockLocationId"].ToString()));
             }
         }
 
@@ -398,7 +474,7 @@ namespace WebAppAegisCRM.Sale
             return purchaseDetailsResponse;
         }
 
-        private int SaveInventoryDetails(Entity.Inventory.Inventory inventory, Business.Inventory.Inventory objInventory, int saleChallanId, DataTable dtInventory)
+        private Entity.Inventory.Inventory PrepareInventoryDetails(int saleChallanId, Entity.Inventory.Inventory inventory, DataTable dtInventory)
         {
             dtInventory.Columns.Add("AssetId");
             dtInventory.Columns.Add("ItemId");
@@ -407,6 +483,7 @@ namespace WebAppAegisCRM.Sale
             dtInventory.Columns.Add("CustomerId");
             dtInventory.Columns.Add("SaleChallanId");
             dtInventory.Columns.Add("EmployeeId");
+            dtInventory.Columns.Add("StockLocationId");
 
             foreach (DataRow drItem in Business.Common.Context.SelectedSaleAssets.Rows)
             {
@@ -418,13 +495,38 @@ namespace WebAppAegisCRM.Sale
                 drInventoryItem["CustomerId"] = "";
                 drInventoryItem["SaleChallanId"] = saleChallanId;
                 drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                drInventoryItem["StockLocationId"] = Convert.ToInt64(drItem["StockLocationId"].ToString());
                 dtInventory.Rows.Add(drInventoryItem);
                 dtInventory.AcceptChanges();
             }
 
             inventory.InventoryDetails = dtInventory;
+            return inventory;
+        }
+
+        private int SaveInventoryDetails(Entity.Inventory.Inventory inventory, Business.Inventory.Inventory objInventory)
+        {
             int inventoryResponse = objInventory.Inventory_Movement(inventory);
             return inventoryResponse;
+        }
+
+        protected void ddlStore_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadAllItem();
+        }
+
+        protected void ddlChallanType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlChallanType.SelectedValue == "3")
+            {
+                ddlToStore.Enabled = true;
+                ddlToStore.SelectedIndex = 0;
+            }
+            else
+            {
+                ddlToStore.Enabled = false;
+                ddlToStore.SelectedIndex = 0;
+            }
         }
     }
 }

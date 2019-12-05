@@ -58,9 +58,15 @@
                             <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
+                                        Store
+                                <asp:DropDownList ID="ddlStore" CssClass="form-control searchable" runat="server">
+                                </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group has-error">
                                         Vendor
-                                <asp:DropDownList ID="ddlVendor" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                                <asp:DropDownList ID="ddlVendor" CssClass="form-control searchable" runat="server">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
@@ -79,14 +85,14 @@
                                         </asp:CalendarExtender>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         Invoice No.
                                 <asp:TextBox ID="txtInvoiceNo" CssClass="form-control" runat="server"></asp:TextBox>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         Invoice Date
@@ -131,8 +137,7 @@
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         Item
-                                <asp:DropDownList ID="ddlItem" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
+                                <asp:DropDownList ID="ddlItem" CssClass="form-control searchable" runat="server">
                                 </asp:DropDownList>
                                     </div>
                                 </div>
@@ -196,7 +201,7 @@
                                                     <%--<asp:BoundField HeaderText="Discount" DataField="Discount" />--%>
                                                     <asp:BoundField HeaderText="GST" DataField="GST" />
                                                     <asp:BoundField HeaderText="HSN Code" DataField="HSNCode" />
-                                                
+
                                                     <asp:TemplateField ItemStyle-Width="15px">
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="btnEdit" runat="server" class="fa fa-trash-o fa-fw" CommandName="D" CausesValidation="false"

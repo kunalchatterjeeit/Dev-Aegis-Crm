@@ -94,6 +94,10 @@ namespace DataAccess.Service
                     rowsAffacted = Convert.ToInt32(cmd.Parameters["@ServiceBookId"].Value);
                     con.Close();
                 }
+                foreach (DataRow item in serviceBook.ServiceBookDetails.Rows)
+                {
+                    Inventory.StockLocation.Delete(Convert.ToInt64(item["StockLocationId"].ToString()));
+                }
             }
             return rowsAffacted;
         }
@@ -139,6 +143,10 @@ namespace DataAccess.Service
                             if (con.State == ConnectionState.Closed)
                                 con.Open();
                             rowsAffacted = cmd.ExecuteNonQuery();
+                        }
+                        foreach (DataRow item in serviceBook.ServiceBookDetails.Rows)
+                        {
+                            Inventory.StockLocation.Delete(Convert.ToInt64(item["StockLocationId"].ToString()));
                         }
                     }
                     con.Close();

@@ -68,8 +68,6 @@
                                 <div class="form-group">
                                     Challan Type
                                 <asp:DropDownList ID="ddlChallanType" CssClass="form-control" runat="server">
-                                    <asp:ListItem Value="0">--SELECT--</asp:ListItem>
-                                    <asp:ListItem Value="1">Sale</asp:ListItem>
                                 </asp:DropDownList>
                                 </div>
                             </div>

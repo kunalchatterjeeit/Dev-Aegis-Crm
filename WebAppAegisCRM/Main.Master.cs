@@ -39,6 +39,7 @@ namespace WebAppAegisCRM
                 liAddEditModel.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITMODEL);
                 liAddEditSpare.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITSPARE);
                 liModelSpareMapping.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MODELSPAREMAPPING);
+                liStoreMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITSTOREMASTER);
 
                 //HR
                 liHR.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HR);

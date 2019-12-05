@@ -62,7 +62,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     <%--DateTime picker related End--%>
-
+    <style>
+        .searchable-has-error {
+            border: 1px solid #F9625F;
+        }
+    </style>
     <script type="text/javascript">
         $(window).load(function () {
             $('#imgUserImage').each(function () {
@@ -76,6 +80,12 @@
                         this.src = '/Images/male-avatar.png';
                 }
             });
+
+            if ($(".searchable") != undefined && $(".searchable").parent() != undefined && $(".searchable").parent().attr('class') != undefined) {
+                if ($(".searchable").parent().attr('class').indexOf('has-error') != -1) {
+                    $(".searchable").addClass('searchable-has-error');
+                }
+            }
         });
 
     </script>
@@ -269,6 +279,9 @@
                                 </li> 
                                 <li id="liTaskStatus" runat="server" visible="false">
                                     <a href="../Sales/TaskStatus.aspx">Add/Edit Sales Task Status</a>
+                                </li> 
+                                <li id="liStoreMaster" runat="server" visible="false">
+                                    <a href="../Inventory/StoreMaster.aspx">Add/Edit Store Location</a>
                                 </li> 
                             </ul>
                             <!-- /.nav-second-level -->

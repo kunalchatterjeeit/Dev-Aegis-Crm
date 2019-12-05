@@ -40,6 +40,15 @@ namespace WebAppAegisCRM.Sale {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// ddlStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
         /// txtCustomerName control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace WebAppAegisCRM.Sale {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlChallanType;
+        
+        /// <summary>
+        /// ddlToStore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlToStore;
         
         /// <summary>
         /// Image2 control.

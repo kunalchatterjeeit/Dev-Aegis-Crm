@@ -179,6 +179,7 @@
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
     <Content Include="images\paid-icon.png" />
+    <Content Include="Inventory\StoreMaster.aspx" />
     <Content Include="LeaveManagement\GenerateLeave.aspx" />
     <Content Include="LeaveManagement\LeaveAdjustment.aspx" />
     <Content Include="LeaveManagement\LeaveApplicationList.aspx" />
@@ -540,6 +541,13 @@
     </Compile>
     <Compile Include="HR\RoleAccessLevel.aspx.designer.cs">
       <DependentUpon>RoleAccessLevel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\StoreMaster.aspx.cs">
+      <DependentUpon>StoreMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inventory\StoreMaster.aspx.designer.cs">
+      <DependentUpon>StoreMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="LeaveManagement\GenerateLeave.aspx.cs">
       <DependentUpon>GenerateLeave.aspx</DependentUpon>

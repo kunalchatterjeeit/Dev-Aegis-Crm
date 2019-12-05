@@ -39,5 +39,38 @@ namespace WebAppAegisCRM.Inventory
             gvStockSnap.PageIndex = e.NewPageIndex;
             GetStockSnap();
         }
+
+        protected void gvStockSnap_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Details")
+            {
+                string itemId = e.CommandArgument.ToString().Split('|')[0];
+                string itemType = e.CommandArgument.ToString().Split('|')[1];
+                Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
+                DataTable dtDetails = objInventory.Inventory_StockLocationWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType));
+                gvStockLocation.DataSource = dtDetails;
+                gvStockLocation.DataBind();
+                ModalPopupExtender2.Show();
+            }
+        }
+
+        protected void gvStockSnap_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    LinkButton btnShow = (LinkButton)e.Row.FindControl("btnShow");
+                    if (!(((DataTable)gvStockSnap.DataSource).Rows[e.Row.RowIndex]["Location"].ToString()).Equals("Store"))
+                    {
+                        btnShow.Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
+        }
     }
 }

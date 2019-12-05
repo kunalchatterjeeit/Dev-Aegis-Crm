@@ -46,7 +46,7 @@
                                     <td><%# Eval("Yield") %></td>
                                     <td>
                                         <asp:ImageButton ID="btnAdd" runat="server" ImageUrl="~/Images/add_to_cart.png" Width="17px" Height="17px" ToolTip="Add" CommandName="Add"
-                                            CommandArgument='<%# Eval("AssetId")+"|"+Eval("ItemId") %>' Enabled='<%# (Eval("IsSelected").ToString() == "1"?false:true)%>' />
+                                            CommandArgument='<%# Eval("AssetId")+"|"+Eval("ItemId")+"|"+Eval("StockLocationId") %>' Enabled='<%# (Eval("IsSelected").ToString() == "1"?false:true)%>' />
                                     </td>
                                 </tr>
                             </ItemTemplate>
