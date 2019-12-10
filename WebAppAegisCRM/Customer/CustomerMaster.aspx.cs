@@ -4,6 +4,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using System.Web.Services.Description;
+using Business.Common;
+
 namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerMaster : Page
@@ -75,6 +77,7 @@ namespace WebAppAegisCRM.Customer
             long i = objCustomer.Save(customer);
             if (i > 0)
             {
+                GlobalCache.RemoveAll();
                 CleartextBoxes(this);
                 GetAllCustomer();
                 CustomerId = 0;
@@ -136,6 +139,7 @@ namespace WebAppAegisCRM.Customer
                 i = ObjBelCustomer.DeleteCustomer(ObjElCustomer);
                 if (i > 0)
                 {
+                    GlobalCache.RemoveAll();
                     CleartextBoxes(this);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data Delete Succesfully....');", true);
                     CustomerId = 0;

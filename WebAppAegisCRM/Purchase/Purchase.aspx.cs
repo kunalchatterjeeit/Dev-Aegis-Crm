@@ -301,6 +301,7 @@ namespace WebAppAegisCRM.Purchase
 
                         if (inventoryResponse > 0)
                         {
+                            GlobalCache.RemoveAll();
                             ClearMasterControls();
                             ClearItemControls();
                             LoadItemList();
