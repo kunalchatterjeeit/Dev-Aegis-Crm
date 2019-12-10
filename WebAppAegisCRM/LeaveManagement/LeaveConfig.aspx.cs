@@ -97,6 +97,7 @@ namespace WebAppAegisCRM.LeaveManagement
                     int RowsAffected = objLeaveConfiguration.LeaveConfigurations_Delete(LeaveConfigurationId);
                     if (RowsAffected > 0)
                     {
+                        GlobalCache.RemoveAll();
                         LoadLeaveType();
                         LeaveConfig_GetAll();
                         Message.Show = true;

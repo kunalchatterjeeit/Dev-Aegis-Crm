@@ -491,7 +491,12 @@ namespace WebAppAegisCRM.Sale
                 drInventoryItem["AssetId"] = drItem["AssetId"].ToString().ToUpper();
                 drInventoryItem["ItemId"] = drItem["ItemId"].ToString();
                 drInventoryItem["ItemType"] = drItem["ItemType"].ToString();
-                drInventoryItem["AssetLocationId"] = (ddlChallanType.SelectedValue.ToUpper().Equals(AssetLocation.Sale.ToString().ToUpper())) ? (int)AssetLocation.Sale : (int)AssetLocation.FOC; //Stock In
+                if (ddlChallanType.SelectedValue == "1")
+                    drInventoryItem["AssetLocationId"] = (int)AssetLocation.Sale;
+                else if (ddlChallanType.SelectedValue == "2")
+                    drInventoryItem["AssetLocationId"] = (int)AssetLocation.FOC;
+                else if (ddlChallanType.SelectedValue == "3")
+                    drInventoryItem["AssetLocationId"] = (int)AssetLocation.Store;
                 drInventoryItem["CustomerId"] = "";
                 drInventoryItem["SaleChallanId"] = saleChallanId;
                 drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);

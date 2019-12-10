@@ -40,7 +40,7 @@
                     <asp:GridView ID="gvStockSnap" runat="server" AutoGenerateColumns="False"
                         Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped" GridLines="None"
                         Style="text-align: left" OnPageIndexChanging="gvStockSnap_PageIndexChanging" PageSize="20"
-                        AllowPaging="true" OnRowCommand="gvStockSnap_RowCommand" OnRowDataBound="gvStockSnap_RowDataBound">
+                        AllowPaging="true" OnRowCommand="gvStockSnap_RowCommand">
                         <Columns>
                             <asp:TemplateField>
                                 <HeaderTemplate>

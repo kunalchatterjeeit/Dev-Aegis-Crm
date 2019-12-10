@@ -145,6 +145,7 @@ namespace WebAppAegisCRM.ClaimManagement
                     int RowsAffected = objClaimDesignationWiseConfiguration.ClaimDesignationConfig_Delete(ClaimDesignationWiseConfigurationId);
                     if (RowsAffected > 0)
                     {
+                        GlobalCache.RemoveAll();
                         LoadClaimCategory();
                         ClaimDesignationWiseConfiguration_GetAll();
                         Message.Show = true;

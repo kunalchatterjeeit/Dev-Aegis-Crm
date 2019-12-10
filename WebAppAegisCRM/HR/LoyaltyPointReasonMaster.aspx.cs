@@ -70,6 +70,7 @@ namespace WebAppAegisCRM.HR
 
             if (response > 0)
             {
+                GlobalCache.RemoveAll();
                 ClearControls();
                 LoadLoyaltyPointReasonMaster();
                 Message.IsSuccess = true;
@@ -115,6 +116,7 @@ namespace WebAppAegisCRM.HR
 
                 if (i > 0)
                 {
+                    GlobalCache.RemoveAll();
                     ClearControls();
                     LoadLoyaltyPointReasonMaster();
                     Message.IsSuccess = true;
