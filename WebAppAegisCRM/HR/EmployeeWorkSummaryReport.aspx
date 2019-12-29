@@ -71,6 +71,7 @@
                                             <asp:BoundField DataField="PL" HeaderText="PL" />
                                             <asp:BoundField DataField="LWP" HeaderText="LWP" />
                                             <asp:BoundField DataField="Late" HeaderText="Late" />
+                                            <asp:BoundField DataField="Working" HeaderText="Working" />
                                         </Columns>
                                         <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                                         <HeaderStyle BackColor="#5bc0de" Font-Bold="True" ForeColor="White" HorizontalAlign="Center" />

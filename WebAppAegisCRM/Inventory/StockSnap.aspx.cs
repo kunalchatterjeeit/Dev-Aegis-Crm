@@ -10,16 +10,10 @@ namespace WebAppAegisCRM.Inventory
     {
         private void GetStockSnap()
         {
-            using (DataTable dtItem = new DataTable())
-            {
-                dtItem.Columns.Add("ItemIdType");
-                dtItem.Columns.Add("ItemName");
-
-                Business.Inventory.Stock objStock = new Business.Inventory.Stock();
-                string name = (string.IsNullOrEmpty(txtName.Text.Trim())) ? string.Empty : txtName.Text.Trim();
-                gvStockSnap.DataSource = objStock.GetStockSnap(name);
-                gvStockSnap.DataBind();
-            }
+            Business.Inventory.Stock objStock = new Business.Inventory.Stock();
+            string name = (string.IsNullOrEmpty(txtName.Text.Trim())) ? string.Empty : txtName.Text.Trim();
+            gvStockSnap.DataSource = objStock.GetStockSnap(name);
+            gvStockSnap.DataBind();
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,10 +40,21 @@ namespace WebAppAegisCRM.Inventory
             {
                 string itemId = e.CommandArgument.ToString().Split('|')[0];
                 string itemType = e.CommandArgument.ToString().Split('|')[1];
+                string assetLocationId = e.CommandArgument.ToString().Split('|')[2];
                 Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
-                DataTable dtDetails = objInventory.Inventory_StockLocationWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType));
-                gvStockLocation.DataSource = dtDetails;
-                gvStockLocation.DataBind();
+                if (Convert.ToInt32(assetLocationId) == (int)AssetLocation.Store)
+                {
+                    DataTable dtDetails = objInventory.Inventory_StockLocationWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType));
+                    gvStockLocation.DataSource = dtDetails;
+                    gvStockLocation.DataBind();
+                }
+                else if ((Convert.ToInt32(assetLocationId) == (int)AssetLocation.FOC)
+                    || (Convert.ToInt32(assetLocationId) == (int)AssetLocation.Sale))
+                {
+                    DataTable dtDetails = objInventory.Inventory_StockLocationWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType));
+                    gvStockLocation.DataSource = dtDetails;
+                    gvStockLocation.DataBind();
+                }
                 ModalPopupExtender2.Show();
             }
         }
