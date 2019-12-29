@@ -42,6 +42,7 @@ namespace WebAppAegisCRM.Sale
         {
             if (!IsPostBack)
             {
+                Message.Show = false;
                 Sale_ChallanType_GetAll();
                 txtSaleFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 txtSaleToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
@@ -57,15 +58,41 @@ namespace WebAppAegisCRM.Sale
 
         protected void gvSale_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Business.Sale.SaleChallan objSaleChallan = new Business.Sale.SaleChallan();
-            Entity.Sale.SaleChallan saleChallan = new Entity.Sale.SaleChallan();
-
-            if (e.CommandName == "SaleDetails")
+            try
             {
-                DataTable dt = objSaleChallan.SaleChallanDetails_GetBySaleChallanId(long.Parse(e.CommandArgument.ToString()));
-                gvSaleDetails.DataSource = dt;
-                gvSaleDetails.DataBind();
-                ModalPopupExtender1.Show();
+                Business.Sale.SaleChallan objSaleChallan = new Business.Sale.SaleChallan();
+                Entity.Sale.SaleChallan saleChallan = new Entity.Sale.SaleChallan();
+
+                if (e.CommandName == "SaleDetails")
+                {
+                    DataTable dt = objSaleChallan.SaleChallanDetails_GetBySaleChallanId(long.Parse(e.CommandArgument.ToString()));
+                    gvSaleDetails.DataSource = dt;
+                    gvSaleDetails.DataBind();
+                    ModalPopupExtender1.Show();
+                }
+                else if (e.CommandName == "D")
+                {
+                    int response = objSaleChallan.Sale_Challan_Delete(int.Parse(e.CommandArgument.ToString()));
+                    if (response > 0)
+                    {
+                        Sale_GetAll();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists, please contact system admin.";
+                    }
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 

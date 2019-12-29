@@ -83,6 +83,9 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
+                    <uc3:Message ID="Message" runat="server" />
+                </div>
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Challan List
@@ -108,11 +111,18 @@
                                         <asp:BoundField HeaderText="Challan No" DataField="ChallanNo" />
                                         <asp:BoundField HeaderText="Order No" DataField="OrderNo" />
                                         <asp:BoundField HeaderText="Order Date" DataField="OrderDate" />
-                                        <asp:BoundField HeaderText="Sale Date" DataField="SaleDate" />
+                                        <asp:BoundField HeaderText="Entry Date" DataField="SaleDate" />
                                         <asp:TemplateField ItemStyle-Width="25px">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="btnSaleDetails" runat="server" ToolTip="View details" class="fa fa-eye fa-fw" CommandName="SaleDetails" CausesValidation="false"
                                                     CommandArgument='<%# Eval("SaleChallanId") %>' Style="font-size: 14px;"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField ItemStyle-Width="15px">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                    CommandName="D" OnClientClick="return confirm('Are You Sure?');" Style="font-size: 16px;"
+                                                    CommandArgument='<%# Eval("SaleChallanId") %>'></asp:LinkButton>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                     </Columns>

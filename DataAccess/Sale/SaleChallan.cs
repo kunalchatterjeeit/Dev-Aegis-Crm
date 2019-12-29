@@ -182,7 +182,7 @@ namespace DataAccess.Sale
             }
         }
 
-        public static DataTable Sale_Challan_GetById(int saleChallanid)
+        public static DataTable Sale_Challan_GetById(int saleChallanId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -193,7 +193,7 @@ namespace DataAccess.Sale
                         cmd.Connection = con;
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Sale_Challan_GetById";
-                        cmd.Parameters.AddWithValue("@SaleChallanId", saleChallanid);
+                        cmd.Parameters.AddWithValue("@SaleChallanId", saleChallanId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -229,6 +229,30 @@ namespace DataAccess.Sale
                     }
                 }
                 return dt;
+            }
+        }
+
+        public static int Sale_Challan_Delete(int saleChallanId)
+        {
+            int response = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "usp_Sale_Challan_Delete";
+                    cmd.Parameters.AddWithValue("@SaleChallanId", saleChallanId);
+                    cmd.Parameters.AddWithValue("@Error", string.Empty).Direction = ParameterDirection.InputOutput;
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    response = cmd.ExecuteNonQuery();
+                    string error = cmd.Parameters["@Error"].Value.ToString();
+                    if (!string.IsNullOrEmpty(error))
+                        throw new Exception(error);
+                    con.Close();
+                }
+                return response;
             }
         }
     }

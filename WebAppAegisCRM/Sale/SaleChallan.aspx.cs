@@ -174,6 +174,17 @@ namespace WebAppAegisCRM.Sale
                 Message.Show = true;
             }
 
+            DataTable dtSaleChallan = new Business.Sale.SaleChallan().Sale_Challan_GetAll(new Entity.Sale.SaleChallan() {
+                ChallanNo = txtChallanNo.Text.Trim()
+            });
+            if (dtSaleChallan.AsEnumerable().Any())
+            {
+                retValue = false;
+                Message.Text = "Challan no is already exists in the database.";
+                Message.IsSuccess = false;
+                Message.Show = true;
+            }
+
             return retValue;
         }
 

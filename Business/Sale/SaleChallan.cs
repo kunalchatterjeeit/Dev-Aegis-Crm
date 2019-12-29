@@ -30,9 +30,9 @@ namespace Business.Sale
             return DataAccess.Sale.SaleChallan.SaleChallanDetails_GetBySaleChallanId(saleChallanId);
         }
 
-        public static implicit operator SaleChallan(Purchase.Purchase v)
+        public int Sale_Challan_Delete(int saleChallanId)
         {
-            throw new NotImplementedException();
+            return DataAccess.Sale.SaleChallan.Sale_Challan_Delete(saleChallanId);
         }
     }
 }

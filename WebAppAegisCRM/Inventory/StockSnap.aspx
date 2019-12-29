@@ -56,8 +56,8 @@
                             <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="btnShow" runat="server" Visible='<%# (Eval("Location").ToString().Equals("Store")? true:false) %>' class="fa fa-folder-o fa-fw" CommandName="Details" CausesValidation="false"
-                                        CommandArgument='<%# Eval("ItemId")+"|"+Eval("ItemType") %>' Style="font-size: 16px;"></asp:LinkButton>
+                                    <asp:LinkButton ID="btnShow" runat="server" class="fa fa-info-circle" CommandName="Details" CausesValidation="false"
+                                        CommandArgument='<%# Eval("ItemId")+"|"+Eval("ItemType")+"|"+Eval("AssetLocationId") %>' Style="font-size: 16px;"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -88,20 +88,8 @@
         <asp:Panel ID="Panel4" runat="server" class="popup-working-section" ScrollBars="Auto">
             <h6 id="popupHeader2" runat="server" class="popup-header-companyname"></h6>
             <asp:GridView ID="gvStockLocation" runat="server"
-                AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"
+                Width="100%" CellPadding="4" ForeColor="#333333"
                 class="table table-striped" GridLines="None" Style="text-align: left">
-                <Columns>
-                    <asp:TemplateField>
-                        <HeaderTemplate>
-                            SN.
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <%# Container.DataItemIndex+1 %>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField HeaderText="Store" DataField="StoreName" />
-                    <asp:BoundField HeaderText="Quantity" DataField="Quantity" />
-                </Columns>
                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#379ed6" Font-Bold="True" ForeColor="White" />
                 <RowStyle CssClass="RowStyle" BackColor="#F7F6F3" ForeColor="#333333" />

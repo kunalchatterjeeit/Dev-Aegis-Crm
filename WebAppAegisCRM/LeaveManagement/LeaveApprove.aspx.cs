@@ -132,14 +132,58 @@ namespace WebAppAegisCRM.LeaveManagement
 
         private bool LeaveApprovalValidation()
         {
-            if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
+            try
             {
+                if (string.IsNullOrEmpty(txtRemarks.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please enter remarks.";
+                    Message.Show = true;
+                    return false;
+                }
+
+                Business.LeaveManagement.LeaveApplication objLeaveApplication = new Business.LeaveManagement.LeaveApplication();
+                Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = new Entity.LeaveManagement.LeaveApplicationMaster();
+                leaveApplicationMaster.LeaveApplicationId = Business.Common.Context.LeaveApplicationId;
+                DataTable dtLeaveApplication = objLeaveApplication.LeaveApplicationMaster_GetAll(leaveApplicationMaster);
+                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(dtLeaveApplication.Rows[0]["RequestorId"].ToString()), Convert.ToInt32(ddlLeaveType.SelectedValue)).Tables[0];
+                DataSet dsLeaveDetails = objLeaveApplication.GetLeaveApplicationDetails_ByLeaveApplicationId(Business.Common.Context.LeaveApplicationId);
+                decimal totalLeaveCount = 0;
+                totalLeaveCount = Convert.ToDecimal(dsLeaveDetails.Tables[2].Compute("Sum(AppliedForDay)", string.Empty));
+                if (dtLeaveAccountBalance != null && dtLeaveAccountBalance.AsEnumerable().Any())
+                {
+                    if (totalLeaveCount > Convert.ToDecimal(dtLeaveAccountBalance.Rows[0]["Amount"].ToString()))
+                    {
+                        Message.Text = "Applicant's Leave Balance is low.";
+                        Message.IsSuccess = false;
+                        Message.Show = true;
+                        return false;
+                    }
+                    if (Convert.ToBoolean(dtLeaveAccountBalance.Rows[0]["LeaveBlocked"].ToString()))
+                    {
+                        Message.Text = "Applicant's leaves are blocked. Please contact to HR.";
+                        Message.IsSuccess = false;
+                        Message.Show = true;
+                        return false;
+                    }
+                }
+                else
+                {
+                    Message.Text = "Applicant do not have any Leave Balance.";
+                    Message.IsSuccess = false;
+                    Message.Show = true;
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.Text = ex.Message;
                 Message.IsSuccess = false;
-                Message.Text = "Please enter remarks.";
                 Message.Show = true;
                 return false;
             }
-            return true;
         }
 
         private void LoadLeaveType()
