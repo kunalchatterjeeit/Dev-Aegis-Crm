@@ -163,7 +163,7 @@ namespace WebAppAegisCRM.Service
                 }
             }
 
-            if (Convert.ToDateTime(txtInDate.Text.Trim()).Date > System.DateTime.Now.Date)
+            if (Convert.ToDateTime(txtInDate.Text.Trim()).Date > DateTime.UtcNow.AddHours(5).AddMinutes(33))
             {
                 MessageDocket.IsSuccess = false;
                 MessageDocket.Text = "Invalid In date.";
@@ -171,7 +171,7 @@ namespace WebAppAegisCRM.Service
                 return retValue = false;
             }
 
-            if (Convert.ToDateTime(txtOutDate.Text.Trim()).Date > DateTime.Now.Date)
+            if (Convert.ToDateTime(txtOutDate.Text.Trim()).Date > DateTime.UtcNow.AddHours(5).AddMinutes(33))
             {
                 MessageDocket.IsSuccess = false;
                 MessageDocket.Text = "Invalid Out date.";
