@@ -168,7 +168,7 @@ namespace WebAppAegisCRM
                     lnkAttendaceLogout.Visible = false;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { }
         }
 
@@ -176,19 +176,133 @@ namespace WebAppAegisCRM
         {
             DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(int.Parse(HttpContext.Current.User.Identity.Name));
             int totalPoint = 0;
-            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Year"].ToString() == DateTime.Now.Year.ToString());
-            if (filteredPoint.Any())
-            {
-                foreach (DataRow dr in filteredPoint.CopyToDataTable().Rows)
-                {
-                    totalPoint += int.Parse(dr["Point"].ToString());
-                }
-            }
+
+            if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2 || DateTime.Now.Month == 3)
+                totalPoint = CalculateLoyalityPointFromJanuary(dtEmployeePoint);
+            else
+                totalPoint = CalculateLoyalityPointBeforeJanuary(dtEmployeePoint);
             lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
         }
 
-        private void CheckAttendanceBlocked() {
+        private int CalculateLoyalityPointFromJanuary(DataTable dtEmployeePoint)
+        {
+            int totalPoint = 0;
+            //April
+            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Apr" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //May
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "May" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //June
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Jun" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //July
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Jul" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //August
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Aug" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //September
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Sep" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //October
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Oct" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //November
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Nov" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //December
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Dec" &&
+                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //January
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Jan" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //February
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Feb" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //March
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Mar" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            return totalPoint;
+        }
+
+        private int CalculateLoyalityPointBeforeJanuary(DataTable dtEmployeePoint)
+        {
+            int totalPoint = 0;
+            //April
+            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Apr" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //May
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "May" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //June
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Jun" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //July
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Jul" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //August
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Aug" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //September
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Sep" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //October
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Oct" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //November
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Nov" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            //December
+            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
+                       => row["Month"].ToString() == "Dec" &&
+                          row["Year"].ToString() == DateTime.Now.Year.ToString());
+            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
+            return totalPoint;
+        }
+
+        private void CheckAttendanceBlocked()
+        {
             DataTable dtLeaveApplicationDetails = new Business.LeaveManagement.LeaveApplication().LeaveApplicationDetails_GetByDate(new Entity.LeaveManagement.LeaveApplicationMaster()
             {
                 RequestorId = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
