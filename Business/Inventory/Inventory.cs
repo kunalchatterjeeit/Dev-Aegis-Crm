@@ -46,5 +46,10 @@ namespace Business.Inventory
         {
             return DataAccess.Inventory.Inventory.Inventory_StockLocationWiseQuantity(itemId, itemType);
         }
+
+        public DataTable Inventory_SaleFocWiseQuantity(int itemId, ItemType itemType, AssetLocation assetLocation)
+        {
+            return DataAccess.Inventory.Inventory.Inventory_SaleFocWiseQuantity(itemId, itemType, assetLocation);
+        }
     }
 }
