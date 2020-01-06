@@ -226,7 +226,7 @@ namespace DataAccess.Inventory
             }
         }
 
-        public static DataTable Inventory_SaleFocWiseQuantity(int itemId, ItemType itemType, AssetLocation assetLocation)
+        public static DataTable Inventory_SaleFocWiseQuantity(int itemId, ItemType itemType, int challanTypeId)
         {
             using (DataTable dt = new DataTable())
             {
@@ -239,7 +239,7 @@ namespace DataAccess.Inventory
                         cmd.CommandText = "usp_Inventory_SaleFocWiseQuantity";
                         cmd.Parameters.AddWithValue("@ItemId", itemId);
                         cmd.Parameters.AddWithValue("@ItemType", (int)itemType);
-                        cmd.Parameters.AddWithValue("@AssetLocationId", (int)assetLocation);
+                        cmd.Parameters.AddWithValue("@ChallanTypeId", challanTypeId);
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
