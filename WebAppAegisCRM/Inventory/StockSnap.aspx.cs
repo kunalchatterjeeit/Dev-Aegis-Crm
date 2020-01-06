@@ -51,7 +51,12 @@ namespace WebAppAegisCRM.Inventory
                 else if ((Convert.ToInt32(assetLocationId) == (int)AssetLocation.FOC)
                     || (Convert.ToInt32(assetLocationId) == (int)AssetLocation.Sale))
                 {
-                    DataTable dtDetails = objInventory.Inventory_SaleFocWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType), (AssetLocation)Enum.Parse(typeof(AssetLocation), assetLocationId));
+                    int challanTypeId = 0;
+                    if ((AssetLocation)Enum.Parse(typeof(AssetLocation), assetLocationId) == AssetLocation.Sale)
+                        challanTypeId = 1;
+                    else
+                        challanTypeId = 2;
+                    DataTable dtDetails = objInventory.Inventory_SaleFocWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType), challanTypeId);
                     gvStockLocation.DataSource = dtDetails;
                     gvStockLocation.DataBind();
                 }
