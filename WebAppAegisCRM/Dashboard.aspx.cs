@@ -7,6 +7,7 @@ using System.Web.UI.HtmlControls;
 using Entity.Service;
 using Entity.Common;
 using System.Web.Script.Serialization;
+using Business.Common;
 
 namespace WebAppAegisCRM
 {
@@ -19,7 +20,15 @@ namespace WebAppAegisCRM
 
             if (!IsPostBack)
             {
-                LoadDocket(gvDocketAsync.PageIndex,gvDocketAsync.PageSize);
+                if (ApplicationModules.HrModule.ModulePermission())
+                {
+                    tabControlAdmin.Visible = true;
+                }
+                if (ApplicationModules.SalesModule.ModulePermission())
+                {
+                    tabControlSales.Visible = true;
+                }
+                LoadDocket(gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
                 LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
                 LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
                 LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);

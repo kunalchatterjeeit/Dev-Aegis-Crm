@@ -102,13 +102,13 @@
                     <div class="whiteBlock"></div>
                 </li>
                 
-                <li class="tab fancyTab">
+                <li class="tab fancyTab" id="tabControlSales" runat="server" visible="false">
                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                     <a id="tab3" href="#tabBody1" role="tab" aria-controls="tabBody3" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-line-chart"></span><span class="hidden-xs">Sales</span></a>
                     <div class="whiteBlock"></div>
                 </li>
 
-                <li class="tab fancyTab">
+                <li class="tab fancyTab" id="tabControlAdmin" runat="server" visible="false">
                 <div class="arrow-down"><div class="arrow-down-inner"></div></div>
                     <a id="tab4" href="#tabBody2" role="tab" aria-controls="tabBody4" aria-selected="true" data-toggle="tab" tabindex="0"><span class="fa fa-sun-o"></span><span class="hidden-xs">Admin</span></a>
                     <div class="whiteBlock"></div>
