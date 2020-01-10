@@ -125,7 +125,7 @@
                 <li id="li1" runat="server" class="dropdown">
                     <asp:Label ID="lblAttendanceLate" runat="server" class="dropdown-toggle red blink_me" style="cursor:pointer; font-weight:bold;"></asp:Label>
                 </li>
-                <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
+                <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()" visible="false">
                     <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
                     </a> 
