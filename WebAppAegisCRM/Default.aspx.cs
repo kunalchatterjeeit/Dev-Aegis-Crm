@@ -15,18 +15,18 @@ namespace WebAppAegisCRM
         {
             if (!IsPostBack)
             {
-                if (Request.QueryString["id"] != null)
-                {
-                    DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
-                    if (dateTime < DateTime.UtcNow)
-                    {
-                        Response.Redirect("https://aegissolutions.in/");
-                    }
-                }
-                else
-                {
-                    Response.Redirect("https://aegissolutions.in/");
-                }
+                //if (Request.QueryString["id"] != null)
+                //{
+                //    DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
+                //    if (dateTime < DateTime.UtcNow)
+                //    {
+                //        Response.Redirect("https://aegissolutions.in/");
+                //    }
+                //}
+                //else
+                //{
+                //    Response.Redirect("https://aegissolutions.in/");
+                //}
                 Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
                 Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.Cache.SetNoStore();
@@ -35,7 +35,7 @@ namespace WebAppAegisCRM
 
         protected void Timer1_Tick(object sender, EventArgs e)
         {
-            Response.Redirect(string.Concat("Login.aspx?id=", Request.QueryString["id"].ToString()));
+            Response.Redirect(string.Concat("Login.aspx"));
         }
     }
 }
