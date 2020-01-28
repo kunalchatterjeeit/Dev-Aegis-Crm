@@ -10,5 +10,6 @@ namespace ApiAppAegisCRM.Models
         public int ResponseCode { get; set; }
         public string Message { get; set; }
         public string DeviceId { get; set; }
+        public int UserId { get; set; }
     }
 }

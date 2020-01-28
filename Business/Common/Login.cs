@@ -15,5 +15,9 @@ namespace Business.Common
         {
             return DataAccess.Common.Login.GetAll();
         }
+        public DataTable GetLastLogin(int employeeId)
+        {
+            return DataAccess.Common.Login.GetLastLogin(employeeId);
+        }
     }
 }

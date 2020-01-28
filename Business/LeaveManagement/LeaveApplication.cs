@@ -45,5 +45,9 @@ namespace Business.LeaveManagement
         {
             return DataAccess.LeaveManagement.LeaveApplication.LeaveApplication_GetAll(leaveApplicationMaster);
         }
+        public DataTable GetUpcomingLeave(int requestorId, DateTime fromDate)
+        {
+            return DataAccess.LeaveManagement.LeaveApplication.GetUpcomingLeave(requestorId, fromDate);
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace ApiAppAegisCRM.Models
     public class AttendanceModel : BaseModel
     {
         public AttendanceModel() { }
-        public string UserId { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string IsMockedLocation { get; set; }

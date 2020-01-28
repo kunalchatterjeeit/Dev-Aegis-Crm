@@ -101,7 +101,7 @@ namespace ApiAppAegisCRM.Controllers
                 ToLeaveDate = DateTime.Now.Date,
                 LeaveStatuses = Convert.ToString((int)LeaveStatusEnum.Approved)
             });
-            if (dtLeaveApplicationDetails != null && dtLeaveApplicationDetails.AsEnumerable().Any())
+            if (dtLeaveApplicationDetails == null || !dtLeaveApplicationDetails.AsEnumerable().Any())
             {
                 return false;
             }

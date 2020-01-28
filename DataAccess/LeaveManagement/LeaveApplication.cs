@@ -339,5 +339,29 @@ namespace DataAccess.LeaveManagement
                 return ds;
             }
         }
+        public static DataTable GetUpcomingLeave(int requestorId, DateTime fromDate)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_GetUpcomingLeave";
+                        cmd.Parameters.AddWithValue("@RequestorId", requestorId);
+                        cmd.Parameters.AddWithValue("@FromLeaveDate", fromDate);
+
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }
