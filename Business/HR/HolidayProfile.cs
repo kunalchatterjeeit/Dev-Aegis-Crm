@@ -40,5 +40,9 @@ namespace Business.HR
         {
             return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_GetAll(employeeHolidayProfileMapping);
         }
+        public DataTable EmployeeHolidayProfileMapping_GetByEmployeeId(int employeeId)
+        {
+            return DataAccess.HR.HolidayProfile.EmployeeHolidayProfileMapping_GetByEmployeeId(employeeId);
+        }
     }
 }

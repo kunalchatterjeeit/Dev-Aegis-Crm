@@ -45,7 +45,6 @@ namespace WebAppAegisCRM
                 liHR.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.HR);
                 liAddEditRole.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITROLE);
                 liManageRoleAccess.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.MANAGEROLEACCESS);
-                liEmployeeWorkSummaryReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_WORK_SUMMARY_REPORT);
                 if (ApplicationModules.HrModule.ModulePermission())
                 {
                     liLoyaltyPointReasonMaster.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ADDEDITLOYALTYPOINTREASONMASTER);
@@ -66,13 +65,29 @@ namespace WebAppAegisCRM
                     liLeaveGenerate.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_GENERATE);
                     liLeaveAdjustment.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_ADJUSTMENT);
                     liLeaveReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.LEAVE_REPORT);
+                    liEmployeeWorkSummaryReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.EMPLOYEE_WORK_SUMMARY_REPORT);
+                    
+                    //CLAIM MANAGEMENT
+                    liClaimList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLICATION_LIST);
+                    liApplyClaim.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLY);
+                    liClaimApprove.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPROVE);
+                    liClaimConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_CONFIGURATION);
+                    liClaimDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DESIGNATION_CONFIGURATION);
+                    liClaimManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_MANAGEMENT);
+                    liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
+                    liClaimDisbursement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DISBURSEMENT);
+                    liVoucherReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.VOUCHER_REPORT);
+
+                    liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
+                    lblAttendanceLate.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
+                    liAttendance.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
                 }
-                liApplyClaim.Visible = true;
-                liClaimApprove.Visible = true;
-                liClaimConfiguration.Visible = true;
-                liClaimDesignationConfiguration.Visible = true;
-                liClaimList.Visible = true;
-                liClaimManagement.Visible = true;
+                //liApplyClaim.Visible = true;
+                //liClaimApprove.Visible = true;
+                //liClaimConfiguration.Visible = true;
+                //liClaimDesignationConfiguration.Visible = true;
+                //liClaimList.Visible = true;
+                //liClaimManagement.Visible = true;
 
                 //INVENTORY
                 liInventory.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.INVENTORY);
@@ -125,19 +140,7 @@ namespace WebAppAegisCRM
                 liDocketList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DOCKET_LIST);
                 liServiceBookReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SERVICE_BOOK_LIST);
                 liSpareTonerUsage.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.SPARE_TONER_USAGE_LIST);
-                liAttendanceReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.ATTENDANCE_LIST);
 
-
-                //CLAIM MANAGEMENT
-                liClaimList.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLICATION_LIST);
-                liApplyClaim.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPLY);
-                liClaimApprove.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_APPROVE);
-                liClaimConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_CONFIGURATION);
-                liClaimDesignationConfiguration.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DESIGNATION_CONFIGURATION);
-                liClaimManagement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_MANAGEMENT);
-                liClaimReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_REPORT);
-                liClaimDisbursement.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.CLAIM_DISBURSEMENT);
-                liVoucherReport.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.VOUCHER_REPORT);
             }
         }
 
@@ -178,127 +181,10 @@ namespace WebAppAegisCRM
             int totalPoint = 0;
 
             if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2 || DateTime.Now.Month == 3)
-                totalPoint = CalculateLoyalityPointFromJanuary(dtEmployeePoint);
+                totalPoint = new Business.HR.EmployeeLoyaltyPoint().CalculateLoyalityPointFromJanuary(dtEmployeePoint);
             else
-                totalPoint = CalculateLoyalityPointBeforeJanuary(dtEmployeePoint);
+                totalPoint = new Business.HR.EmployeeLoyaltyPoint().CalculateLoyalityPointBeforeJanuary(dtEmployeePoint);
             lblLoyalityPoint.InnerText = string.Concat("(LP:", totalPoint, ")");
-        }
-
-        private int CalculateLoyalityPointFromJanuary(DataTable dtEmployeePoint)
-        {
-            int totalPoint = 0;
-            //April
-            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Apr" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //May
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "May" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //June
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Jun" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //July
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Jul" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //August
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Aug" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //September
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Sep" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //October
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Oct" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //November
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Nov" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //December
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Dec" &&
-                          row["Year"].ToString() == (DateTime.Now.Year - 1).ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //January
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Jan" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //February
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Feb" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //March
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Mar" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            return totalPoint;
-        }
-
-        private int CalculateLoyalityPointBeforeJanuary(DataTable dtEmployeePoint)
-        {
-            int totalPoint = 0;
-            //April
-            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Apr" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //May
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "May" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //June
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Jun" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //July
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Jul" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //August
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Aug" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //September
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Sep" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //October
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Oct" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //November
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Nov" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            //December
-            filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Month"].ToString() == "Dec" &&
-                          row["Year"].ToString() == DateTime.Now.Year.ToString());
-            totalPoint += filteredPoint.Any() ? int.Parse(filteredPoint.FirstOrDefault()["Point"].ToString()) : 0;
-            return totalPoint;
         }
 
         private void CheckAttendanceBlocked()

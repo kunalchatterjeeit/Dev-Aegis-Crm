@@ -18,12 +18,25 @@ namespace WebAppAegisCRM.HR
         private void IndividualLoyalityPoint_ByEmployeeId()
         {
             DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(int.Parse(HttpContext.Current.User.Identity.Name));
-            
-            var filteredPoint = dtEmployeePoint.AsEnumerable().Where(row
-                       => row["Year"].ToString() == DateTime.Now.Year.ToString());
-            if (filteredPoint.Any())
+            DataTable dtList = dtEmployeePoint.Clone();
+
+            if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2 || DateTime.Now.Month == 3)
             {
-                gvLoyalityPoint.DataSource = filteredPoint.CopyToDataTable();
+                foreach (DataRow drItem in new Business.HR.EmployeeLoyaltyPoint().LoyalityPointFromJanuary(dtEmployeePoint).Rows)
+                {
+                    dtList.ImportRow(drItem);
+                }
+            }
+            else
+            {
+                foreach (DataRow drItem in new Business.HR.EmployeeLoyaltyPoint().LoyalityPointBeforeJanuary(dtEmployeePoint).Rows)
+                {
+                    dtList.ImportRow(drItem);
+                }
+            }
+            if (dtList.AsEnumerable().Any())
+            {
+                gvLoyalityPoint.DataSource = dtList;
             }
             else
                 gvLoyalityPoint.DataSource = null;
