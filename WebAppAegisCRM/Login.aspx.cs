@@ -37,18 +37,18 @@ namespace WebAppAegisCRM
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Request.QueryString["id"] != null)
-            //{
-            //    DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
-            //    if (dateTime < DateTime.UtcNow)
-            //    {
-            //        Response.Redirect("https://aegissolutions.in/");
-            //    }
-            //}
-            //else
-            //{
-            //    Response.Redirect("https://aegissolutions.in/");
-            //}
+            if (Request.QueryString["id"] != null)
+            {
+                DateTime dateTime = new DateTime(Convert.ToInt64(Request.QueryString["id"].ToString()));
+                if (dateTime < DateTime.UtcNow)
+                {
+                    Response.Redirect("https://aegissolutions.in/");
+                }
+            }
+            else
+            {
+                Response.Redirect("https://aegissolutions.in/");
+            }
         }
 
         private void UserLogin()
