@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using Entity.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,6 +26,11 @@ namespace WebAppAegisCRM.Sale
                 saleChallan.CreatedBy = 0;
             else
                 saleChallan.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+            if (ddlItem.SelectedIndex > 0)
+            {
+                saleChallan.ItemId = Convert.ToInt32(ddlItem.SelectedValue.Split('|')[0]);
+                saleChallan.itemType = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product : ItemType.Spare;
+            }
             gvSale.DataSource = objSaleChallan.Sale_Challan_GetAll(saleChallan);
             gvSale.DataBind();
         }
@@ -38,12 +44,50 @@ namespace WebAppAegisCRM.Sale
             ddlChallanType.InsertSelect();
         }
 
+        private void LoadAllItem()
+        {
+            using (DataTable dtItem = new DataTable())
+            {
+                dtItem.Columns.Add("ItemIdType");
+                dtItem.Columns.Add("ItemName");
+
+                Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
+
+                foreach (DataRow drItem in objProductMaster.GetAll(new Entity.Inventory.ProductMaster() { CompanyMasterId = 1 }).Rows)
+                {
+                    DataRow drNewItem = dtItem.NewRow();
+                    drNewItem["ItemIdType"] = drItem["ProductMasterId"].ToString() + "|" + (int)ItemType.Product;
+                    drNewItem["ItemName"] = drItem["ProductName"].ToString() + " (P)";
+                    dtItem.Rows.Add(drNewItem);
+                    dtItem.AcceptChanges();
+                }
+
+                Business.Inventory.SpareMaster objSpareMaster = new Business.Inventory.SpareMaster();
+
+                foreach (DataRow drItem in objSpareMaster.GetAll(new Entity.Inventory.SpareMaster() { }).Rows)
+                {
+                    DataRow drNewItem = dtItem.NewRow();
+                    drNewItem["ItemIdType"] = drItem["SpareId"].ToString() + "|" + (int)ItemType.Spare;
+                    drNewItem["ItemName"] = drItem["SpareName"].ToString() + " (S)";
+                    dtItem.Rows.Add(drNewItem);
+                    dtItem.AcceptChanges();
+                }
+
+                ddlItem.DataSource = dtItem;
+                ddlItem.DataValueField = "ItemIdType";
+                ddlItem.DataTextField = "ItemName";
+                ddlItem.DataBind();
+                ddlItem.InsertSelect();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 Message.Show = false;
                 Sale_ChallanType_GetAll();
+                LoadAllItem();
                 txtSaleFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 txtSaleToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 Sale_GetAll();

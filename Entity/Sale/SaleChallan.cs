@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Inventory;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace Entity.Sale
         public int CreatedBy { get; set; }
         public DateTime OrderFromDate { get; set; }
         public DateTime OrderToDate { get; set; }
+        public int ItemId { get; set; }
+        public ItemType itemType { get; set; }
 
         public Collection<SaleChallanDetails> SaleChallanDetailsCollection { get; set; }
     }

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business.Common;
 using System.Data;
+using Entity.Inventory;
 
 namespace WebAppAegisCRM.Purchase
 {
@@ -18,14 +19,19 @@ namespace WebAppAegisCRM.Purchase
             purchase.PurchaseOrderNo = txtPurchaseOrderNo.Text.Trim();
             purchase.VendorId = Convert.ToInt32(ddlVendor.SelectedValue);
             purchase.InvoiceNo = txtInvoiceNo.Text.Trim();
-            purchase.InvoiceFromDate = (string.IsNullOrEmpty(txtInvoiceFromDate.Text.Trim()))? DateTime.MinValue: Convert.ToDateTime(txtInvoiceFromDate.Text.Trim());
+            purchase.InvoiceFromDate = (string.IsNullOrEmpty(txtInvoiceFromDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtInvoiceFromDate.Text.Trim());
             purchase.InvoiceToDate = (string.IsNullOrEmpty(txtInvoiceToDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtInvoiceToDate.Text.Trim());
             purchase.PurchaseFromDate = (string.IsNullOrEmpty(txtPurchaseFromDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtPurchaseFromDate.Text.Trim());
             purchase.PurchaseToDate = (string.IsNullOrEmpty(txtPurchaseToDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtPurchaseToDate.Text.Trim());
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 purchase.CreatedBy = 0;
             else
-            purchase.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+                purchase.CreatedBy = int.Parse(HttpContext.Current.User.Identity.Name);
+            if (ddlItem.SelectedIndex > 0)
+            {
+                purchase.ItemId = Convert.ToInt32(ddlItem.SelectedValue.Split('|')[0]);
+                purchase.itemType = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product : ItemType.Spare;
+            }
             gvPurchase.DataSource = objPurchase.Purchase_GetAll(purchase);
             gvPurchase.DataBind();
         }
@@ -48,6 +54,7 @@ namespace WebAppAegisCRM.Purchase
                 txtPurchaseFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 txtPurchaseToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
                 LoadVendor();
+                LoadAllItem();
                 Purchase_GetAll();
             }
         }
@@ -74,6 +81,43 @@ namespace WebAppAegisCRM.Purchase
                 gvPurchaseDetails.DataSource = dt;
                 gvPurchaseDetails.DataBind();
                 ModalPopupExtender1.Show();
+            }
+        }
+
+        private void LoadAllItem()
+        {
+            using (DataTable dtItem = new DataTable())
+            {
+                dtItem.Columns.Add("ItemIdType");
+                dtItem.Columns.Add("ItemName");
+
+                Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
+
+                foreach (DataRow drItem in objProductMaster.GetAll(new Entity.Inventory.ProductMaster() { CompanyMasterId = 1 }).Rows)
+                {
+                    DataRow drNewItem = dtItem.NewRow();
+                    drNewItem["ItemIdType"] = drItem["ProductMasterId"].ToString() + "|" + (int)ItemType.Product;
+                    drNewItem["ItemName"] = drItem["ProductName"].ToString() + " (P)";
+                    dtItem.Rows.Add(drNewItem);
+                    dtItem.AcceptChanges();
+                }
+
+                Business.Inventory.SpareMaster objSpareMaster = new Business.Inventory.SpareMaster();
+
+                foreach (DataRow drItem in objSpareMaster.GetAll(new Entity.Inventory.SpareMaster() { }).Rows)
+                {
+                    DataRow drNewItem = dtItem.NewRow();
+                    drNewItem["ItemIdType"] = drItem["SpareId"].ToString() + "|" + (int)ItemType.Spare;
+                    drNewItem["ItemName"] = drItem["SpareName"].ToString() + " (S)";
+                    dtItem.Rows.Add(drNewItem);
+                    dtItem.AcceptChanges();
+                }
+
+                ddlItem.DataSource = dtItem;
+                ddlItem.DataValueField = "ItemIdType";
+                ddlItem.DataTextField = "ItemName";
+                ddlItem.DataBind();
+                ddlItem.InsertSelect();
             }
         }
     }

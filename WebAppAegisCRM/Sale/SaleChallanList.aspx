@@ -71,6 +71,13 @@
                                 </asp:DropDownList>
                                 </div>
                             </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    Item
+                                <asp:DropDownList ID="ddlItem" CssClass="form-control searchable" runat="server">
+                                </asp:DropDownList>
+                                </div>
+                            </div>
                             <div class="col-lg-1">
                                 <div class="form-group">
                                     <br />

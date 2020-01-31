@@ -111,74 +111,84 @@ namespace DataAccess.Purchase
                         cmd.CommandText = "usp_Purchase_GetAll";
                         if (!string.IsNullOrEmpty(purchase.PurchaseOrderNo))
                         {
-                            cmd.Parameters.Add("@PurchaseOrderNo", purchase.PurchaseOrderNo);
+                            cmd.Parameters.AddWithValue("@PurchaseOrderNo", purchase.PurchaseOrderNo);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@PurchaseOrderNo", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@PurchaseOrderNo", DBNull.Value);
                         }
 
                         if (purchase.VendorId > 0)
                         {
-                            cmd.Parameters.Add("@VendorId", purchase.VendorId);
+                            cmd.Parameters.AddWithValue("@VendorId", purchase.VendorId);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@VendorId", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@VendorId", DBNull.Value);
                         }
 
                         if (!string.IsNullOrEmpty(purchase.InvoiceNo))
                         {
-                            cmd.Parameters.Add("@InvoiceNo", purchase.InvoiceNo);
+                            cmd.Parameters.AddWithValue("@InvoiceNo", purchase.InvoiceNo);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@InvoiceNo", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@InvoiceNo", DBNull.Value);
                         }
 
                         if (purchase.InvoiceFromDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@InvoiceFromDate", purchase.InvoiceFromDate);
+                            cmd.Parameters.AddWithValue("@InvoiceFromDate", purchase.InvoiceFromDate);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@InvoiceFromDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@InvoiceFromDate", DBNull.Value);
                         }
 
                         if (purchase.InvoiceToDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@InvoiceToDate", purchase.InvoiceToDate);
+                            cmd.Parameters.AddWithValue("@InvoiceToDate", purchase.InvoiceToDate);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@InvoiceToDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@InvoiceToDate", DBNull.Value);
                         }
 
                         if (purchase.PurchaseFromDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@FromDate", purchase.PurchaseFromDate);
+                            cmd.Parameters.AddWithValue("@FromDate", purchase.PurchaseFromDate);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@FromDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@FromDate", DBNull.Value);
                         }
 
                         if (purchase.PurchaseToDate != DateTime.MinValue)
                         {
-                            cmd.Parameters.Add("@ToDate", purchase.PurchaseToDate);
+                            cmd.Parameters.AddWithValue("@ToDate", purchase.PurchaseToDate);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@ToDate", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         }
 
                         if (purchase.CreatedBy > 0)
                         {
-                            cmd.Parameters.Add("@CreatedBy", purchase.CreatedBy);
+                            cmd.Parameters.AddWithValue("@CreatedBy", purchase.CreatedBy);
                         }
                         else
                         {
-                            cmd.Parameters.Add("@CreatedBy", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@CreatedBy", DBNull.Value);
+                        }
+                        if (purchase.ItemId > 0)
+                        {
+                            cmd.Parameters.AddWithValue("@ItemId", purchase.ItemId);
+                            cmd.Parameters.AddWithValue("@ItemType", (int)purchase.itemType);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@ItemId", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@ItemType", DBNull.Value);
                         }
                         if (con.State == ConnectionState.Closed)
                             con.Open();

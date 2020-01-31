@@ -1,5 +1,6 @@
 ﻿using ApiAppAegisCRM.Models;
 using Business.Common;
+using Entity.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -122,7 +123,7 @@ namespace ApiAppAegisCRM.Controllers
                 {
                     if (model != null)
                     {
-                        List<Models.HolidayModel>  holidayModel = LoadHolidayList(model.UserId);
+                        List<Models.HolidayModel> holidayModel = LoadHolidayList(model.UserId);
                         retValue = Request.CreateResponse(HttpStatusCode.OK, holidayModel);
                     }
                 }
@@ -192,6 +193,7 @@ namespace ApiAppAegisCRM.Controllers
                 return retValue;
             }
         }
+
         private List<Models.LeaveModel> GetUpcomingLeave(int employeeId)
         {
             List<Models.LeaveModel> model = new List<Models.LeaveModel>();
@@ -205,6 +207,121 @@ namespace ApiAppAegisCRM.Controllers
                     {
                         LeaveType = dr["LeaveTypeName"].ToString(),
                         LeaveDuration = dr["LeaveDuration"].ToString()
+                    });
+                }
+            }
+
+            return model;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage GetPendingClaim([FromBody]BaseModel model)
+        {
+            HttpResponseMessage retValue = null;
+            using (retValue = new HttpResponseMessage(HttpStatusCode.InternalServerError))
+            {
+                try
+                {
+                    if (model != null)
+                    {
+                        List<Models.ClaimModel> leaveModel = GetPendingClaim(model.UserId);
+                        retValue = Request.CreateResponse(HttpStatusCode.OK, leaveModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                }
+                return retValue;
+            }
+        }
+
+        private List<Models.ClaimModel> GetPendingClaim(int employeeId)
+        {
+            List<Models.ClaimModel> model = new List<Models.ClaimModel>();
+            DataTable dtPendingClaim = new Business.ClaimManagement.ClaimApplication().ClaimApplication_GetAll(
+                new Entity.ClaimManagement.ClaimApplicationMaster()
+                {
+                    EmployeeId = employeeId,
+                    Status = (int)ClaimStatusEnum.Pending
+                }
+                );
+            if (dtPendingClaim != null
+                && dtPendingClaim.AsEnumerable().Any())
+            {
+                foreach (DataRow dr in dtPendingClaim.Rows)
+                {
+                    model.Add(new Models.ClaimModel
+                    {
+                        ClaimNo = dr["ClaimNo"].ToString(),
+                        ClaimHeading = dr["ClaimHeading"].ToString(),
+                        ClaimDateTime = dr["ClaimDateTime"].ToString(),
+                        PeriodFrom = dr["PeriodFrom"].ToString(),
+                        PeriodTo = dr["PeriodTo"].ToString(),
+                        StatusName = dr["StatusName"].ToString(),
+                        TotalAmount = Convert.ToDecimal(dr["TotalAmount"].ToString())
+                    });
+                }
+            }
+
+            return model;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage GetLoyalityPoint([FromBody]BaseModel model)
+        {
+            HttpResponseMessage retValue = null;
+            using (retValue = new HttpResponseMessage(HttpStatusCode.InternalServerError))
+            {
+                try
+                {
+                    if (model != null)
+                    {
+                        List<Models.LoyalityPointModel> leaveModel = GetLoyalityPoint(model.UserId);
+                        retValue = Request.CreateResponse(HttpStatusCode.OK, leaveModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                }
+                return retValue;
+            }
+        }
+
+        private List<Models.LoyalityPointModel> GetLoyalityPoint(int employeeId)
+        {
+            List<Models.LoyalityPointModel> model = new List<Models.LoyalityPointModel>();
+            DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(employeeId);
+            DataTable dtList = dtEmployeePoint.Clone();
+
+            if (DateTime.Now.Month == 1 || DateTime.Now.Month == 2 || DateTime.Now.Month == 3)
+            {
+                foreach (DataRow drItem in new Business.HR.EmployeeLoyaltyPoint().LoyalityPointFromJanuary(dtEmployeePoint).Rows)
+                {
+                    dtList.ImportRow(drItem);
+                }
+            }
+            else
+            {
+                foreach (DataRow drItem in new Business.HR.EmployeeLoyaltyPoint().LoyalityPointBeforeJanuary(dtEmployeePoint).Rows)
+                {
+                    dtList.ImportRow(drItem);
+                }
+            }
+            if (dtList != null
+                && dtList.AsEnumerable().Any())
+            {
+                foreach (DataRow dr in dtList.Rows)
+                {
+                    model.Add(new Models.LoyalityPointModel
+                    {
+                        Month = dr["Month"].ToString(),
+                        Year = Convert.ToInt32(dr["Year"].ToString()),
+                        Point = Convert.ToDecimal(dr["Point"].ToString()),
+                        Reason = dr["Reason"].ToString()
                     });
                 }
             }

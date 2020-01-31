@@ -112,6 +112,15 @@ namespace WebAppAegisCRM.Sale {
         protected global::System.Web.UI.WebControls.DropDownList ddlChallanType;
         
         /// <summary>
+        /// ddlItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlItem;
+        
+        /// <summary>
         /// btnSearch control.
         /// </summary>
         /// <remarks>
