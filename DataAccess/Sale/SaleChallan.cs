@@ -169,6 +169,16 @@ namespace DataAccess.Sale
                         {
                             cmd.Parameters.AddWithValue("@CreatedBy", DBNull.Value);
                         }
+                        if (saleChallan.ItemId > 0)
+                        {
+                            cmd.Parameters.AddWithValue("@ItemId", saleChallan.ItemId);
+                            cmd.Parameters.AddWithValue("@ItemType", (int)saleChallan.itemType);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@ItemId", DBNull.Value);
+                            cmd.Parameters.AddWithValue("@ItemType", DBNull.Value);
+                        }
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
@@ -194,6 +204,7 @@ namespace DataAccess.Sale
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.CommandText = "usp_Sale_Challan_GetById";
                         cmd.Parameters.AddWithValue("@SaleChallanId", saleChallanId);
+
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))

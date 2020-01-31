@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Inventory;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Entity.Purchase
@@ -20,11 +21,12 @@ namespace Entity.Purchase
         public decimal PaymentAmount { get; set; }
         public int CreatedBy { get; set; }
         public int StoreId { get; set; }
-
         public DateTime InvoiceFromDate { get; set; }
         public DateTime InvoiceToDate { get; set; }
         public DateTime PurchaseFromDate { get; set; }
         public DateTime PurchaseToDate { get; set; }
+        public int ItemId { get; set; }
+        public ItemType itemType { get; set; }
 
         public Collection<PurchaseDetails> PurchaseDetailsCollection { get; set; }
     }
