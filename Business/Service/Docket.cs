@@ -40,5 +40,10 @@ namespace Business.Service
         {
             return DataAccess.Service.Docket.Service_Docket_GetByCallStatusIds(docket);
         }
+
+        public DataTable Service_Docket_GetAllByCallStatusIds(Entity.Service.Docket docket)
+        {
+            return DataAccess.Service.Docket.Service_Docket_GetAllByCallStatusIds(docket);
+        }
     }
 }

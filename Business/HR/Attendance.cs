@@ -39,5 +39,10 @@ namespace Business.HR
         {
             return DataAccess.HR.Attendance.Attendance_MarkHalfday(attendanceId, isHalfday);
         }
+
+        public DataTable Attendance_CurrentMonth_GetByEmployeeId(int employeeId, int month, int year)
+        {
+            return DataAccess.HR.Attendance.Attendance_CurrentMonth_GetByEmployeeId(employeeId, month, year);
+        }
     }
 }

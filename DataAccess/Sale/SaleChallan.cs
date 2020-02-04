@@ -56,7 +56,7 @@ namespace DataAccess.Sale
                     {
                         cmd.Parameters.AddWithValue("@OrderDate", DBNull.Value);
                     }
-                    cmd.Parameters.AddWithValue("@ChallanType", saleChallan.CallanTypeId);
+                    cmd.Parameters.AddWithValue("@ChallanType", saleChallan.ChallanTypeId);
                     cmd.Parameters.AddWithValue("@CreatedBy", saleChallan.CreatedBy);
                     cmd.Parameters.AddWithValue("@Error", string.Empty).Direction = ParameterDirection.InputOutput;
 
@@ -179,6 +179,15 @@ namespace DataAccess.Sale
                             cmd.Parameters.AddWithValue("@ItemId", DBNull.Value);
                             cmd.Parameters.AddWithValue("@ItemType", DBNull.Value);
                         }
+                        if (saleChallan.ChallanTypeId > 0)
+                        {
+                            cmd.Parameters.AddWithValue("@ChallanTypeId", saleChallan.ChallanTypeId);
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@ChallanTypeId", DBNull.Value);
+                        }
+
                         if (con.State == ConnectionState.Closed)
                             con.Open();
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))

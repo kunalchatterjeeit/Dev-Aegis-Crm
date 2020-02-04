@@ -194,5 +194,32 @@ namespace DataAccess.HR
             }
             return rowsAffacted;
         }
+
+        public static DataTable Attendance_CurrentMonth_GetByEmployeeId(int employeeId, int month, int year)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_HR_Attendance_CurrentMonth_GetByEmployeeId";
+                        cmd.Parameters.AddWithValue("@EmployeeId", employeeId);
+                        cmd.Parameters.AddWithValue("@Month", month);
+                        cmd.Parameters.AddWithValue("@Year", year);
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

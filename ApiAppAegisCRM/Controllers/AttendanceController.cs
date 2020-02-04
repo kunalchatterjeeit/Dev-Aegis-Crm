@@ -179,5 +179,52 @@ namespace ApiAppAegisCRM.Controllers
             }
             return model;
         }
+
+        [HttpPost]
+        public HttpResponseMessage Attendance_CurrentMonth([FromBody]BaseModel model)
+        {
+            HttpResponseMessage retValue = null;
+            using (retValue = new HttpResponseMessage(HttpStatusCode.InternalServerError))
+            {
+                try
+                {
+                    if (model != null)
+                    {
+                        List<Models.AttendanceModel> leaveModel = Attendance_CurrentMonth_GetByEmployeeId(model.UserId);
+                        retValue = Request.CreateResponse(HttpStatusCode.OK, leaveModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                }
+                return retValue;
+            }
+        }
+
+        private List<Models.AttendanceModel> Attendance_CurrentMonth_GetByEmployeeId(int employeeId)
+        {
+            List<Models.AttendanceModel> model = new List<Models.AttendanceModel>();
+            DataTable dtAttendance = new Business.HR.Attendance().Attendance_CurrentMonth_GetByEmployeeId(employeeId, DateTime.Now.Month, DateTime.Now.Year);
+            if (dtAttendance != null
+                && dtAttendance.AsEnumerable().Any())
+            {
+                foreach (DataRow dr in dtAttendance.Rows)
+                {
+                    model.Add(new Models.AttendanceModel
+                    {
+                        AttendanceInDate = string.Format("Attendance In-Date & Time: {0}", dr["InDateTime"].ToString()),
+                        AttendanceOutDate = string.Format("Attendance Out-Date & Time: {0}", dr["OutDateTime"].ToString()),
+                        TotalWorkingHours = string.Format("Working Hours: {0}", dr["TotalHours"].ToString()),
+                        IsLate = string.Format("Late: {0}", dr["IsLate"].ToString()),
+                        IsLateReduced = string.Format("Leave reduced: {0}", dr["IsLateReduced"].ToString()),
+                        IsHalfDay = string.Format("Half day: {0}", dr["IsHalfday"].ToString())
+                    });
+                }
+            }
+
+            return model;
+        }
     }
 }
