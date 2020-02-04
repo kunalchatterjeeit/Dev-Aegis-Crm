@@ -21,7 +21,7 @@ namespace WebAppAegisCRM.Sale
             saleChallan.OrderNo = txtOrderNo.Text.Trim();
             saleChallan.OrderFromDate = (string.IsNullOrEmpty(txtSaleFromDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtSaleFromDate.Text.Trim());
             saleChallan.OrderToDate = (string.IsNullOrEmpty(txtSaleToDate.Text.Trim())) ? DateTime.MinValue : Convert.ToDateTime(txtSaleToDate.Text.Trim());
-            saleChallan.CallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
+            saleChallan.ChallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
             if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
                 saleChallan.CreatedBy = 0;
             else

@@ -362,7 +362,7 @@ namespace WebAppAegisCRM.Sale
                     saleChallan.ChallanNo = (!string.IsNullOrEmpty(txtChallanNo.Text.Trim())) ? txtChallanNo.Text.Trim() : string.Empty;
                     saleChallan.OrderNo = (!string.IsNullOrEmpty(txtOrderNo.Text.Trim())) ? txtOrderNo.Text.Trim() : string.Empty;
                     saleChallan.OrderDate = (!string.IsNullOrEmpty(txtOrderDate.Text.Trim())) ? Convert.ToDateTime(txtOrderDate.Text.Trim()) : DateTime.MinValue;
-                    saleChallan.CallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
+                    saleChallan.ChallanTypeId = Convert.ToInt32(ddlChallanType.SelectedValue);
                     saleChallan.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
                     int saleChallanId = objSaleChallan.SaleChallan_Save(saleChallan);
 

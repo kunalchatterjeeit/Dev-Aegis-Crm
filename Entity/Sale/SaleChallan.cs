@@ -21,7 +21,7 @@ namespace Entity.Sale
         public string ChallanNo { get; set; }
         public string OrderNo { get; set; }
         public DateTime OrderDate { get; set; }
-        public int CallanTypeId { get; set; }
+        public int ChallanTypeId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime OrderFromDate { get; set; }
         public DateTime OrderToDate { get; set; }

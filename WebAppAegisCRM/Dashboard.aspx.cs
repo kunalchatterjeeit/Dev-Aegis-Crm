@@ -49,7 +49,6 @@ namespace WebAppAegisCRM
                 LoadPieChart();
             }
         }
-
         private void LoadDocket(int pageIndex, int pageSize)
         {
             Business.Service.Docket objDocket = new Business.Service.Docket();
@@ -75,7 +74,6 @@ namespace WebAppAegisCRM
             gvDocketAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvDocketAsync.DataBind();
         }
-
         private void LoadTonerRequest(int pageIndex, int pageSize)
         {
             Business.Service.TonerRequest objTonnerRequest = new Business.Service.TonerRequest();
@@ -101,7 +99,6 @@ namespace WebAppAegisCRM
             gvTonnerRequestAsync.VirtualItemCount = (response.Tables[1].Rows.Count > 0) ? Convert.ToInt32(response.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvTonnerRequestAsync.DataBind();
         }
-
         private void GetLeaveApplications_ByApproverId(int statusId)
         {
             LeaveTypeEnum leaveType = LeaveTypeEnum.None;
@@ -123,9 +120,6 @@ namespace WebAppAegisCRM
             gvClaimApprovalList.DataSource = dtClaimApplicationMaster;
             gvClaimApprovalList.DataBind();
         }
-
-
-
         protected void LoadContractExpiredList(int pageIndex, int pageSize)
         {
             Entity.Service.Contract contract = new Entity.Service.Contract();
@@ -147,7 +141,6 @@ namespace WebAppAegisCRM
             gvExpiredListAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvExpiredListAsync.DataBind();
         }
-
         protected void LoadContractExpiringList(int pageIndex, int pageSize)
         {
             Entity.Service.Contract contract = new Entity.Service.Contract();
@@ -169,7 +162,6 @@ namespace WebAppAegisCRM
             gvExpiringSoonAsync.VirtualItemCount = (ds.Tables[1].Rows.Count > 0) ? Convert.ToInt32(ds.Tables[1].Rows[0]["TotalCount"].ToString()) : 10;
             gvExpiringSoonAsync.DataBind();
         }
-
         protected void LoadPieChart()
         {
             Business.Service.Contract objContract = new Business.Service.Contract();
@@ -181,31 +173,26 @@ namespace WebAppAegisCRM
             DataTable dt = objContract.Services_ContractStatus(assignEngineer);
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "script", "PieData(" + dt.Rows[0]["ExperingSoon"].ToString() + "," + dt.Rows[0]["Expired"].ToString() + "," + dt.Rows[0]["InContract"].ToString() + "," + dt.Rows[0]["NeverContracted"].ToString() + ")", true);
         }
-
         protected void gvExpiringSoonAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiringSoonAsync.PageIndex = e.NewPageIndex;
             LoadContractExpiringList(e.NewPageIndex, gvExpiringSoonAsync.PageSize);
         }
-
         protected void gvDocketAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvDocketAsync.PageIndex = e.NewPageIndex;
             LoadDocket(e.NewPageIndex, gvDocketAsync.PageSize);
         }
-
         protected void gvTonnerRequestAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvTonnerRequestAsync.PageIndex = e.NewPageIndex;
             LoadTonerRequest(e.NewPageIndex, gvTonnerRequestAsync.PageSize);
         }
-
         protected void gvExpiredListAsync_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gvExpiredListAsync.PageIndex = e.NewPageIndex;
             LoadContractExpiredList(e.NewPageIndex, gvExpiredListAsync.PageSize);
         }
-
         protected void gvDocketAsync_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -248,7 +235,6 @@ namespace WebAppAegisCRM
                 }
             }
         }
-
         protected void gvTonnerRequestAsync_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -267,7 +253,6 @@ namespace WebAppAegisCRM
                 }
             }
         }
-
         protected void btnDivClose_Click(object sender, EventArgs e)
         {
             int settingValue = 0;
@@ -310,7 +295,6 @@ namespace WebAppAegisCRM
             SaveSettings(userId, settingName, settingValue, false);
             Response.Redirect(Request.RawUrl);
         }
-
         private void SaveSettings(int userId, string settingName, int settingValue, bool IsChecked)
         {
             Business.Settings.UserSettings objUserSettings = new Business.Settings.UserSettings();
@@ -323,22 +307,18 @@ namespace WebAppAegisCRM
             };
             objUserSettings.Save(userSettings);
         }
-
         protected void gvLeavePending_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
         }
-
         protected void gvLeavePending_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
 
         }
-
         protected void gvClaimApprovalList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
         }
-
         protected void gvClaimApprovalList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
 

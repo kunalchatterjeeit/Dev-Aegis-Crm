@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ApiAppAegisCRM.Models
+﻿namespace ApiAppAegisCRM.Models
 {
     public class ClaimModel : BaseModel
     {
@@ -14,6 +9,6 @@ namespace ApiAppAegisCRM.Models
         public string PeriodTo { get; set; }
         public string StatusName { get; set; }
         public string ClaimDateTime { get; set; }
-        public decimal TotalAmount { get; set; }
+        public string TotalAmount { get; set; }
     }
 }

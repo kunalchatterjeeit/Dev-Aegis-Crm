@@ -220,6 +220,36 @@ namespace DataAccess.Service
                 return ds;
             }
         }
+
+        public static DataTable Service_Docket_GetAllByCallStatusIds(Entity.Service.Docket docket)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Parameters.AddWithValue("@CallStatusId", docket.CallStatusIds);
+                        if (docket.AssignEngineer == 0)
+                            cmd.Parameters.AddWithValue("@AssignEngineer", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@AssignEngineer", docket.AssignEngineer);
+
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_Docket_GetAllByCallStatusIds";
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }
 
