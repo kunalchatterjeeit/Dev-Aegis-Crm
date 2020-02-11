@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Data;
-using System.Web.Security;
-using Business.Common;
+﻿using Business.Common;
 using Entity.Common;
+using System;
+using System.Data;
 using System.Net;
 using System.Net.Sockets;
+using System.Web;
+using System.Web.Security;
 
 namespace WebAppAegisCRM
 {
