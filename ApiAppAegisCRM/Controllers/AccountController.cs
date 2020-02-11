@@ -1,6 +1,7 @@
 ﻿using ApiAppAegisCRM.Models;
 using Business.Common;
 using Entity.Common;
+using Entity.Inventory;
 using Entity.Service;
 using System;
 using System.Collections.Generic;
@@ -454,7 +455,7 @@ namespace ApiAppAegisCRM.Controllers
                 ",",
                 ((int)CallStatusType.TonerResponseGiven).ToString());
 
-            DataTable response = objTonnerRequest.Service_Toner_GetByCallStatusIds(callStatusIds,assignEngineer);
+            DataTable response = objTonnerRequest.Service_Toner_GetByCallStatusIds(callStatusIds, assignEngineer);
             if (response != null
                 && response.AsEnumerable().Any())
             {
@@ -529,7 +530,7 @@ namespace ApiAppAegisCRM.Controllers
                 {
                     if (model != null)
                     {
-                        List<Models.StockSnapModel> snapModel = GetStockSnaps(model.UserId, model.ProductName);
+                        List<Models.StockSnapModel> snapModel = GetStockSnaps(model.UserId, model.ItemName);
                         retValue = Request.CreateResponse(HttpStatusCode.OK, snapModel);
                     }
                 }
@@ -572,19 +573,88 @@ namespace ApiAppAegisCRM.Controllers
                                 ItemType = dr["ItemType"].ToString(),
                                 Location = string.Format("Location: {0}", dr["Location"].ToString()),
                                 Quantity = string.Format("Quantity: {0}", dr["Quantity"].ToString()),
-                                SpareName= string.Format("Spare Name: {0}", dr["SpareName"].ToString()),
-                                ProductName = string.Format("Product Name: {0}", dr["ProductName"].ToString())
+                                ItemName = (Convert.ToInt32(dr["ItemType"].ToString()) == (int)ItemType.Product)
+                                ? string.Format("Product Name: {0}", dr["ProductName"].ToString())
+                                : string.Format("Spare Name: {0}", dr["SpareName"].ToString()),
                             });
                         }
                     }
                 }
                 else
                 { }
-            }           
+            }
 
             return model;
         }
 
+        [HttpPost]
+        public HttpResponseMessage GetStockDetails([FromBody]StockDetailModel model)
+        {
+            HttpResponseMessage retValue = null;
+            using (retValue = new HttpResponseMessage(HttpStatusCode.InternalServerError))
+            {
+                try
+                {
+                    if (model != null)
+                    {
+                        List<Models.StockDetailModel> snapModel = GetStockDetails(model.ItemId, model.ItemType, model.AssetLocationId);
+                        retValue = Request.CreateResponse(HttpStatusCode.OK, snapModel);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                }
+                return retValue;
+            }
+        }
 
+        private List<StockDetailModel> GetStockDetails(string itemId, string itemType, string assetLocationId)
+        {
+            List<StockDetailModel> model = new List<StockDetailModel>();
+            Business.Inventory.Stock objStock = new Business.Inventory.Stock();
+
+            Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
+            DataTable response = new DataTable();
+            if (Convert.ToInt32(assetLocationId) == (int)AssetLocation.Store)
+            {
+                response = objInventory.Inventory_StockLocationWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType));
+                if (response != null && response.AsEnumerable().Any())
+                {
+                    foreach (DataRow dr in response.Rows)
+                    {
+                        model.Add(new Models.StockDetailModel
+                        {
+                            Quantity = string.Format("Quantity: {0}", dr["Quantity"].ToString()),
+                            Name = string.Format("Store: {0}", dr["StoreName"].ToString()),
+                        });
+                    }
+                }
+            }
+            else if ((Convert.ToInt32(assetLocationId) == (int)AssetLocation.FOC)
+                || (Convert.ToInt32(assetLocationId) == (int)AssetLocation.Sale))
+            {
+                int challanTypeId = 0;
+                if ((AssetLocation)Enum.Parse(typeof(AssetLocation), assetLocationId) == AssetLocation.Sale)
+                    challanTypeId = 1;
+                else
+                    challanTypeId = 2;
+                response = objInventory.Inventory_SaleFocWiseQuantity(Convert.ToInt32(itemId), (ItemType)Enum.Parse(typeof(ItemType), itemType), challanTypeId);
+                if (response != null && response.AsEnumerable().Any())
+                {
+                    foreach (DataRow dr in response.Rows)
+                    {
+                        model.Add(new Models.StockDetailModel
+                        {
+                            Quantity = string.Format("Quantity: {0}", dr["Quantity"].ToString()),
+                            Name = string.Format("Customer Name: {0}", dr["Customer"].ToString()),
+                        });
+                    }
+                }
+            }
+
+            return model;
+        }
     }
 }

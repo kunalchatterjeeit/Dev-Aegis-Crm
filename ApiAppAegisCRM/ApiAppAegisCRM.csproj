@@ -134,6 +134,7 @@
     <Compile Include="Models\LeaveModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\LoyalityPointModel.cs" />
+    <Compile Include="Models\StockDetailModel.cs" />
     <Compile Include="Models\StockSnapModel.cs" />
     <Compile Include="Models\TonerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

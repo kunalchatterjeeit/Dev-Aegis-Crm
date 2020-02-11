@@ -5,14 +5,12 @@ using System.Web;
 
 namespace ApiAppAegisCRM.Models
 {
-    public class StockSnapModel : BaseModel
+    public class StockDetailModel : BaseModel
     {
-        public string ItemName { get; set; }
-        public string SpareName { get; set; }
-        public string Location { get; set; }
-        public string Quantity { get; set; }
         public string ItemId { get; set; }
         public string ItemType { get; set; }
         public string AssetLocationId { get; set; }
+        public string Name { get; set; }
+        public string Quantity { get; set; }
     }
 }
