@@ -7,7 +7,7 @@ namespace ApiAppAegisCRM.Models
 {
     public class StockSnapModel : BaseModel
     {
-        public string ProductName { get; set; }
+        public string ItemName { get; set; }
         public string SpareName { get; set; }
         public string Location { get; set; }
         public string Quantity { get; set; }
