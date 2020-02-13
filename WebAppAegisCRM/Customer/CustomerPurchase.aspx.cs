@@ -162,11 +162,14 @@ namespace WebAppAegisCRM.Customer
 
             employeeMaster.CompanyId_FK = 1;
             DataTable dt = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
-            dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
-            ddlAssignEngineer.DataSource = dt;
-            ddlAssignEngineer.DataTextField = "EmployeeName";
-            ddlAssignEngineer.DataValueField = "EmployeeMasterId";
-            ddlAssignEngineer.DataBind();
+            if (dt.Select("DesignationMasterId IN (1,3)").AsEnumerable().Any())
+            {
+                dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
+                ddlAssignEngineer.DataSource = dt;
+                ddlAssignEngineer.DataTextField = "EmployeeName";
+                ddlAssignEngineer.DataValueField = "EmployeeMasterId";
+                ddlAssignEngineer.DataBind();
+            }
             ddlAssignEngineer.InsertSelect();
         }
         protected void LoadCustomerPurchaseList()

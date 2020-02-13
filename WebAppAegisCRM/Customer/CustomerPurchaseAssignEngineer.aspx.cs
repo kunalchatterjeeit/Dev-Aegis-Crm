@@ -1,6 +1,7 @@
 ﻿using Business.Common;
 using System;
 using System.Data;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -50,11 +51,14 @@ namespace WebAppAegisCRM.Customer
 
             employeeMaster.CompanyId_FK = 1;
             DataTable dt = objEmployeeMaster.Employee_GetAll_Active(employeeMaster);
-            dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
-            ddlAssignedEngineer.DataSource = dt;
-            ddlAssignedEngineer.DataTextField = "EmployeeName";
-            ddlAssignedEngineer.DataValueField = "EmployeeMasterId";
-            ddlAssignedEngineer.DataBind();
+            if (dt.Select("DesignationMasterId IN (1,3)").AsEnumerable().Any())
+            {
+                dt = dt.Select("DesignationMasterId IN (1,3)").CopyToDataTable();
+                ddlAssignedEngineer.DataSource = dt;
+                ddlAssignedEngineer.DataTextField = "EmployeeName";
+                ddlAssignedEngineer.DataValueField = "EmployeeMasterId";
+                ddlAssignedEngineer.DataBind();
+            }
             ddlAssignedEngineer.InsertSelect();
         }
 
