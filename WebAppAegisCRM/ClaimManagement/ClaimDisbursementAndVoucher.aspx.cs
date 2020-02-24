@@ -1,6 +1,7 @@
 ﻿using Business.Common;
 using Entity.ClaimManagement;
 using Entity.Common;
+using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimDisbursementAndVoucher : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private DataTable _ClaimPaymentDetails
         {
             get
@@ -88,48 +90,91 @@ namespace WebAppAegisCRM.ClaimManagement
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
-            if (!IsPostBack)
+        {
+            try
             {
-                EmployeeMaster_GetAll();
-                MessageSuccess.Show = false;
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    EmployeeMaster_GetAll();
+                    MessageSuccess.Show = false;
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            ClaimApplication_GetAll();
+            try
+            {
+                ClaimApplication_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvClaimApprovalList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "View")
+            try
             {
-                Message1.Show = false;
-                Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
-                ModalPopupExtender2.Show();
+                if (e.CommandName == "View")
+                {
+                    Message1.Show = false;
+                    Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
+                    ModalPopupExtender2.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvPaymentDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string autoId = e.CommandArgument.ToString();
+                if (e.CommandName == "D")
+                {
+                    string autoId = e.CommandArgument.ToString();
 
-                if (DeleteItem(autoId))
-                {
-                    ComputeTotalPaying();
-                    LoadClaimPaymentDetails();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    if (DeleteItem(autoId))
+                    {
+                        ComputeTotalPaying();
+                        LoadClaimPaymentDetails();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
             ModalPopupExtender1.Show();
         }
 
@@ -152,39 +197,50 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (ValidatePaymentItem())
+            try
             {
-                if (_ClaimPaymentDetails.Rows.Count == 0)
+                if (ValidatePaymentItem())
                 {
-                    using (DataTable dtInstance = new DataTable())
+                    if (_ClaimPaymentDetails.Rows.Count == 0)
                     {
-                        DataColumn column = new DataColumn("AutoId");
-                        column.AutoIncrement = true;
-                        column.ReadOnly = true;
-                        column.Unique = false;
-                        dtInstance.Columns.Add(column);
+                        using (DataTable dtInstance = new DataTable())
+                        {
+                            DataColumn column = new DataColumn("AutoId");
+                            column.AutoIncrement = true;
+                            column.ReadOnly = true;
+                            column.Unique = false;
+                            dtInstance.Columns.Add(column);
 
-                        dtInstance.Columns.Add("PaymentModeName");
-                        dtInstance.Columns.Add("PaymentModeId");
-                        dtInstance.Columns.Add("Amount", typeof(decimal));
-                        dtInstance.Columns.Add("PaymentDetails");
-                        _ClaimPaymentDetails = dtInstance;
+                            dtInstance.Columns.Add("PaymentModeName");
+                            dtInstance.Columns.Add("PaymentModeId");
+                            dtInstance.Columns.Add("Amount", typeof(decimal));
+                            dtInstance.Columns.Add("PaymentDetails");
+                            _ClaimPaymentDetails = dtInstance;
+                        }
                     }
+
+                    DataRow drItem = _ClaimPaymentDetails.NewRow();
+                    drItem["PaymentModeName"] = ddlPaymentModes.SelectedItem.Text;
+                    drItem["PaymentModeId"] = ddlPaymentModes.SelectedValue;
+                    drItem["Amount"] = Convert.ToDecimal(txtAmount.Text.Trim());
+                    drItem["PaymentDetails"] = txtPaymentDetails.Text.Trim();
+
+                    _ClaimPaymentDetails.Rows.Add(drItem);
+                    _ClaimPaymentDetails.AcceptChanges();
+
+                    ComputeTotalPaying();
+                    LoadClaimPaymentDetails();
+                    ClearPaymentDetailsControls();
+                    Message.Show = false;
                 }
-
-                DataRow drItem = _ClaimPaymentDetails.NewRow();
-                drItem["PaymentModeName"] = ddlPaymentModes.SelectedItem.Text;
-                drItem["PaymentModeId"] = ddlPaymentModes.SelectedValue;
-                drItem["Amount"] = Convert.ToDecimal(txtAmount.Text.Trim());
-                drItem["PaymentDetails"] = txtPaymentDetails.Text.Trim();
-
-                _ClaimPaymentDetails.Rows.Add(drItem);
-                _ClaimPaymentDetails.AcceptChanges();
-
-                ComputeTotalPaying();
-                LoadClaimPaymentDetails();
-                ClearPaymentDetailsControls();
-                Message.Show = false;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
             ModalPopupExtender1.Show();
         }
@@ -298,10 +354,11 @@ namespace WebAppAegisCRM.ClaimManagement
             }
             catch (Exception ex)
             {
+                ex.WriteException();
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                ModalPopupExtender1.Show();
+                logger.Error(ex.Message);
             }
         }
 
@@ -518,10 +575,21 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
-            _ClaimPaymentDetails.Clear();
-            FetchBasicDetails();
-            GetClaimAccountBalance();
-            VoucherPaymentMode_GetAll();
+            try
+            {
+                _ClaimPaymentDetails.Clear();
+                FetchBasicDetails();
+                GetClaimAccountBalance();
+                VoucherPaymentMode_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
             ModalPopupExtender1.Show();
         }
 
@@ -561,6 +629,10 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -603,6 +675,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
             finally
             {

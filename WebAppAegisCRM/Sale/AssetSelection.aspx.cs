@@ -1,10 +1,9 @@
 ﻿using Business.Common;
 using Entity.Inventory;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,6 +11,7 @@ namespace WebAppAegisCRM.Sale
 {
     public partial class AssetSelection : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public string _ItemName
         {
             get { return ViewState["_ItemName"].ToString(); }
@@ -71,121 +71,165 @@ namespace WebAppAegisCRM.Sale
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
 
-                if (Request.QueryString["ItemNo"] != null)
-                {
-                    string itemNo = Request.QueryString["ItemNo"].ToString();
-                    if (itemNo.Contains("(P)"))
+                    if (Request.QueryString["ItemNo"] != null)
                     {
-                        _ItemType = ItemType.Product;
+                        string itemNo = Request.QueryString["ItemNo"].ToString();
+                        if (itemNo.Contains("(P)"))
+                        {
+                            _ItemType = ItemType.Product;
+                        }
+                        else
+                        {
+                            _ItemType = ItemType.Spare;
+                        }
+                        if (Request.QueryString["Quantity"] != null)
+                        {
+                            _Quantity = Convert.ToDecimal(Request.QueryString["Quantity"]);
+                        }
+                        if (Request.QueryString["StoreId"] != null)
+                        {
+                            _StoreId = Convert.ToInt32(Request.QueryString["StoreId"]);
+                        }
+                        _ItemName = itemNo.Substring(0, itemNo.Length - 4);
+                        LoadItemFromStore();
                     }
-                    else
+                    if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0)
                     {
-                        _ItemType = ItemType.Spare;
+                        LoadSelectedSaleAssets();
                     }
-                    if (Request.QueryString["Quantity"] != null)
-                    {
-                        _Quantity = Convert.ToDecimal(Request.QueryString["Quantity"]);
-                    }
-                    if (Request.QueryString["StoreId"] != null)
-                    {
-                        _StoreId = Convert.ToInt32(Request.QueryString["StoreId"]);
-                    }
-                    _ItemName = itemNo.Substring(0, itemNo.Length - 4);
-                    LoadItemFromStore();
                 }
-                if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0)
-                {
-                    LoadSelectedSaleAssets();
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void RepeaterInventory_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-            if (e.CommandName == "Add")
+            try
             {
-                Message.Show = false;
-                string assetId = e.CommandArgument.ToString().Split('|')[0];
-                string itemId = e.CommandArgument.ToString().Split('|')[1];
-                string stockLocationId = e.CommandArgument.ToString().Split('|')[2];
-                if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
+                Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                if (e.CommandName == "Add")
                 {
-                    Message.IsSuccess = false;
-                    Message.Text = "Invalid request. Not able to add since it is already rejected.";
-                    Message.Show = true;
-                }
-                else if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0
-                    && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Where(p => p["ItemId"].ToString() == itemId).Any()
-                    && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Count(p => p["ItemId"].ToString() == itemId)
-                    >= _Quantity)
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Max limit of selection is reached.";
-                    Message.Show = true;
-                }
-                else
-                {
-                    if (Business.Common.Context.SelectedSaleAssets.Rows.Count == 0)
+                    Message.Show = false;
+                    string assetId = e.CommandArgument.ToString().Split('|')[0];
+                    string itemId = e.CommandArgument.ToString().Split('|')[1];
+                    string stockLocationId = e.CommandArgument.ToString().Split('|')[2];
+                    if (objServiceBook.Service_GetServiceBookDetailsApprovalStatus(Business.Common.Context.ServiceBookId, Convert.ToInt64(itemId)) == Entity.Service.ApprovalStatus.Rejected)
                     {
-                        Business.Common.Context.SelectedSaleAssets = new DataTable();
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("AssetId");
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemId");
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemName");
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemType");
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("Finalized");
-                        Business.Common.Context.SelectedSaleAssets.Columns.Add("StockLocationId");
+                        Message.IsSuccess = false;
+                        Message.Text = "Invalid request. Not able to add since it is already rejected.";
+                        Message.Show = true;
                     }
-                    DataRow dr = Business.Common.Context.SelectedSaleAssets.NewRow();
-                    dr["AssetId"] = assetId;
-                    dr["ItemId"] = itemId;
-                    dr["ItemName"] = _ItemName;
-                    dr["ItemType"] = (int)_ItemType;
-                    dr["Finalized"] = "False";
-                    dr["StockLocationId"] = stockLocationId;
-                    Business.Common.Context.SelectedSaleAssets.Rows.Add(dr);
+                    else if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0
+                        && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Where(p => p["ItemId"].ToString() == itemId).Any()
+                        && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Count(p => p["ItemId"].ToString() == itemId)
+                        >= _Quantity)
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Max limit of selection is reached.";
+                        Message.Show = true;
+                    }
+                    else
+                    {
+                        if (Business.Common.Context.SelectedSaleAssets.Rows.Count == 0)
+                        {
+                            Business.Common.Context.SelectedSaleAssets = new DataTable();
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("AssetId");
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemId");
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemName");
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("ItemType");
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("Finalized");
+                            Business.Common.Context.SelectedSaleAssets.Columns.Add("StockLocationId");
+                        }
+                        DataRow dr = Business.Common.Context.SelectedSaleAssets.NewRow();
+                        dr["AssetId"] = assetId;
+                        dr["ItemId"] = itemId;
+                        dr["ItemName"] = _ItemName;
+                        dr["ItemType"] = (int)_ItemType;
+                        dr["Finalized"] = "False";
+                        dr["StockLocationId"] = stockLocationId;
+                        Business.Common.Context.SelectedSaleAssets.Rows.Add(dr);
 
-                    LoadItemFromStore();
-                    LoadSelectedSaleAssets();
+                        LoadItemFromStore();
+                        LoadSelectedSaleAssets();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void gvSelectedAsset_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string assetId = e.CommandArgument.ToString();
-                Business.Common.Context.SelectedSaleAssets
-                    .Rows[Business.Common.Context.SelectedSaleAssets.Rows
-                    .IndexOf(Business.Common.Context.SelectedSaleAssets
-                    .Select("AssetId='" + assetId + "'").FirstOrDefault())].Delete();
-                Business.Common.Context.SelectedSaleAssets.AcceptChanges();
+                if (e.CommandName == "D")
+                {
+                    string assetId = e.CommandArgument.ToString();
+                    Business.Common.Context.SelectedSaleAssets
+                        .Rows[Business.Common.Context.SelectedSaleAssets.Rows
+                        .IndexOf(Business.Common.Context.SelectedSaleAssets
+                        .Select("AssetId='" + assetId + "'").FirstOrDefault())].Delete();
+                    Business.Common.Context.SelectedSaleAssets.AcceptChanges();
 
-                LoadItemFromStore();
-                LoadSelectedSaleAssets();
+                    LoadItemFromStore();
+                    LoadSelectedSaleAssets();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0
-                    && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Where(p => p["ItemName"].ToString() == _ItemName).Any()
-                    && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Count(p => p["ItemName"].ToString() == _ItemName)
-                    != _Quantity)
+            try
             {
-                Message.IsSuccess = false;
-                Message.Text = "Please select exact quantity. You suppose to choose " + _Quantity.ToString() + " item(s).";
-                Message.Show = true;
+                if (Business.Common.Context.SelectedSaleAssets != null && Business.Common.Context.SelectedSaleAssets.Rows.Count > 0
+                        && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Where(p => p["ItemName"].ToString() == _ItemName).Any()
+                        && Business.Common.Context.SelectedSaleAssets.AsEnumerable().Count(p => p["ItemName"].ToString() == _ItemName)
+                        != _Quantity)
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please select exact quantity. You suppose to choose " + _Quantity.ToString() + " item(s).";
+                    Message.Show = true;
+                }
+                else
+                {
+                    Business.Common.Context.SelectedSaleAssets.AsEnumerable().ToList<DataRow>().ForEach(r => { r["Finalized"] = "True"; });
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "window.close();", true);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Business.Common.Context.SelectedSaleAssets.AsEnumerable().ToList<DataRow>().ForEach(r => { r["Finalized"] = "True"; });
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "window.close();", true);
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

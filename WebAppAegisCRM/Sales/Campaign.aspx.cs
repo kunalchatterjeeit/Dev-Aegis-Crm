@@ -1,24 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Campaign : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {               
-                LoadCampaignList();
-                Message.Show = false;
-                if (CampaignId > 0)
+            try
+            {
+                if (!IsPostBack)
                 {
-                    GetCampaignById();
+                    LoadCampaignList();
+                    Message.Show = false;
+                    if (CampaignId > 0)
+                    {
+                        GetCampaignById();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int CampaignId
@@ -33,7 +44,7 @@ namespace WebAppAegisCRM.Sales
             {
                 EndDate = DateTime.MinValue,
                 StartDate = DateTime.MinValue,
-                Name=null
+                Name = null
             };
             gvCampaign.DataSource = Obj.GetAllCampaign(Param);
             gvCampaign.DataBind();
@@ -62,37 +73,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvCampaign_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                CampaignId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetCampaignById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    CampaignId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetCampaignById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Campaign Obj = new Business.Sales.Campaign();
+                    int rows = Obj.DeleteCampaign(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadCampaignList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Campaign Obj = new Business.Sales.Campaign();
-                int rows = Obj.DeleteCampaign(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadCampaignList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -105,7 +149,7 @@ namespace WebAppAegisCRM.Sales
                 txtName.Text = Campaign.Name;
                 txtReason.Text = Campaign.Reason;
                 txtDescription.Text = Campaign.Description;
-                txtStartDate.Text = Campaign.EndDate == null ? string.Empty: Campaign.StartDate.GetValueOrDefault().ToString("dd MMM yyyy");
+                txtStartDate.Text = Campaign.EndDate == null ? string.Empty : Campaign.StartDate.GetValueOrDefault().ToString("dd MMM yyyy");
                 txtEndDate.Text = Campaign.EndDate == null ? string.Empty : Campaign.EndDate.GetValueOrDefault().ToString("dd MMM yyyy");
             }
         }
@@ -116,18 +160,18 @@ namespace WebAppAegisCRM.Sales
                 Business.Sales.Campaign Obj = new Business.Sales.Campaign();
                 Entity.Sales.Campaign Model = new Entity.Sales.Campaign
                 {
-                    Id = CampaignId,                    
+                    Id = CampaignId,
                     CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                     Description = txtDescription.Text,
                     Name = txtName.Text,
-                    Reason=txtReason.Text,
+                    Reason = txtReason.Text,
                     StartDate = txtStartDate.Text == "" ? (DateTime?)null : Convert.ToDateTime(txtStartDate.Text),
                     EndDate = txtEndDate.Text == "" ? (DateTime?)null : Convert.ToDateTime(txtEndDate.Text),
                     IsActive = true
                 };
                 int rows = Obj.SaveCampaign(Model);
                 if (rows > 0)
-                {                    
+                {
                     ClearControls();
                     LoadCampaignList();
                     CampaignId = 0;

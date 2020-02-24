@@ -4,11 +4,13 @@ using System.Data;
 using Business.Common;
 using Entity.Common;
 using System.Linq;
+using log4net;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveConfig : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int LeaveConfigurationId
         {
             get { return Convert.ToInt32(ViewState["LeaveConfigurationId"]); }
@@ -57,12 +59,23 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadLeaveType();
-                LeaveConfig_GetAll();
-                LoadLeaveFrequency();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadLeaveType();
+                    LeaveConfig_GetAll();
+                    LoadLeaveFrequency();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -83,66 +96,99 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void gvLeaveConfig_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                LeaveConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                FetchLeaveConfigById(LeaveConfigurationId);
-            }
-            else
-            {
-                if (e.CommandName == "D")
+                if (e.CommandName == "E")
                 {
-                    Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
                     LeaveConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                    int RowsAffected = objLeaveConfiguration.LeaveConfigurations_Delete(LeaveConfigurationId);
-                    if (RowsAffected > 0)
-                    {
-                        GlobalCache.RemoveAll();
-                        LoadLeaveType();
-                        LeaveConfig_GetAll();
-                        Message.Show = true;
-                        Message.Text = "Deleted Successfully";
-                    }
-                    else
-                    {
-                        Message.Show = false;
-                        Message.Text = "Data Dependency Exists";
-                    }
-                    Message.Show = true;
+                    FetchLeaveConfigById(LeaveConfigurationId);
                 }
+                else
+                {
+                    if (e.CommandName == "D")
+                    {
+                        Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+                        LeaveConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int RowsAffected = objLeaveConfiguration.LeaveConfigurations_Delete(LeaveConfigurationId);
+                        if (RowsAffected > 0)
+                        {
+                            GlobalCache.RemoveAll();
+                            LoadLeaveType();
+                            LeaveConfig_GetAll();
+                            Message.Show = true;
+                            Message.Text = "Deleted Successfully";
+                        }
+                        else
+                        {
+                            Message.Show = false;
+                            Message.Text = "Data Dependency Exists";
+                        }
+                        Message.Show = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Clear();
+            try
+            {
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (LeaveConfigValidate())
+            try
             {
-                Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
-                Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
-                leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
-                leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
-                leaveConfiguration.LeaveFrequency = ddlLeaveFrequency.SelectedValue;
-                leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
-                leaveConfiguration.Encashable = ckEncashable.Checked;
-                int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
-                if (response > 0)
+                if (LeaveConfigValidate())
                 {
-                    Clear();
-                    LeaveConfig_GetAll();
-                    GlobalCache.RemoveAll();
-                    Message.IsSuccess = true;
-                    Message.Text = "Saved Successfully";
+                    Business.LeaveManagement.LeaveConfiguration objLeaveConfiguration = new Business.LeaveManagement.LeaveConfiguration();
+                    Entity.LeaveManagement.LeaveConfiguration leaveConfiguration = new Entity.LeaveManagement.LeaveConfiguration();
+                    leaveConfiguration.LeaveConfigId = LeaveConfigurationId;
+                    leaveConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+                    leaveConfiguration.LeaveFrequency = ddlLeaveFrequency.SelectedValue;
+                    leaveConfiguration.LeaveAccrueDate = Convert.ToDateTime(txtLeaveAccrueDate.Text.Trim());
+                    leaveConfiguration.Encashable = ckEncashable.Checked;
+                    int response = objLeaveConfiguration.LeaveConfigurations_Save(leaveConfiguration);
+                    if (response > 0)
+                    {
+                        Clear();
+                        LeaveConfig_GetAll();
+                        GlobalCache.RemoveAll();
+                        Message.IsSuccess = true;
+                        Message.Text = "Saved Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Exists";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Exists";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

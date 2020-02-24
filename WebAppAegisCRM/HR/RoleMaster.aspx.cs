@@ -1,30 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class RoleMaster : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public int RoleId
         {
             get { return Convert.ToInt32(ViewState["RoleId"]); }
             set { ViewState["RoleId"] = value; }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ClearControls();
-                LoadRoleList();
+                if (!IsPostBack)
+                {
+                    ClearControls();
+                    LoadRoleList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-
         private void ClearControls()
         {
             RoleId = 0;
@@ -32,7 +40,6 @@ namespace WebAppAegisCRM.HR
             btnSave.Text = "Save";
             txtRole.Text = "";
         }
-
         private void LoadRoleList()
         {
             Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
@@ -43,68 +50,108 @@ namespace WebAppAegisCRM.HR
                 dgvRoleMaster.DataBind();
             }
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
-        }
-
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
-            Entity.HR.RoleMaster Role = new Entity.HR.RoleMaster();
-            Role.RoleId = RoleId;
-            Role.RoleName = txtRole.Text;
-            int RowsAffected = objRoleMaster.Save(Role);
-
-            if (RowsAffected > 0)
+            try
             {
                 ClearControls();
-                LoadRoleList();
-                Message.IsSuccess = true;
-                Message.Text = "Saved Successfully";
             }
-            else
+            catch (Exception ex)
             {
+                ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
-                Message.Text = "Role Name Exists";
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
-            Message.Show = true;
         }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            LoadRoleList();
-        }
-
-        protected void dgvRoleMaster_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "Ed")
-            {
-                RoleId = Convert.ToInt32(e.CommandArgument.ToString());
-                GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
-
-                txtRole.Text = row.Cells[1].Text;
-                Message.Show = false;
-                btnSave.Text = "Update";
-            }
-            else if (e.CommandName == "Del")
+            try
             {
                 Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
-                int RowsAffected = objRoleMaster.Delete(Convert.ToInt32(e.CommandArgument.ToString()));
+                Entity.HR.RoleMaster Role = new Entity.HR.RoleMaster();
+                Role.RoleId = RoleId;
+                Role.RoleName = txtRole.Text;
+                int RowsAffected = objRoleMaster.Save(Role);
 
                 if (RowsAffected > 0)
                 {
                     ClearControls();
                     LoadRoleList();
                     Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
+                    Message.Text = "Saved Successfully";
                 }
                 else
                 {
                     Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
+                    Message.Text = "Role Name Exists";
                 }
+                Message.Show = true;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadRoleList();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+        protected void dgvRoleMaster_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "Ed")
+                {
+                    RoleId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GridViewRow row = (GridViewRow)(((ImageButton)e.CommandSource).NamingContainer);
+
+                    txtRole.Text = row.Cells[1].Text;
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
+                    int RowsAffected = objRoleMaster.Delete(Convert.ToInt32(e.CommandArgument.ToString()));
+
+                    if (RowsAffected > 0)
+                    {
+                        ClearControls();
+                        LoadRoleList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

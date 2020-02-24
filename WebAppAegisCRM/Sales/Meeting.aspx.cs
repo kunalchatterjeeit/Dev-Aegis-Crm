@@ -1,50 +1,71 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Meeting : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void SetQueryStringValue()
         {
-            if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
+            try
             {
-                hdnItemId.Value = Request.QueryString["id"].ToString();
-                hdnItemType.Value = Request.QueryString["itemtype"].ToString();
+                if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
+                {
+                    hdnItemId.Value = Request.QueryString["id"].ToString();
+                    hdnItemType.Value = Request.QueryString["itemtype"].ToString();
+                }
+                if (Request.QueryString["meetingid"] != null)
+                {
+                    MeetingId = Convert.ToInt32(Request.QueryString["meetingid"].ToString());
+                }
             }
-            if (Request.QueryString["meetingid"] != null)
+            catch (Exception ex)
             {
-                MeetingId = Convert.ToInt32(Request.QueryString["meetingid"].ToString());
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                SetQueryStringValue();
-            }
-
-            if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
-            {
-                ModalPopupExtender1.Show();
-            }
-            if (!IsPostBack)
-            {
-                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadMeetingsDropdowns();
-                LoadMeetingList();
-                Message.Show = false;
-                if (MeetingId > 0)
+                if (!IsPostBack)
                 {
-                    GetMeetingById();
+                    SetQueryStringValue();
                 }
+
+                if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
+                {
+                    ModalPopupExtender1.Show();
+                }
+                if (!IsPostBack)
+                {
+                    Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadMeetingsDropdowns();
+                    LoadMeetingList();
+                    Message.Show = false;
+                    if (MeetingId > 0)
+                    {
+                        GetMeetingById();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int MeetingId
@@ -67,12 +88,13 @@ namespace WebAppAegisCRM.Sales
             ddlMeetingStatus.DataValueField = "Id";
             ddlMeetingStatus.DataBind();
             ddlMeetingStatus.InsertSelect();
-            
+
         }
         private void LoadMeetingList()
         {
             Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam {
+            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
@@ -94,7 +116,7 @@ namespace WebAppAegisCRM.Sales
             chkPopupReminder.Checked = true;
             chkEmailReminder.Checked = true;
             ddlMeetingStatus.SelectedIndex = 0;
-            ddlMeetingType.SelectedIndex = 0;            
+            ddlMeetingType.SelectedIndex = 0;
             btnSave.Text = "Save";
         }
         private bool MeetingControlValidation()
@@ -138,37 +160,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvMeetings_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                MeetingId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetMeetingById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    MeetingId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetMeetingById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Meetings Obj = new Business.Sales.Meetings();
+                    int rows = Obj.DeleteMeetings(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadMeetingList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-                int rows = Obj.DeleteMeetings(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadMeetingList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -179,7 +234,7 @@ namespace WebAppAegisCRM.Sales
             if (meetings.Id != 0)
             {
                 ddlMeetingType.SelectedValue = meetings.MeetingTypeId.ToString();
-                ddlMeetingStatus.SelectedValue = meetings.MeetingStatusId.ToString();               
+                ddlMeetingStatus.SelectedValue = meetings.MeetingStatusId.ToString();
                 txtDescription.Text = meetings.Description;
                 txtMeetingStartDateTime.Value = meetings.StartDateTime.ToString("dd MMM yyyy HH:mm tt");
                 txtMeetingEndDateTime.Value = meetings.EndDateTime.ToString("dd MMM yyyy HH:mm tt");

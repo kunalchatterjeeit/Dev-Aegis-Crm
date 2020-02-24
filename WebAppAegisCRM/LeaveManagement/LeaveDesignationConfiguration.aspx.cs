@@ -1,16 +1,15 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveDesignationConfiguration : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int LeaveDesignationWiseConfigurationId
         {
             get { return Convert.ToInt32(ViewState["LeaveDesignationWiseConfigurationId"]); }
@@ -47,7 +46,7 @@ namespace WebAppAegisCRM.LeaveManagement
             ddlDesignation.InsertSelect();
         }
 
-        protected void LeaveDesignationConfig_GetById()
+        private void LeaveDesignationConfig_GetById()
         {
             Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
 
@@ -89,152 +88,207 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadLeaveType();
-                DesignationMaster_GetAll();
-                LeaveDesignationWiseConfiguration_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadLeaveType();
+                    DesignationMaster_GetAll();
+                    LeaveDesignationWiseConfiguration_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (LeaveDesignationConfigValidate())
+            try
             {
-                Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
-                Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration = new Entity.LeaveManagement.LeaveDesignationWiseConfiguration();
+                if (LeaveDesignationConfigValidate())
+                {
+                    Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
+                    Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration = new Entity.LeaveManagement.LeaveDesignationWiseConfiguration();
 
-                leaveDesignationWiseConfiguration.LeaveDesignationConfigId = LeaveDesignationWiseConfigurationId;
-                leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
-                leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
-                leaveDesignationWiseConfiguration.LeaveCount = Convert.ToDecimal(txtLeaveCount.Text.Trim());
-                leaveDesignationWiseConfiguration.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text.Trim());
-                leaveDesignationWiseConfiguration.MinApplyDays = Convert.ToDecimal(txtMinApplyDays.Text.Trim());
-                leaveDesignationWiseConfiguration.MaxApplyDays = Convert.ToDecimal(txtMaxApplyDays.Text.Trim());
-                int response = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_Save(leaveDesignationWiseConfiguration);
-                if (response > 0)
-                {
-                    Clear();
-                    LeaveDesignationWiseConfiguration_GetAll();
-                    Message.IsSuccess = true;
-                    Message.Text = "Saved Successfully";
+                    leaveDesignationWiseConfiguration.LeaveDesignationConfigId = LeaveDesignationWiseConfigurationId;
+                    leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+                    leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
+                    leaveDesignationWiseConfiguration.LeaveCount = Convert.ToDecimal(txtLeaveCount.Text.Trim());
+                    leaveDesignationWiseConfiguration.CarryForwardCount = Convert.ToDecimal(txtCarryForwardCount.Text.Trim());
+                    leaveDesignationWiseConfiguration.MinApplyDays = Convert.ToDecimal(txtMinApplyDays.Text.Trim());
+                    leaveDesignationWiseConfiguration.MaxApplyDays = Convert.ToDecimal(txtMaxApplyDays.Text.Trim());
+                    int response = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_Save(leaveDesignationWiseConfiguration);
+                    if (response > 0)
+                    {
+                        Clear();
+                        LeaveDesignationWiseConfiguration_GetAll();
+                        Message.IsSuccess = true;
+                        Message.Text = "Saved Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Exists";
+                    }
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Exists";
-                }
+                Message.Show = true;
             }
-            Message.Show = true;
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Clear();
+            try
+            {
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvLeaveDesignationConfiguration_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                LeaveDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                LeaveDesignationConfig_GetById();
-            }
-            else
-            {
-                if (e.CommandName == "D")
+                if (e.CommandName == "E")
                 {
-                    Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
                     LeaveDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                    int RowsAffected = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_Delete(LeaveDesignationWiseConfigurationId);
-                    if (RowsAffected > 0)
-                    {
-                        LoadLeaveType();
-                        LeaveDesignationWiseConfiguration_GetAll();
-                        Message.Show = true;
-                        Message.Text = "Deleted Successfully";
-                    }
-                    else
-                    {
-                        Message.Show = false;
-                        Message.Text = "Data Dependency Exists";
-                    }
-                    Message.Show = true;
+                    LeaveDesignationConfig_GetById();
                 }
+                else
+                {
+                    if (e.CommandName == "D")
+                    {
+                        Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
+                        LeaveDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int RowsAffected = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_Delete(LeaveDesignationWiseConfigurationId);
+                        if (RowsAffected > 0)
+                        {
+                            LoadLeaveType();
+                            LeaveDesignationWiseConfiguration_GetAll();
+                            Message.Show = true;
+                            Message.Text = "Deleted Successfully";
+                        }
+                        else
+                        {
+                            Message.Show = false;
+                            Message.Text = "Data Dependency Exists";
+                        }
+                        Message.Show = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         private bool LeaveDesignationConfigValidate()
         {
             bool retValue = true;
-            if (ddlLeaveType.SelectedIndex == 0)
+            try
             {
-                Message.IsSuccess = false;
-                Message.Text = "Please select Leave Type.";
-                Message.Show = true;
-                return false;
-            }
-            if (ddlDesignation.SelectedIndex == 0)
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Please select Designation.";
-                Message.Show = true;
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtLeaveCount.Text.Trim()))
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Please enter Leave Total.";
-                Message.Show = true;
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtCarryForwardCount.Text.Trim()))
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Please enter Carry Forward Amount.";
-                Message.Show = true;
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtMinApplyDays.Text.Trim()))
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Please enter Min Apply Days.";
-                Message.Show = true;
-                return false;
-            }
-            if (string.IsNullOrEmpty(txtMaxApplyDays.Text.Trim()))
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Please enter Max Apply Days.";
-                Message.Show = true;
-                return false;
-            }
+                if (ddlLeaveType.SelectedIndex == 0)
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please select Leave Type.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (ddlDesignation.SelectedIndex == 0)
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please select Designation.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (string.IsNullOrEmpty(txtLeaveCount.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please enter Leave Total.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (string.IsNullOrEmpty(txtCarryForwardCount.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please enter Carry Forward Amount.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (string.IsNullOrEmpty(txtMinApplyDays.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please enter Min Apply Days.";
+                    Message.Show = true;
+                    return false;
+                }
+                if (string.IsNullOrEmpty(txtMaxApplyDays.Text.Trim()))
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Please enter Max Apply Days.";
+                    Message.Show = true;
+                    return false;
+                }
 
-            Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
-            Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration = new Entity.LeaveManagement.LeaveDesignationWiseConfiguration();
-            leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
-            leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
-            DataTable dt = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_GetAll(leaveDesignationWiseConfiguration);
-            if (LeaveDesignationWiseConfigurationId == 0)
-            {
-                if (dt != null && dt.AsEnumerable().Any())
+                Business.LeaveManagement.LeaveDesignationWiseConfiguration objLeaveDesignationWiseConfiguration = new Business.LeaveManagement.LeaveDesignationWiseConfiguration();
+                Entity.LeaveManagement.LeaveDesignationWiseConfiguration leaveDesignationWiseConfiguration = new Entity.LeaveManagement.LeaveDesignationWiseConfiguration();
+                leaveDesignationWiseConfiguration.LeaveTypeId = Convert.ToInt32(ddlLeaveType.SelectedValue);
+                leaveDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
+                DataTable dt = objLeaveDesignationWiseConfiguration.LeaveDesignationConfig_GetAll(leaveDesignationWiseConfiguration);
+                if (LeaveDesignationWiseConfigurationId == 0)
                 {
-                    Message.IsSuccess = false;
-                    Message.Text = "Designation configuration already exists.";
-                    Message.Show = true;
-                    return false;
+                    if (dt != null && dt.AsEnumerable().Any())
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Designation configuration already exists.";
+                        Message.Show = true;
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (dt == null || !dt.AsEnumerable().Any())
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Designation configuration does not exists.";
+                        Message.Show = true;
+                        return false;
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (dt == null || !dt.AsEnumerable().Any())
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Designation configuration does not exists.";
-                    Message.Show = true;
-                    return false;
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
             return retValue;
         }

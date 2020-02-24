@@ -1,16 +1,15 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Calls : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void SetQueryStringValue()
         {
             if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
@@ -26,24 +25,35 @@ namespace WebAppAegisCRM.Sales
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                SetQueryStringValue();
-            }
-            if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
-            {
-                ModalPopupExtender1.Show();
-            }
-            if (!IsPostBack)
-            {
-                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadCallsDropdowns();
-                LoadCallList();
-                Message.Show = false;
-                if (CallId > 0)
+                if (!IsPostBack)
                 {
-                    GetCallById();
+                    SetQueryStringValue();
                 }
+                if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
+                {
+                    ModalPopupExtender1.Show();
+                }
+                if (!IsPostBack)
+                {
+                    Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadCallsDropdowns();
+                    LoadCallList();
+                    Message.Show = false;
+                    if (CallId > 0)
+                    {
+                        GetCallById();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int CallId
@@ -184,37 +194,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvCalls_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                CallId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetCallById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    CallId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetCallById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Calls Obj = new Business.Sales.Calls();
+                    int rows = Obj.DeleteCalls(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadCallList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Calls Obj = new Business.Sales.Calls();
-                int rows = Obj.DeleteCalls(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadCallList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -275,7 +318,6 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-
         private void SaveCallLink()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();

@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ControlPanel
 {
     public partial class CallAttendanceManager : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Service_ServiceCallAttendance_GetAll()
         {
             try
@@ -26,7 +24,7 @@ namespace WebAppAegisCRM.ControlPanel
                 gvCallAttendance.DataSource = dsCallAttendance.Tables[0];
                 gvCallAttendance.DataBind();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ex.WriteException();
                 Message.IsSuccess = false;
@@ -115,11 +113,22 @@ namespace WebAppAegisCRM.ControlPanel
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                EmployeeMaster_GetAll();
-                Service_ServiceCallAttendance_GetAll();
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
+                    EmployeeMaster_GetAll();
+                    Service_ServiceCallAttendance_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -186,6 +195,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -240,6 +250,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -248,13 +259,35 @@ namespace WebAppAegisCRM.ControlPanel
 
         protected void gvCallAttendance_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCallAttendance.PageIndex = e.NewPageIndex;
-            Service_ServiceCallAttendance_GetAll();
+            try
+            {
+                gvCallAttendance.PageIndex = e.NewPageIndex;
+                Service_ServiceCallAttendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Service_ServiceCallAttendance_GetAll();
+            try
+            {
+                Service_ServiceCallAttendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
     }
 }

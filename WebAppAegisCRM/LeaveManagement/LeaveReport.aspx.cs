@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,6 +12,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveReport : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void LoadLeaveType()
         {
             Business.LeaveManagement.LeaveType objLeaveType = new Business.LeaveManagement.LeaveType();
@@ -63,23 +65,47 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                EmployeeMaster_GetAll();
-                LoadLeaveType();
-                LeaveApplication_GetAll();
+                if (!IsPostBack)
+                {
+                    EmployeeMaster_GetAll();
+                    LoadLeaveType();
+                    LeaveApplication_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            LeaveApplication_GetAll();
+            try
+            {
+                LeaveApplication_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvLeaveReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvLeaveReport.PageIndex = e.NewPageIndex;
-            LeaveApplication_GetAll();
+            try
+            {
+                gvLeaveReport.PageIndex = e.NewPageIndex;
+                LeaveApplication_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
     }
 }

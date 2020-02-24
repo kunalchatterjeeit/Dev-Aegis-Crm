@@ -1,18 +1,18 @@
-﻿using Entity.Inventory;
+﻿using Business.Common;
+using Entity.Inventory;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Business.Common;
 
 namespace WebAppAegisCRM.Purchase
 {
     public partial class Purchase : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private DataTable _ItemsList
         {
             get
@@ -162,164 +162,207 @@ namespace WebAppAegisCRM.Purchase
             //_ItemsList = null;
             ddlItem.Focus();
         }
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadStore();
-                LoadVendor();
-                LoadAllItem();
-                LoadItemList();
-                ClearMasterControls();
-                ClearItemControls();
+                if (!IsPostBack)
+                {
+                    LoadStore();
+                    LoadVendor();
+                    LoadAllItem();
+                    LoadItemList();
+                    ClearMasterControls();
+                    ClearItemControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_ItemsList.Rows.Count == 0)
+            try
             {
-                using (DataTable dtInstance = new DataTable())
+                if (_ItemsList.Rows.Count == 0)
                 {
-                    dtInstance.Columns.Add("ItemIdType");
-                    dtInstance.Columns.Add("ItemName");
-                    dtInstance.Columns.Add("ItemType");
-                    dtInstance.Columns.Add("Quantity");
-                    dtInstance.Columns.Add("Rate");
-                    dtInstance.Columns.Add("Discount");
-                    dtInstance.Columns.Add("GST");
-                    dtInstance.Columns.Add("HSNCode");
-                    _ItemsList = dtInstance;
+                    using (DataTable dtInstance = new DataTable())
+                    {
+                        dtInstance.Columns.Add("ItemIdType");
+                        dtInstance.Columns.Add("ItemName");
+                        dtInstance.Columns.Add("ItemType");
+                        dtInstance.Columns.Add("Quantity");
+                        dtInstance.Columns.Add("Rate");
+                        dtInstance.Columns.Add("Discount");
+                        dtInstance.Columns.Add("GST");
+                        dtInstance.Columns.Add("HSNCode");
+                        _ItemsList = dtInstance;
+                    }
                 }
+
+                DataRow drItem = _ItemsList.NewRow();
+                drItem["ItemIdType"] = ddlItem.SelectedValue;
+                drItem["ItemName"] = ddlItem.SelectedItem.Text;
+                drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
+                drItem["Quantity"] = txtQuantity.Text.Trim();
+                drItem["Rate"] = txtRate.Text.Trim();
+                drItem["Discount"] = txtDiscount.Text.Trim();
+                drItem["GST"] = txtGst.Text.Trim();
+                drItem["HSNCode"] = txtHsnCode.Text.Trim();
+
+                _ItemsList.Rows.Add(drItem);
+                _ItemsList.AcceptChanges();
+
+                LoadItemList();
+                ClearItemControls();
             }
-
-            DataRow drItem = _ItemsList.NewRow();
-            drItem["ItemIdType"] = ddlItem.SelectedValue;
-            drItem["ItemName"] = ddlItem.SelectedItem.Text;
-            drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
-            drItem["Quantity"] = txtQuantity.Text.Trim();
-            drItem["Rate"] = txtRate.Text.Trim();
-            drItem["Discount"] = txtDiscount.Text.Trim();
-            drItem["GST"] = txtGst.Text.Trim();
-            drItem["HSNCode"] = txtHsnCode.Text.Trim();
-
-            _ItemsList.Rows.Add(drItem);
-            _ItemsList.AcceptChanges();
-
-            LoadItemList();
-            ClearItemControls();
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string itemIdType = e.CommandArgument.ToString();
-
-                if (DeleteItem(itemIdType))
+                if (e.CommandName == "D")
                 {
-                    LoadItemList();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
-                }
+                    string itemIdType = e.CommandArgument.ToString();
 
+                    if (DeleteItem(itemIdType))
+                    {
+                        LoadItemList();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (Validation())
+            try
             {
-                Entity.Purchase.Purchase purchase = new Entity.Purchase.Purchase();
-                Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
-                Entity.Purchase.PurchaseDetails purchaseDetails = new Entity.Purchase.PurchaseDetails();
-                Entity.Inventory.Inventory inventory = new Entity.Inventory.Inventory();
-                Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
-
-                purchase.PurchaseOrderNo = (!string.IsNullOrEmpty(txtPurchaseOrderNo.Text.Trim())) ? txtPurchaseOrderNo.Text.Trim() : string.Empty;
-                purchase.PurchaseDate = Convert.ToDateTime(txtPurchaseDate.Text.Trim());
-                purchase.VendorId = Convert.ToInt32(ddlVendor.SelectedValue);
-                purchase.InvoiceNo = (!string.IsNullOrEmpty(txtInvoiceNo.Text.Trim())) ? txtInvoiceNo.Text.Trim() : string.Empty;
-                purchase.InvoiceDate = (!string.IsNullOrEmpty(txtInvoiceDate.Text.Trim())) ? Convert.ToDateTime(txtInvoiceDate.Text.Trim()) : DateTime.MinValue;
-                purchase.BillAmount = (!string.IsNullOrEmpty(txtBillAmount.Text.Trim())) ? Convert.ToDecimal(txtBillAmount.Text.Trim()) : 0;
-                purchase.PaymentAmount = (!string.IsNullOrEmpty(txtPaymentAmount.Text.Trim())) ? Convert.ToDecimal(txtPaymentAmount.Text.Trim()) : 0;
-                int purchaseId = objPurchase.Purchase_Save(purchase);
-
-                foreach (DataRow drItem in _ItemsList.Rows)
+                if (Validation())
                 {
-                    purchase.PurchaseDetailsCollection.Add(
-                    new Entity.Purchase.PurchaseDetails()
-                    {
-                        PurchaseId = purchaseId,
-                        ItemId = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[0]),
-                        ItemType = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[1]),
-                        ItemQty = (!string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
-                        ItemRate = (!string.IsNullOrEmpty(drItem["Rate"].ToString())) ? Convert.ToDecimal(drItem["Rate"].ToString()) : 0,
-                        Discount = (!string.IsNullOrEmpty(drItem["Discount"].ToString())) ? Convert.ToDecimal(drItem["Discount"].ToString()) : 0,
-                        GST = (!string.IsNullOrEmpty(drItem["GST"].ToString())) ? Convert.ToDecimal(drItem["GST"].ToString()) : 0,
-                        HsnCode = drItem["HsnCode"].ToString()
-                    });
-                }
-                int purchaseDetailsResponse = objPurchase.PurchaseDetails_Save(purchase);
+                    Entity.Purchase.Purchase purchase = new Entity.Purchase.Purchase();
+                    Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
+                    Entity.Purchase.PurchaseDetails purchaseDetails = new Entity.Purchase.PurchaseDetails();
+                    Entity.Inventory.Inventory inventory = new Entity.Inventory.Inventory();
+                    Business.Inventory.Inventory objInventory = new Business.Inventory.Inventory();
 
-                if (purchaseDetailsResponse > 0)
-                {
-                    using (DataTable dtInventory = new DataTable())
-                    {
-                        dtInventory.Columns.Add("AssetId");
-                        dtInventory.Columns.Add("ItemId");
-                        dtInventory.Columns.Add("ItemType");
-                        dtInventory.Columns.Add("AssetLocationId");
-                        dtInventory.Columns.Add("CustomerId");
-                        dtInventory.Columns.Add("SaleChallanId");
-                        dtInventory.Columns.Add("EmployeeId");
-                        dtInventory.Columns.Add("StoreId");
+                    purchase.PurchaseOrderNo = (!string.IsNullOrEmpty(txtPurchaseOrderNo.Text.Trim())) ? txtPurchaseOrderNo.Text.Trim() : string.Empty;
+                    purchase.PurchaseDate = Convert.ToDateTime(txtPurchaseDate.Text.Trim());
+                    purchase.VendorId = Convert.ToInt32(ddlVendor.SelectedValue);
+                    purchase.InvoiceNo = (!string.IsNullOrEmpty(txtInvoiceNo.Text.Trim())) ? txtInvoiceNo.Text.Trim() : string.Empty;
+                    purchase.InvoiceDate = (!string.IsNullOrEmpty(txtInvoiceDate.Text.Trim())) ? Convert.ToDateTime(txtInvoiceDate.Text.Trim()) : DateTime.MinValue;
+                    purchase.BillAmount = (!string.IsNullOrEmpty(txtBillAmount.Text.Trim())) ? Convert.ToDecimal(txtBillAmount.Text.Trim()) : 0;
+                    purchase.PaymentAmount = (!string.IsNullOrEmpty(txtPaymentAmount.Text.Trim())) ? Convert.ToDecimal(txtPaymentAmount.Text.Trim()) : 0;
+                    int purchaseId = objPurchase.Purchase_Save(purchase);
 
-                        foreach (DataRow drItem in _ItemsList.Rows)
+                    foreach (DataRow drItem in _ItemsList.Rows)
+                    {
+                        purchase.PurchaseDetailsCollection.Add(
+                        new Entity.Purchase.PurchaseDetails()
                         {
-                            for (int qty = 1; qty <= Convert.ToInt32(drItem["Quantity"]); qty++)
+                            PurchaseId = purchaseId,
+                            ItemId = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[0]),
+                            ItemType = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[1]),
+                            ItemQty = (!string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
+                            ItemRate = (!string.IsNullOrEmpty(drItem["Rate"].ToString())) ? Convert.ToDecimal(drItem["Rate"].ToString()) : 0,
+                            Discount = (!string.IsNullOrEmpty(drItem["Discount"].ToString())) ? Convert.ToDecimal(drItem["Discount"].ToString()) : 0,
+                            GST = (!string.IsNullOrEmpty(drItem["GST"].ToString())) ? Convert.ToDecimal(drItem["GST"].ToString()) : 0,
+                            HsnCode = drItem["HsnCode"].ToString()
+                        });
+                    }
+                    int purchaseDetailsResponse = objPurchase.PurchaseDetails_Save(purchase);
+
+                    if (purchaseDetailsResponse > 0)
+                    {
+                        using (DataTable dtInventory = new DataTable())
+                        {
+                            dtInventory.Columns.Add("AssetId");
+                            dtInventory.Columns.Add("ItemId");
+                            dtInventory.Columns.Add("ItemType");
+                            dtInventory.Columns.Add("AssetLocationId");
+                            dtInventory.Columns.Add("CustomerId");
+                            dtInventory.Columns.Add("SaleChallanId");
+                            dtInventory.Columns.Add("EmployeeId");
+                            dtInventory.Columns.Add("StoreId");
+
+                            foreach (DataRow drItem in _ItemsList.Rows)
                             {
-                                DataRow drInventoryItem = dtInventory.NewRow();
-                                drInventoryItem["AssetId"] = Guid.NewGuid().ToString().ToUpper();
-                                drInventoryItem["ItemId"] = drItem["ItemIdType"].ToString().Split('|')[0];
-                                drInventoryItem["ItemType"] = drItem["ItemIdType"].ToString().Split('|')[1];
-                                drInventoryItem["AssetLocationId"] = (int)AssetLocation.Store; //Stock In
-                                drInventoryItem["CustomerId"] = "";
-                                drInventoryItem["SaleChallanId"] = "";
-                                drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                                drInventoryItem["StoreId"] = Convert.ToInt32(ddlStore.SelectedValue);
-                                dtInventory.Rows.Add(drInventoryItem);
-                                dtInventory.AcceptChanges();
+                                for (int qty = 1; qty <= Convert.ToInt32(drItem["Quantity"]); qty++)
+                                {
+                                    DataRow drInventoryItem = dtInventory.NewRow();
+                                    drInventoryItem["AssetId"] = Guid.NewGuid().ToString().ToUpper();
+                                    drInventoryItem["ItemId"] = drItem["ItemIdType"].ToString().Split('|')[0];
+                                    drInventoryItem["ItemType"] = drItem["ItemIdType"].ToString().Split('|')[1];
+                                    drInventoryItem["AssetLocationId"] = (int)AssetLocation.Store; //Stock In
+                                    drInventoryItem["CustomerId"] = "";
+                                    drInventoryItem["SaleChallanId"] = "";
+                                    drInventoryItem["EmployeeId"] = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                                    drInventoryItem["StoreId"] = Convert.ToInt32(ddlStore.SelectedValue);
+                                    dtInventory.Rows.Add(drInventoryItem);
+                                    dtInventory.AcceptChanges();
+                                }
+                            }
+
+                            inventory.InventoryDetails = dtInventory;
+                            int inventoryResponse = objInventory.Inventory_Save(inventory);
+
+                            if (inventoryResponse > 0)
+                            {
+                                GlobalCache.RemoveAll();
+                                ClearMasterControls();
+                                ClearItemControls();
+                                LoadItemList();
+                                Message.IsSuccess = true;
+                                Message.Text = "Purchase Order saved";
+                            }
+                            else
+                            {
+                                Message.IsSuccess = false;
+                                Message.Text = "Inventory not saved";
                             }
                         }
-
-                        inventory.InventoryDetails = dtInventory;
-                        int inventoryResponse = objInventory.Inventory_Save(inventory);
-
-                        if (inventoryResponse > 0)
-                        {
-                            GlobalCache.RemoveAll();
-                            ClearMasterControls();
-                            ClearItemControls();
-                            LoadItemList();
-                            Message.IsSuccess = true;
-                            Message.Text = "Purchase Order saved";
-                        }
-                        else
-                        {
-                            Message.IsSuccess = false;
-                            Message.Text = "Inventory not saved";
-                        }
                     }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Purchase Order not saved";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Purchase Order not saved";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

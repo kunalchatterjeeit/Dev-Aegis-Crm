@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Purchase
 {
     public partial class VendorMaster : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
         Entity.Purchase.Vendor vendormaster = new Entity.Purchase.Vendor();
 
@@ -22,20 +20,31 @@ namespace WebAppAegisCRM.Purchase
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                if (Request.QueryString["vendorid"] != null && Request.QueryString["vendorid"].ToString().Length > 0)
+                if (!IsPostBack)
                 {
-                    VendorId = int.Parse(Request.QueryString["vendorid"].ToString());
-                    PopulateVendor();
+                    Message.Show = false;
+                    if (Request.QueryString["vendorid"] != null && Request.QueryString["vendorid"].ToString().Length > 0)
+                    {
+                        VendorId = int.Parse(Request.QueryString["vendorid"].ToString());
+                        PopulateVendor();
+                    }
+                    City_GetAll();
                 }
-                City_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-        protected void City_GetAll()
+        private void City_GetAll()
         {
-            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();            
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
             DataTable dt = objEmployeeMaster.City_GetAll();
             if (dt.Rows.Count > 0)
             {
@@ -138,15 +147,37 @@ namespace WebAppAegisCRM.Purchase
 
         protected void btnReset_Click(object sender, EventArgs e)
         {
-            Response.Redirect("VendorMaster.aspx");
+            try
+            {
+                Response.Redirect("VendorMaster.aspx");
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            Save();
-            ddlState.Items.Clear();
-            ddlDistrict.Items.Clear();
-            ddlCity.Items.Clear();
+            try
+            {
+                Save();
+                ddlState.Items.Clear();
+                ddlDistrict.Items.Clear();
+                ddlCity.Items.Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
     }
 }

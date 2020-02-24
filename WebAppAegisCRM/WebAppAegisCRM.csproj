@@ -70,6 +70,9 @@
     <Reference Include="Kunal.Exception">
       <HintPath>..\AJAX DLL\Kunal.Exception.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -219,7 +222,6 @@
     <Content Include="images\view_button.png" />
     <Content Include="images\welcome.png" />
     <Content Include="Inventory\Brand.aspx" />
-    <Content Include="Inventory\InventorySnap.aspx" />
     <Content Include="Inventory\Product.aspx" />
     <Content Include="Inventory\ProductCategory.aspx" />
     <Content Include="Inventory\ProductSpareMapping.aspx" />
@@ -636,13 +638,6 @@
     </Compile>
     <Compile Include="Inventory\Brand.aspx.designer.cs">
       <DependentUpon>Brand.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory\InventorySnap.aspx.cs">
-      <DependentUpon>InventorySnap.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventorySnap.aspx.designer.cs">
-      <DependentUpon>InventorySnap.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inventory\Product.aspx.cs">
       <DependentUpon>Product.aspx</DependentUpon>
@@ -1133,6 +1128,7 @@
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
     <Folder Include="LeaveManagement\LeaveAttachment\" />
+    <Folder Include="LogBackUp\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj">

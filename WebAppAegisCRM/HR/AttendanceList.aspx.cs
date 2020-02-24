@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class AttendanceList : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Attendance_GetAll()
         {
             DataSet dsAttendance =
@@ -29,23 +28,43 @@ namespace WebAppAegisCRM.HR
                 gvAttendanceList.DataBind();
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                Attendance_GetAll();
+            try
+            {
+                if (!IsPostBack)
+                    Attendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         protected void gvAttendanceList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvAttendanceList.PageIndex = e.NewPageIndex;
-            Attendance_GetAll();
+            try
+            {
+                gvAttendanceList.PageIndex = e.NewPageIndex;
+                Attendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-        
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Attendance_GetAll();
+            try
+            {
+                Attendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
     }
 }

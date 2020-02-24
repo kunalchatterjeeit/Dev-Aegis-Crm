@@ -1,17 +1,15 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimReport : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Status_GetAll()
         {
             Business.ClaimManagement.ClaimStatus objClaimStatus = new Business.ClaimManagement.ClaimStatus();
@@ -56,35 +54,78 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Status_GetAll();
-                EmployeeMaster_GetAll();
-                ClaimApplication_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    Status_GetAll();
+                    EmployeeMaster_GetAll();
+                    ClaimApplication_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            ClaimApplication_GetAll();
+            try
+            {
+                ClaimApplication_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvClaimReport_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvClaimReport.PageIndex = e.NewPageIndex;
-            ClaimApplication_GetAll();
+            try
+            {
+                gvClaimReport.PageIndex = e.NewPageIndex;
+                ClaimApplication_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvClaimReport_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "View")
+            try
             {
-                Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
-                ModalPopupExtender1.Show();
+                if (e.CommandName == "View")
+                {
+                    Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
+                    ModalPopupExtender1.Show();
+                }
             }
-
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         private void GetClaimApplicationDetails_ByClaimApplicationId(int ClaimApplicationId)
@@ -161,6 +202,10 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -189,6 +234,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
             finally
             {

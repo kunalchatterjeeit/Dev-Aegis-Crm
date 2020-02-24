@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class ManageAttendance : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Attendance_GetAll()
         {
             DataSet dsAttendance =
@@ -30,22 +28,35 @@ namespace WebAppAegisCRM.HR
                 gvAttendanceList.DataBind();
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                MessageBox.Show = false;
-                Attendance_GetAll();
+                if (!IsPostBack)
+                {
+                    MessageBox.Show = false;
+                    Attendance_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
-
         protected void gvAttendanceList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvAttendanceList.PageIndex = e.NewPageIndex;
-            Attendance_GetAll();
+            try
+            {
+                gvAttendanceList.PageIndex = e.NewPageIndex;
+                Attendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         protected void gvAttendanceList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -87,6 +98,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
             }
@@ -95,27 +107,41 @@ namespace WebAppAegisCRM.HR
                 MessageBox.Show = true;
             }
         }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Attendance_GetAll();
+            try
+            {
+                Attendance_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         protected void gvAttendanceList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            try
             {
-                Button btnMarkLate = e.Row.FindControl("btnMarkLate") as Button;
-                HiddenField hdnMarkLate = e.Row.FindControl("hdnMarkLate") as HiddenField;
-                btnMarkLate.Text = (hdnMarkLate.Value == "True") ? "Mark Not Late" : "Mark Late";
-                btnMarkLate.CssClass = (hdnMarkLate.Value == "True") ? "btn btn-outline btn-success" : "btn btn-outline btn-danger";
-                btnMarkLate.ToolTip = (hdnMarkLate.Value == "True") ? "Click to mark as not late" : "Click to mark as late";
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    Button btnMarkLate = e.Row.FindControl("btnMarkLate") as Button;
+                    HiddenField hdnMarkLate = e.Row.FindControl("hdnMarkLate") as HiddenField;
+                    btnMarkLate.Text = (hdnMarkLate.Value == "True") ? "Mark Not Late" : "Mark Late";
+                    btnMarkLate.CssClass = (hdnMarkLate.Value == "True") ? "btn btn-outline btn-success" : "btn btn-outline btn-danger";
+                    btnMarkLate.ToolTip = (hdnMarkLate.Value == "True") ? "Click to mark as not late" : "Click to mark as late";
 
-                Button btnMarkHalfDay = e.Row.FindControl("btnMarkHalfDay") as Button;
-                HiddenField hdnMarkHalfday = e.Row.FindControl("hdnMarkHalfday") as HiddenField;
-                btnMarkHalfDay.Text = (hdnMarkHalfday.Value == "True") ? "Mark Full-Day" : "Mark Half-Day";
-                btnMarkHalfDay.CssClass = (hdnMarkHalfday.Value == "True") ? "btn btn-outline btn-success" : "btn btn-outline btn-danger";
-                btnMarkHalfDay.ToolTip = (hdnMarkHalfday.Value == "True") ? "Click to mark as full-day" : "Click to mark as half-day";
+                    Button btnMarkHalfDay = e.Row.FindControl("btnMarkHalfDay") as Button;
+                    HiddenField hdnMarkHalfday = e.Row.FindControl("hdnMarkHalfday") as HiddenField;
+                    btnMarkHalfDay.Text = (hdnMarkHalfday.Value == "True") ? "Mark Full-Day" : "Mark Half-Day";
+                    btnMarkHalfDay.CssClass = (hdnMarkHalfday.Value == "True") ? "btn btn-outline btn-success" : "btn btn-outline btn-danger";
+                    btnMarkHalfDay.ToolTip = (hdnMarkHalfday.Value == "True") ? "Click to mark as full-day" : "Click to mark as half-day";
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
     }

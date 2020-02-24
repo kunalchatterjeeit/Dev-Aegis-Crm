@@ -1,18 +1,18 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApprove : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void GetClaimApplications_ByApproverId(int statusId)
         {
             DateTime fromApplicationDate = string.IsNullOrEmpty(txtFromClaimDate.Text.Trim()) ? DateTime.MinValue : Convert.ToDateTime(txtFromClaimDate.Text.Trim());
@@ -108,22 +108,44 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                GetClaimApplications_ByApproverId((int)ClaimStatusEnum.Pending);
-                Message.Show = false;
-                MessageSuccess.Show = false;
+                if (!IsPostBack)
+                {
+                    GetClaimApplications_ByApproverId((int)ClaimStatusEnum.Pending);
+                    Message.Show = false;
+                    MessageSuccess.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvClaimApprovalList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "View")
+            try
             {
-                Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
-                TabContainer1.ActiveTab = Approval;
-                ModalPopupExtender1.Show();
+                if (e.CommandName == "View")
+                {
+                    Business.Common.Context.ClaimApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetClaimApplicationDetails_ByClaimApplicationId(Business.Common.Context.ClaimApplicationId);
+                    TabContainer1.ActiveTab = Approval;
+                    ModalPopupExtender1.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -228,6 +250,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -290,6 +313,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -318,7 +342,18 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            GetClaimApplications_ByApproverId(ckShowAll.Checked ? (int)ClaimStatusEnum.None : (int)ClaimStatusEnum.Pending);
+            try
+            {
+                GetClaimApplications_ByApproverId(ckShowAll.Checked ? (int)ClaimStatusEnum.None : (int)ClaimStatusEnum.Pending);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -374,6 +409,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -413,17 +449,12 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
-
-        //private void LoadClaimStatus(DropDownList ddlLineItemStatus)
-        //{
-        //    ddlLineItemStatus.DataSource = new Business.ClaimManagement.ClaimStatus().ClaimStatus_GetAll(
-        //        new Entity.ClaimManagement.ClaimStatus() { });
-        //    ddlLineItemStatus.DataTextField = "StatusName";
-        //    ddlLineItemStatus.DataValueField = "ClaimStatusId";
-        //    ddlLineItemStatus.DataBind();
-        //}
 
         protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -466,12 +497,14 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
             finally
             {
                 ModalPopupExtender1.Show();
             }
         }
+
         private void ComputeTotalApprovedAmount()
         {
             decimal total = 0;

@@ -1,27 +1,37 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Contacts : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadContactList();
-                LoadContactsDropdowns();
-                Message.Show = false;
-                if (ContactId > 0)
+                if (!IsPostBack)
                 {
-                    GetContactById();
+                    LoadContactList();
+                    LoadContactsDropdowns();
+                    Message.Show = false;
+                    if (ContactId > 0)
+                    {
+                        GetContactById();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int ContactId
@@ -66,7 +76,7 @@ namespace WebAppAegisCRM.Sales
             Message.Show = false;
             txtMobile.Text = string.Empty;
             txtDescription.Text = string.Empty;
-            txtEmailId.Text = string.Empty;            
+            txtEmailId.Text = string.Empty;
             txtOfficePhone.Text = string.Empty;
             txtgstNo.Text = string.Empty;
             txtName.Text = string.Empty;
@@ -87,37 +97,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvContact_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                ContactId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetContactById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    ContactId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetContactById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Contacts Obj = new Business.Sales.Contacts();
+                    int rows = Obj.DeleteContacts(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadContactList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Contacts Obj = new Business.Sales.Contacts();
-                int rows = Obj.DeleteContacts(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadContactList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -129,7 +172,7 @@ namespace WebAppAegisCRM.Sales
             {
                 ddlDesignation.SelectedValue = Contacts.DesignationId == null ? "0" : Contacts.DesignationId.ToString();
                 ddlAccount.SelectedValue = Contacts.AccountId == null ? "0" : Contacts.AccountId.ToString();
-                txtDescription.Text = Contacts.Description;                
+                txtDescription.Text = Contacts.Description;
                 txtEmailId.Text = Contacts.Email;
                 txtMobile.Text = Contacts.Mobile;
                 txtgstNo.Text = Contacts.GSTNo.ToString();

@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerList : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect("~/MainLogout.aspx");
-
-            if (!IsPostBack)
+            try
             {
-                Customer_Customer_GetByAssignEngineerId();
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    Response.Redirect("~/MainLogout.aspx");
+
+                if (!IsPostBack)
+                {
+                    Customer_Customer_GetByAssignEngineerId();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
-        protected void Customer_Customer_GetByAssignEngineerId()
+        private void Customer_Customer_GetByAssignEngineerId()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
@@ -45,16 +53,30 @@ namespace WebAppAegisCRM.Customer
                 gvCustomerMaster.DataBind();
             }
         }
-
         protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCustomerMaster.PageIndex = e.NewPageIndex;
-            Customer_Customer_GetByAssignEngineerId();
+            try
+            {
+                gvCustomerMaster.PageIndex = e.NewPageIndex;
+                Customer_Customer_GetByAssignEngineerId();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Customer_Customer_GetByAssignEngineerId();
+            try
+            {
+                Customer_Customer_GetByAssignEngineerId();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
     }
 }

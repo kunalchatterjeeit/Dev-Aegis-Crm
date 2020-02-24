@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using Entity.Common;
+using log4net;
+using System;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using Business.Common;
-using Entity.Common;
 
 namespace WebAppAegisCRM.Employee
 {
     public partial class Employee : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
@@ -164,25 +163,34 @@ namespace WebAppAegisCRM.Employee
             get { return Convert.ToInt64(ViewState["ClaimEmployeeWiseApprovalConfigId"]); }
             set { ViewState["ClaimEmployeeWiseApprovalConfigId"] = value; }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadRoleList();
-                EmployeeMaster_GetAll();
-                EmployeeMaster_GetAll_ReferenceEmployee();
-                EmployeeMaster_GetAll_Reporting();
-                DesignationMaster_GetAll();
-                BindCity();
-                MessageBox.Show = false;
-                MessageGeneralLeave.Show = false;
-                MessageLeave.Show = false;
-                MessageClaim.Show = false;
-                MessageGeneralClaim.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadRoleList();
+                    EmployeeMaster_GetAll();
+                    EmployeeMaster_GetAll_ReferenceEmployee();
+                    EmployeeMaster_GetAll_Reporting();
+                    DesignationMaster_GetAll();
+                    BindCity();
+                    MessageBox.Show = false;
+                    MessageGeneralLeave.Show = false;
+                    MessageLeave.Show = false;
+                    MessageClaim.Show = false;
+                    MessageGeneralClaim.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
             }
         }
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             try
@@ -252,12 +260,12 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
             }
             MessageBox.Show = true;
         }
-
         private void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -267,7 +275,6 @@ namespace WebAppAegisCRM.Employee
             gvEmployeerMaster.DataSource = dt;
             gvEmployeerMaster.DataBind();
         }
-
         private void EmployeeMaster_GetAll_Reporting()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -281,7 +288,6 @@ namespace WebAppAegisCRM.Employee
             ddlReporting.DataBind();
             ddlReporting.InsertSelect();
         }
-
         private void LoadApprover()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -295,7 +301,6 @@ namespace WebAppAegisCRM.Employee
             ddlApproverEngineer.DataBind();
             ddlApproverEngineer.InsertSelect();
         }
-
         private void LoadClaimApprover()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -309,7 +314,6 @@ namespace WebAppAegisCRM.Employee
             ddlClaimApproverEngineer.DataBind();
             ddlClaimApproverEngineer.InsertSelect();
         }
-
         private void LoadRoleList()
         {
             Business.HR.RoleMaster objRoleMaster = new Business.HR.RoleMaster();
@@ -321,7 +325,6 @@ namespace WebAppAegisCRM.Employee
             }
             ddlRole.InsertSelect();
         }
-
         private void LeaveEmployeeWiseApprovalConfiguration_GetAll()
         {
             Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
@@ -332,7 +335,6 @@ namespace WebAppAegisCRM.Employee
             gvApproverDetails.DataSource = dt;
             gvApproverDetails.DataBind();
         }
-
         private void ClaimEmployeeWiseApprovalConfiguration_GetAll()
         {
             Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
@@ -343,8 +345,7 @@ namespace WebAppAegisCRM.Employee
             gvClaimApproverDetails.DataSource = dt;
             gvClaimApproverDetails.DataBind();
         }
-
-        public void ClearTextBoxes(Control parent)
+        private void ClearTextBoxes(Control parent)
         {
             foreach (Control c in parent.Controls)
             {
@@ -358,7 +359,6 @@ namespace WebAppAegisCRM.Employee
                 }
             }
         }
-
         private void EmployeeMaster_ById(int Id)
         {
             try
@@ -422,15 +422,24 @@ namespace WebAppAegisCRM.Employee
                 MessageBox.Show = true;
             }
         }
-
         protected void btnReset_Click(object sender, EventArgs e)
         {
-            ClearTextBoxes(this);
-            MessageBox.Show = false;
-            MessageGeneralLeave.Show = false;
-            MessageLeave.Show = false;
+            try
+            {
+                ClearTextBoxes(this);
+                MessageBox.Show = false;
+                MessageGeneralLeave.Show = false;
+                MessageLeave.Show = false;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
+            }
         }
-
         protected void gvEmployeerMaster_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -499,12 +508,12 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
             }
         }
-
         private void EmployeeMaster_GetAll_ReferenceEmployee()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -519,7 +528,6 @@ namespace WebAppAegisCRM.Employee
             }
             ddlRefferencrEmployee.InsertSelect();
         }
-
         private void DesignationMaster_GetAll()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -533,7 +541,6 @@ namespace WebAppAegisCRM.Employee
             }
             ddldesignation.InsertSelect();
         }
-
         private void BindCity()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -549,42 +556,50 @@ namespace WebAppAegisCRM.Employee
             ddlCity.InsertSelect();
             ddlPresentCity.InsertSelect();
         }
-
         protected void gvEmployeerMaster_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
         protected void gvApproverDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            LeaveEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
+            try
+            {
+                LeaveEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
 
-            if (e.CommandName == "E")
-            {
-                LeaveEmployeeWiseApprovalConfiguration_GetById();
+                if (e.CommandName == "E")
+                {
+                    LeaveEmployeeWiseApprovalConfiguration_GetById();
+                }
+                else if (e.CommandName == "D")
+                {
+                    Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+                    Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+                    leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
+                    int response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Delete(LeaveEmployeeWiseApprovalConfigId);
+                    if (response > 0)
+                    {
+                        ClearTextBoxes(this);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
+                        LeaveEmployeeWiseApprovalConfiguration_GetAll();
+                        LeaveEmployeeWiseApprovalConfigId = 0;
+                        TabContainer1.ActiveTab = ApprovalDetails;
+                        ModalPopupExtender1.Show();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                    }
+                }
             }
-            else if (e.CommandName == "D")
+            catch (Exception ex)
             {
-                Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
-                Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
-                leaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfigurationId = LeaveEmployeeWiseApprovalConfigId;
-                int response = objLeaveApprovalConfiguration.LeaveEmployeeWiseApprovalConfiguration_Delete(LeaveEmployeeWiseApprovalConfigId);
-                if (response > 0)
-                {
-                    ClearTextBoxes(this);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
-                    LeaveEmployeeWiseApprovalConfiguration_GetAll();
-                    LeaveEmployeeWiseApprovalConfigId = 0;
-                    TabContainer1.ActiveTab = ApprovalDetails;
-                    ModalPopupExtender1.Show();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
             }
         }
-
         protected void btnTSave_Click(object sender, EventArgs e)
         {
             try
@@ -622,6 +637,7 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageLeave.IsSuccess = false;
                 MessageLeave.Text = ex.Message;
             }
@@ -632,7 +648,6 @@ namespace WebAppAegisCRM.Employee
                 ModalPopupExtender1.Show();
             }
         }
-
         protected void btnClaimSave_Click(object sender, EventArgs e)
         {
             try
@@ -670,6 +685,7 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageClaim.IsSuccess = false;
                 MessageClaim.Text = ex.Message;
             }
@@ -680,7 +696,6 @@ namespace WebAppAegisCRM.Employee
                 ModalPopupExtender2.Show();
             }
         }
-
         private void LeaveEmployeeWiseApprovalConfiguration_GetById()
         {
             Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
@@ -695,7 +710,6 @@ namespace WebAppAegisCRM.Employee
             TabContainer1.ActiveTab = AddApproval;
             ModalPopupExtender1.Show();
         }
-
         private void ClaimEmployeeWiseApprovalConfiguration_GetById()
         {
             Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
@@ -710,7 +724,6 @@ namespace WebAppAegisCRM.Employee
             TabContainer2.ActiveTab = TabPanel2;
             ModalPopupExtender2.Show();
         }
-
         protected void rbtnListLeaveStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -734,6 +747,7 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 MessageGeneralLeave.IsSuccess = false;
                 MessageGeneralLeave.Text = ex.Message;
             }
@@ -744,50 +758,80 @@ namespace WebAppAegisCRM.Employee
                 ModalPopupExtender1.Show();
             }
         }
-
         protected void chkBlockLogin_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
-            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
-            new Business.HR.EmployeeMaster().Employee_LoginChange(employeeId, checkBox.Checked);
+            try
+            {
+                CheckBox checkBox = (CheckBox)sender;
+                GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+                int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                new Business.HR.EmployeeMaster().Employee_LoginChange(employeeId, checkBox.Checked);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
+            }
         }
-
         protected void chkActiveEmployee_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox checkBox = (CheckBox)sender;
-            GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
-            int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
-            new Business.HR.EmployeeMaster().Employee_ActiveChange(employeeId, checkBox.Checked);
+            try
+            {
+                CheckBox checkBox = (CheckBox)sender;
+                GridViewRow gridViewRow = (GridViewRow)checkBox.NamingContainer;
+                int employeeId = Convert.ToInt32(gvEmployeerMaster.DataKeys[gridViewRow.RowIndex].Values[0].ToString());
+                new Business.HR.EmployeeMaster().Employee_ActiveChange(employeeId, checkBox.Checked);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
+            }
         }
-
         protected void gvClaimApproverDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            ClaimEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
+            try
+            {
+                ClaimEmployeeWiseApprovalConfigId = Convert.ToInt64(e.CommandArgument.ToString());
 
-            if (e.CommandName == "E")
-            {
-                ClaimEmployeeWiseApprovalConfiguration_GetById();
+                if (e.CommandName == "E")
+                {
+                    ClaimEmployeeWiseApprovalConfiguration_GetById();
+                }
+                else if (e.CommandName == "D")
+                {
+                    Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+                    Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+                    ClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfigurationId = ClaimEmployeeWiseApprovalConfigId;
+                    int response = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_Delete(ClaimEmployeeWiseApprovalConfigId);
+                    if (response > 0)
+                    {
+                        ClearTextBoxes(this);
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
+                        ClaimEmployeeWiseApprovalConfiguration_GetAll();
+                        ClaimEmployeeWiseApprovalConfigId = 0;
+                        TabContainer2.ActiveTab = TabPanel3;
+                        ModalPopupExtender2.Show();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
+                    }
+                }
             }
-            else if (e.CommandName == "D")
+            catch (Exception ex)
             {
-                Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
-                Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
-                ClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfigurationId = ClaimEmployeeWiseApprovalConfigId;
-                int response = objClaimApprovalConfiguration.ClaimEmployeeWiseApprovalConfiguration_Delete(ClaimEmployeeWiseApprovalConfigId);
-                if (response > 0)
-                {
-                    ClearTextBoxes(this);
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data delete succesfully....');", true);
-                    ClaimEmployeeWiseApprovalConfiguration_GetAll();
-                    ClaimEmployeeWiseApprovalConfigId = 0;
-                    TabContainer2.ActiveTab = TabPanel3;
-                    ModalPopupExtender2.Show();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not delete!!!....');", true);
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                MessageBox.IsSuccess = false;
+                MessageBox.Text = ex.Message;
+                MessageBox.Show = true;
             }
         }
     }

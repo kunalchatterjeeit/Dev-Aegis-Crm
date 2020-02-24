@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Web.UI.WebControls;
-using System.Data;
 
 namespace WebAppAegisCRM.Common
 {
     public partial class City : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public int CityId
         {
             get { return Convert.ToInt32(ViewState["CityId"]); }
@@ -20,12 +18,20 @@ namespace WebAppAegisCRM.Common
         {
             if (!IsPostBack)
             {
-                ClearControls();
-                LoadCity();
+                try
+                {
+                    ClearControls();
+                    LoadCity();
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    logger.Error(ex.Message);
+                }
             }
         }
 
-        protected void ClearControls()
+        private void ClearControls()
         {
             CityId = 0;
             ddlState.SelectedIndex = 0;
@@ -35,7 +41,7 @@ namespace WebAppAegisCRM.Common
             Message.Show = false;
         }
 
-        protected void LoadCity()
+        private void LoadCity()
         {
             Business.Common.City objCity = new Business.Common.City();
             Entity.Common.City city = new Entity.Common.City();
@@ -49,78 +55,110 @@ namespace WebAppAegisCRM.Common
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.Common.City objCity = new Business.Common.City();
-            Entity.Common.City city = new Entity.Common.City();
-
-            city.CityId = CityId;
-            city.CountryId = 1;
-            city.StateId = 1;
-            city.DistrictId = 1;
-            city.CityName = txtCity.Text;
-            city.STD = txtSTD.Text;
-
-            int i = objCity.Save(city);
-
-            if (i > 0)
+            try
             {
-                ClearControls();
-                LoadCity();
-                Message.IsSuccess = true;
-                Message.Text = "City saved successfully...";
-            }
-            else
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Can not save!!!";
-            }
-            Message.Show = true;
-        }
+                Business.Common.City objCity = new Business.Common.City();
+                Entity.Common.City city = new Entity.Common.City();
 
-        protected void gvCity_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            Business.Common.City objCity = new Business.Common.City();
-            Entity.Common.City city = new Entity.Common.City();
+                city.CityId = CityId;
+                city.CountryId = 1;
+                city.StateId = 1;
+                city.DistrictId = 1;
+                city.CityName = txtCity.Text;
+                city.STD = txtSTD.Text;
 
-            if (e.CommandName == "Ed")
-            {
-                int cityId = int.Parse(e.CommandArgument.ToString());
-                city = objCity.GetById(cityId);
-                CityId = city.CityId;
-                txtCity.Text = city.CityName;
-                txtSTD.Text = city.STD;
-                ddlState.SelectedValue = Convert.ToString(city.StateId);
-                ddlDistrict.SelectedValue = Convert.ToString(city.DistrictId);
-            }
-            else if (e.CommandName == "Del")
-            {
-                int cityId = int.Parse(e.CommandArgument.ToString());
-                int i = objCity.Delete(cityId);
+                int i = objCity.Save(city);
 
                 if (i > 0)
                 {
                     ClearControls();
                     LoadCity();
                     Message.IsSuccess = true;
-                    Message.Text = "City deleted successfully...";
+                    Message.Text = "City saved successfully...";
                 }
                 else
                 {
                     Message.IsSuccess = false;
-                    Message.Text = "Can not delete!!!";
+                    Message.Text = "Can not save!!!";
                 }
                 Message.Show = true;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
+        }
+
+        protected void gvCity_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                Business.Common.City objCity = new Business.Common.City();
+                Entity.Common.City city = new Entity.Common.City();
+
+                if (e.CommandName == "Ed")
+                {
+                    int cityId = int.Parse(e.CommandArgument.ToString());
+                    city = objCity.GetById(cityId);
+                    CityId = city.CityId;
+                    txtCity.Text = city.CityName;
+                    txtSTD.Text = city.STD;
+                    ddlState.SelectedValue = Convert.ToString(city.StateId);
+                    ddlDistrict.SelectedValue = Convert.ToString(city.DistrictId);
+                }
+                else if (e.CommandName == "Del")
+                {
+                    int cityId = int.Parse(e.CommandArgument.ToString());
+                    int i = objCity.Delete(cityId);
+
+                    if (i > 0)
+                    {
+                        ClearControls();
+                        LoadCity();
+                        Message.IsSuccess = true;
+                        Message.Text = "City deleted successfully...";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Can not delete!!!";
+                    }
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvCity_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCity.PageIndex = e.NewPageIndex;
-            LoadCity();
+            try
+            {
+                gvCity.PageIndex = e.NewPageIndex;
+                LoadCity();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
     }
 }
