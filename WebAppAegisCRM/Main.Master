@@ -122,15 +122,15 @@
             <!-- /.navbar-header -->
          
             <ul class="nav navbar-top-links navbar-right">
-                <asp:LinkButton ID="lnkBtnApp" runat="server" ToolTip="Latest Android App v3.0" OnClick="lnkBtnApp_Click"><i class="fa fa-fw fa-android"></i> Download Android App</asp:LinkButton>
+                <asp:LinkButton ID="lnkBtnApp" runat="server" ToolTip="Latest Android App v5.0" OnClick="lnkBtnApp_Click"><i class="fa fa-fw fa-android"></i> Download Android App</asp:LinkButton>
                 <li id="li1" runat="server" class="dropdown">
                     <asp:Label ID="lblAttendanceLate" runat="server" class="dropdown-toggle red blink_me" style="cursor:pointer; font-weight:bold;"></asp:Label>
                 </li>
                 <li id="liAttendance" runat="server" class="dropdown" onclick="showLoading()">
-                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1"  title="Make Attendace In">
+                    <a id="lnkAttendaceLogin" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=1&return=crm.aegissolutions.in"  title="Make Attendace In">
                         <span class="glyphicon glyphicon-log-in"> ATTENDANCE-IN</span>
                     </a> 
-                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=0" title="Make Attendace Out" visible="false">
+                    <a id="lnkAttendaceLogout" runat="server" class="dropdown-toggle"  style="cursor:pointer" href="https://aegissolutions.in/gps.html?log=0&return=crm.aegissolutions.in" title="Make Attendace Out" visible="false">
                         <i class="glyphicon glyphicon-log-out"> ATTENDANCE-OUT</i>
                     </a> 
                     <!-- /.dropdown-alerts -->
