@@ -624,15 +624,15 @@
                 </div>
             </div>
             <script type="text/javascript">
-                $(function () {
-                    loadForm();
-                });
                 function loadForm() {
                     if ($('#hdnOpenForm').val() == "true") {
                         $('#hrefForm').click();
                         $('#hrefAssigned').click();
                     }
                 }
+                $(function () {
+                    loadForm();
+                });
                 Sys.Application.add_load(loadForm);
                 function OpenLink(myurl) {
                     debugger;

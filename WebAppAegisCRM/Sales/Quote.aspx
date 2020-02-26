@@ -319,7 +319,7 @@
                                             </asp:TemplateField>   
                                              <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="btnPrint" runat="server" ToolTip="Print" Text="Print" CommandName="Print" CausesValidation="false"
+                                                    <asp:LinkButton ID="btnPrint" runat="server" ToolTip="Print" class="fa fa-print fa-fw" CommandName="Print" CausesValidation="false"
                                                         CommandArgument='<%# Eval("Id") %>' Style="font-size: 16px;"></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>

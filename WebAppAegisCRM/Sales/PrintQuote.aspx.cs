@@ -17,6 +17,11 @@ namespace WebAppAegisCRM.Sales
             {
                 BindQuote(Convert.ToInt32(Request.QueryString["StageId"].ToString()));
             }
+            if (Request.QueryString["showStamp"] != null && Request.QueryString["showStamp"].ToString().Length > 0)
+            {
+                imgSignature.Visible = Convert.ToBoolean(Request.QueryString["showStamp"].ToString());
+                imgStump.Visible = Convert.ToBoolean(Request.QueryString["showStamp"].ToString());
+            }
         }
         private void BindQuote(int Id)
         {

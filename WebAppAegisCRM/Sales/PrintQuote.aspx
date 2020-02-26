@@ -225,8 +225,8 @@
                                     <td style="width: 20%; text-align: left;" height="190">
                                         <p>&nbsp;for</p>
                                         <p style="font-weight: bold;">&nbsp; Aegis Services</p>
-                                        <img class="leftimg" src="../images/image009.png" width="100" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <img class="leftimg" src="../images/image007.png" width="100" />
+                                        <img id="imgSignature" runat="server" class="leftimg" src="../images/image009.png" width="100" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <img id="imgStump" runat="server" class="leftimg" src="../images/image007.png" width="100" />
                                     </td>
                                 </tr>
                             </table>

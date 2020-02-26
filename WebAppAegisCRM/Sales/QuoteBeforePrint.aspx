@@ -51,7 +51,12 @@
                                            
                                              <asp:TemplateField ItemStyle-Width="15px">
                                                 <ItemTemplate>
-                                                    <a href='PrintQuote.aspx?StageId=<%# Eval("Id") %>' target="_blank">Print</a>
+                                                    <a href='PrintQuote.aspx?StageId=<%# Eval("Id") %>&showStamp=false' target="_blank" class="fa fa-print" style="font-size: 16px;" title="Print without stamp"></a>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField ItemStyle-Width="15px">
+                                                <ItemTemplate>
+                                                    <a href='PrintQuote.aspx?StageId=<%# Eval("Id") %>&showStamp=true' target="_blank" class="fa fa-globe" style="font-size: 16px;" title="Print with stamp"></a>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
