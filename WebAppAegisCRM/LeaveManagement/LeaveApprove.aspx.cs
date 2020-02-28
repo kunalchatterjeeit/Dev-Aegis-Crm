@@ -146,7 +146,7 @@ namespace WebAppAegisCRM.LeaveManagement
                 Entity.LeaveManagement.LeaveApplicationMaster leaveApplicationMaster = new Entity.LeaveManagement.LeaveApplicationMaster();
                 leaveApplicationMaster.LeaveApplicationId = Business.Common.Context.LeaveApplicationId;
                 DataTable dtLeaveApplication = objLeaveApplication.LeaveApplicationMaster_GetAll(leaveApplicationMaster);
-                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(dtLeaveApplication.Rows[0]["RequestorId"].ToString()), Convert.ToInt32(ddlLeaveType.SelectedValue)).Tables[0];
+                DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Convert.ToInt32(dtLeaveApplication.Rows[0]["RequestorId"].ToString()), Convert.ToInt32(dtLeaveApplication.Rows[0]["LeaveTypeId"].ToString())).Tables[0];
                 DataSet dsLeaveDetails = objLeaveApplication.GetLeaveApplicationDetails_ByLeaveApplicationId(Business.Common.Context.LeaveApplicationId);
                 decimal totalLeaveCount = 0;
                 totalLeaveCount = Convert.ToDecimal(dsLeaveDetails.Tables[2].Compute("Sum(AppliedForDay)", string.Empty));
