@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,16 +11,28 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Department : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadDepartmentList();
-                Message.Show = false;
-                if (DeptId > 0)
+                if (!IsPostBack)
                 {
-                    GetDepartmentById();
+                    LoadDepartmentList();
+                    Message.Show = false;
+                    if (DeptId > 0)
+                    {
+                        GetDepartmentById();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int DeptId
@@ -53,37 +67,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvDepartment_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                DeptId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetDepartmentById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    DeptId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetDepartmentById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Department Obj = new Business.Sales.Department();
+                    int rows = Obj.DeleteDepartment(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadDepartmentList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Department Obj = new Business.Sales.Department();
-                int rows = Obj.DeleteDepartment(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadDepartmentList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class VoucherReport : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Voucher_GetAll()
         {
             Business.ClaimManagement.Voucher objVoucher = new Business.ClaimManagement.Voucher();
@@ -28,21 +27,45 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Voucher_GetAll();
+                if (!IsPostBack)
+                {
+                    Voucher_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvVoucherList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvVoucherList.PageIndex = e.NewPageIndex;
-            Voucher_GetAll();
+            try
+            {
+                gvVoucherList.PageIndex = e.NewPageIndex;
+                Voucher_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Voucher_GetAll();
+            try
+            {
+                Voucher_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
     }
 }

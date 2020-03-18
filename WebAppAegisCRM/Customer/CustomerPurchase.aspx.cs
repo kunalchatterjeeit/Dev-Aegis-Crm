@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
-using Business.Common;
-using System.Web.UI.HtmlControls;
-using Entity.Common;
-using Entity.Service;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerPurchase : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         Business.Customer.Customer objCustomer = new Business.Customer.Customer();
         Entity.Customer.Customer customer = new Entity.Customer.Customer();
         public int CustomerMasterId
@@ -26,44 +22,53 @@ namespace WebAppAegisCRM.Customer
             get { return Convert.ToInt32(ViewState["CustomerPurchaseId"]); }
             set { ViewState["CustomerPurchaseId"] = value; }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            try
             {
-                Response.Redirect("~/MainLogout.aspx");
-            }
-            if (!IsPostBack)
-            {
-                LoadBrand();
-                if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
-                    GetAllCustomer();
-                else
-                    Customer_GetByAssignEngineerId();
-                LoadProduct();
-                LoadEmployee();
-                LoadContractType();
-                Message.Show = false;
-
-                //Direct link from dashboard lists
-                if (Request.QueryString["customerId"] != null && Request.QueryString["source"] != null && Request.QueryString["contractId"] != null)
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    if (Request.QueryString["source"].ToString() == "dashboard" || Request.QueryString["source"].ToString() == "contractStatus")
+                    Response.Redirect("~/MainLogout.aspx");
+                }
+                if (!IsPostBack)
+                {
+                    LoadBrand();
+                    if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                        GetAllCustomer();
+                    else
+                        Customer_GetByAssignEngineerId();
+                    LoadProduct();
+                    LoadEmployee();
+                    LoadContractType();
+                    Message.Show = false;
+
+                    //Direct link from dashboard lists
+                    if (Request.QueryString["customerId"] != null && Request.QueryString["source"] != null && Request.QueryString["contractId"] != null)
                     {
-                        CustomerMasterId = int.Parse(Request.QueryString["customerId"].ToString());
-                        popupHeader2.InnerHtml = objCustomer.CustomerPurchase_GetByCustomerId(CustomerMasterId).Rows[0]["CustomerName"].ToString();
-                        LoadCustomerPurchaseListForContract();
-                        LoadContractList();
-                        ClearControlForContract();
-                        LoadContractDetail(int.Parse(Request.QueryString["contractId"].ToString()));
-                        ModalPopupExtender2.Show();
+                        if (Request.QueryString["source"].ToString() == "dashboard" || Request.QueryString["source"].ToString() == "contractStatus")
+                        {
+                            CustomerMasterId = int.Parse(Request.QueryString["customerId"].ToString());
+                            popupHeader2.InnerHtml = objCustomer.CustomerPurchase_GetByCustomerId(CustomerMasterId).Rows[0]["CustomerName"].ToString();
+                            LoadCustomerPurchaseListForContract();
+                            LoadContractList();
+                            ClearControlForContract();
+                            LoadContractDetail(int.Parse(Request.QueryString["contractId"].ToString()));
+                            ModalPopupExtender2.Show();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         #region User Defined Funtions
-        protected void Customer_GetByAssignEngineerId()
+        private void Customer_GetByAssignEngineerId()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
@@ -85,7 +90,7 @@ namespace WebAppAegisCRM.Customer
                 gvCustomerMaster.DataBind();
             }
         }
-        protected void GetAllCustomer()
+        private void GetAllCustomer()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
             Entity.Customer.Customer customer = new Entity.Customer.Customer();
@@ -107,7 +112,7 @@ namespace WebAppAegisCRM.Customer
                 gvCustomerMaster.DataBind();
             }
         }
-        protected void LoadBrand()
+        private void LoadBrand()
         {
             Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
             ddlBrand.DataSource = objBrandMaster.GetAll();
@@ -116,7 +121,7 @@ namespace WebAppAegisCRM.Customer
             ddlBrand.DataBind();
             ddlBrand.InsertSelect();
         }
-        protected void PopulateCustomerPurchaseDetails()
+        private void PopulateCustomerPurchaseDetails()
         {
             customer = objCustomer.CustomerPurchase_GetByCustomerPurchaseId(CustomerPurchaseId);
             if (customer != null)
@@ -169,17 +174,17 @@ namespace WebAppAegisCRM.Customer
             ddlAssignEngineer.DataBind();
             ddlAssignEngineer.InsertSelect();
         }
-        protected void LoadCustomerPurchaseList()
+        private void LoadCustomerPurchaseList()
         {
             gvCustomerPurchaseList.DataSource = objCustomer.CustomerPurchase_GetByCustomerId(CustomerMasterId);
             gvCustomerPurchaseList.DataBind();
         }
-        protected void LoadCustomerPurchaseListForContract()
+        private void LoadCustomerPurchaseListForContract()
         {
             gvCustomerPurchaseListForContract.DataSource = objCustomer.CustomerPurchase_GetByCustomerId(CustomerMasterId);
             gvCustomerPurchaseListForContract.DataBind();
         }
-        protected void LoadContractType()
+        private void LoadContractType()
         {
             Business.Customer.Contract objContract = new Business.Customer.Contract();
             ddlContractType.DataSource = objContract.GetAll();
@@ -188,7 +193,7 @@ namespace WebAppAegisCRM.Customer
             ddlContractType.DataBind();
             ddlContractType.InsertSelect();
         }
-        protected void ClearControl()
+        private void ClearControl()
         {
             //ddlNature.SelectedIndex = 0;
             txtCustomerRemarks.Text = string.Empty;
@@ -211,7 +216,7 @@ namespace WebAppAegisCRM.Customer
             txtInstallationDate.Text = string.Empty;
             CustomerPurchaseId = 0;
         }
-        protected void ClearControlForContract()
+        private void ClearControlForContract()
         {
             ddlContractType.SelectedIndex = 0;
             txtContractStartDate.Text = "";
@@ -219,7 +224,7 @@ namespace WebAppAegisCRM.Customer
             LoadCustomerPurchaseListForContract();
             Message1.Show = false;
         }
-        protected void Save()
+        private void Save()
         {
             customer.CustomerPurchaseId = CustomerPurchaseId;
             customer.CustomerMasterId = CustomerMasterId;
@@ -256,7 +261,7 @@ namespace WebAppAegisCRM.Customer
             Message.Show = true;
             ModalPopupExtender1.Show();
         }
-        protected void ContractSave()
+        private void ContractSave()
         {
             Business.Service.Contract objContract = new Business.Service.Contract();
             Entity.Service.Contract contract = new Entity.Service.Contract();
@@ -362,7 +367,7 @@ namespace WebAppAegisCRM.Customer
                 ModalPopupExtender2.Show();
             }
         }
-        protected void LoadContractList()
+        private void LoadContractList()
         {
             Business.Service.Contract objContract = new Business.Service.Contract();
             DataTable dt = objContract.GetAll(CustomerMasterId);
@@ -376,105 +381,185 @@ namespace WebAppAegisCRM.Customer
 
         protected void ddlBrand_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadProduct();
-            ModalPopupExtender1.Show();
+            try
+            {
+                LoadProduct();
+                ModalPopupExtender1.Show();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void gvCustomerMaster_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Business.Customer.Customer objCustomer = new Business.Customer.Customer();
-            Entity.Customer.Customer customer = new Entity.Customer.Customer();
-
-            if (e.CommandName == "PurchaseDetails")
+            try
             {
-                CustomerMasterId = int.Parse(e.CommandArgument.ToString());
-                customer.CustomerMasterId = CustomerMasterId;
-                DataTable dr = objCustomer.FetchCustomerDetailsById(customer);
-                popupHeader1.InnerHtml = (objCustomer.FetchCustomerDetailsById(customer) == null) ? "" : dr.Rows[0]["CustomerName"].ToString();
-                LoadCustomerPurchaseList();
-                ClearControl();
-                ModalPopupExtender1.Show();
+                Business.Customer.Customer objCustomer = new Business.Customer.Customer();
+                Entity.Customer.Customer customer = new Entity.Customer.Customer();
 
+                if (e.CommandName == "PurchaseDetails")
+                {
+                    CustomerMasterId = int.Parse(e.CommandArgument.ToString());
+                    customer.CustomerMasterId = CustomerMasterId;
+                    DataTable dr = objCustomer.FetchCustomerDetailsById(customer);
+                    popupHeader1.InnerHtml = (objCustomer.FetchCustomerDetailsById(customer) == null) ? "" : dr.Rows[0]["CustomerName"].ToString();
+                    LoadCustomerPurchaseList();
+                    ClearControl();
+                    ModalPopupExtender1.Show();
+
+                }
+                else if (e.CommandName == "ContractDetails")
+                {
+                    CustomerMasterId = int.Parse(e.CommandArgument.ToString());
+                    customer.CustomerMasterId = CustomerMasterId;
+                    DataTable dr = objCustomer.FetchCustomerDetailsById(customer);
+                    popupHeader2.InnerHtml = (objCustomer.FetchCustomerDetailsById(customer) == null) ? "" : dr.Rows[0]["CustomerName"].ToString();
+                    LoadCustomerPurchaseListForContract();
+                    LoadContractList();
+                    ClearControlForContract();
+                    ModalPopupExtender2.Show();
+                }
             }
-            else if (e.CommandName == "ContractDetails")
+            catch (Exception ex)
             {
-                CustomerMasterId = int.Parse(e.CommandArgument.ToString());
-                customer.CustomerMasterId = CustomerMasterId;
-                DataTable dr = objCustomer.FetchCustomerDetailsById(customer);
-                popupHeader2.InnerHtml = (objCustomer.FetchCustomerDetailsById(customer) == null) ? "" : dr.Rows[0]["CustomerName"].ToString();
-                LoadCustomerPurchaseListForContract();
-                LoadContractList();
-                ClearControlForContract();
-                ModalPopupExtender2.Show();
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CustomerPurchase.aspx");
+            try
+            {
+                Response.Redirect("CustomerPurchase.aspx");
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnContractSave_Click(object sender, EventArgs e)
         {
-            ContractSave();
+            try
+            {
+                ContractSave();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnContractCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CustomerPurchase.aspx");
+            try
+            {
+                Response.Redirect("CustomerPurchase.aspx");
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void ddlNature_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ModalPopupExtender1.Show();
-            LoadProduct();
+            try
+            {
+                ModalPopupExtender1.Show();
+                LoadProduct();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void gvCustomerPurchaseList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                int customerPurchaseId = int.Parse(e.CommandArgument.ToString());
-                CustomerPurchaseId = customerPurchaseId;
-                PopulateCustomerPurchaseDetails();
-                ModalPopupExtender1.Show();
-                TabContainer1.ActiveTabIndex = 0;
-            }
-
-            if (e.CommandName == "Del")
-            {
-                try
+                if (e.CommandName == "Ed")
                 {
-                    Int64 customerpurchaseid = Int64.Parse(e.CommandArgument.ToString());
-                    int i = objCustomer.CustomerPurchase_DeleteByCustomerPurchaseId(customerpurchaseid);
-                    if (i > 0)
+                    int customerPurchaseId = int.Parse(e.CommandArgument.ToString());
+                    CustomerPurchaseId = customerPurchaseId;
+                    PopulateCustomerPurchaseDetails();
+                    ModalPopupExtender1.Show();
+                    TabContainer1.ActiveTabIndex = 0;
+                }
+
+                if (e.CommandName == "Del")
+                {
+                    try
                     {
-                        LoadCustomerPurchaseList();
-                        Message.IsSuccess = true;
-                        Message.Text = "Data deleted";
+                        Int64 customerpurchaseid = Int64.Parse(e.CommandArgument.ToString());
+                        int i = objCustomer.CustomerPurchase_DeleteByCustomerPurchaseId(customerpurchaseid);
+                        if (i > 0)
+                        {
+                            LoadCustomerPurchaseList();
+                            Message.IsSuccess = true;
+                            Message.Text = "Data deleted";
+                        }
+                        else
+                        {
+                            Message.IsSuccess = false;
+                            Message.Text = "Data can not delete.";
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
                         Message.IsSuccess = false;
-                        Message.Text = "Data can not delete.";
+                        Message.Text = "Data has dependency. Can not delete.";
+                        Business.Common.ErrorLog.MasterErrorLog(Server.MapPath("~") + "/ErrorLog/Errors.txt", ex.Message, HttpContext.Current.User.Identity.Name);
                     }
+                    Message.Show = true;
+                    ModalPopupExtender1.Show();
                 }
-                catch (Exception ex)
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data has dependency. Can not delete.";
-                    Business.Common.ErrorLog.MasterErrorLog(Server.MapPath("~") + "/ErrorLog/Errors.txt", ex.Message, HttpContext.Current.User.Identity.Name);
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
-                ModalPopupExtender1.Show();
             }
         }
-        
         protected void gvContractList_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
@@ -494,71 +579,54 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-
         protected void gvContractList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            ClearControlForContract();
-            /*  for (int i = 0; i < gvContractList.Rows.Count; i++)
-              {
-                  // int start = Convert.ToInt32(gvContractList.Rows[i].Cells[3].Text);
-                  string end = Convert.ToString(gvContractList.Rows[i].Cells[4].Text);
-                  string date = DateTime.Today.ToString("dd-MM-yyyy");
-
-                  if ()
-                  {
-                      gvContractList.Rows[i].BackColor = System.Drawing.Color.Red;
-
-                  }
-                  else
-                  { 
-                      gvContractList.Rows[i].BackColor = System.Drawing.Color.Green;
-                  }
-              }*/
-            /* if (((DataTable)(gvContractList.DataSource)).Rows[e.Row.RowIndex]["IsCallAttended"].ToString().Equals("1"))
-             {
-                 HtmlContainerControl anchorCallIn = e.Row.FindControl("anchorCallIn") as HtmlContainerControl;
-                 anchorCallIn.Attributes["style"] = "display:none";
-                 e.Row.Attributes["style"] = "background-color: #C6F2C6";
-             }
-             else
-             {
-                 HtmlContainerControl anchorCallOut = e.Row.FindControl("anchorCallOut") as HtmlContainerControl;
-                 anchorCallOut.Attributes["style"] = "display:none";
-             }*/
-
-
-
-            if (e.CommandName == "View")
+            try
             {
-                //CustomerMasterId = int.Parse(e.CommandArgument.ToString());                
-                LoadContractDetail(int.Parse(e.CommandArgument.ToString()));
+                ClearControlForContract();
+
+                if (e.CommandName == "View")
+                {
+                    //CustomerMasterId = int.Parse(e.CommandArgument.ToString());                
+                    LoadContractDetail(int.Parse(e.CommandArgument.ToString()));
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Service.Contract objContract = new Business.Service.Contract();
+
+                    int i = objContract.Delete(int.Parse(e.CommandArgument.ToString()));
+                    if (i > 0)
+                    {
+                        //LoadCustomerPurchaseList();
+                        LoadContractList();
+                        ClearControlForContract();
+                        Message1.IsSuccess = true;
+                        Message1.Text = "Data deleted.";
+                    }
+                    else
+                    {
+                        Message1.IsSuccess = false;
+                        Message1.Text = "Data not deleted.";
+                    }
+                    Message1.Show = true;
+                }
+                ModalPopupExtender2.Show();
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Service.Contract objContract = new Business.Service.Contract();
-
-                int i = objContract.Delete(int.Parse(e.CommandArgument.ToString()));
-                if (i > 0)
-                {
-                    //LoadCustomerPurchaseList();
-                    LoadContractList();
-                    ClearControlForContract();
-                    Message1.IsSuccess = true;
-                    Message1.Text = "Data deleted.";
-                }
-                else
-                {
-                    Message1.IsSuccess = false;
-                    Message1.Text = "Data not deleted.";
-                }
-                Message1.Show = true;
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
-            ModalPopupExtender2.Show();
-
         }
-
         private void LoadContractDetail(int contractId)
         {
             Business.Service.Contract objContract = new Business.Service.Contract();
@@ -595,16 +663,36 @@ namespace WebAppAegisCRM.Customer
                 TabContainer2.ActiveTabIndex = 0;
             }
         }
-
         protected void gvCustomerMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCustomerMaster.PageIndex = e.NewPageIndex;
-            GetAllCustomer();
+            try
+            {
+                gvCustomerMaster.PageIndex = e.NewPageIndex;
+                GetAllCustomer();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            GetAllCustomer();
+            try
+            {
+                GetAllCustomer();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
     }
 }

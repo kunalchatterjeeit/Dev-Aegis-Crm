@@ -1,5 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,6 +14,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApprove : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void GetLeaveApplications_ByApproverId(int statusId)
         {
             LeaveTypeEnum leaveType = (LeaveTypeEnum)Enum.Parse(typeof(LeaveTypeEnum), ddlLeaveType.SelectedValue);
@@ -202,6 +204,8 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            { 
             if (!IsPostBack)
             {
                 LoadLeaveType();
@@ -209,17 +213,37 @@ namespace WebAppAegisCRM.LeaveManagement
                 GetLeaveApplications_ByApproverId((int)LeaveStatusEnum.Pending);
                 Message.Show = false;
                 MessageSuccess.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void gvLeaveApprovalList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            try
+            { 
             if (e.CommandName == "View")
             {
                 Business.Common.Context.LeaveApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
                 GetLeaveApplicationDetails_ByLeaveApplicationId(Business.Common.Context.LeaveApplicationId);
                 TabContainer1.ActiveTab = Approval;
                 ModalPopupExtender1.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -329,6 +353,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -382,6 +407,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -407,15 +433,30 @@ namespace WebAppAegisCRM.LeaveManagement
                     Response.End();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // do nothing
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            try
+            { 
             GetLeaveApplications_ByApproverId(ckShowAll.Checked ? (int)LeaveStatusEnum.None : (int)LeaveStatusEnum.Pending);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -468,6 +509,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

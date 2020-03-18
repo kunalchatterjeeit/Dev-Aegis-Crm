@@ -187,5 +187,25 @@ namespace Business.Service
         {
             return DataAccess.Service.ServiceBook.Service_AmcvProcess_Save(amcvId);
         }
+
+        public int Service_CsrSave(Csr csr)
+        {
+            return DataAccess.Service.ServiceBook.Service_CsrSave(csr);
+        }
+
+        public DataTable Service_CsrGetByServiceBookId(long serviceBookId)
+        {
+            return DataAccess.Service.ServiceBook.Service_CsrGetByServiceBookId(serviceBookId);
+        }
+
+        public int Service_CsrDelete(long csrId)
+        {
+            return DataAccess.Service.ServiceBook.Service_CsrDelete(csrId);
+        }
+
+        public DataTable Service_GetServiceBookByDocketNo(string docketNo)
+        {
+            return DataAccess.Service.ServiceBook.Service_GetServiceBookByDocketNo(docketNo);
+        }
     }
 }

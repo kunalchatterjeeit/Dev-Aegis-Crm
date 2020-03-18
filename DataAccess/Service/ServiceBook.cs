@@ -1150,5 +1150,114 @@ namespace DataAccess.Service
             }
             return rowsAffacted;
         }
+
+        public static int Service_CsrSave(Csr csr)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_CsrSave";
+
+                        cmd.Parameters.AddWithValue("@CsrId", csr.CsrId);
+                        cmd.Parameters.AddWithValue("@ServiceBookId", csr.ServiceBookId);
+                        cmd.Parameters.AddWithValue("@CsrContent", csr.CsrContent);
+                        cmd.Parameters.AddWithValue("@CreatedBy", csr.CreatedBy);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable Service_CsrGetByServiceBookId(long serviceBookId)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_CsrGetByServiceBookId";
+
+                            cmd.Parameters.AddWithValue("@ServiceBookId", serviceBookId);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
+
+        public static int Service_CsrDelete(long csrId)
+        {
+            int rowsAffacted = 0;
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    using (DataSet ds = new DataSet())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = "usp_Service_CsrDelete";
+
+                        cmd.Parameters.AddWithValue("@CsrId", csrId);
+                    }
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+                    rowsAffacted = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            return rowsAffacted;
+        }
+
+        public static DataTable Service_GetServiceBookByDocketNo(string docketNo)
+        {
+            using (DataTable dt = new DataTable())
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["constr"].ToString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        using (DataSet ds = new DataSet())
+                        {
+                            cmd.Connection = con;
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = "usp_Service_GetServiceBookByDocketNo";
+
+                            cmd.Parameters.AddWithValue("@DocketNo", docketNo);
+                        }
+                        if (con.State == ConnectionState.Closed)
+                            con.Open();
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                        {
+                            da.Fill(dt);
+                        }
+                        con.Close();
+                    }
+                }
+                return dt;
+            }
+        }
     }
 }

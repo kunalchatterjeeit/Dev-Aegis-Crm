@@ -1,19 +1,18 @@
-﻿using Entity.Inventory;
+﻿using Business.Common;
+using Entity.Inventory;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Business.Common;
-using Entity.Inventory;
 
 namespace WebAppAegisCRM.Sale
 {
     public partial class SaleChallan : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private DataTable _ItemsList
         {
             get
@@ -174,7 +173,8 @@ namespace WebAppAegisCRM.Sale
                 Message.Show = true;
             }
 
-            DataTable dtSaleChallan = new Business.Sale.SaleChallan().Sale_Challan_GetAll(new Entity.Sale.SaleChallan() {
+            DataTable dtSaleChallan = new Business.Sale.SaleChallan().Sale_Challan_GetAll(new Entity.Sale.SaleChallan()
+            {
                 ChallanNo = txtChallanNo.Text.Trim()
             });
             if (dtSaleChallan.AsEnumerable().Any())
@@ -260,74 +260,106 @@ namespace WebAppAegisCRM.Sale
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                Sale_ChallanType_GetAll();
-                LoadItemList();
-                LoadStore();
-                LoadToStore();
-                Business.Common.Context.SelectedSaleAssets.Clear();
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
+                    Sale_ChallanType_GetAll();
+                    LoadItemList();
+                    LoadStore();
+                    LoadToStore();
+                    Business.Common.Context.SelectedSaleAssets.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_ItemsList.Rows.Count == 0)
+            try
             {
-                using (DataTable dtInstance = new DataTable())
+                if (_ItemsList.Rows.Count == 0)
                 {
-                    dtInstance.Columns.Add("ItemIdType");
-                    dtInstance.Columns.Add("ItemName");
-                    dtInstance.Columns.Add("ItemType");
-                    dtInstance.Columns.Add("Quantity");
-                    dtInstance.Columns.Add("Rate");
-                    dtInstance.Columns.Add("GST");
-                    dtInstance.Columns.Add("HSNCode");
-                    _ItemsList = dtInstance;
+                    using (DataTable dtInstance = new DataTable())
+                    {
+                        dtInstance.Columns.Add("ItemIdType");
+                        dtInstance.Columns.Add("ItemName");
+                        dtInstance.Columns.Add("ItemType");
+                        dtInstance.Columns.Add("Quantity");
+                        dtInstance.Columns.Add("Rate");
+                        dtInstance.Columns.Add("GST");
+                        dtInstance.Columns.Add("HSNCode");
+                        _ItemsList = dtInstance;
+                    }
                 }
+
+                DataRow drItem = _ItemsList.NewRow();
+                drItem["ItemIdType"] = ddlItem.SelectedValue;
+                drItem["ItemName"] = ddlItem.SelectedItem.Text;
+                drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
+                drItem["Quantity"] = txtQuantity.Text.Trim();
+                drItem["Rate"] = txtRate.Text.Trim();
+                drItem["GST"] = txtGst.Text.Trim();
+                drItem["HSNCode"] = txtHsnCode.Text.Trim();
+
+                _ItemsList.Rows.Add(drItem);
+                _ItemsList.AcceptChanges();
+
+                LoadItemList();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "OpenWindow('AssetSelection.aspx?ItemNo=" + ddlItem.SelectedItem.Text + "&Quantity=" + txtQuantity.Text + "&StoreId=" + ddlStore.SelectedValue + "');", true);
+
+                ClearItemControls();
             }
-
-            DataRow drItem = _ItemsList.NewRow();
-            drItem["ItemIdType"] = ddlItem.SelectedValue;
-            drItem["ItemName"] = ddlItem.SelectedItem.Text;
-            drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
-            drItem["Quantity"] = txtQuantity.Text.Trim();
-            drItem["Rate"] = txtRate.Text.Trim();
-            drItem["GST"] = txtGst.Text.Trim();
-            drItem["HSNCode"] = txtHsnCode.Text.Trim();
-
-            _ItemsList.Rows.Add(drItem);
-            _ItemsList.AcceptChanges();
-
-            LoadItemList();
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "OpenWindow('AssetSelection.aspx?ItemNo=" + ddlItem.SelectedItem.Text + "&Quantity=" + txtQuantity.Text + "&StoreId=" + ddlStore.SelectedValue + "');", true);
-
-            ClearItemControls();
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string itemIdType = e.CommandArgument.ToString();
-
-                if (DeleteItem(itemIdType))
+                if (e.CommandName == "D")
                 {
-                    if (DeleteSelectedSaleAssets(itemIdType))
+                    string itemIdType = e.CommandArgument.ToString();
+
+                    if (DeleteItem(itemIdType))
                     {
-                        LoadItemList();
+                        if (DeleteSelectedSaleAssets(itemIdType))
+                        {
+                            LoadItemList();
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                        }
                     }
                     else
                     {
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
                     }
                 }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
-                }
-
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -414,6 +446,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -528,20 +561,42 @@ namespace WebAppAegisCRM.Sale
 
         protected void ddlStore_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadAllItem();
+            try
+            {
+                LoadAllItem();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void ddlChallanType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlChallanType.SelectedValue == "3")
+            try
             {
-                ddlToStore.Enabled = true;
-                ddlToStore.SelectedIndex = 0;
+                if (ddlChallanType.SelectedValue == "3")
+                {
+                    ddlToStore.Enabled = true;
+                    ddlToStore.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlToStore.Enabled = false;
+                    ddlToStore.SelectedIndex = 0;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ddlToStore.Enabled = false;
-                ddlToStore.SelectedIndex = 0;
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

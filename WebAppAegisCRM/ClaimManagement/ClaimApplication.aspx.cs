@@ -1,7 +1,7 @@
 ﻿using Business.Common;
 using Entity.HR;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
@@ -12,6 +12,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApplication : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private string _ClaimNo
         {
             get
@@ -161,29 +162,50 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadClaimCategory();
-                ClearAllControl();
-                GetClaimAccountBalance();
+                if (!IsPostBack)
+                {
+                    LoadClaimCategory();
+                    ClearAllControl();
+                    GetClaimAccountBalance();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvClaimDetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string autoId = e.CommandArgument.ToString();
-
-                if (DeleteItem(autoId))
+                if (e.CommandName == "D")
                 {
-                    LoadClaimDetails();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
-                }
+                    string autoId = e.CommandArgument.ToString();
 
+                    if (DeleteItem(autoId))
+                    {
+                        LoadClaimDetails();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -236,6 +258,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
@@ -317,54 +340,87 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearAllControl();
+            try
+            {
+                ClearAllControl();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            ClearDetailsControls();
+            try
+            {
+                ClearDetailsControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            Message.Show = false;
-            if (ClaimAddValidation())
+            try
             {
-                if (_ClaimDetails.Rows.Count == 0)
+                Message.Show = false;
+                if (ClaimAddValidation())
                 {
-                    using (DataTable dtInstance = new DataTable())
+                    if (_ClaimDetails.Rows.Count == 0)
                     {
-                        DataColumn column = new DataColumn("AutoId");
-                        column.AutoIncrement = true;
-                        column.ReadOnly = true;
-                        column.Unique = false;
-                        dtInstance.Columns.Add(column);
+                        using (DataTable dtInstance = new DataTable())
+                        {
+                            DataColumn column = new DataColumn("AutoId");
+                            column.AutoIncrement = true;
+                            column.ReadOnly = true;
+                            column.Unique = false;
+                            dtInstance.Columns.Add(column);
 
-                        dtInstance.Columns.Add("ExpenseDate");
-                        dtInstance.Columns.Add("CategoryName");
-                        dtInstance.Columns.Add("CategoryId");
-                        dtInstance.Columns.Add("Status");
-                        dtInstance.Columns.Add("Cost", typeof(decimal));
-                        dtInstance.Columns.Add("Attachment");
-                        dtInstance.Columns.Add("Description");
-                        _ClaimDetails = dtInstance;
+                            dtInstance.Columns.Add("ExpenseDate");
+                            dtInstance.Columns.Add("CategoryName");
+                            dtInstance.Columns.Add("CategoryId");
+                            dtInstance.Columns.Add("Status");
+                            dtInstance.Columns.Add("Cost", typeof(decimal));
+                            dtInstance.Columns.Add("Attachment");
+                            dtInstance.Columns.Add("Description");
+                            _ClaimDetails = dtInstance;
+                        }
                     }
+
+                    DataRow drItem = _ClaimDetails.NewRow();
+                    drItem["ExpenseDate"] = txtExpenseDate.Text;
+                    drItem["CategoryName"] = ddlCategory.SelectedItem;
+                    drItem["CategoryId"] = ddlCategory.SelectedValue;
+                    drItem["Status"] = ClaimStatusEnum.Pending.ToString();
+                    drItem["Cost"] = txtCost.Text;
+                    drItem["Description"] = txtDescription.Text.Trim();
+                    drItem["Attachment"] = SaveAttachment();
+
+                    _ClaimDetails.Rows.Add(drItem);
+                    _ClaimDetails.AcceptChanges();
+
+                    LoadClaimDetails();
+                    ClearDetailsControls();
                 }
-
-                DataRow drItem = _ClaimDetails.NewRow();
-                drItem["ExpenseDate"] = txtExpenseDate.Text;
-                drItem["CategoryName"] = ddlCategory.SelectedItem;
-                drItem["CategoryId"] = ddlCategory.SelectedValue;
-                drItem["Status"] = ClaimStatusEnum.Pending.ToString();
-                drItem["Cost"] = txtCost.Text;
-                drItem["Description"] = txtDescription.Text.Trim();
-                drItem["Attachment"] = SaveAttachment();
-
-                _ClaimDetails.Rows.Add(drItem);
-                _ClaimDetails.AcceptChanges();
-
-                LoadClaimDetails();
-                ClearDetailsControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 

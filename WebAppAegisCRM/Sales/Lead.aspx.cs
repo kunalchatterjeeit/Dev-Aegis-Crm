@@ -1,16 +1,16 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Lead : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public int SocialMediaMappingId
         {
             get { return Convert.ToInt32(ViewState["SocialMediaMappingId"]); }
@@ -29,7 +29,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadCallList()
         {
             Business.Sales.Calls Obj = new Business.Sales.Calls();
-            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam {
+            Entity.Sales.GetCallsParam Param = new Entity.Sales.GetCallsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = LeadId,
@@ -41,7 +42,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadMeetingList()
         {
             Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam {
+            Entity.Sales.GetMeetingsParam Param = new Entity.Sales.GetMeetingsParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = LeadId,
@@ -53,7 +55,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadNotesList()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam {
+            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam
+            {
                 LinkId = LeadId,
                 LinkType = SalesLinkType.Lead
             };
@@ -63,7 +66,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadTaskList()
         {
             Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam {
+            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = LeadId,
@@ -133,14 +137,25 @@ namespace WebAppAegisCRM.Sales
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadLeadsDropdowns();
-                LoadAccountList();
-                LoadLinkType();
-                LoadLeadList();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadLeadsDropdowns();
+                    LoadAccountList();
+                    LoadLinkType();
+                    LoadLeadList();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         private void LoadLeadsDropdowns()
@@ -168,7 +183,7 @@ namespace WebAppAegisCRM.Sales
         private void LoadLeadList()
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
-            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null,SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
+            Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
             //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
             gvLeads.DataSource = Obj.GetAllLeads(Param);
             gvLeads.DataBind();
@@ -212,105 +227,159 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void ddlLinkName_SelectedIndexChange(object sender, EventArgs e)
         {
-            hdnOpenForm.Value = "true";
-            if (ddlLinkName.SelectedIndex != 0)
+            try
             {
-                Business.Sales.Account Obj = new Business.Sales.Account();
-                Entity.Sales.Accounts Account = Obj.GetAccountById(Convert.ToInt32(ddlLinkName.SelectedValue), Convert.ToInt32(ActityType.Customer), Convert.ToInt32(ActityType.Account));
-                if (Account.Id != 0)
-                {                   
-                    txtDescription.Text = Account.Description;                   
-                    txtName.Text = Account.Name;
-                    txtOfficePhone.Text = Account.OfficePhone;                   
-                    txtWebsite.Text = Account.Website;
+                hdnOpenForm.Value = "true";
+                if (ddlLinkName.SelectedIndex != 0)
+                {
+                    Business.Sales.Account Obj = new Business.Sales.Account();
+                    Entity.Sales.Accounts Account = Obj.GetAccountById(Convert.ToInt32(ddlLinkName.SelectedValue), Convert.ToInt32(ActityType.Customer), Convert.ToInt32(ActityType.Account));
+                    if (Account.Id != 0)
+                    {
+                        txtDescription.Text = Account.Description;
+                        txtName.Text = Account.Name;
+                        txtOfficePhone.Text = Account.OfficePhone;
+                        txtWebsite.Text = Account.Website;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         protected void gvLeads_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                LeadId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetLeadById();
-                Message.Show = false;
-                LoadSocialMediaList();
-                btnSave.Text = "Update";
-                PopulateItems();
-                hdnOpenForm.Value = "true";
-            }
-            else if (e.CommandName == "View")
-            {
-                LeadId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetLeadById();
-                LoadSocialMediaList();
-                PopulateItems();
-                hdnOpenForm.Value = "true";
-            }
-            else if (e.CommandName == "Del")
-            {
-                Business.Sales.Leads Obj = new Business.Sales.Leads();
-                int rows = Obj.DeleteLeads(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
+                if (e.CommandName == "Ed")
                 {
-                    ClearControls();
-                    LoadLeadList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
+                    LeadId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetLeadById();
+                    Message.Show = false;
+                    LoadSocialMediaList();
+                    btnSave.Text = "Update";
+                    PopulateItems();
+                    hdnOpenForm.Value = "true";
                 }
-                else
+                else if (e.CommandName == "View")
                 {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
+                    LeadId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetLeadById();
+                    LoadSocialMediaList();
+                    PopulateItems();
+                    hdnOpenForm.Value = "true";
                 }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Leads Obj = new Business.Sales.Leads();
+                    int rows = Obj.DeleteLeads(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadLeadList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
         protected void gvSocialMedia_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
-            if (e.CommandName == "Save")
+            try
             {
-                SocialMediaMappingId = Convert.ToInt32(e.CommandArgument.ToString());
-                GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
-                TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
-                TextBox txtURL = (TextBox)row.FindControl("txtUrl");
-                Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
-                Entity.Sales.SocialMedia Model = new Entity.Sales.SocialMedia
+                if (e.CommandName == "Save")
                 {
-                    Id = SocialMediaMappingId,
-                    Description = txtDescription.Text,
-                    LinkId = LeadId,
-                    LinkTypeId = Convert.ToInt32(ActityType.Lead),
-                    URL = txtURL.Text,
-                    SocialMediaId = Convert.ToInt32(gvSocialMedia.DataKeys[row.RowIndex].Values[0].ToString())
-                };
-                int rows = Obj.SaveSocialMedia(Model);
-                if (rows > 0)
-                {
-                    SocialMediaMappingId = 0;
-                    Message.IsSuccess = true;
-                    Message.Text = "Saved Successfully";
+                    SocialMediaMappingId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GridViewRow row = (GridViewRow)(((LinkButton)e.CommandSource).NamingContainer);
+                    TextBox txtDescription = (TextBox)row.FindControl("txtDescription");
+                    TextBox txtURL = (TextBox)row.FindControl("txtUrl");
+                    Business.Sales.SocialMedia Obj = new Business.Sales.SocialMedia();
+                    Entity.Sales.SocialMedia Model = new Entity.Sales.SocialMedia
+                    {
+                        Id = SocialMediaMappingId,
+                        Description = txtDescription.Text,
+                        LinkId = LeadId,
+                        LinkTypeId = Convert.ToInt32(ActityType.Lead),
+                        URL = txtURL.Text,
+                        SocialMediaId = Convert.ToInt32(gvSocialMedia.DataKeys[row.RowIndex].Values[0].ToString())
+                    };
+                    int rows = Obj.SaveSocialMedia(Model);
+                    if (rows > 0)
+                    {
+                        SocialMediaMappingId = 0;
+                        Message.IsSuccess = true;
+                        Message.Text = "Saved Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Unable to link.";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Unable to link.";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
         private void GetLeadById()
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
-            Entity.Sales.Leads Leads = Obj.GetLeadById(LeadId,Convert.ToInt32(ActityType.Account), Convert.ToInt32(ActityType.Lead));
+            Entity.Sales.Leads Leads = Obj.GetLeadById(LeadId, Convert.ToInt32(ActityType.Account), Convert.ToInt32(ActityType.Lead));
             if (Leads.Id != 0)
             {
                 ddlCampaign.SelectedValue = Leads.CampaignId == null ? "0" : Leads.CampaignId.ToString();
@@ -324,7 +393,7 @@ namespace WebAppAegisCRM.Sales
                 txtOfficePhone.Text = Leads.OfficePhone;
                 txtPrimaryAddress.Text = Leads.PrimaryAddress;
                 txtWebsite.Text = Leads.Website;
-                ddlLinkName.SelectedValue= Leads.SourceActivityId == null ? "0" : Leads.SourceActivityId.ToString();
+                ddlLinkName.SelectedValue = Leads.SourceActivityId == null ? "0" : Leads.SourceActivityId.ToString();
                 ActivityLinkId = Leads.ActivityLinkId;
             }
         }
@@ -374,104 +443,148 @@ namespace WebAppAegisCRM.Sales
 
         protected void gvCalls_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                Response.Redirect(string.Concat("Calls.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&callid=", e.CommandArgument.ToString()));
+                if (e.CommandName == "Ed")
+                {
+                    Response.Redirect(string.Concat("Calls.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&callid=", e.CommandArgument.ToString()));
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Calls Obj = new Business.Sales.Calls();
+                    int rows = Obj.DeleteCalls(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadCallList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Calls Obj = new Business.Sales.Calls();
-                int rows = Obj.DeleteCalls(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadCallList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
 
         protected void gvMeetingss_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                Response.Redirect(string.Concat("Meeting.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&meetingid=", e.CommandArgument.ToString()));
+                if (e.CommandName == "Ed")
+                {
+                    Response.Redirect(string.Concat("Meeting.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&meetingid=", e.CommandArgument.ToString()));
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Meetings Obj = new Business.Sales.Meetings();
+                    int rows = Obj.DeleteMeetings(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadMeetingList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Meetings Obj = new Business.Sales.Meetings();
-                int rows = Obj.DeleteMeetings(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadMeetingList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
 
         protected void gvNotes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                Response.Redirect(string.Concat("Notes.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&noteid=", e.CommandArgument.ToString()));
+                if (e.CommandName == "Ed")
+                {
+                    Response.Redirect(string.Concat("Notes.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&noteid=", e.CommandArgument.ToString()));
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Notes Obj = new Business.Sales.Notes();
+                    int rows = Obj.DeleteNotes(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadNotesList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Notes Obj = new Business.Sales.Notes();
-                int rows = Obj.DeleteNotes(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadNotesList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
 
         protected void gvTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                Response.Redirect(string.Concat("Task.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&taskid=", e.CommandArgument.ToString()));
+                if (e.CommandName == "Ed")
+                {
+                    Response.Redirect(string.Concat("Task.aspx?id=", LeadId, "&itemtype=", SalesLinkType.Lead, "&taskid=", e.CommandArgument.ToString()));
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Tasks Obj = new Business.Sales.Tasks();
+                    int rows = Obj.DeleteTasks(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadTaskList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-                int rows = Obj.DeleteTasks(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadTaskList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -508,6 +621,10 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         protected void gvAssignedEmployee_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -525,6 +642,10 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         protected void rbtnIsLead_CheckedChanged(object sender, EventArgs e)
@@ -565,6 +686,10 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

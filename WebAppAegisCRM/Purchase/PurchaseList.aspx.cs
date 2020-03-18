@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Business.Common;
-using System.Data;
+﻿using Business.Common;
 using Entity.Inventory;
+using log4net;
+using System;
+using System.Data;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Purchase
 {
     public partial class PurchaseList : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Purchase_GetAll()
         {
             Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
@@ -47,40 +46,72 @@ namespace WebAppAegisCRM.Purchase
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                txtInvoiceFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                txtInvoiceToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                txtPurchaseFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                txtPurchaseToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                LoadVendor();
-                LoadAllItem();
-                Purchase_GetAll();
+                if (!IsPostBack)
+                {
+                    txtInvoiceFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    txtInvoiceToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    txtPurchaseFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    txtPurchaseToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    LoadVendor();
+                    LoadAllItem();
+                    Purchase_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Purchase_GetAll();
+            try
+            {
+                Purchase_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvPurchase_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvPurchase.PageIndex = e.NewPageIndex;
-            Purchase_GetAll();
+            try
+            {
+                gvPurchase.PageIndex = e.NewPageIndex;
+                Purchase_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvPurchase_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
-            Entity.Purchase.Purchase purchase = new Entity.Purchase.Purchase();
-
-            if (e.CommandName == "PurchaseDetails")
+            try
             {
-                DataTable dt = objPurchase.PurchaseDetails_GetByPurchaseId(int.Parse(e.CommandArgument.ToString()));
-                gvPurchaseDetails.DataSource = dt;
-                gvPurchaseDetails.DataBind();
-                ModalPopupExtender1.Show();
+                Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
+                Entity.Purchase.Purchase purchase = new Entity.Purchase.Purchase();
+
+                if (e.CommandName == "PurchaseDetails")
+                {
+                    DataTable dt = objPurchase.PurchaseDetails_GetByPurchaseId(int.Parse(e.CommandArgument.ToString()));
+                    gvPurchaseDetails.DataSource = dt;
+                    gvPurchaseDetails.DataBind();
+                    ModalPopupExtender1.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
 

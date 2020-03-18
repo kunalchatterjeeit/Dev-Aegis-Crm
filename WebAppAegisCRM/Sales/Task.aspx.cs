@@ -1,16 +1,15 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Task : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void SetQueryStringValue()
         {
             if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
@@ -23,28 +22,38 @@ namespace WebAppAegisCRM.Sales
                 TaskId = Convert.ToInt32(Request.QueryString["taskid"].ToString());
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                SetQueryStringValue();
-            }
-
-            if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
-            {
-                ModalPopupExtender1.Show();
-            }
-            if (!IsPostBack)
-            {
-                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadTasksDropdowns();
-                LoadTaskList();
-                Message.Show = false;
-                if (TaskId > 0)
+                if (!IsPostBack)
                 {
-                    GetTaskById();
+                    SetQueryStringValue();
                 }
+
+                if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
+                {
+                    ModalPopupExtender1.Show();
+                }
+                if (!IsPostBack)
+                {
+                    Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadTasksDropdowns();
+                    LoadTaskList();
+                    Message.Show = false;
+                    if (TaskId > 0)
+                    {
+                        GetTaskById();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int TaskId
@@ -77,7 +86,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadTaskList()
         {
             Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam {
+            Entity.Sales.GetTasksParam Param = new Entity.Sales.GetTasksParam
+            {
                 StartDateTime = DateTime.MinValue,
                 EndDateTime = DateTime.MinValue,
                 LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
@@ -148,37 +158,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                TaskId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetTaskById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    TaskId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetTaskById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Tasks Obj = new Business.Sales.Tasks();
+                    int rows = Obj.DeleteTasks(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadTaskList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Tasks Obj = new Business.Sales.Tasks();
-                int rows = Obj.DeleteTasks(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadTaskList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

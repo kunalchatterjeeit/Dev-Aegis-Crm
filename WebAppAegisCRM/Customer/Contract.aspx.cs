@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Customer
 {
     public partial class Contract : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public int ContractId
         {
             get { return Convert.ToInt32(ViewState["ContractId"]); }
@@ -18,10 +16,21 @@ namespace WebAppAegisCRM.Customer
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ClearControls();
-                LoadContract();
+                if (!IsPostBack)
+                {
+                    ClearControls();
+                    LoadContract();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -33,7 +42,7 @@ namespace WebAppAegisCRM.Customer
             Message.Show = false;
         }
 
-        protected void LoadContract()
+        private void LoadContract()
         {
             Business.Customer.Contract objContract = new Business.Customer.Contract();
             gvContract.DataSource = objContract.GetAll();
@@ -42,53 +51,97 @@ namespace WebAppAegisCRM.Customer
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.Customer.Contract objContract = new Business.Customer.Contract();
-            Entity.Customer.Contract contract = new Entity.Customer.Contract();
-
-            contract.ContractId = ContractId;
-            contract.ContractName = txtContractName.Text;
-            contract.Description = txtDescription.Text;
-
-            int i = objContract.Save(contract);
-
-            if (i > 0)
+            try
             {
-                ClearControls();
-                LoadContract();
-                Message.IsSuccess = true;
-                Message.Text = "Contract Information saved successfully...";
+                Business.Customer.Contract objContract = new Business.Customer.Contract();
+                Entity.Customer.Contract contract = new Entity.Customer.Contract();
+
+                contract.ContractId = ContractId;
+                contract.ContractName = txtContractName.Text;
+                contract.Description = txtDescription.Text;
+
+                int i = objContract.Save(contract);
+
+                if (i > 0)
+                {
+                    ClearControls();
+                    LoadContract();
+                    Message.IsSuccess = true;
+                    Message.Text = "Contract Information saved successfully...";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Can not save!!!";
+                }
+                Message.Show = true;
             }
-            else
+            catch (Exception ex)
             {
+                ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
-                Message.Text = "Can not save!!!";
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
-            Message.Show = true;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvContract_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvContract.PageIndex = e.NewPageIndex;
-            LoadContract();
+            try
+            {
+                gvContract.PageIndex = e.NewPageIndex;
+                LoadContract();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvContract_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Business.Customer.Contract objContract = new Business.Customer.Contract();
-            Entity.Customer.Contract contract = new Entity.Customer.Contract();
-
-            if (e.CommandName == "Ed")
+            try
             {
-                int brandId = int.Parse(e.CommandArgument.ToString());
-                contract = objContract.GetById(brandId);
-                ContractId = contract.ContractId;
-                txtContractName.Text = contract.ContractName;
-                txtDescription.Text = contract.Description;
+                Business.Customer.Contract objContract = new Business.Customer.Contract();
+                Entity.Customer.Contract contract = new Entity.Customer.Contract();
+
+                if (e.CommandName == "Ed")
+                {
+                    int brandId = int.Parse(e.CommandArgument.ToString());
+                    contract = objContract.GetById(brandId);
+                    ContractId = contract.ContractId;
+                    txtContractName.Text = contract.ContractName;
+                    txtDescription.Text = contract.Description;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

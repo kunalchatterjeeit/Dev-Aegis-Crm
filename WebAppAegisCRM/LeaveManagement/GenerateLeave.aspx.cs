@@ -1,5 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
 using System.Data;
 using System.Globalization;
@@ -10,6 +11,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class GenerateLeave : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void LoadLeaveType()
         {
             Business.LeaveManagement.LeaveType objLeaveType = new Business.LeaveManagement.LeaveType();
@@ -62,15 +64,26 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadLeaveType();
-                LoadMonths();
-                LoadQuarters();
-                LoadHalfYearly();
-                LoadYears();
-                LeaveGenerateLog_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadLeaveType();
+                    LoadMonths();
+                    LoadQuarters();
+                    LoadHalfYearly();
+                    LoadYears();
+                    LeaveGenerateLog_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -105,6 +118,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
             }
@@ -113,44 +127,55 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void ddlLeaveType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlMonths.SelectedIndex = 0;
-            ddlQuarters.SelectedIndex = 0;
-            DataTable dtLeaveConfigurations = GlobalCache.ExecuteCache<DataTable>(typeof(Business.LeaveManagement.LeaveConfiguration), "LeaveConfigurations_GetAll", new Entity.LeaveManagement.LeaveConfiguration() { });
-            if (dtLeaveConfigurations != null)
+            try
             {
-                if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).Any())
+                ddlMonths.SelectedIndex = 0;
+                ddlQuarters.SelectedIndex = 0;
+                DataTable dtLeaveConfigurations = GlobalCache.ExecuteCache<DataTable>(typeof(Business.LeaveManagement.LeaveConfiguration), "LeaveConfigurations_GetAll", new Entity.LeaveManagement.LeaveConfiguration() { });
+                if (dtLeaveConfigurations != null)
                 {
-                    if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.MONTHLY.ToString())
+                    if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).Any())
                     {
-                        ddlHalf.Enabled = false;
-                        ddlQuarters.Enabled = false;
-                        ddlMonths.Enabled = true;
-                    }
-                    else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.QUARTERLY.ToString())
-                    {
-                        ddlHalf.Enabled = false;
-                        ddlQuarters.Enabled = true;
-                        ddlMonths.Enabled = false;
-                    }
-                    else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.HALFYEARLY.ToString())
-                    {
-                        ddlHalf.Enabled = true;
-                        ddlQuarters.Enabled = false;
-                        ddlMonths.Enabled = false;
+                        if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.MONTHLY.ToString())
+                        {
+                            ddlHalf.Enabled = false;
+                            ddlQuarters.Enabled = false;
+                            ddlMonths.Enabled = true;
+                        }
+                        else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.QUARTERLY.ToString())
+                        {
+                            ddlHalf.Enabled = false;
+                            ddlQuarters.Enabled = true;
+                            ddlMonths.Enabled = false;
+                        }
+                        else if (dtLeaveConfigurations.Select("LeaveTypeId = " + ddlLeaveType.SelectedValue).FirstOrDefault()["LeaveFrequency"].ToString() == LeaveFrequencyEnum.HALFYEARLY.ToString())
+                        {
+                            ddlHalf.Enabled = true;
+                            ddlQuarters.Enabled = false;
+                            ddlMonths.Enabled = false;
+                        }
+                        else
+                        {
+                            ddlHalf.Enabled = false;
+                            ddlQuarters.Enabled = false;
+                            ddlMonths.Enabled = false;
+                        }
                     }
                     else
                     {
-                        ddlHalf.Enabled = false;
-                        ddlQuarters.Enabled = false;
-                        ddlMonths.Enabled = false;
+                        ddlHalf.Enabled = true;
+                        ddlQuarters.Enabled = true;
+                        ddlMonths.Enabled = true;
                     }
                 }
-                else
-                {
-                    ddlHalf.Enabled = true;
-                    ddlQuarters.Enabled = true;
-                    ddlMonths.Enabled = true;
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 

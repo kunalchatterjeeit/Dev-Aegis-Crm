@@ -1,16 +1,15 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimDesignationConfiguration : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int ClaimDesignationWiseConfigurationId
         {
             get { return Convert.ToInt32(ViewState["ClaimDesignationWiseConfigurationId"]); }
@@ -47,7 +46,7 @@ namespace WebAppAegisCRM.ClaimManagement
             ddlDesignation.InsertSelect();
         }
 
-        protected void ClaimDesignationConfig_GetById()
+        private void ClaimDesignationConfig_GetById()
         {
             Business.ClaimManagement.ClaimDesignationWiseConfiguration objClaimDesignationWiseConfiguration = new Business.ClaimManagement.ClaimDesignationWiseConfiguration();
 
@@ -85,83 +84,128 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadClaimCategory();
-                DesignationMaster_GetAll();
-                ClaimDesignationWiseConfiguration_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadClaimCategory();
+                    DesignationMaster_GetAll();
+                    ClaimDesignationWiseConfiguration_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (ClaimDesignationConfigValidate())
+            try
             {
-                Business.ClaimManagement.ClaimDesignationWiseConfiguration objClaimDesignationWiseConfiguration = new Business.ClaimManagement.ClaimDesignationWiseConfiguration();
-                Entity.ClaimManagement.ClaimDesignationWiseConfiguration ClaimDesignationWiseConfiguration = new Entity.ClaimManagement.ClaimDesignationWiseConfiguration();
+                if (ClaimDesignationConfigValidate())
+                {
+                    Business.ClaimManagement.ClaimDesignationWiseConfiguration objClaimDesignationWiseConfiguration = new Business.ClaimManagement.ClaimDesignationWiseConfiguration();
+                    Entity.ClaimManagement.ClaimDesignationWiseConfiguration ClaimDesignationWiseConfiguration = new Entity.ClaimManagement.ClaimDesignationWiseConfiguration();
 
-                ClaimDesignationWiseConfiguration.ClaimDesignationConfigId = ClaimDesignationWiseConfigurationId;
-                ClaimDesignationWiseConfiguration.ClaimCategoryId = Convert.ToInt32(ddlClaimCategory.SelectedValue);
-                ClaimDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
-                ClaimDesignationWiseConfiguration.Limit = Convert.ToDecimal(txtClaimLimit.Text.Trim());
-                ClaimDesignationWiseConfiguration.FollowupInterval = Convert.ToInt32(txtFollowupInterval.Text.Trim());
-                int response = objClaimDesignationWiseConfiguration.ClaimDesignationConfig_Save(ClaimDesignationWiseConfiguration);
-                if (response > 0)
-                {
-                    Clear();
-                    GlobalCache.RemoveAll();
-                    ClaimDesignationWiseConfiguration_GetAll();
-                    Message.IsSuccess = true;
-                    Message.Text = "Saved Successfully";
+                    ClaimDesignationWiseConfiguration.ClaimDesignationConfigId = ClaimDesignationWiseConfigurationId;
+                    ClaimDesignationWiseConfiguration.ClaimCategoryId = Convert.ToInt32(ddlClaimCategory.SelectedValue);
+                    ClaimDesignationWiseConfiguration.DesignationId = Convert.ToInt32(ddlDesignation.SelectedValue);
+                    ClaimDesignationWiseConfiguration.Limit = Convert.ToDecimal(txtClaimLimit.Text.Trim());
+                    ClaimDesignationWiseConfiguration.FollowupInterval = Convert.ToInt32(txtFollowupInterval.Text.Trim());
+                    int response = objClaimDesignationWiseConfiguration.ClaimDesignationConfig_Save(ClaimDesignationWiseConfiguration);
+                    if (response > 0)
+                    {
+                        Clear();
+                        GlobalCache.RemoveAll();
+                        ClaimDesignationWiseConfiguration_GetAll();
+                        Message.IsSuccess = true;
+                        Message.Text = "Saved Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Exists";
+                    }
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Exists";
-                }
+                Message.Show = true;
             }
-            Message.Show = true;
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Clear();
+            try
+            {
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvClaimDesignationConfiguration_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                ClaimDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                ClaimDesignationConfig_GetById();
-            }
-            else
-            {
-                if (e.CommandName == "D")
+                if (e.CommandName == "E")
                 {
-                    Business.ClaimManagement.ClaimDesignationWiseConfiguration objClaimDesignationWiseConfiguration = new Business.ClaimManagement.ClaimDesignationWiseConfiguration();
                     ClaimDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                    int RowsAffected = objClaimDesignationWiseConfiguration.ClaimDesignationConfig_Delete(ClaimDesignationWiseConfigurationId);
-                    if (RowsAffected > 0)
+                    ClaimDesignationConfig_GetById();
+                }
+                else
+                {
+                    if (e.CommandName == "D")
                     {
-                        GlobalCache.RemoveAll();
-                        LoadClaimCategory();
-                        ClaimDesignationWiseConfiguration_GetAll();
-                        Message.Show = true;
-                        Message.Text = "Deleted Successfully";
-                    }
-                    else
-                    {
+                        Business.ClaimManagement.ClaimDesignationWiseConfiguration objClaimDesignationWiseConfiguration = new Business.ClaimManagement.ClaimDesignationWiseConfiguration();
+                        ClaimDesignationWiseConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int RowsAffected = objClaimDesignationWiseConfiguration.ClaimDesignationConfig_Delete(ClaimDesignationWiseConfigurationId);
+                        if (RowsAffected > 0)
                         {
-                            Message.Show = false;
-                            Message.Text = "Data Dependency Exists";
+                            GlobalCache.RemoveAll();
+                            LoadClaimCategory();
+                            ClaimDesignationWiseConfiguration_GetAll();
+                            Message.Show = true;
+                            Message.Text = "Deleted Successfully";
                         }
-                        Message.Show = true;
+                        else
+                        {
+                            {
+                                Message.Show = false;
+                                Message.Text = "Data Dependency Exists";
+                            }
+                            Message.Show = true;
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
+
         private bool ClaimDesignationConfigValidate()
         {
             bool retValue = true;

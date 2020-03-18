@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using log4net;
 using System;
 using System.Data;
 using System.Web;
@@ -8,6 +9,7 @@ namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerPurchaseAssignEngineer : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void LoadEmployee(DropDownList ddlAssignEngineer)
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -22,7 +24,6 @@ namespace WebAppAegisCRM.Customer
             ddlAssignEngineer.DataBind();
             ddlAssignEngineer.InsertSelect();
         }
-
         private void LoadCustomerPurchase()
         {
             Business.Customer.Customer objCustomer = new Business.Customer.Customer();
@@ -42,7 +43,6 @@ namespace WebAppAegisCRM.Customer
                 gvCustomerPurchase.DataBind();
             }
         }
-
         private void LoadEmployee()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -57,31 +57,59 @@ namespace WebAppAegisCRM.Customer
             ddlAssignedEngineer.DataBind();
             ddlAssignedEngineer.InsertSelect();
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                //LoadCustomer();
-                LoadEmployee();
-                LoadCustomerPurchase();
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
+                    LoadEmployee();
+                    LoadCustomerPurchase();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-
         protected void chkSelect_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox chkSelect = (CheckBox)sender;
-            GridViewRow gv = (GridViewRow)chkSelect.NamingContainer;
-            DropDownList ddlAssignEngineer = (DropDownList)gv.FindControl("ddlAssignedEngineer");
-            ddlAssignEngineer.Enabled = chkSelect.Checked;
+            try
+            {
+                CheckBox chkSelect = (CheckBox)sender;
+                GridViewRow gv = (GridViewRow)chkSelect.NamingContainer;
+                DropDownList ddlAssignEngineer = (DropDownList)gv.FindControl("ddlAssignedEngineer");
+                ddlAssignEngineer.Enabled = chkSelect.Checked;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadCustomerPurchase();
+            try
+            {
+                LoadCustomerPurchase();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnSaveAssignment_Click(object sender, EventArgs e)
         {
             try
@@ -110,12 +138,12 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
             }
             Message.Show = true;
         }
-
         private void ClearControls()
         {
             Message.Show = false;
@@ -123,7 +151,6 @@ namespace WebAppAegisCRM.Customer
             txtCustomerName.Text = string.Empty;
             txtSerialNo.Text = string.Empty;
         }
-
         private bool ValidateAssignment()
         {
             foreach (GridViewRow gvr in gvCustomerPurchase.Rows)
@@ -154,7 +181,6 @@ namespace WebAppAegisCRM.Customer
             Message.Show = true;
             return false;
         }
-
         protected void gvCustomerPurchase_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             try
@@ -168,16 +194,27 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
-
         protected void gvCustomerPurchase_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvCustomerPurchase.PageIndex = e.NewPageIndex;
-            LoadCustomerPurchase();
+            try
+            {
+                gvCustomerPurchase.PageIndex = e.NewPageIndex;
+                LoadCustomerPurchase();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
     }
 }

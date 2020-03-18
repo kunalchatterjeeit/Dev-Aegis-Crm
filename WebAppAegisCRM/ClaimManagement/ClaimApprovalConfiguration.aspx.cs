@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApprovalConfiguration : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int ClaimApprovalConfigurationId
         {
             get { return Convert.ToInt32(ViewState["ClaimApprovalConfigurationId"]); }
@@ -39,7 +37,7 @@ namespace WebAppAegisCRM.ClaimManagement
             ddlRequestorDesignation.InsertSelect();
         }
 
-        protected void ClaimApprovalConfig_GetById()
+        private void ClaimApprovalConfig_GetById()
         {
             Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
 
@@ -53,7 +51,7 @@ namespace WebAppAegisCRM.ClaimManagement
             }
         }
 
-        protected void ClaimApprovalConfig_GetAll()
+        private void ClaimApprovalConfig_GetAll()
         {
             Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
 
@@ -73,72 +71,116 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                DesignationMaster_GetAll();
-                ClaimApprovalConfig_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    DesignationMaster_GetAll();
+                    ClaimApprovalConfig_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
-            Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
+            try
+            {
+                Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+                Entity.ClaimManagement.ClaimApprovalConfiguration ClaimApprovalConfiguration = new Entity.ClaimManagement.ClaimApprovalConfiguration();
 
-            ClaimApprovalConfiguration.ClaimApprovalConfigurationId = ClaimApprovalConfigurationId;
-            ClaimApprovalConfiguration.ApproverDesignationId = Convert.ToInt32(ddlApproverDesignation.SelectedValue);
-            ClaimApprovalConfiguration.ClaimDesignationConfigurationId = Convert.ToInt32(ddlRequestorDesignation.SelectedValue);
-            ClaimApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
-            int response = objClaimApprovalConfiguration.ClaimApprovalConfig_Save(ClaimApprovalConfiguration);
-            if (response > 0)
-            {
-                Clear();
-                ClaimApprovalConfig_GetAll();
-                Message.IsSuccess = true;
-                Message.Text = "Saved Successfully";
+                ClaimApprovalConfiguration.ClaimApprovalConfigurationId = ClaimApprovalConfigurationId;
+                ClaimApprovalConfiguration.ApproverDesignationId = Convert.ToInt32(ddlApproverDesignation.SelectedValue);
+                ClaimApprovalConfiguration.ClaimDesignationConfigurationId = Convert.ToInt32(ddlRequestorDesignation.SelectedValue);
+                ClaimApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
+                int response = objClaimApprovalConfiguration.ClaimApprovalConfig_Save(ClaimApprovalConfiguration);
+                if (response > 0)
+                {
+                    Clear();
+                    ClaimApprovalConfig_GetAll();
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Exists";
+                }
+                Message.Show = true;
             }
-            else
+            catch (Exception ex)
             {
+                ex.WriteException();
                 Message.IsSuccess = false;
-                Message.Text = "Exists";
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
-            Message.Show = true;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Clear();
+            try
+            {
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvClaimApprovalConfiguration_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                ClaimApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                ClaimApprovalConfig_GetById();
-            }
-            else
-            {
-                if (e.CommandName == "D")
+                if (e.CommandName == "E")
                 {
-                    Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
                     ClaimApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                    int RowsAffected = objClaimApprovalConfiguration.ClaimApprovalConfig_Delete(ClaimApprovalConfigurationId);
-                    if (RowsAffected > 0)
-                    {
-                        Clear();
-                        ClaimApprovalConfig_GetAll();
-                        Message.Show = true;
-                        Message.Text = "Deleted Successfully";
-                    }
-                    else
-                    {
-                        Message.Show = false;
-                        Message.Text = "Data Dependency Exists";
-                    }
-                    Message.Show = true;
+                    ClaimApprovalConfig_GetById();
                 }
+                else
+                {
+                    if (e.CommandName == "D")
+                    {
+                        Business.ClaimManagement.ClaimApprovalConfiguration objClaimApprovalConfiguration = new Business.ClaimManagement.ClaimApprovalConfiguration();
+                        ClaimApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int RowsAffected = objClaimApprovalConfiguration.ClaimApprovalConfig_Delete(ClaimApprovalConfigurationId);
+                        if (RowsAffected > 0)
+                        {
+                            Clear();
+                            ClaimApprovalConfig_GetAll();
+                            Message.Show = true;
+                            Message.Text = "Deleted Successfully";
+                        }
+                        else
+                        {
+                            Message.Show = false;
+                            Message.Text = "Data Dependency Exists";
+                        }
+                        Message.Show = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Business.Common;
 using Entity.Inventory;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,7 @@ namespace WebAppAegisCRM.Sale
 {
     public partial class SaleChallanList : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void Sale_GetAll()
         {
             Business.Sale.SaleChallan objSaleChallan = new Business.Sale.SaleChallan();
@@ -83,21 +85,43 @@ namespace WebAppAegisCRM.Sale
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                Sale_ChallanType_GetAll();
-                LoadAllItem();
-                txtSaleFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                txtSaleToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                Sale_GetAll();
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
+                    Sale_ChallanType_GetAll();
+                    LoadAllItem();
+                    txtSaleFromDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    txtSaleToDate.Text = DateTime.Now.ToString("dd MMM yyyy");
+                    Sale_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void gvSale_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvSale.PageIndex = e.NewPageIndex;
-            Sale_GetAll();
+            try
+            {
+                gvSale.PageIndex = e.NewPageIndex;
+                Sale_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvSale_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -134,6 +158,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -142,7 +167,18 @@ namespace WebAppAegisCRM.Sale
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Sale_GetAll();
+            try
+            {
+                Sale_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
     }
 }

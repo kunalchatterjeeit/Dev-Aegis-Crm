@@ -152,17 +152,6 @@ namespace WebAppAegisCRM.Service
                         Message.Show = true;
                         return false;
                     }
-
-
-                    /* Checking whether machine is in contract or not*/
-                    Business.Service.Contract objContract = new Business.Service.Contract();
-                    if (!objContract.Service_MachineIsInContractCheck(CustomerPurchaseId))
-                    {
-                        Message.IsSuccess = false;
-                        Message.Text = "Out of Contract! Please call Customer Help Desk.";
-                        Message.Show = true;
-                        return false;
-                    }
                 }
             }
 
@@ -252,24 +241,36 @@ namespace WebAppAegisCRM.Service
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
-                    //updating last meter reading in Customer Purchase
-                    //Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
-                    //int i = objServiceBook.Service_MeterReading_Update(CustomerPurchaseId, int.Parse(txtCurrentMeterReading.Text.Trim()));
-
-                    //if (i > 0)
-                    //{
                     LoadDocket();
                     LoadCustomerPurchaseList();
                     txtProblem.Text = "";
                     txtDocketDate.Text = DateTime.Now.ToString("dd MMM yyyy");
-                    Message.IsSuccess = true;
-                    Message.Text = "Docket received. Your Docket No : " + dt.Rows[0]["DocketNo"].ToString();
-                    //}
-                    //else
-                    //{
-                    //    Message.IsSuccess = false;
-                    //    Message.Text = "Current meter reading unable to update! Please contact system administrator immediately.";
-                    //}
+
+                    /* Checking whether machine is in contract or not*/
+                    Business.Service.Contract objContract = new Business.Service.Contract();
+                    if (!objContract.Service_MachineIsInContractCheck(CustomerPurchaseId))
+                    {
+                        Message.IsSuccess = true;
+                        Message.Text = "Docket received. Machine is out of contract!";
+                    }
+                    else
+                    {
+
+                        //updating last meter reading in Customer Purchase
+                        //Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                        //int i = objServiceBook.Service_MeterReading_Update(CustomerPurchaseId, int.Parse(txtCurrentMeterReading.Text.Trim()));
+
+                        //if (i > 0)
+                        //{
+                        Message.IsSuccess = true;
+                        Message.Text = "Docket received. Your Docket No : " + dt.Rows[0]["DocketNo"].ToString();
+                        //}
+                        //else
+                        //{
+                        //    Message.IsSuccess = false;
+                        //    Message.Text = "Current meter reading unable to update! Please contact system administrator immediately.";
+                        //}
+                    }
                 }
                 else
                 {

@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimCategory : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int ClaimCategoryId
         {
             get { return Convert.ToInt32(ViewState["ClaimCategoryId"]); }
@@ -58,7 +56,6 @@ namespace WebAppAegisCRM.ClaimManagement
             }
             return true;
         }
-
         private void ClaimCategory_GetById()
         {
             Business.ClaimManagement.ClaimCategory objClaimCategory = new Business.ClaimManagement.ClaimCategory();
@@ -103,55 +100,99 @@ namespace WebAppAegisCRM.ClaimManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ClaimCategoryType_GetAll();
-                ClaimCategoryGetAll();
-                Message.Show = false;
-                if (ClaimCategoryId > 0)
+                if (!IsPostBack)
                 {
-                    ClaimCategory_GetById();
+                    ClaimCategoryType_GetAll();
+                    ClaimCategoryGetAll();
+                    Message.Show = false;
+                    if (ClaimCategoryId > 0)
+                    {
+                        ClaimCategory_GetById();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void gvClaimCategory_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                ClaimCategoryId = Convert.ToInt32(e.CommandArgument.ToString());
-                ClaimCategory_GetById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    ClaimCategoryId = Convert.ToInt32(e.CommandArgument.ToString());
+                    ClaimCategory_GetById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Department Obj = new Business.Sales.Department();
+                    int rows = Obj.DeleteDepartment(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        ClaimCategoryGetAll();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Department Obj = new Business.Sales.Department();
-                int rows = Obj.DeleteDepartment(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    ClaimCategoryGetAll();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
+                logger.Error(ex.Message);
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+                logger.Error(ex.Message);
+            }
         }
     }
 }

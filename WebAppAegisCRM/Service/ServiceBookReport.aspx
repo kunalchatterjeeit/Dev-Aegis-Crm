@@ -146,8 +146,8 @@
                                         <br />
                                         <asp:Panel ID="pnlServiceDocket" runat="server" Visible="false">
                                             <asp:GridView ID="gvServiceDocket" runat="server" RowStyle-Font-Size="12px" AutoGenerateColumns="False"
-                                                Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped" 
-                                                GridLines="None" Style="text-align: left" AllowPaging="True" OnPageIndexChanging="gvServiceDocket_PageIndexChanging">
+                                                Width="100%" CellPadding="4" ForeColor="#333333" class="table table-striped"
+                                                GridLines="None" Style="text-align: left" AllowPaging="True" OnPageIndexChanging="gvServiceDocket_PageIndexChanging" OnRowCommand="gvServiceDocket_RowCommand">
                                                 <Columns>
                                                     <asp:BoundField HeaderText="Docket Id" DataField="CallId" />
                                                     <asp:TemplateField HeaderText="Call Date" ItemStyle-HorizontalAlign="Left">
@@ -177,10 +177,16 @@
                                                                 <a href='CSR.aspx?docketno=<%# Eval("CallId") %>' target="_blank">CSR</a>
                                                             </asp:PlaceHolder>--%>
 
-                                                            <a href='CSR.aspx?docketno=<%# Eval("CallId") %>' target="_blank">CSR</a>
+                                                            <a href='CSR.aspx?docketno=<%# Eval("CallId") %>' target="_blank" title="Print CSR" class="fa fa-print"></a>
 
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="15px">
+                                                        <ItemTemplate>
+                                                            <asp:LinkButton ID="btnDelete" runat="server" class="fa fa-trash-o fa-fw" CausesValidation="false"
+                                                                CommandName="D" ToolTip="Delete existing CSR" OnClientClick="return confirm('Are You Sure?');" CommandArgument='<%# Eval("ServiceBookId") %>'></asp:LinkButton>
+                                                        </ItemTemplate>
                                                     </asp:TemplateField>
                                                 </Columns>
                                                 <FooterStyle BackColor="#5bb0de" Font-Bold="True" ForeColor="White" />
@@ -227,7 +233,7 @@
                                                                 <a href='CSR.aspx?docketno=<%# Eval("CallId") %>' target="_blank">CSR</a>
                                                             </asp:PlaceHolder>--%>
 
-                                                            <a href='Challan.aspx?requestno=<%# Eval("CallId") %>' target="_blank">Challan</a>
+                                                            <a href='Challan.aspx?requestno=<%# Eval("CallId") %>' target="_blank" title="Print Challan" class="fa fa-print"></a>
 
                                                         </ItemTemplate>
                                                         <ItemStyle HorizontalAlign="Left" />

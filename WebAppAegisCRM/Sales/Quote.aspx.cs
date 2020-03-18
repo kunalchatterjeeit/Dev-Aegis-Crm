@@ -10,24 +10,37 @@ using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
 using System.Reflection;
 using Entity.Common;
+using log4net;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Quote : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                // Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadQuoteList();
-                LoadQuoteDropdowns();
-                LoadAllItem();
-                Message.Show = false;
-                if (QuoteId > 0)
+                if (!IsPostBack)
                 {
-                    GetQuoteById();
+                    // Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadQuoteList();
+                    LoadQuoteDropdowns();
+                    LoadAllItem();
+                    Message.Show = false;
+                    if (QuoteId > 0)
+                    {
+                        GetQuoteById();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int QuoteId
@@ -192,78 +205,132 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_ItemsList.Rows.Count == 0)
+            try
             {
-                using (DataTable dtInstance = new DataTable())
+                if (_ItemsList.Rows.Count == 0)
                 {
-                    dtInstance.Columns.Add("ItemId");
-                    dtInstance.Columns.Add("ItemName");
-                    dtInstance.Columns.Add("PartNumber");
-                    dtInstance.Columns.Add("UnitPrice");
-                    dtInstance.Columns.Add("Discount");
-                    dtInstance.Columns.Add("Quantity");
-                    dtInstance.Columns.Add("IsActive");
-                    _ItemsList = dtInstance;
+                    using (DataTable dtInstance = new DataTable())
+                    {
+                        dtInstance.Columns.Add("ItemId");
+                        dtInstance.Columns.Add("ItemName");
+                        dtInstance.Columns.Add("PartNumber");
+                        dtInstance.Columns.Add("UnitPrice");
+                        dtInstance.Columns.Add("Discount");
+                        dtInstance.Columns.Add("Quantity");
+                        dtInstance.Columns.Add("IsActive");
+                        _ItemsList = dtInstance;
+                    }
                 }
+
+                DataRow drItem = _ItemsList.NewRow();
+                drItem["ItemId"] = ddlItem.SelectedValue;
+                drItem["ItemName"] = ddlItem.SelectedItem.Text;
+                drItem["PartNumber"] = txtPartnumber.Text.Trim();
+                drItem["UnitPrice"] = txtRate.Text.Trim();
+                drItem["Discount"] = txtDiscount.Text.Trim();
+                drItem["Quantity"] = txtQuantity.Text.Trim();
+                drItem["IsActive"] = true;
+                _ItemsList.Rows.Add(drItem);
+                _ItemsList.AcceptChanges();
+
+                LoadItemList();
+                ClearItemControls();
             }
-
-            DataRow drItem = _ItemsList.NewRow();
-            drItem["ItemId"] = ddlItem.SelectedValue;
-            drItem["ItemName"] = ddlItem.SelectedItem.Text;
-            drItem["PartNumber"] = txtPartnumber.Text.Trim();
-            drItem["UnitPrice"] = txtRate.Text.Trim();
-            drItem["Discount"] = txtDiscount.Text.Trim();
-            drItem["Quantity"] = txtQuantity.Text.Trim();
-            drItem["IsActive"] = true;
-            _ItemsList.Rows.Add(drItem);
-            _ItemsList.AcceptChanges();
-
-            LoadItemList();
-            ClearItemControls();
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string itemIdType = e.CommandArgument.ToString();
-
-                if (DeleteItem(itemIdType))
+                if (e.CommandName == "D")
                 {
-                    LoadItemList();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
-                }
+                    string itemIdType = e.CommandArgument.ToString();
 
+                    if (DeleteItem(itemIdType))
+                    {
+                        LoadItemList();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvQuote_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetQuoteById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetQuoteById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "View")
+                {
+                    QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetQuoteById();
+                }
+                else if (e.CommandName == "Print")
+                {
+                    QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
+                    Response.Redirect("QuoteBeforePrint.aspx?QuoteId=" + QuoteId + "");
+                }
             }
-            else if (e.CommandName == "View")
+            catch (Exception ex)
             {
-                QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetQuoteById();
-            }
-            else if (e.CommandName == "Print")
-            {
-                QuoteId = Convert.ToInt32(e.CommandArgument.ToString());
-                Response.Redirect("QuoteBeforePrint.aspx?QuoteId=" + QuoteId + "");
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         private void Save()
@@ -310,7 +377,7 @@ namespace WebAppAegisCRM.Sales
                     TaxRate = txtTaxRate.Text == "" ? (decimal?)null : Convert.ToDecimal(txtTaxRate.Text),
                     QuoteLineItem = items
                 };
-                Model.QuoteJSON= jss.Serialize(Model);
+                Model.QuoteJSON = jss.Serialize(Model);
                 int rows = Obj.SaveQuote(Model);
                 if (rows > 0)
                 {
@@ -343,7 +410,7 @@ namespace WebAppAegisCRM.Sales
                 txtShippingProvider.Text = Quote.ShippingProvider;
                 txtCurrencyCode.Text = Quote.CurrencyCode;
                 txtCurrencyName.Text = Quote.CurrencyName;
-                txtTaxRate.Text = Quote.TaxRate == null ? string.Empty : Quote.TaxRate.ToString();               
+                txtTaxRate.Text = Quote.TaxRate == null ? string.Empty : Quote.TaxRate.ToString();
                 ddlOpportunity.SelectedValue = Quote.OpportunityId == null ? "0" : Quote.OpportunityId.ToString();
                 ddlPaymentTerm.SelectedValue = Quote.PaymentTermId == null ? "0" : Quote.PaymentTermId.ToString();
                 ddlQuoteStage.SelectedValue = Quote.QuoteStageId == null ? "0" : Quote.QuoteStageId.ToString();

@@ -1,20 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class IndividualLoyalityPoint : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            IndividualLoyalityPoint_ByEmployeeId();
+            try
+            {
+                IndividualLoyalityPoint_ByEmployeeId();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         private void IndividualLoyalityPoint_ByEmployeeId()
         {
             DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().IndividualLoyalityPoint_ByEmployeeId(int.Parse(HttpContext.Current.User.Identity.Name));

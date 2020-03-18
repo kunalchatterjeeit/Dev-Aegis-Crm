@@ -1,16 +1,14 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApprovalConfiguration : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int LeaveApprovalConfigurationId
         {
             get { return Convert.ToInt32(ViewState["LeaveApprovalConfigurationId"]); }
@@ -73,72 +71,116 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                DesignationMaster_GetAll();
-                LeaveApprovalConfig_GetAll();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    DesignationMaster_GetAll();
+                    LeaveApprovalConfig_GetAll();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
-            Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
+            try
+            {
+                Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+                Entity.LeaveManagement.LeaveApprovalConfiguration leaveApprovalConfiguration = new Entity.LeaveManagement.LeaveApprovalConfiguration();
 
-            leaveApprovalConfiguration.LeaveApprovalConfigurationId = LeaveApprovalConfigurationId;
-            leaveApprovalConfiguration.ApproverDesignationId = Convert.ToInt32(ddlApproverDesignation.SelectedValue);
-            leaveApprovalConfiguration.LeaveDesignationConfigurationId = Convert.ToInt32(ddlRequestorDesignation.SelectedValue);
-            leaveApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
-            int response = objLeaveApprovalConfiguration.LeaveApprovalConfig_Save(leaveApprovalConfiguration);
-            if (response > 0)
-            {
-                Clear();
-                LeaveApprovalConfig_GetAll();
-                Message.IsSuccess = true;
-                Message.Text = "Saved Successfully";
+                leaveApprovalConfiguration.LeaveApprovalConfigurationId = LeaveApprovalConfigurationId;
+                leaveApprovalConfiguration.ApproverDesignationId = Convert.ToInt32(ddlApproverDesignation.SelectedValue);
+                leaveApprovalConfiguration.LeaveDesignationConfigurationId = Convert.ToInt32(ddlRequestorDesignation.SelectedValue);
+                leaveApprovalConfiguration.ApprovalLevel = Convert.ToInt32(ddlApprovalLevel.SelectedValue);
+                int response = objLeaveApprovalConfiguration.LeaveApprovalConfig_Save(leaveApprovalConfiguration);
+                if (response > 0)
+                {
+                    Clear();
+                    LeaveApprovalConfig_GetAll();
+                    Message.IsSuccess = true;
+                    Message.Text = "Saved Successfully";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Exists";
+                }
+                Message.Show = true;
             }
-            else
+            catch (Exception ex)
             {
+                ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
-                Message.Text = "Exists";
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
-            Message.Show = true;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Clear();
+            try
+            {
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvLeaveApprovalConfiguration_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "E")
+            try
             {
-                LeaveApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                LeaveApprovalConfig_GetById();
-            }
-            else
-            {
-                if (e.CommandName == "D")
+                if (e.CommandName == "E")
                 {
-                    Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
                     LeaveApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
-                    int RowsAffected = objLeaveApprovalConfiguration.LeaveApprovalConfig_Delete(LeaveApprovalConfigurationId);
-                    if (RowsAffected > 0)
-                    {
-                        Clear();
-                        LeaveApprovalConfig_GetAll();
-                        Message.Show = true;
-                        Message.Text = "Deleted Successfully";
-                    }
-                    else
-                    {
-                        Message.Show = false;
-                        Message.Text = "Data Dependency Exists";
-                    }
-                    Message.Show = true;
+                    LeaveApprovalConfig_GetById();
                 }
+                else
+                {
+                    if (e.CommandName == "D")
+                    {
+                        Business.LeaveManagement.LeaveApprovalConfiguration objLeaveApprovalConfiguration = new Business.LeaveManagement.LeaveApprovalConfiguration();
+                        LeaveApprovalConfigurationId = Convert.ToInt32(e.CommandArgument.ToString());
+                        int RowsAffected = objLeaveApprovalConfiguration.LeaveApprovalConfig_Delete(LeaveApprovalConfigurationId);
+                        if (RowsAffected > 0)
+                        {
+                            Clear();
+                            LeaveApprovalConfig_GetAll();
+                            Message.Show = true;
+                            Message.Text = "Deleted Successfully";
+                        }
+                        else
+                        {
+                            Message.Show = false;
+                            Message.Text = "Data Dependency Exists";
+                        }
+                        Message.Show = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

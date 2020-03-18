@@ -235,7 +235,7 @@ namespace WebAppAegisCRM
 
         protected void lnkBtnApp_Click(object sender, EventArgs e)
         {
-            Response.ContentType = "application/pdf";
+            Response.ContentType = "application/apk";
             Response.AppendHeader("Content-Disposition", "attachment; filename=aegis.aegis.apk");
             Response.TransmitFile(Server.MapPath("~/dist/aegis.aegis.apk"));
             Response.End();

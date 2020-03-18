@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Business.Common;
+using Entity.Inventory;
+using Entity.Service;
+using log4net;
+using System;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Business.Common;
-using Entity.Inventory;
-using Entity.Service;
 
 namespace WebAppAegisCRM.Purchase
 {
     public partial class PurchaseRequisition : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private DataTable _ItemsList
         {
             get
@@ -142,115 +143,158 @@ namespace WebAppAegisCRM.Purchase
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadVendor();
-                LoadAllItem();
-                LoadItemList();
-                ClearMasterControls();
-                ClearItemControls();
+                if (!IsPostBack)
+                {
+                    LoadVendor();
+                    LoadAllItem();
+                    LoadItemList();
+                    ClearMasterControls();
+                    ClearItemControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_ItemsList.Rows.Count == 0)
+            try
             {
-                using (DataTable dtInstance = new DataTable())
+                if (_ItemsList.Rows.Count == 0)
                 {
-                    DataColumn column = new DataColumn("AutoId");
-                    column.AutoIncrement = true;
-                    column.ReadOnly = true;
-                    column.Unique = false;
+                    using (DataTable dtInstance = new DataTable())
+                    {
+                        DataColumn column = new DataColumn("AutoId");
+                        column.AutoIncrement = true;
+                        column.ReadOnly = true;
+                        column.Unique = false;
 
-                    dtInstance.Columns.Add(column);
-                    dtInstance.Columns.Add("ItemIdType");
-                    dtInstance.Columns.Add("ItemName");
-                    dtInstance.Columns.Add("ItemType");
-                    dtInstance.Columns.Add("Quantity");
-                    dtInstance.Columns.Add("Description");
-                    _ItemsList = dtInstance;
+                        dtInstance.Columns.Add(column);
+                        dtInstance.Columns.Add("ItemIdType");
+                        dtInstance.Columns.Add("ItemName");
+                        dtInstance.Columns.Add("ItemType");
+                        dtInstance.Columns.Add("Quantity");
+                        dtInstance.Columns.Add("Description");
+                        _ItemsList = dtInstance;
+                    }
                 }
+
+                DataRow drItem = _ItemsList.NewRow();
+                drItem["ItemIdType"] = ddlItem.SelectedValue;
+                drItem["ItemName"] = ddlItem.SelectedItem.Text;
+                drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
+                drItem["Quantity"] = txtQuantity.Text.Trim();
+                drItem["Description"] = txtDescription.Text.Trim();
+
+                _ItemsList.Rows.Add(drItem);
+                _ItemsList.AcceptChanges();
+
+                LoadItemList();
+                ClearItemControls();
             }
-
-            DataRow drItem = _ItemsList.NewRow();
-            drItem["ItemIdType"] = ddlItem.SelectedValue;
-            drItem["ItemName"] = ddlItem.SelectedItem.Text;
-            drItem["ItemType"] = (ddlItem.SelectedValue.Split('|')[1] == ((int)ItemType.Product).ToString()) ? ItemType.Product.ToString() : ItemType.Spare.ToString();
-            drItem["Quantity"] = txtQuantity.Text.Trim();
-            drItem["Description"] = txtDescription.Text.Trim();
-
-            _ItemsList.Rows.Add(drItem);
-            _ItemsList.AcceptChanges();
-
-            LoadItemList();
-            ClearItemControls();
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvItem_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "D")
+            try
             {
-                string autoId = e.CommandArgument.ToString();
-
-                if (DeleteItem(autoId))
+                if (e.CommandName == "D")
                 {
-                    LoadItemList();
-                }
-                else
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
-                }
+                    string autoId = e.CommandArgument.ToString();
 
+                    if (DeleteItem(autoId))
+                    {
+                        LoadItemList();
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Data can not be deleted!!!....');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (Validation())
+            try
             {
-                Entity.Purchase.PurchaseRequisition purchase = new Entity.Purchase.PurchaseRequisition();
-                Business.Purchase.PurchaseRequisition objPurchase = new Business.Purchase.PurchaseRequisition();
-                Entity.Purchase.PurchaseDetails purchaseDetails = new Entity.Purchase.PurchaseDetails();
-
-                purchase.PurchaseRequisitionNo = (!string.IsNullOrEmpty(txtPurchaseRequisitionNo.Text.Trim())) ? txtPurchaseRequisitionNo.Text.Trim() : string.Empty;
-                purchase.RequisitionDate = Convert.ToDateTime(txtPurchaseRequisitionDate.Text.Trim());
-                purchase.PurchaseDepartment = txtPurchaseDepartment.Text.Trim();
-                purchase.VendorId = Convert.ToInt32(ddlVendor.SelectedValue);
-                purchase.WhenNeeded = Convert.ToDateTime(txtPurchaseRequisitionDate.Text.Trim());
-                purchase.PurposeOfRequisition = txtPurposeOfRequisition.Text.Trim();
-                purchase.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-                Int64 purchaseRequisitionId = objPurchase.PurchaseRequisition_Save(purchase);
-
-                foreach (DataRow drItem in _ItemsList.Rows)
+                if (Validation())
                 {
-                    purchase.PurchaseRequisitionDetailsCollection.Add(
-                    new Entity.Purchase.PurchaseRequisitionDetails()
+                    Entity.Purchase.PurchaseRequisition purchase = new Entity.Purchase.PurchaseRequisition();
+                    Business.Purchase.PurchaseRequisition objPurchase = new Business.Purchase.PurchaseRequisition();
+                    Entity.Purchase.PurchaseDetails purchaseDetails = new Entity.Purchase.PurchaseDetails();
+
+                    purchase.PurchaseRequisitionNo = (!string.IsNullOrEmpty(txtPurchaseRequisitionNo.Text.Trim())) ? txtPurchaseRequisitionNo.Text.Trim() : string.Empty;
+                    purchase.RequisitionDate = Convert.ToDateTime(txtPurchaseRequisitionDate.Text.Trim());
+                    purchase.PurchaseDepartment = txtPurchaseDepartment.Text.Trim();
+                    purchase.VendorId = Convert.ToInt32(ddlVendor.SelectedValue);
+                    purchase.WhenNeeded = Convert.ToDateTime(txtPurchaseRequisitionDate.Text.Trim());
+                    purchase.PurposeOfRequisition = txtPurposeOfRequisition.Text.Trim();
+                    purchase.CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+                    Int64 purchaseRequisitionId = objPurchase.PurchaseRequisition_Save(purchase);
+
+                    foreach (DataRow drItem in _ItemsList.Rows)
                     {
-                        PurchaseRequisitionId = purchaseRequisitionId,
-                        ItemId = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[0]),
-                        ItemType = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[1]),
-                        Quantity = (drItem["Quantity"]!=null && !string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
-                        UOM = 1,
-                        Description = (drItem["Description"] != null && !string.IsNullOrEmpty(drItem["Description"].ToString())) ? drItem["Description"].ToString() : string.Empty,
-                        ApprovalStatus = (int)ApprovalStatus.None
-                    });
-                }
-                int purchaseDetailsResponse = objPurchase.Purchase_RequisitionDetails_Save(purchase);
+                        purchase.PurchaseRequisitionDetailsCollection.Add(
+                        new Entity.Purchase.PurchaseRequisitionDetails()
+                        {
+                            PurchaseRequisitionId = purchaseRequisitionId,
+                            ItemId = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[0]),
+                            ItemType = Convert.ToInt32(drItem["ItemIdType"].ToString().Split('|')[1]),
+                            Quantity = (drItem["Quantity"] != null && !string.IsNullOrEmpty(drItem["Quantity"].ToString())) ? Convert.ToDecimal(drItem["Quantity"].ToString()) : 0,
+                            UOM = 1,
+                            Description = (drItem["Description"] != null && !string.IsNullOrEmpty(drItem["Description"].ToString())) ? drItem["Description"].ToString() : string.Empty,
+                            ApprovalStatus = (int)ApprovalStatus.None
+                        });
+                    }
+                    int purchaseDetailsResponse = objPurchase.Purchase_RequisitionDetails_Save(purchase);
 
-                if (purchaseDetailsResponse > 0)
-                {
-                    ClearMasterControls();
-                    ClearItemControls();
-                    LoadItemList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Purchase requisition saved";
+                    if (purchaseDetailsResponse > 0)
+                    {
+                        ClearMasterControls();
+                        ClearItemControls();
+                        LoadItemList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Purchase requisition saved";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Purchase requisition not saved";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Purchase requisition not saved";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Data;
-using Business.Common;
+using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Inventory
 {
     public partial class ProductSpareMapping : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadProductMaster();
-                LoadSpare();
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadProductMaster();
+                    LoadSpare();
+                    Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
-        protected void LoadProductMaster()
+        private void LoadProductMaster()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
             Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
@@ -38,7 +47,7 @@ namespace WebAppAegisCRM.Inventory
             ddlProduct.InsertSelect();
         }
 
-        protected void LoadSpare()
+        private void LoadSpare()
         {
             Business.Inventory.SpareMaster objSpareMaster = new Business.Inventory.SpareMaster();
             Entity.Inventory.SpareMaster spareMaster = new Entity.Inventory.SpareMaster();
@@ -50,7 +59,7 @@ namespace WebAppAegisCRM.Inventory
             }
         }
 
-        protected void LoadProductSpareMapping()
+        private void LoadProductSpareMapping()
         {
             LoadSpare();
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
@@ -73,43 +82,65 @@ namespace WebAppAegisCRM.Inventory
 
         protected void btnShow_Click(object sender, EventArgs e)
         {
-            LoadProductSpareMapping();
+            try
+            {
+                LoadProductSpareMapping();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void btnMap_Click(object sender, EventArgs e)
         {
-            Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
-            Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
-
-            using (DataTable dt = new DataTable())
+            try
             {
-                dt.Columns.Add("SpareId");
-                foreach (GridViewRow gvr in gvSpare.Rows)
+                Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
+                Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
+
+                using (DataTable dt = new DataTable())
                 {
-                    CheckBox chkMap = (CheckBox)gvr.FindControl("chkMap");
-                    if (chkMap.Checked)
+                    dt.Columns.Add("SpareId");
+                    foreach (GridViewRow gvr in gvSpare.Rows)
                     {
-                        dt.Rows.Add();
-                        dt.Rows[dt.Rows.Count - 1]["SpareId"] = gvSpare.DataKeys[gvr.RowIndex].Values[0].ToString();
-                        dt.AcceptChanges();
+                        CheckBox chkMap = (CheckBox)gvr.FindControl("chkMap");
+                        if (chkMap.Checked)
+                        {
+                            dt.Rows.Add();
+                            dt.Rows[dt.Rows.Count - 1]["SpareId"] = gvSpare.DataKeys[gvr.RowIndex].Values[0].ToString();
+                            dt.AcceptChanges();
+                        }
                     }
-                }
 
-                productMaster.ProductMasterId = int.Parse(ddlProduct.SelectedValue);
-                productMaster.dtMapping = dt;
+                    productMaster.ProductMasterId = int.Parse(ddlProduct.SelectedValue);
+                    productMaster.dtMapping = dt;
 
-                int i = objProductMaster.ProductSpareMapping_Save(productMaster);
+                    int i = objProductMaster.ProductSpareMapping_Save(productMaster);
 
-                if (i > 0)
-                {
-                    Message.IsSuccess = true;
-                    Message.Text = "Product Spare Mapping Saved...";
+                    if (i > 0)
+                    {
+                        Message.IsSuccess = true;
+                        Message.Text = "Product Spare Mapping Saved...";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Mapping can not save!";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Mapping can not save!";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

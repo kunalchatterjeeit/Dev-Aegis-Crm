@@ -1,20 +1,15 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppERPNew.Inventory
 {
     public partial class Product : System.Web.UI.Page
     {
-        //Objects should always be the current page's class
-        //if you need to declare other page's class then declare it within the function where it is required.
-
-        public int ProductMasterId
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        private int ProductMasterId
         {
             get { return Convert.ToInt32(ViewState["ProductMasterId"]); }
             set { ViewState["ProductMasterId"] = value; }
@@ -22,18 +17,29 @@ namespace WebAppERPNew.Inventory
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
 
-                LoadProductMaster();
-                LoadBrand();
-                LoadProductCategory();
+                    LoadProductMaster();
+                    LoadBrand();
+                    LoadProductCategory();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         #region User Defined Functions
-        protected void LoadBrand()
+        private void LoadBrand()
         {
             Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
             ddlBrand.DataSource = objBrandMaster.GetAll();
@@ -43,7 +49,7 @@ namespace WebAppERPNew.Inventory
             ddlBrand.InsertSelect();
 
         }
-        protected void PopulateProduct()
+        private void PopulateProduct()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
             Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
@@ -59,7 +65,7 @@ namespace WebAppERPNew.Inventory
             txtMTBF.Text = (productMaster.MTBF == 0) ? "" : Convert.ToString(productMaster.MTBF);
             ddlProductCategory.SelectedValue = Convert.ToString(productMaster.ProductCategoryId);
         }
-        protected void LoadProductMaster()
+        private void LoadProductMaster()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
             Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
@@ -67,7 +73,7 @@ namespace WebAppERPNew.Inventory
             gvProductMaster.DataSource = objProductMaster.GetAll(productMaster);
             gvProductMaster.DataBind();
         }
-        protected void Save()
+        private void Save()
         {
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
             Entity.Inventory.ProductMaster productMaster = new Entity.Inventory.ProductMaster();
@@ -102,7 +108,7 @@ namespace WebAppERPNew.Inventory
             Message.Show = true;
 
         }
-        protected void ClearControl()
+        private void ClearControl()
         {
             txtProductCode.Text = string.Empty;
             txtProductName.Text = string.Empty;
@@ -112,7 +118,7 @@ namespace WebAppERPNew.Inventory
             txtMTBF.Text = "";
             ddlProductCategory.SelectedIndex = 0;
         }
-        protected void LoadProductCategory()
+        private void LoadProductCategory()
         {
             Business.Inventory.ProductCategory objProductCategory = new Business.Inventory.ProductCategory();
 
@@ -130,44 +136,69 @@ namespace WebAppERPNew.Inventory
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Product.aspx");
+            try
+            {
+                Response.Redirect("Product.aspx");
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
-
-        //protected void gvProductMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        //{
-        //    gvProductMaster.PageIndex = e.NewPageIndex;
-        //    LoadProductMaster();
-        //}
-
         protected void gvProductMaster_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                ProductMasterId = int.Parse(e.CommandArgument.ToString());
-                PopulateProduct();
-            }
-            else if (e.CommandName == "Del")
-            {
-                Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
+                if (e.CommandName == "Ed")
+                {
+                    ProductMasterId = int.Parse(e.CommandArgument.ToString());
+                    PopulateProduct();
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
 
-                int i = objProductMaster.Delete(int.Parse(e.CommandArgument.ToString()));
-                if (i > 0)
-                {
-                    ClearControl();
-                    LoadProductMaster();
-                    Message.IsSuccess = true;
-                    Message.Text = "Product Deleted Successfully...";
+                    int i = objProductMaster.Delete(int.Parse(e.CommandArgument.ToString()));
+                    if (i > 0)
+                    {
+                        ClearControl();
+                        LoadProductMaster();
+                        Message.IsSuccess = true;
+                        Message.Text = "Product Deleted Successfully...";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Sorry, can not delete product!";
+                    }
+                    Message.Show = true;
                 }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Sorry, can not delete product!";
-                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

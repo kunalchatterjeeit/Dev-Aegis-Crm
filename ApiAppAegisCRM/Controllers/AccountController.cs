@@ -393,7 +393,7 @@ namespace ApiAppAegisCRM.Controllers
                         CallStatus = string.Format("Call Status: {0}", dr["CallStatus"].ToString()),
                         ContactPerson = string.Format("Contact Person: {0}", dr["ContactPerson"].ToString()),
                         CustomerName = string.Format("Customer Name: {0}", dr["CustomerName"].ToString()),
-                        DocketDateTime = string.Format("Docket Date & Time: {0}", dr["DocketDate"].ToString()),
+                        DocketDateTime = string.Format("Docket Date & Time: {0}", Convert.ToDateTime(dr["DocketDate"].ToString()).ToString("dd MMM yyyy")),
                         DocketNo = string.Format("Docket No: {0}", dr["DocketId"].ToString()),
                         IsCallAttended = string.Format("Call Attended: {0}", (dr["IsCallAttended"].ToString().Equals("1")) ? "True" : "False"),
                         ProductName = string.Format("Product Name: {0}", dr["ProductName"].ToString())
@@ -466,7 +466,7 @@ namespace ApiAppAegisCRM.Controllers
                         CallStatus = string.Format("Call Status: {0}", dr["CallStatus"].ToString()),
                         ContactPerson = string.Format("Contact Person: {0}", dr["ContactPerson"].ToString()),
                         CustomerName = string.Format("Customer Name: {0}", dr["CustomerName"].ToString()),
-                        TonerDateTime = string.Format("Toner Date & Time: {0}", dr["RequestDate"].ToString()),
+                        TonerDateTime = string.Format("Toner Date & Time: {0}", Convert.ToDateTime(dr["RequestDate"].ToString()).ToString("dd MMM yyyy")),
                         TonerNo = string.Format("Toner No: {0}", dr["TonnerRequestId"].ToString()),
                         ProductName = string.Format("Product Name: {0}", dr["ProductName"].ToString())
                     });

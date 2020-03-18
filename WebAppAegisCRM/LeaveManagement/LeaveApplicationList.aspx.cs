@@ -1,5 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
 using System.Data;
 using System.IO;
@@ -12,6 +13,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApplicationList : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void LeaveApplicationMaster_GetAll()
         {
             DataTable dtLeaveApplicationMaster =
@@ -74,28 +76,61 @@ namespace WebAppAegisCRM.LeaveManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                Message.Show = false;
-                MessageSuccess.Show = false;
-                LeaveApplicationMaster_GetAll();
+                if (!IsPostBack)
+                {
+                    Message.Show = false;
+                    MessageSuccess.Show = false;
+                    LeaveApplicationMaster_GetAll();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
         protected void gvLeaveApplicationList_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvLeaveApplicationList.PageIndex = e.NewPageIndex;
-            LeaveApplicationMaster_GetAll();
+            try
+            {
+                gvLeaveApplicationList.PageIndex = e.NewPageIndex;
+                LeaveApplicationMaster_GetAll();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvLeaveApplicationList_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "View")
+            try
             {
-                Business.Common.Context.LeaveApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetLeaveApplicationDetails_ByLeaveApplicationId(Business.Common.Context.LeaveApplicationId);
-                TabContainer1.ActiveTab = Approval;
-                ModalPopupExtender1.Show();
+                if (e.CommandName == "View")
+                {
+                    Business.Common.Context.LeaveApplicationId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetLeaveApplicationDetails_ByLeaveApplicationId(Business.Common.Context.LeaveApplicationId);
+                    TabContainer1.ActiveTab = Approval;
+                    ModalPopupExtender1.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -144,6 +179,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -172,9 +208,13 @@ namespace WebAppAegisCRM.LeaveManagement
                     Response.End();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                // do nothing
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

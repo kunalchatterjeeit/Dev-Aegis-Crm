@@ -364,17 +364,17 @@ namespace WebAppAegisCRM.Service
         }
         private void EmployeeCallLogin(object sender, EventArgs e)
         {
-            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
-            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
-            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            ddlInTimeHH.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("hh");
+            ddlInTimeMM.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("mm");
+            ddlInTimeTT.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("tt");
             ddlCurrentCallStatusDocket.SelectedValue = (ddlCurrentCallStatusDocket.SelectedIndex == 0) ? ((int)CallStatusType.DocketRequestInQueue).ToString() : ddlCurrentCallStatusDocket.SelectedValue;
             btnDocketClose_Click(sender, e);
         }
         private void EmployeeCallLogout(object sender, EventArgs e)
         {
-            ddlOutTimeHH.SelectedValue = DateTime.Now.ToString("hh");
-            ddlOutTimeMM.SelectedValue = DateTime.Now.ToString("mm");
-            ddlOutTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            ddlOutTimeHH.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("hh");
+            ddlOutTimeMM.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("mm");
+            ddlOutTimeTT.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("tt");
             //ddlCurrentCallStatusDocket.SelectedValue = ((int)CallStatusType.DocketRequestInQueue).ToString();
             btnDocketClose_Click(sender, e);
         }
@@ -426,7 +426,7 @@ namespace WebAppAegisCRM.Service
                     DateTime associatedInDateTime = Convert.ToDateTime(txtAssociatedInDate.Text + " " + ddlAssociatedInTimeHH.SelectedValue + ":" + ddlAssociatedInTimeMM.SelectedValue + ":00" + " " + ddlAssociatedInTimeTT.SelectedValue);
                     DateTime associatedOutDateTime = Convert.ToDateTime(txtAssociatedOutDate.Text + " " + ddlAssociatedOutTimeHH.SelectedValue + ":" + ddlAssociatedOutTimeMM.SelectedValue + ":00" + " " + ddlAssociatedOutTimeTT.SelectedValue);
 
-                    if (associatedInDateTime > System.DateTime.Now)
+                    if (associatedInDateTime > DateTime.UtcNow.AddHours(5).AddMinutes(33))
                     {
                         MessageDocket.IsSuccess = false;
                         MessageDocket.Text = "Invalid In date of selected associate engineer.";
@@ -434,7 +434,7 @@ namespace WebAppAegisCRM.Service
                         return retValue = false;
                     }
 
-                    if (associatedOutDateTime > System.DateTime.Now)
+                    if (associatedOutDateTime > DateTime.UtcNow.AddHours(5).AddMinutes(33))
                     {
                         MessageDocket.IsSuccess = false;
                         MessageDocket.Text = "Invalid Out date of selected associate engineer.";
@@ -715,12 +715,12 @@ namespace WebAppAegisCRM.Service
             Business.Common.Context.CallType = CallType.None;
             Business.Common.Context.ServiceBookId = 0;
             Business.Common.Context.SpareRequisition.Clear();
-            ddlInTimeHH.SelectedValue = DateTime.Now.ToString("hh");
-            ddlInTimeMM.SelectedValue = DateTime.Now.ToString("mm");
-            ddlInTimeTT.SelectedValue = DateTime.Now.ToString("tt");
-            ddlOutTimeHH.SelectedValue = DateTime.Now.ToString("hh");
-            ddlOutTimeMM.SelectedValue = DateTime.Now.ToString("mm");
-            ddlOutTimeTT.SelectedValue = DateTime.Now.ToString("tt");
+            ddlInTimeHH.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("hh");
+            ddlInTimeMM.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("mm");
+            ddlInTimeTT.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("tt");
+            ddlOutTimeHH.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("hh");
+            ddlOutTimeMM.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("mm");
+            ddlOutTimeTT.SelectedValue = DateTime.UtcNow.AddHours(5).AddMinutes(33).ToString("tt");
             txtA3BWCurrentMeterReading.Text = "0";
             txtA4BWCurrentMeterReading.Text = "0";
             txtA3CLCurrentMeterReading.Text = "0";
@@ -1516,8 +1516,8 @@ namespace WebAppAegisCRM.Service
             {
                 serviceCallAttendance.EmployeeId = serviceBook.EmployeeId_FK;
                 serviceCallAttendance.ServiceBookId = serviceBookId;
-                serviceCallAttendance.InTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.Now : DateTime.MinValue;
-                serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : DateTime.Now;
+                serviceCallAttendance.InTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.UtcNow.AddHours(5).AddMinutes(33) : DateTime.MinValue;
+                serviceCallAttendance.OutTime = (Request.QueryString["action"] != null && Request.QueryString["action"].Equals("callin")) ? DateTime.MinValue : DateTime.UtcNow.AddHours(5).AddMinutes(33);
                 serviceCallAttendance.CallStatusId = serviceBook.CallStatusId;
                 serviceCallAttendance.Status = 1;
                 objServiceBook.Service_CallAttendance_Save(serviceCallAttendance);

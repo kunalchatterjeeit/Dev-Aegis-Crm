@@ -68,7 +68,7 @@
                     <tbody>
                         <tr>
                             <td style="width: 20%">
-                                <img class="leftimg" src="http://aegiscrm.in/images/Aegis_CRM_Logo.png" width="150" />
+                                <img class="leftimg" src="http://crm.aegissolutions.in/images/Aegis_CRM_Logo.png" width="150" />
                             </td>
                             <td>
                                 <h3>CUSTOMER SERVICE REPORT</h3>
@@ -77,7 +77,7 @@
                                     Contact No - 8335810009, Email - info@aegissolutions.in</h5>
                             </td>
                             <td style="width: 20%">
-                                <img class="rightimg" src="http://aegiscrm.in/images/Aegis_CRM_Logo2.png" width="200" />
+                                <img class="rightimg" src="http://crm.aegissolutions.in/images/aegis_crm.png" width="120" />
                             </td>
                         </tr>
                     </tbody>
@@ -110,7 +110,8 @@
                     <tbody>
                         <tr>
                             <td id="tdRepeatCallCount" runat="server" colspan="2">CUSTOMER NAME & ADDRESS:
-                                <asp:Label ID="lblCustomerNameAddress" runat="server" Text=""></asp:Label>
+                                <asp:Label ID="lblCustomerNameAddress" runat="server" Text=""></asp:Label><br />
+                                <asp:Label ID="lblServiceChargeable" runat="server" Text="" Font-Bold="true" Font-Underline="true"></asp:Label>
                             </td>
                         </tr>
                         <asp:Repeater ID="rptrRepeatCall" runat="server">

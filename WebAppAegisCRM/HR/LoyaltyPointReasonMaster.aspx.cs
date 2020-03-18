@@ -1,4 +1,5 @@
 ﻿using Business.Common;
+using log4net;
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -7,12 +8,12 @@ namespace WebAppAegisCRM.HR
 {
     public partial class LoyaltyPointReasonMaster : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int LoyaltyPointReasonId
         {
             get { return Convert.ToInt32(ViewState["LoyaltyPointReasonId"]); }
             set { ViewState["LoyaltyPointReasonId"] = value; }
         }
-
         protected void ClearControls()
         {
             LoyaltyPointReasonId = 0;
@@ -21,7 +22,6 @@ namespace WebAppAegisCRM.HR
             txtReason.Text = "";
             Message.Show = false;
         }
-
         protected void DesignationMaster_GetAll()
         {
             Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
@@ -37,96 +37,145 @@ namespace WebAppAegisCRM.HR
             }
             ddlDesignation.InsertSelect();
         }
-
         protected void LoadLoyaltyPointReasonMaster()
         {
             GlobalCache.RemoveAll();
-            DataTable dt = GlobalCache.ExecuteCache<DataTable>(typeof(Business.HR.LoyaltyPointReasonMaster), "GetAll", new Entity.HR.LoyaltyPointReasonMaster());          
+            DataTable dt = GlobalCache.ExecuteCache<DataTable>(typeof(Business.HR.LoyaltyPointReasonMaster), "GetAll", new Entity.HR.LoyaltyPointReasonMaster());
             gvLoyaltyReason.DataSource = dt;
             gvLoyaltyReason.DataBind();
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                DesignationMaster_GetAll();
-                LoadLoyaltyPointReasonMaster();
-                ClearControls();
+                if (!IsPostBack)
+                {
+                    DesignationMaster_GetAll();
+                    LoadLoyaltyPointReasonMaster();
+                    ClearControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
-
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
-            Entity.HR.LoyaltyPointReasonMaster loyaltyPointReasonMaster = new Entity.HR.LoyaltyPointReasonMaster();
-
-            loyaltyPointReasonMaster.LoyaltyPointReasonId = LoyaltyPointReasonId;
-            loyaltyPointReasonMaster.Reason = txtReason.Text.Trim();
-            loyaltyPointReasonMaster.Description = txtDescription.Text.Trim();
-            loyaltyPointReasonMaster.DesignationId = int.Parse(ddlDesignation.SelectedValue);
-
-            int response = objLoyaltyPointReasonMaster.Save(loyaltyPointReasonMaster);
-
-            if (response > 0)
+            try
             {
-                GlobalCache.RemoveAll();
-                ClearControls();
-                LoadLoyaltyPointReasonMaster();
-                Message.IsSuccess = true;
-                Message.Text = "Reason saved successfully...";
-            }
-            else
-            {
-                Message.IsSuccess = false;
-                Message.Text = "Sorry!! data not saved.";
-            }
-            Message.Show = true;
-        }
+                Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
+                Entity.HR.LoyaltyPointReasonMaster loyaltyPointReasonMaster = new Entity.HR.LoyaltyPointReasonMaster();
 
-        protected void btnCancel_Click(object sender, EventArgs e)
-        {
-            ClearControls();
-        }
+                loyaltyPointReasonMaster.LoyaltyPointReasonId = LoyaltyPointReasonId;
+                loyaltyPointReasonMaster.Reason = txtReason.Text.Trim();
+                loyaltyPointReasonMaster.Description = txtDescription.Text.Trim();
+                loyaltyPointReasonMaster.DesignationId = int.Parse(ddlDesignation.SelectedValue);
 
-        protected void gvLoyaltyReason_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            gvLoyaltyReason.PageIndex = e.NewPageIndex;
-            LoadLoyaltyPointReasonMaster();
-        }
+                int response = objLoyaltyPointReasonMaster.Save(loyaltyPointReasonMaster);
 
-        protected void gvLoyaltyReason_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
-            Entity.HR.LoyaltyPointReasonMaster loyaltyPointReasonMaster = new Entity.HR.LoyaltyPointReasonMaster();
-
-            if (e.CommandName == "Ed")
-            {
-                int reasonId = int.Parse(e.CommandArgument.ToString());
-                loyaltyPointReasonMaster = objLoyaltyPointReasonMaster.GetById(reasonId);
-                LoyaltyPointReasonId = loyaltyPointReasonMaster.LoyaltyPointReasonId;
-                txtDescription.Text = loyaltyPointReasonMaster.Description;
-                txtReason.Text = loyaltyPointReasonMaster.Reason;
-                ddlDesignation.SelectedValue = Convert.ToString(loyaltyPointReasonMaster.DesignationId);
-            }
-            else if (e.CommandName == "Del")
-            {
-                int cityId = int.Parse(e.CommandArgument.ToString());
-                int i = objLoyaltyPointReasonMaster.Delete(cityId);
-
-                if (i > 0)
+                if (response > 0)
                 {
                     GlobalCache.RemoveAll();
                     ClearControls();
                     LoadLoyaltyPointReasonMaster();
                     Message.IsSuccess = true;
-                    Message.Text = "Reason deleted successfully...";
+                    Message.Text = "Reason saved successfully...";
                 }
                 else
                 {
                     Message.IsSuccess = false;
-                    Message.Text = "Sorry!! data not delete.";
+                    Message.Text = "Sorry!! data not saved.";
                 }
+                Message.Show = true;
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+        protected void gvLoyaltyReason_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            try
+            {
+                gvLoyaltyReason.PageIndex = e.NewPageIndex;
+                LoadLoyaltyPointReasonMaster();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
+        }
+        protected void gvLoyaltyReason_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                Business.HR.LoyaltyPointReasonMaster objLoyaltyPointReasonMaster = new Business.HR.LoyaltyPointReasonMaster();
+                Entity.HR.LoyaltyPointReasonMaster loyaltyPointReasonMaster = new Entity.HR.LoyaltyPointReasonMaster();
+
+                if (e.CommandName == "Ed")
+                {
+                    int reasonId = int.Parse(e.CommandArgument.ToString());
+                    loyaltyPointReasonMaster = objLoyaltyPointReasonMaster.GetById(reasonId);
+                    LoyaltyPointReasonId = loyaltyPointReasonMaster.LoyaltyPointReasonId;
+                    txtDescription.Text = loyaltyPointReasonMaster.Description;
+                    txtReason.Text = loyaltyPointReasonMaster.Reason;
+                    ddlDesignation.SelectedValue = Convert.ToString(loyaltyPointReasonMaster.DesignationId);
+                }
+                else if (e.CommandName == "Del")
+                {
+                    int cityId = int.Parse(e.CommandArgument.ToString());
+                    int i = objLoyaltyPointReasonMaster.Delete(cityId);
+
+                    if (i > 0)
+                    {
+                        GlobalCache.RemoveAll();
+                        ClearControls();
+                        LoadLoyaltyPointReasonMaster();
+                        Message.IsSuccess = true;
+                        Message.Text = "Reason deleted successfully...";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Sorry!! data not delete.";
+                    }
+                    Message.Show = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }

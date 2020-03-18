@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Inventory
 {
     public partial class Brand : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         public int BrandId
         {
             get { return Convert.ToInt32(ViewState["BrandId"]); }
@@ -18,10 +16,21 @@ namespace WebAppAegisCRM.Inventory
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                ClearControls();
-                LoadBrand();
+                if (!IsPostBack)
+                {
+                    ClearControls();
+                    LoadBrand();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
 
@@ -41,51 +50,95 @@ namespace WebAppAegisCRM.Inventory
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
-            Entity.Inventory.BrandMaster brandMaster = new Entity.Inventory.BrandMaster();
-
-            brandMaster.BrandId = BrandId;
-            brandMaster.BrandName = txtBrandName.Text;
-
-            int i = objBrandMaster.Save(brandMaster);
-
-            if (i > 0)
+            try
             {
-                ClearControls();
-                LoadBrand();
-                Message.IsSuccess = true;
-                Message.Text = "Brand saved successfully...";
+                Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
+                Entity.Inventory.BrandMaster brandMaster = new Entity.Inventory.BrandMaster();
+
+                brandMaster.BrandId = BrandId;
+                brandMaster.BrandName = txtBrandName.Text;
+
+                int i = objBrandMaster.Save(brandMaster);
+
+                if (i > 0)
+                {
+                    ClearControls();
+                    LoadBrand();
+                    Message.IsSuccess = true;
+                    Message.Text = "Brand saved successfully...";
+                }
+                else
+                {
+                    Message.IsSuccess = false;
+                    Message.Text = "Can not save!!!";
+                }
+                Message.Show = true;
             }
-            else
+            catch (Exception ex)
             {
+                ex.WriteException();
+                logger.Error(ex.Message);
                 Message.IsSuccess = false;
-                Message.Text = "Can not save!!!";
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
-            Message.Show = true;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvBrand_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvBrand.PageIndex = e.NewPageIndex;
-            LoadBrand();
+            try
+            {
+                gvBrand.PageIndex = e.NewPageIndex;
+                LoadBrand();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
 
         protected void gvBrand_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
-            Entity.Inventory.BrandMaster brandMaster = new Entity.Inventory.BrandMaster();
-
-            if (e.CommandName == "Ed")
+            try
             {
-                int brandId = int.Parse(e.CommandArgument.ToString());
-                brandMaster = objBrandMaster.GetById(brandId);
-                BrandId = brandMaster.BrandId;
-                txtBrandName.Text = brandMaster.BrandName;
+                Business.Inventory.BrandMaster objBrandMaster = new Business.Inventory.BrandMaster();
+                Entity.Inventory.BrandMaster brandMaster = new Entity.Inventory.BrandMaster();
+
+                if (e.CommandName == "Ed")
+                {
+                    int brandId = int.Parse(e.CommandArgument.ToString());
+                    brandMaster = objBrandMaster.GetById(brandId);
+                    BrandId = brandMaster.BrandId;
+                    txtBrandName.Text = brandMaster.BrandName;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
     }

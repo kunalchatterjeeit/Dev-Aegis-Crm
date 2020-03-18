@@ -1,22 +1,19 @@
 ﻿using Business.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class PersonalInfo : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
             set { ViewState["EmployeeMasterId"] = value; }
         }
-
         private bool ValidateImageUpload()
         {
             if (FileUpload1.FileBytes.Length > 250000)
@@ -38,7 +35,6 @@ namespace WebAppAegisCRM.HR
 
             return true;
         }
-
         private void EmployeeMaster_ById(int Id)
         {
             try
@@ -68,37 +64,51 @@ namespace WebAppAegisCRM.HR
                 MessageBox.Show = true;
             }
         }
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                MessageBox.Show = false;
-                EmployeeMaster_ById(Convert.ToInt32(HttpContext.Current.User.Identity.Name));
-            }
-        }
-
-        protected void btnUpload_Click(object sender, EventArgs e)
-        {
-            if (ValidateImageUpload())
-            {
-                Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-                Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster()
+                if (!IsPostBack)
                 {
-                    EmployeeMasterId = this.EmployeeMasterId,
-                    Image = (FileUpload1.HasFile) ? string.Concat(EmployeeMasterId.ToString(), System.IO.Path.GetExtension(FileUpload1.FileName)) : string.Empty
-                };
-                int response = objEmployeeMaster.Employee_Update(employeeMaster);
-                if (response > 0)
-                {
-                    if (FileUpload1.HasFile)
-                        FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeMaster.Image);
-
-                    MessageBox.IsSuccess = true;
-                    MessageBox.Text = "Image update successfully. Please clear browser cache to see.";
-                    MessageBox.Show = true;
+                    MessageBox.Show = false;
                     EmployeeMaster_ById(Convert.ToInt32(HttpContext.Current.User.Identity.Name));
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
+        }
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ValidateImageUpload())
+                {
+                    Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                    Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster()
+                    {
+                        EmployeeMasterId = this.EmployeeMasterId,
+                        Image = (FileUpload1.HasFile) ? string.Concat(EmployeeMasterId.ToString(), System.IO.Path.GetExtension(FileUpload1.FileName)) : string.Empty
+                    };
+                    int response = objEmployeeMaster.Employee_Update(employeeMaster);
+                    if (response > 0)
+                    {
+                        if (FileUpload1.HasFile)
+                            FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeMaster.Image);
+
+                        MessageBox.IsSuccess = true;
+                        MessageBox.Text = "Image update successfully. Please clear browser cache to see.";
+                        MessageBox.Show = true;
+                        EmployeeMaster_ById(Convert.ToInt32(HttpContext.Current.User.Identity.Name));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
     }

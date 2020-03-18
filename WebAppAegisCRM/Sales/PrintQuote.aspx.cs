@@ -1,21 +1,35 @@
-﻿using Entity.Common;
+﻿using Business.Common;
+using Entity.Common;
+using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class PrintQuote : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["StageId"] != null && Request.QueryString["StageId"].ToString().Length > 0)
+            try
             {
-                BindQuote(Convert.ToInt32(Request.QueryString["StageId"].ToString()));
+                if (Request.QueryString["StageId"] != null && Request.QueryString["StageId"].ToString().Length > 0)
+                {
+                    BindQuote(Convert.ToInt32(Request.QueryString["StageId"].ToString()));
+                }
+                if (Request.QueryString["showStamp"] != null && Request.QueryString["showStamp"].ToString().Length > 0)
+                {
+                    imgSignature.Visible = Convert.ToBoolean(Request.QueryString["showStamp"].ToString());
+                    imgStump.Visible = Convert.ToBoolean(Request.QueryString["showStamp"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
             if (Request.QueryString["showStamp"] != null && Request.QueryString["showStamp"].ToString().Length > 0)
             {
@@ -38,12 +52,12 @@ namespace WebAppAegisCRM.Sales
                 {
                     if (lineItem[i].Quantity > 0 && lineItem[i].UnitPrice > 0)
                     {
-                        lineItem[i].Amount = Math.Round(Convert.ToDecimal(lineItem[i].Quantity),2) * Math.Round(Convert.ToDecimal(lineItem[i].UnitPrice),2);
+                        lineItem[i].Amount = Math.Round(Convert.ToDecimal(lineItem[i].Quantity), 2) * Math.Round(Convert.ToDecimal(lineItem[i].UnitPrice), 2);
                         if (lineItem[i].Discount > 0)
                         {
                             lineItem[i].Amount = lineItem[i].Amount - (lineItem[i].Amount * lineItem[i].Discount / 100);
                         }
-                        total = total + Math.Round( Convert.ToDecimal(lineItem[i].Amount),2);
+                        total = total + Math.Round(Convert.ToDecimal(lineItem[i].Amount), 2);
                     }
                 }
                 lblSubtotal.Text = Math.Round(total, 2).ToString();
@@ -55,7 +69,7 @@ namespace WebAppAegisCRM.Sales
                 }
                 else
                 {
-                    lblTaxRate.Text = Quote.TaxRate.ToString() ;
+                    lblTaxRate.Text = Quote.TaxRate.ToString();
                     lblGST.Text = Math.Round(total * Convert.ToDecimal(Quote.TaxRate / 100), 2).ToString();
                     lblTotal.Text = Math.Round(total + total * Convert.ToDecimal(Quote.TaxRate / 100), 2).ToString();
                 }

@@ -118,7 +118,7 @@ namespace ApiAppAegisCRM.Controllers
             {
                 if (!CheckAttendanceBlocked(model))
                 {
-                    if (model.AttendanceMode.ToLower().Equals("in"))
+                    if (model.AttendanceMode.ToLower().Equals("out"))
                     {
                         Business.HR.Attendance objAttendance = new Business.HR.Attendance();
                         Entity.HR.Attendance attendance = new Entity.HR.Attendance()
@@ -137,7 +137,7 @@ namespace ApiAppAegisCRM.Controllers
                         model.Message = "You are successfully IN.";
                         model.ResponseCode = 200;
                     }
-                    else if (model.AttendanceMode.ToLower().Equals("out"))
+                    else if (model.AttendanceMode.ToLower().Equals("in"))
                     {
                         Business.HR.Attendance objAttendance = new Business.HR.Attendance();
                         DataTable dt = objAttendance.Attendance_GetByEmployeeId(Convert.ToInt32(model.UserId), DateTime.UtcNow.AddHours(5).AddMinutes(33));

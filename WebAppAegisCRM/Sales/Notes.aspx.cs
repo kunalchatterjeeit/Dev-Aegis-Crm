@@ -1,16 +1,15 @@
 ﻿using Business.Common;
 using Entity.Common;
+using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class Notes : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void SetQueryStringValue()
         {
             if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
@@ -26,25 +25,36 @@ namespace WebAppAegisCRM.Sales
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                SetQueryStringValue();
-            }
-
-            if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
-            {
-                ModalPopupExtender1.Show();
-            }
-            if (!IsPostBack)
-            {
-                Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-                LoadContacts();
-                LoadNotesList();
-                Message.Show = false;
-                if (NoteId > 0)
+                if (!IsPostBack)
                 {
-                    GetNoteById();
+                    SetQueryStringValue();
                 }
+
+                if (string.IsNullOrEmpty(hdnItemType.Value) || string.IsNullOrEmpty(hdnItemId.Value))
+                {
+                    ModalPopupExtender1.Show();
+                }
+                if (!IsPostBack)
+                {
+                    Business.Common.Context.ReferralUrl = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
+                    LoadContacts();
+                    LoadNotesList();
+                    Message.Show = false;
+                    if (NoteId > 0)
+                    {
+                        GetNoteById();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
             }
         }
         public int NoteId
@@ -57,7 +67,9 @@ namespace WebAppAegisCRM.Sales
             Business.Sales.Notes Obj = new Business.Sales.Notes();
             Entity.Sales.GetContactsParam Param = new Entity.Sales.GetContactsParam
             {
-                Name = null, AccountId = null, Mobile = null
+                Name = null,
+                AccountId = null,
+                Mobile = null
             };
             ddlContact.DataSource = Obj.GetAllContacts(Param);
             ddlContact.DataTextField = "Name";
@@ -68,7 +80,8 @@ namespace WebAppAegisCRM.Sales
         private void LoadNotesList()
         {
             Business.Sales.Notes Obj = new Business.Sales.Notes();
-            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam {
+            Entity.Sales.GetNotesParam Param = new Entity.Sales.GetNotesParam
+            {
                 LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
                 LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
             };
@@ -80,8 +93,8 @@ namespace WebAppAegisCRM.Sales
             NoteId = 0;
             Message.Show = false;
             txtName.Text = string.Empty;
-            txtDescription.Text = string.Empty;            
-            ddlContact.SelectedIndex = 0;           
+            txtDescription.Text = string.Empty;
+            ddlContact.SelectedIndex = 0;
             btnSave.Text = "Save";
         }
         private bool NoteControlValidation()
@@ -92,7 +105,7 @@ namespace WebAppAegisCRM.Sales
                 Message.Text = "Please Enter Note Name";
                 Message.Show = true;
                 return false;
-            }            
+            }
             else if (ddlContact.SelectedIndex == 0)
             {
                 Message.IsSuccess = false;
@@ -104,37 +117,70 @@ namespace WebAppAegisCRM.Sales
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Save();
+            try
+            {
+                Save();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
+                Message.Show = true;
+            }
         }
         protected void gvNotes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "Ed")
+            try
             {
-                NoteId = Convert.ToInt32(e.CommandArgument.ToString());
-                GetNoteById();
-                Message.Show = false;
-                btnSave.Text = "Update";
+                if (e.CommandName == "Ed")
+                {
+                    NoteId = Convert.ToInt32(e.CommandArgument.ToString());
+                    GetNoteById();
+                    Message.Show = false;
+                    btnSave.Text = "Update";
+                }
+                else if (e.CommandName == "Del")
+                {
+                    Business.Sales.Notes Obj = new Business.Sales.Notes();
+                    int rows = Obj.DeleteNotes(Convert.ToInt32(e.CommandArgument.ToString()));
+                    if (rows > 0)
+                    {
+                        ClearControls();
+                        LoadNotesList();
+                        Message.IsSuccess = true;
+                        Message.Text = "Deleted Successfully";
+                    }
+                    else
+                    {
+                        Message.IsSuccess = false;
+                        Message.Text = "Data Dependency Exists";
+                    }
+                    Message.Show = true;
+                }
             }
-            else if (e.CommandName == "Del")
+            catch (Exception ex)
             {
-                Business.Sales.Notes Obj = new Business.Sales.Notes();
-                int rows = Obj.DeleteNotes(Convert.ToInt32(e.CommandArgument.ToString()));
-                if (rows > 0)
-                {
-                    ClearControls();
-                    LoadNotesList();
-                    Message.IsSuccess = true;
-                    Message.Text = "Deleted Successfully";
-                }
-                else
-                {
-                    Message.IsSuccess = false;
-                    Message.Text = "Data Dependency Exists";
-                }
+                ex.WriteException();
+                logger.Error(ex.Message);
+                Message.IsSuccess = false;
+                Message.Text = ex.Message;
                 Message.Show = true;
             }
         }
@@ -143,10 +189,10 @@ namespace WebAppAegisCRM.Sales
             Business.Sales.Notes Obj = new Business.Sales.Notes();
             Entity.Sales.Notes notes = Obj.GetNoteById(NoteId);
             if (notes.Id != 0)
-            {                
+            {
                 ddlContact.SelectedValue = notes.ContactId.ToString();
                 txtDescription.Text = notes.Description;
-                txtName.Text = notes.Name.ToString();                
+                txtName.Text = notes.Name.ToString();
             }
         }
         private void Save()
@@ -157,7 +203,7 @@ namespace WebAppAegisCRM.Sales
                 Entity.Sales.Notes Model = new Entity.Sales.Notes
                 {
                     Id = NoteId,
-                    ContactId = Convert.ToInt32(ddlContact.SelectedValue),                   
+                    ContactId = Convert.ToInt32(ddlContact.SelectedValue),
                     CreatedBy = Convert.ToInt32(HttpContext.Current.User.Identity.Name),
                     Description = txtDescription.Text,
                     Name = txtName.Text,

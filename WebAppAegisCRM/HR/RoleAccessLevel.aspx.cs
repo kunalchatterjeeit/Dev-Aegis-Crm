@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using System.Data;
+using Business.Common;
+using log4net;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class RoleAccessLevel : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadRoles();
-                LoadRoleAccessLevel();
+                if (!IsPostBack)
+                {
+                    LoadRoles();
+                    LoadRoleAccessLevel();
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
-
         private void LoadRoles()
         {
             Business.HR.RoleMaster ObjRole = new Business.HR.RoleMaster();
@@ -25,7 +35,6 @@ namespace WebAppAegisCRM.HR
                 ddlRole.DataBind();
             }
         }
-
         private void LoadRoleAccessLevel()
         {
             UncheckAll();
@@ -55,7 +64,6 @@ namespace WebAppAegisCRM.HR
                     chkListClaim.Items.FindByValue(dr["PermissionId"].ToString()).Selected = true;
             }
         }
-
         private void UncheckAll()
         {
             foreach (ListItem lstItem in ChkLstSettings.Items)
@@ -79,20 +87,33 @@ namespace WebAppAegisCRM.HR
             foreach (ListItem lstItem in chkListClaim.Items)
                 lstItem.Selected = false;
         }
-
         protected void ddlRole_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try
+            { 
             LoadRoleAccessLevel();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         protected void CheckListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try
+            { 
             int index = Convert.ToInt32(Request.Form["__EVENTTARGET"].Substring(Request.Form["__EVENTTARGET"].LastIndexOf('$') + 1));
             CheckBoxList cbl = (CheckBoxList)sender;
             int PermissionId = int.Parse(cbl.Items[index].Value);
             SaveRoleAccessLevel(PermissionId, cbl.Items[index].Selected);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
-
         private void SaveRoleAccessLevel(int PermissionId, bool IsChecked)
         {
             Business.HR.RoleAccessLevel ObjRoleAccessLevel = new Business.HR.RoleAccessLevel();

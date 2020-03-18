@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
+﻿using Business.Common;
+using log4net;
+using System;
 using System.Web.UI.WebControls;
-using Business.Common;
 
 namespace WebAppAegisCRM.Purchase
 {
     public partial class VendorMasterView : System.Web.UI.Page
     {
+        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
         Entity.Purchase.Vendor vendormaster = new Entity.Purchase.Vendor();
         public int VendorId
@@ -20,10 +17,18 @@ namespace WebAppAegisCRM.Purchase
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadVendor();
-               // Message.Show = false;
+                if (!IsPostBack)
+                {
+                    LoadVendor();
+                    // Message.Show = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
             }
         }
         protected void LoadVendor()
@@ -34,8 +39,16 @@ namespace WebAppAegisCRM.Purchase
         }
         protected void gvVendorMaster_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvVendorMaster.PageIndex = e.NewPageIndex;
-            LoadVendor();
+            try
+            {
+                gvVendorMaster.PageIndex = e.NewPageIndex;
+                LoadVendor();
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
 
         protected void gvVendorMaster_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -52,27 +65,27 @@ namespace WebAppAegisCRM.Purchase
                 if (i > 0)
                 {
                     LoadVendor();
-                   // Message.IsSuccess = true;
-                   // Message.Text = "Data deleted";
-                }
-                else
-                {
-                    //Message.IsSuccess = false;
-                    //Message.Text = "Data can not delete.";
                 }
             }
             catch (Exception ex)
             {
                 ex.WriteException();
+                logger.Error(ex.Message);
             }
-
-            //Message.Show = true;
         }
 
         protected void gvVendorMaster_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            int vendorMasterId = int.Parse(gvVendorMaster.DataKeys[e.NewEditIndex].Values[0].ToString());
-            Response.Redirect("VendorMaster.aspx?vendorid=" + vendorMasterId);
+            try
+            {
+                int vendorMasterId = int.Parse(gvVendorMaster.DataKeys[e.NewEditIndex].Values[0].ToString());
+                Response.Redirect("VendorMaster.aspx?vendorid=" + vendorMasterId);
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                logger.Error(ex.Message);
+            }
         }
     }
 }

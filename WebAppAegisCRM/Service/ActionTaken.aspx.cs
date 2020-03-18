@@ -79,13 +79,11 @@ namespace WebAppAegisCRM.Service
         protected void gvActionTaken_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             Business.Service.ProblemMasters objProblemMasters = new Business.Service.ProblemMasters();
-            Entity.Service.ProblemMasters problemMasters = new Entity.Service.ProblemMasters();
 
             if (e.CommandName == "Ed")
             {
                 Id = int.Parse(e.CommandArgument.ToString());
-                problemMasters = objProblemMasters.GetById(Id);
-
+                Entity.Service.ProblemMasters problemMasters = objProblemMasters.GetById(Id);
                 txtName.Text = problemMasters.Name;
             }
             else if (e.CommandName == "Del")

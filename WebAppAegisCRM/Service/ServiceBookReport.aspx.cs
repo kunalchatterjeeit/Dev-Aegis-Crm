@@ -43,7 +43,7 @@ namespace WebAppAegisCRM.Service
             Business.Inventory.ProductMaster objProductMaster = new Business.Inventory.ProductMaster();
             Entity.Inventory.ProductMaster productmaster = new Entity.Inventory.ProductMaster();
 
-            productmaster.CompanyMasterId = 1; 
+            productmaster.CompanyMasterId = 1;
             DataTable dt = objProductMaster.GetAll(productmaster);
             ddlDocketProduct.DataSource = dt;
             ddlDocketProduct.DataTextField = "ProductName";
@@ -139,6 +139,34 @@ namespace WebAppAegisCRM.Service
         {
             gvServiceToner.PageIndex = e.NewPageIndex;
             btnSearch_Click(sender, e);
+        }
+
+        protected void gvServiceDocket_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName == "D")
+                {
+                    string serviceBookId = e.CommandArgument.ToString();
+                    Entity.Service.CsrJson csrJson = new Entity.Service.CsrJson();
+                    Business.Service.ServiceBook objServiceBook = new Business.Service.ServiceBook();
+                    DataTable dtCsr = objServiceBook.Service_CsrGetByServiceBookId(Convert.ToInt64(serviceBookId));
+                    int response = objServiceBook.Service_CsrDelete(Convert.ToInt64(dtCsr.Rows[0]["CsrId"].ToString()));
+
+                    if (response > 0)
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Existing csr deleted.');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "mmsg", "alert('Csr can not be deleted!!!....');", true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+            }
         }
     }
 }
