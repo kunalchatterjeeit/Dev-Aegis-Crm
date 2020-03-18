@@ -37,6 +37,7 @@ namespace WebAppAegisCRM.ClaimManagement
             ddlEmployee.DataTextField = "EmployeeName";
             ddlEmployee.DataValueField = "EmployeeMasterId";
             ddlEmployee.DataBind();
+            ddlEmployee.InsertSelect();
         }
         private void ClaimApplication_GetAll()
         {
@@ -96,6 +97,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 if (!IsPostBack)
                 {
                     EmployeeMaster_GetAll();
+                    ClaimApplication_GetAll();
                     MessageSuccess.Show = false;
                     Message.Show = false;
                 }
