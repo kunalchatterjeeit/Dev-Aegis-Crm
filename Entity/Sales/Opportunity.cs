@@ -28,6 +28,7 @@ namespace Entity.Sales
         public decimal? BestPrice { get; set; }
         public int SourceActivityTypeId { get; set; }
         public int ChildActivityTypeId { get; set; }
+        public int AssignEngineer { get; set; }
     }
     public class Opportunity
     {

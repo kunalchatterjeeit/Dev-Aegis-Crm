@@ -91,6 +91,10 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
             Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Customer), ChildActivityTypeId = Convert.ToInt32(ActityType.Account) };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlLinkName.DataSource = Obj.GetAllAccounts(Param);
             ddlLinkName.DataTextField = "Name";
             ddlLinkName.DataValueField = "Id";
@@ -184,7 +188,10 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
             Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             gvLeads.DataSource = Obj.GetAllLeads(Param);
             gvLeads.DataBind();
         }

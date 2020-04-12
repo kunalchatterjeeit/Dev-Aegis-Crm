@@ -21,6 +21,7 @@ namespace DataAccessEntity.Sales
         public string OfficePhone { get; set; }
         public int SourceActivityTypeId { get; set; }
         public int ChildActivityTypeId { get; set; }
+        public int AssignEngineer { get; set; }
     }
     public class GetAccountsDbModel
     {

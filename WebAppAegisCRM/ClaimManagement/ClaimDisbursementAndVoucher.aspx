@@ -124,6 +124,7 @@
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:BoundField DataField="ClaimNo" HeaderText="Application Number" />
+                                <asp:BoundField DataField="EmployeeName" HeaderText="Name" />
                                 <asp:BoundField DataField="ClaimDateTime" HeaderText="Claim Date" />
                                 <asp:BoundField DataField="PeriodFrom" HeaderText="Period From" />
                                 <asp:BoundField DataField="PeriodTo" HeaderText="Period To" />

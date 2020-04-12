@@ -22,12 +22,13 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetContactsDbModel>(
-                                "exec dbo.[usp_Sales_Contacts_GetAll] @Name,@AccountId,@Mobile",
+                                "exec dbo.[usp_Sales_Contacts_GetAll] @Name,@AccountId,@Mobile,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
                                     new SqlParameter("AccountId", DBNull.Value),
-                                    new SqlParameter("Mobile", DBNull.Value)
+                                    new SqlParameter("Mobile", DBNull.Value),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }

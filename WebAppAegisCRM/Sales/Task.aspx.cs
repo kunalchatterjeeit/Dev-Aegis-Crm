@@ -93,6 +93,10 @@ namespace WebAppAegisCRM.Sales
                 LinkId = (!string.IsNullOrEmpty(hdnItemType.Value)) ? Convert.ToInt32(hdnItemId.Value) : 0,
                 LinkType = (!string.IsNullOrEmpty(hdnItemType.Value)) ? (SalesLinkType)Enum.Parse(typeof(SalesLinkType), hdnItemType.Value) : SalesLinkType.None
             };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             gvTasks.DataSource = Obj.GetAllTasks(Param);
             gvTasks.DataBind();
         }

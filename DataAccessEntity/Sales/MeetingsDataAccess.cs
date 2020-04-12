@@ -23,7 +23,7 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetMeetingsDbModel>(
-                                "exec dbo.[usp_Sales_Meetings_GetAll] @Name,@MeetingTypeId,@MeetingStatusId,@StartFromDateTime,@StartToDateTime,@LinkId,@LinkType",
+                                "exec dbo.[usp_Sales_Meetings_GetAll] @Name,@MeetingTypeId,@MeetingStatusId,@StartFromDateTime,@StartToDateTime,@LinkId,@LinkType,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", (!string.IsNullOrEmpty(Param.Name))?Param.Name:(object)DBNull.Value),
@@ -32,7 +32,8 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("StartFromDateTime", (Param.StartDateTime!=DateTime.MinValue)?Param.StartDateTime:(object)DBNull.Value),
                                     new SqlParameter("StartToDateTime", (Param.EndDateTime!=DateTime.MinValue)?Param.EndDateTime:(object)DBNull.Value),
                                     new SqlParameter("LinkId", (Param.LinkId>0)?Param.LinkId:(object)DBNull.Value),
-                                    new SqlParameter("LinkType", (Param.LinkType != SalesLinkType.None)?(int)Param.LinkType:(object)DBNull.Value)
+                                    new SqlParameter("LinkType", (Param.LinkType != SalesLinkType.None)?(int)Param.LinkType:(object)DBNull.Value),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }

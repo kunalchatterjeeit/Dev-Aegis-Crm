@@ -9,17 +9,18 @@ namespace DataAccessEntity.Sales
 {
     public class CampaignDataAccess
     {
-        public static List<GetCampaignDbModel> GetAllCampaigns(GetCampaignParamDbModel param)
+        public static List<GetCampaignDbModel> GetAllCampaigns(GetCampaignParamDbModel Param)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetCampaignDbModel>(
-                                "exec dbo.[usp_Sales_Campaign_GetAll] @Name,@StartDate,@EndDate",
+                                "exec dbo.[usp_Sales_Campaign_GetAll] @Name,@StartDate,@EndDate,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
                                     new SqlParameter("StartDate", DBNull.Value),
-                                    new SqlParameter("EndDate", DBNull.Value)
+                                    new SqlParameter("EndDate", DBNull.Value),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }

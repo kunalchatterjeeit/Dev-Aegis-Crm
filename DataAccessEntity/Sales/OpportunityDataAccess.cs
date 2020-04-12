@@ -21,14 +21,15 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetOpportunityDbModel>(
-                                "exec dbo.[usp_Sales_Opportunity_GetAll] @Name,@CommitStageId,@BestPrice,@SourceActivityTypeId,@ChildActivityTypeId",
+                                "exec dbo.[usp_Sales_Opportunity_GetAll] @Name,@CommitStageId,@BestPrice,@SourceActivityTypeId,@ChildActivityTypeId,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
                                     new SqlParameter("CommitStageId", DBNull.Value),
                                     new SqlParameter("BestPrice", DBNull.Value),
                                     new SqlParameter("SourceActivityTypeId", Param.SourceActivityTypeId),
-                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId)
+                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }

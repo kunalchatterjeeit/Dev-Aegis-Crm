@@ -46,6 +46,12 @@ namespace WebAppAegisCRM.Sales
                 StartDate = DateTime.MinValue,
                 Name = null
             };
+
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
             gvCampaign.DataSource = Obj.GetAllCampaign(Param);
             gvCampaign.DataBind();
         }

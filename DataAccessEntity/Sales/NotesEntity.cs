@@ -31,5 +31,6 @@ namespace DataAccessEntity.Sales
         public int? ContactId { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
+        public int AssignEngineer { get; set; }
     }
 }

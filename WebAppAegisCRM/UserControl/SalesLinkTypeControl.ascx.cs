@@ -15,7 +15,10 @@ namespace WebAppAegisCRM.UserControl
         {
             Business.Sales.Account objAccount = new Business.Sales.Account();
             Entity.Sales.GetAccountsParam getAccountsParam = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Customer), ChildActivityTypeId = Convert.ToInt32(ActityType.Account) };
-
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                getAccountsParam.AssignEngineer = 0;
+            else
+                getAccountsParam.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlAccounts.DataSource = objAccount.GetAllAccounts(getAccountsParam);
             ddlAccounts.DataTextField = "Name";
             ddlAccounts.DataValueField = "Id";
@@ -26,7 +29,10 @@ namespace WebAppAegisCRM.UserControl
             Business.Sales.Leads Obj = new Business.Sales.Leads();
             Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam
             { CampaignId = null, DepartmentId = null, Name = null, Email = null , SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
-
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlLead.DataSource = Obj.GetAllLeads(Param);
             ddlLead.DataTextField = "Name";
             ddlLead.DataValueField = "Id";
@@ -47,7 +53,10 @@ namespace WebAppAegisCRM.UserControl
         {
             Business.Sales.Opportunity Obj = new Business.Sales.Opportunity();
             Entity.Sales.GetOpportunityParam Param = new Entity.Sales.GetOpportunityParam { BestPrice = null, CommitStageId = null, Name = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Lead), ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity) };
-
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             ddlOpportunity.DataTextField = "Name";
             ddlOpportunity.DataValueField = "Id";

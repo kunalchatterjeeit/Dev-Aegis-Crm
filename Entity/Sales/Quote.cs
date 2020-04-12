@@ -61,6 +61,7 @@ namespace Entity.Sales
     public class GetQuoteParam
     {
         public string QuoteNumber { get; set; }
+        public int AssignEngineer { get; set; }
     }
     public class QuoteLineItem
     {
