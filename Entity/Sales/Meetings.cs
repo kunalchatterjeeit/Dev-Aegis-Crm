@@ -51,5 +51,6 @@ namespace Entity.Sales
         public DateTime? EndDateTime { get; set; }
         public int LinkId { get; set; }
         public SalesLinkType LinkType { get; set; }
+        public int AssignEngineer { get; set; }
     }
 }

@@ -28,10 +28,11 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetQuoteDbModel>(
-                                "exec dbo.[usp_Sales_Quote_GetAll] @QuoteNumber",
+                                "exec dbo.[usp_Sales_Quote_GetAll] @QuoteNumber,@AssignEngineer",
                                 new Object[]
                                 {
-                                    new SqlParameter("QuoteNumber", DBNull.Value)
+                                    new SqlParameter("QuoteNumber", DBNull.Value),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }

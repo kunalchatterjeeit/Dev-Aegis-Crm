@@ -103,7 +103,6 @@ namespace WebAppAegisCRM.Sales
                 SetCreateLinks();
             }
         }
-
         private void LoadAssginments()
         {
             Business.Sales.Assignment Obj = new Business.Sales.Assignment();
@@ -111,7 +110,6 @@ namespace WebAppAegisCRM.Sales
             gvAssignedEmployee.DataSource = Obj.GetAllAssignments(Param);
             gvAssignedEmployee.DataBind();
         }
-
         private void LoadLinkType()
         {
             ddlLinkType.Items.Insert(0, new ListItem() { Text = "Customer", Value = ActityType.Customer.ToString(), Selected = true, Enabled = true });
@@ -179,6 +177,12 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Account Obj = new Business.Sales.Account();
             Entity.Sales.GetAccountsParam Param = new Entity.Sales.GetAccountsParam { Name = null, OfficePhone = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Customer), ChildActivityTypeId = Convert.ToInt32(ActityType.Account) };
+
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
             gvAccounts.DataSource = Obj.GetAllAccounts(Param);
             gvAccounts.DataBind();
         }
@@ -491,7 +495,6 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-
         protected void gvMeetingss_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -528,7 +531,6 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-
         protected void gvNotes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -565,7 +567,6 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-
         protected void gvTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -602,7 +603,6 @@ namespace WebAppAegisCRM.Sales
                 Message.Show = true;
             }
         }
-
         protected void chkAssigned_CheckedChanged(object sender, EventArgs e)
         {
             try

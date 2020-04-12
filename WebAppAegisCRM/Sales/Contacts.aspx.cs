@@ -50,6 +50,10 @@ namespace WebAppAegisCRM.Sales
                 SourceActivityTypeId = Convert.ToInt32(ActityType.Customer),
                 ChildActivityTypeId = Convert.ToInt32(ActityType.Account)
             };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlAccount.DataSource = AccountObj.GetAllAccounts(Param);
             ddlAccount.DataTextField = "Name";
             ddlAccount.DataValueField = "Id";
@@ -66,7 +70,12 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Contacts Obj = new Business.Sales.Contacts();
             Entity.Sales.GetContactsParam Param = new Entity.Sales.GetContactsParam { Name = null, AccountId = null, Mobile = null };
-            //List<Entity.Sales.GetCalls> EntityObj = new List<Entity.Sales.GetCalls>();
+
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+
             gvContact.DataSource = Obj.GetAllContacts(Param);
             gvContact.DataBind();
         }

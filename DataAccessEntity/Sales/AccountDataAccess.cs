@@ -17,19 +17,20 @@ namespace DataAccessEntity.Sales
                 return Context.CustomerType.ToList();
             }
         }
-       
+
         public static List<GetAccountsDbModel> GetAllAccounts(GetAccountsParamDbModel Param)
         {
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetAccountsDbModel>(
-                                "exec dbo.[usp_Sales_Accounts_GetAll] @Name,@OfficePhone,@SourceActivityTypeId,@ChildActivityTypeId",
+                                "exec dbo.[usp_Sales_Accounts_GetAll] @Name,@OfficePhone,@SourceActivityTypeId,@ChildActivityTypeId,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
                                     new SqlParameter("OfficePhone", DBNull.Value),
                                     new SqlParameter("SourceActivityTypeId", Param.SourceActivityTypeId),
-                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId)
+                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }
@@ -40,7 +41,7 @@ namespace DataAccessEntity.Sales
             {
                 return Context.Database.ExecuteSqlCommand(
                                 "exec dbo.[usp_Sales_Accounts_Save] @Id,@Name,@Description,@Website,@Industry,@CustomerTypeId," +
-                                "@OfficePhone,@EmployeeStrenth,@AnnualRevenue,@AccountScore,@LeadSourceId,@SourceName,@CreatedBy,@IsActive,@SourceActivityTypeId,"+
+                                "@OfficePhone,@EmployeeStrenth,@AnnualRevenue,@AccountScore,@LeadSourceId,@SourceName,@CreatedBy,@IsActive,@SourceActivityTypeId," +
                                 "@SourceActivityId,@ChildActivityTypeId,@ActivityLinkId",
                                 new Object[]
                                 {
@@ -66,7 +67,7 @@ namespace DataAccessEntity.Sales
                              );
             }
         }
-        public static AccountsDbModel GetAccountById(int Id,int SourceTypeId,int ChildTypeId)
+        public static AccountsDbModel GetAccountById(int Id, int SourceTypeId, int ChildTypeId)
         {
             using (var Context = new CRMContext())
             {

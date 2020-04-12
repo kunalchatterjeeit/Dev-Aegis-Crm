@@ -152,6 +152,10 @@ namespace WebAppAegisCRM.Sales
                 SourceActivityTypeId = Convert.ToInt32(ActityType.Lead),
                 ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity)
             };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             gvOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             gvOpportunity.DataBind();
         }
@@ -190,7 +194,10 @@ namespace WebAppAegisCRM.Sales
         {
             Business.Sales.Leads Obj = new Business.Sales.Leads();
             Entity.Sales.GetLeadsParam Param = new Entity.Sales.GetLeadsParam { CampaignId = null, DepartmentId = null, Name = null, Email = null, SourceActivityTypeId = Convert.ToInt32(ActityType.Account), ChildActivityTypeId = Convert.ToInt32(ActityType.Lead) };
-
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlLinkName.DataSource = Obj.GetAllLeads(Param);
             ddlLinkName.DataTextField = "Name";
             ddlLinkName.DataValueField = "Id";

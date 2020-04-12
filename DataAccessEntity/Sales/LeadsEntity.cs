@@ -16,6 +16,7 @@ namespace DataAccessEntity.Sales
         public int? CampaignId { get; set; }
         public int SourceActivityTypeId { get; set; }
         public int ChildActivityTypeId { get; set; }
+        public int AssignEngineer { get; set; }
     }
     public class GetLeadsDbModel
     {

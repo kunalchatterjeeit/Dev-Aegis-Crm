@@ -44,5 +44,6 @@ namespace DataAccessEntity.Sales
         public string Name { get; set; }
         public string Mobile { get; set; }       
         public int? AccountId { get; set; }
+        public int AssignEngineer { get; set; }
     }
 }

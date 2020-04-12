@@ -71,5 +71,6 @@ namespace DataAccessEntity.Sales
     public class GetQuoteParamDbModel
     {
         public string QuoteNumber { get; set; }
+        public int AssignEngineer { get; set; }
     }
 }

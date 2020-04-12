@@ -55,6 +55,10 @@ namespace WebAppAegisCRM.Sales
             {
                 QuoteNumber = null
             };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             gvQuote.DataSource = Obj.GetAllQuotes(Param);
             gvQuote.DataBind();
         }
@@ -81,6 +85,10 @@ namespace WebAppAegisCRM.Sales
                 SourceActivityTypeId = Convert.ToInt32(ActityType.Lead),
                 ChildActivityTypeId = Convert.ToInt32(ActityType.Opportunity)
             };
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                Param.AssignEngineer = 0;
+            else
+                Param.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
             ddlOpportunity.DataSource = Obj.GetAllOpportunity(Param);
             ddlOpportunity.DataTextField = "Name";
             ddlOpportunity.DataValueField = "Id";

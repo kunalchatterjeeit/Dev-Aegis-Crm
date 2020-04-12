@@ -14,7 +14,7 @@ namespace DataAccessEntity.Sales
             using (var Context = new CRMContext())
             {
                 return Context.Database.SqlQuery<GetLeadsDbModel>(
-                                "exec dbo.[usp_Sales_Leads_GetAll] @Name,@Email,@DepartmentId,@CampaignId,@SourceActivityTypeId,@ChildActivityTypeId",
+                                "exec dbo.[usp_Sales_Leads_GetAll] @Name,@Email,@DepartmentId,@CampaignId,@SourceActivityTypeId,@ChildActivityTypeId,@AssignEngineer",
                                 new Object[]
                                 {
                                     new SqlParameter("Name", DBNull.Value),
@@ -22,7 +22,8 @@ namespace DataAccessEntity.Sales
                                     new SqlParameter("DepartmentId", DBNull.Value),
                                     new SqlParameter("CampaignId", DBNull.Value),
                                     new SqlParameter("SourceActivityTypeId", Param.SourceActivityTypeId),
-                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId)
+                                    new SqlParameter("ChildActivityTypeId", Param.ChildActivityTypeId),
+                                    new SqlParameter("AssignEngineer", (Param.AssignEngineer==0)?(object)DBNull.Value:Param.AssignEngineer)
                                 }
                              ).ToList();
             }
