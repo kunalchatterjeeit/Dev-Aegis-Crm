@@ -230,5 +230,6 @@ namespace Entity.HR
         public bool IsPasswordChangeRequired { get; set; }
         public bool IsActive { get; set; }
         public bool IsLoginActive { get; set; }
+        public string Signature { get; set; }
     }
 }

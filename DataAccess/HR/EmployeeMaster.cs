@@ -27,6 +27,10 @@ namespace DataAccess.HR
                         cmd.Parameters.AddWithValue("@Image", DBNull.Value);
                     else
                         cmd.Parameters.AddWithValue("@Image", employeeMaster.Image);
+                    if (employeeMaster.Signature == "")
+                        cmd.Parameters.AddWithValue("@Signature", DBNull.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@Signature", employeeMaster.Signature);
                     cmd.Parameters.AddWithValue("@GenderId", employeeMaster.GenderId);
                     cmd.Parameters.AddWithValue("@DOB", employeeMaster.DOB);
                     cmd.Parameters.AddWithValue("@MaritalStatus", employeeMaster.MaritalStatus);

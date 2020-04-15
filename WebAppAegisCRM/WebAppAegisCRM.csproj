@@ -136,8 +136,6 @@
     <Content Include="HR\AttendanceList.aspx" />
     <Content Include="HR\AttendanceLogInOut.aspx" />
     <Content Include="HR\Employee.aspx" />
-    <Content Include="HR\EmployeeImage\14.jpg" />
-    <Content Include="HR\EmployeeImage\2.jpg" />
     <Content Include="HR\EmployeeLoyaltyPoint.aspx" />
     <Content Include="HR\EmployeeWorkSummaryReport.aspx" />
     <Content Include="HR\Holiday.aspx" />
@@ -182,6 +180,7 @@
     <Content Include="images\login_background.jpg" />
     <Content Include="images\male-avatar.png" />
     <Content Include="images\paid-icon.png" />
+    <Content Include="images\unnamed.jpg" />
     <Content Include="Inventory\StoreMaster.aspx" />
     <Content Include="LeaveManagement\GenerateLeave.aspx" />
     <Content Include="LeaveManagement\LeaveAdjustment.aspx" />
@@ -1127,6 +1126,8 @@
     <Folder Include="ClaimManagement\ClaimAttachments\" />
     <Folder Include="Customer\StampImage\" />
     <Folder Include="ErrorLog\" />
+    <Folder Include="HR\EmployeeImage\" />
+    <Folder Include="HR\EmployeeSignature\" />
     <Folder Include="LeaveManagement\LeaveAttachment\" />
     <Folder Include="LogBackUp\" />
   </ItemGroup>
