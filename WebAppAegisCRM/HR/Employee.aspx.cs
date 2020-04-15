@@ -202,6 +202,7 @@ namespace WebAppAegisCRM.Employee
                     employeeMaster.EmployeeMasterId = EmployeeMasterId;
                     employeeMaster.EmployeeName = txtemployeename.Text.Trim();
                     employeeMaster.Image = (FileUpload1.HasFile) ? System.IO.Path.GetExtension(FileUpload1.FileName) : string.Empty;
+                    employeeMaster.Signature = (FileUpload2.HasFile) ? System.IO.Path.GetExtension(FileUpload2.FileName) : string.Empty;
                     employeeMaster.GenderId = Convert.ToInt16(ddlgenderid.SelectedValue);
                     employeeMaster.DOB = Convert.ToDateTime(txtdateofbirth.Text.Trim());
                     employeeMaster.MaritalStatus = ddlMaritalStatus.SelectedValue;
@@ -240,6 +241,8 @@ namespace WebAppAegisCRM.Employee
                     {
                         if (FileUpload1.HasFile)
                             FileUpload1.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeImage\\" + employeeId.ToString() + employeeMaster.Image);
+                        if (FileUpload2.HasFile)
+                            FileUpload2.PostedFile.SaveAs(Server.MapPath(" ") + "\\EmployeeSignature\\" + employeeId.ToString() + employeeMaster.Signature);
                         ClearTextBoxes(this);
                         MessageBox.IsSuccess = true;
                         MessageBox.Text = "Employee data saved.";
@@ -392,6 +395,7 @@ namespace WebAppAegisCRM.Employee
                 txtpresentpin.Text = dtEmployeeMaster.Rows[0]["tPINMasterId"].ToString();
                 ddlRole.SelectedValue = dtEmployeeMaster.Rows[0]["UserRole_RoleId"].ToString();
                 Image1.ImageUrl = "EmployeeImage\\" + dtEmployeeMaster.Rows[0]["Image"].ToString();
+                Image2.ImageUrl = "EmployeeSignature\\" + dtEmployeeMaster.Rows[0]["Signature"].ToString();
                 ddlReporting.SelectedValue = (dtEmployeeMaster.Rows[0]["ReportingEmployeeId"] == DBNull.Value) ? "0" : dtEmployeeMaster.Rows[0]["ReportingEmployeeId"].ToString();
 
                 DataTable dtLeaveAccountBalance = new Business.LeaveManagement.LeaveAccountBalance().LeaveAccountBalance_ByEmployeeId(Id, (int)LeaveTypeEnum.CL).Tables[0];

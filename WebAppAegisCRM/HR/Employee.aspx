@@ -39,7 +39,7 @@
                     else if (this.getAttribute("sex") == "Female")
                         this.src = '/Images/female-avatar.jpg';
                     else
-                        this.src = '/Images/male-avatar.png';
+                        this.src = '/Images/unnamed.jpg';
                 }
             });
         });
@@ -78,6 +78,11 @@
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
                                         <asp:Image ID="Image1" runat="server" Width="200px" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group has-error">
+                                        <asp:Image ID="Image2" runat="server" Width="200px" />
                                     </div>
                                 </div>
                             </div>
@@ -241,9 +246,24 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
+                                    <div class="form-group has-error">
+                                        Reporting:
+                                        <asp:DropDownList ID="ddlReporting" runat="server" CssClass="form-control">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group has-error">
+                                        Role:
+                                            <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control" DataTextField="RoleName"
+                                                DataValueField="RoleId">
+                                            </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
                                     <div class="form-group">
                                         Password:
-                                <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="Regex5" runat="server" ControlToValidate="txtPassword"
                                             ValidationExpression="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,10}"
                                             ErrorMessage="Password must contain: Minimum 8 and Maximum 10 characters atleast 1 UpperCase Alphabet, 1 LowerCase Alphabet, 1 Number and 1 Special Character"
@@ -252,26 +272,17 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Image:
-                                <asp:FileUpload ID="FileUpload1" runat="server" />
+                                        Photo:
+                                        <asp:FileUpload ID="FileUpload1" runat="server" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group has-error">
-                                        Role:
-                                <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-control" DataTextField="RoleName"
-                                    DataValueField="RoleId">
-                                </asp:DropDownList>
+                                        Signature:
+                                        <asp:FileUpload ID="FileUpload2" runat="server" />
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="form-group has-error">
-                                        Reporting:
-                                <asp:DropDownList ID="ddlReporting" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
                                     <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-outline btn-success"
                                         OnClick="btnSubmit_Click" OnClientClick="return ValidationForSave();" />
                                     <asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="btn btn-outline btn-warning"
