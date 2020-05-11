@@ -43,18 +43,6 @@ namespace ApiAppAegisCRM.Controllers
             }
         }
 
-        private string RegisterDevice(int employeeId, string deviceId)
-        {
-            string retValue = string.Empty;
-            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
-            int response = objEmployeeMaster.LinkedDevices_Save(employeeId, deviceId);
-            if (response > 0)
-            {
-                retValue = "Login succeeded.Your device is now registered with us.";
-            }
-            return retValue;
-        }
-
         [HttpPost]
         public HttpResponseMessage DoAutoLogin([FromBody]LoginModel model)
         {
@@ -76,6 +64,91 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 return retValue;
             }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Authenticate([FromBody]LoginModel model)
+        {
+            HttpResponseMessage retValue = null;
+            using (retValue = new HttpResponseMessage(HttpStatusCode.InternalServerError))
+            {
+                try
+                {
+                    if (model != null)
+                    {
+                        model = AuthenticateLogin(model);
+                        model.Password = string.Empty;
+                        retValue = Request.CreateResponse(HttpStatusCode.OK, model);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.WriteException();
+                    retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
+                }
+                return retValue;
+            }
+        }
+
+        private LoginModel AuthenticateLogin(LoginModel model)
+        {
+            try
+            {
+                model.ResponseCode = 99;
+                Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+                Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+                Entity.Common.Auth auth = new Auth();
+                employeeMaster = objEmployeeMaster.AuthenticateUser(model.UserName);
+
+                if (employeeMaster != null)
+                {
+                    string passowrd = employeeMaster.Password;
+                    string userId = employeeMaster.UserId.ToString();
+
+                    if (passowrd.Equals(model.Password.Trim().EncodePasswordToBase64()))
+                    {
+                        model.Name = employeeMaster.EmployeeName + " (" + employeeMaster.EmployeeCode + ")";
+                        model.UserId = Convert.ToInt32(userId);
+                        model.ResponseCode = 200;
+                        model.Message = "Success";
+
+                        auth.UserId = Convert.ToInt32(userId);
+                        auth.IP = GetIP();
+                        auth.Status = Entity.Common.LoginStatus.Success;
+                        auth.Client = GetClient();
+                        objEmployeeMaster.Login_Save(auth);
+                    }
+                    else
+                    {
+                        model.Message = "Invalid username/password.";
+
+                        auth.UserId = Convert.ToInt32(userId);
+                        auth.IP = GetIP();
+                        auth.Status = Entity.Common.LoginStatus.WrongPassword;
+                        auth.Client = GetClient();
+                        auth.FailedUserName = model.UserName;
+                        auth.FailedPassword = model.Password;
+                        objEmployeeMaster.Login_Save(auth);
+                    }
+                }
+                else
+                {
+                    model.Message = "Invalid username/password.";
+
+                    auth.IP = GetIP();
+                    auth.Status = Entity.Common.LoginStatus.Failed;
+                    auth.Client = GetClient();
+                    auth.FailedUserName = model.UserName;
+                    auth.FailedPassword = model.Password;
+                    objEmployeeMaster.Login_Save(auth);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.WriteException();
+                model.Message = ex.Message;
+            }
+            return model;
         }
 
         private LoginModel UserLogin(LoginModel model)
@@ -234,6 +307,18 @@ namespace ApiAppAegisCRM.Controllers
         private string GetClient()
         {
             return Request.Headers.UserAgent.ToString();
+        }
+
+        private string RegisterDevice(int employeeId, string deviceId)
+        {
+            string retValue = string.Empty;
+            Business.HR.EmployeeMaster objEmployeeMaster = new Business.HR.EmployeeMaster();
+            int response = objEmployeeMaster.LinkedDevices_Save(employeeId, deviceId);
+            if (response > 0)
+            {
+                retValue = "Login succeeded.Your device is now registered with us.";
+            }
+            return retValue;
         }
     }
 }
