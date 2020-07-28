@@ -340,6 +340,9 @@ namespace WebAppAegisCRM.ClaimManagement
                         MessageSuccess.IsSuccess = true;
                         MessageSuccess.Text = string.Format("Voucher generated successfully. Voucher number is <a target='_blank' href='../ClaimManagement/VoucherPrint.aspx?no={0}'>{0}</a>", dtVoucher.Rows[0]["VoucherNo"].ToString());
                         MessageSuccess.Show = true;
+                        lblTotalAmountPaying.Text = "0.00";
+                        _ClaimPaymentDetails = null;
+                        LoadClaimPaymentDetails();
                     }
                     else
                     {
@@ -525,6 +528,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = "Paying amount and approved amount must be equal.";
                 Message.Show = true;
+                ModalPopupExtender1.Show();
                 return false;
             }
             if (!(_ClaimPaymentDetails != null && _ClaimPaymentDetails.AsEnumerable().Any()))
@@ -532,6 +536,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = "Please add payment details.";
                 Message.Show = true;
+                ModalPopupExtender1.Show();
                 return false;
             }
             return true;

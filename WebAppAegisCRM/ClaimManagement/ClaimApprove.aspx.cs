@@ -224,6 +224,8 @@ namespace WebAppAegisCRM.ClaimManagement
                             MessageSuccess.Text = "Claim approved.";
                             MessageSuccess.Show = true;
                             ModalPopupExtender1.Hide();
+                            txtRemarks.Text = string.Empty;
+                            Message.Show = false;
                         }
                         Claim_Heading_Update(Business.Common.Context.ClaimApplicationId, txtClaimHeader.Text.Trim());
                         Claim_Adjust_Update();

@@ -45,16 +45,16 @@
 <body>
     <div style='width: 99%; font-family:Verdana; color: #565656; margin:10px; font-size:10pt'>
         <center>
-            <img src='http://aegiscrm.in/images/Aegis_CRM.png' alt='AEGIS CRM' height="70px" />
+            <img src='http://crm.aegissolutions.in/images/Aegis_CRM.png' alt='AEGIS CRM' height="70px" />
             <h2>Aegis Customer Relationship Management</h2><br />
         </center>
         Date:- {{CURRENT_DATE}}<br /><br />
         Dear {{USER_NAME}},<br /><br />
 
         Your personal email verification is pending. Click the button below to confirm your email address.<br /><br />
-        <button class="button"><span>Validate your email </span></button>
+        <a class="button" href="{{PERSONAL_EMAIL_VERIFICATION_LINK}}"><span>Validate your email </span></a>
         <br /><br />
-        
+
         If you're having trouble clicking the above button, copy and paste the below link into your web browser.<br />
         {{PERSONAL_EMAIL_VERIFICATION_LINK}}<br /><br />
 
@@ -64,7 +64,7 @@
         Thanks,<br />
         Aegis CRM Team<br /><br />
 
-        Click to login into portal <a href='http://aegiscrm.in'>http://aegiscrm.in/</a><br /><br />
+        Click to login into portal <a href='http://crm.aegissolutions.in'>http://crm.aegissolutions.in/</a><br /><br />
         <hr />
         <center style='color:#C68E17'>*** This is system generated mail. Please do not reply. ***</center>
     </div>

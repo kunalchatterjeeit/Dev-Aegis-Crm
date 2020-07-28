@@ -220,5 +220,12 @@ namespace Business.Common
             byte[] inArray = HashAlgorithm.Create("SHA1").ComputeHash(bytes);
             return Convert.ToBase64String(inArray);
         }
+        public static string DecodeStringToBase64(this string phrase)
+        {
+            string base64Decoded;
+            byte[] data = System.Convert.FromBase64String(phrase);
+            base64Decoded = System.Text.ASCIIEncoding.ASCII.GetString(data);
+            return base64Decoded;
+        }
     }
 }
