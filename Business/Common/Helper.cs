@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Data;
 
 namespace Business.Common
 {
@@ -180,7 +181,7 @@ namespace Business.Common
                 {
                     var p = destProps.First(x => x.Name == sourceProp.Name);
                     if (p.CanWrite)// check if the property can be set or no.
-                    { 
+                    {
                         p.SetValue(dest, sourceProp.GetValue(source, null), null);
                     }
                 }
@@ -193,7 +194,7 @@ namespace Business.Common
         {
             var sourceProps = typeof(T).GetProperties().Where(x => x.CanRead).ToList();
             var destProps = typeof(TU).GetProperties().Where(x => x.CanRead).ToList();
-            
+
             foreach (var sourceItem in source)
             {
                 var destItem = Activator.CreateInstance(typeof(TU));
@@ -227,5 +228,34 @@ namespace Business.Common
             base64Decoded = System.Text.ASCIIEncoding.ASCII.GetString(data);
             return base64Decoded;
         }
+
+        public static string ExportCSV(this DataTable dt)
+        {
+            //Build the CSV file data as a Comma separated string.
+            string csv = string.Empty;
+
+            foreach (DataColumn column in dt.Columns)
+            {
+                //Add the Header row for CSV file.
+                csv += column.ColumnName + ',';
+            }
+
+            //Add new line.
+            csv += "\r\n";
+
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    //Add the Data rows.
+                    csv += row[column.ColumnName].ToString().Replace(",", ";") + ',';
+                }
+
+                //Add new line.
+                csv += "\r\n";
+            }
+            return csv;
+        }
+
     }
 }
