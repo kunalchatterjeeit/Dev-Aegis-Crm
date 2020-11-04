@@ -48,6 +48,8 @@
                                     <br />
                                     <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-outline btn-success"
                                         OnClientClick="return Validate();" OnClick="btnSearch_Click" />
+                                    <asp:Button ID="btnDownload" runat="server" Text="Download CSV" CssClass="btn btn-outline btn-warning"
+                                         OnClick="btnDownload_Click" />
                                 </div>
                             </div>
                         </div>
@@ -166,5 +168,8 @@
                 </div>
             </div>
         </ContentTemplate>
+         <Triggers>
+            <asp:PostBackTrigger ControlID="btnDownload" />
+        </Triggers>
     </asp:UpdatePanel>
 </asp:Content>

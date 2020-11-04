@@ -1,4 +1,5 @@
-﻿using Entity.Common;
+﻿using Business.Common;
+using Entity.Common;
 using System;
 using System.Data;
 using System.Web;
@@ -74,6 +75,57 @@ namespace WebAppAegisCRM.Service
             gvContractStatusList.DataBind();
         }
 
+        protected void LoadGetAllContractStatus()
+        {
+            Entity.Service.Contract contract = new Entity.Service.Contract();
+            Business.Service.Contract objContract = new Business.Service.Contract();
+            contract.MachineId = txtMachineId.Text.Trim();
+            contract.FromDate = (txtFromContractDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtFromContractDate.Text.Trim());
+            contract.ToDate = (txtToContractDate.Text == "") ? DateTime.MinValue : Convert.ToDateTime(txtToContractDate.Text.Trim());
+            contract.ProductSerialNo = txtProductSerialNo.Text.Trim();
+            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.CUSTOMER_LIST_SHOW_ALL))
+                contract.AssignEngineer = 0;
+            else
+                contract.AssignEngineer = int.Parse(HttpContext.Current.User.Identity.Name);
+            DataSet ds = objContract.Service_GetAllContractStatus(contract);
+            DataTable dtExport = new DataTable();
+
+            if (ddlContractStatus.SelectedValue == ((int)ContractStatusType.None).ToString())
+            {
+                dtExport = null;
+            }
+            else if (ddlContractStatus.SelectedValue == ((int)ContractStatusType.Expiring).ToString())
+            {
+                dtExport = ds.Tables[0];
+                string csv = dtExport.ExportCSV();
+                DownloadCsv(csv);
+
+            }
+            else if (ddlContractStatus.SelectedValue == ((int)ContractStatusType.Expired).ToString())
+            {
+                dtExport = ds.Tables[1];
+                string csv = dtExport.ExportCSV();
+                DownloadCsv(csv);
+            }
+            else if (ddlContractStatus.SelectedValue == ((int)ContractStatusType.InContract).ToString())
+            {
+                dtExport = ds.Tables[2];
+                string csv = dtExport.ExportCSV();
+                DownloadCsv(csv);
+            }
+            else if (ddlContractStatus.SelectedValue == ((int)ContractStatusType.NeverContracted).ToString())
+            {
+                dtExport = ds.Tables[3];
+                string csv = dtExport.ExportCSV();
+                DownloadCsv(csv);
+            }
+            else
+            {
+                dtExport = null;
+            }
+        }
+
+
         protected void btnMachineSearch_Click(object sender, EventArgs e)
         {
             LoadContractStatusList(0, gvContractStatusList.PageSize);
@@ -83,6 +135,24 @@ namespace WebAppAegisCRM.Service
         {
             gvContractStatusList.PageIndex = e.NewPageIndex;
             LoadContractStatusList(gvContractStatusList.PageIndex, gvContractStatusList.PageSize);
+        }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            LoadGetAllContractStatus();
+        }
+
+        private void DownloadCsv(string csv)
+        {
+            //Download the CSV file.
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=ContractStatus.csv");
+            Response.Charset = "";
+            Response.ContentType = "application/text";
+            Response.Output.Write(csv);
+            Response.Flush();
+            Response.End();
         }
     }
 }
