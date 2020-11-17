@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.HR
 {
     public partial class HolidayProfile : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         public int HolidayProfileId
         {
             get { return Convert.ToInt32(ViewState["HolidayProfileId"]); }
@@ -28,7 +28,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -71,7 +71,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -105,7 +105,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -120,7 +120,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -160,7 +160,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

@@ -2,13 +2,11 @@
 using System.Web.UI.WebControls;
 using System.Data;
 using Business.Common;
-using log4net;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class RoleAccessLevel : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,7 +20,6 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
             }
         }
         private void LoadRoles()
@@ -96,7 +93,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void CheckListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -111,7 +108,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         private void SaveRoleAccessLevel(int PermissionId, bool IsChecked)

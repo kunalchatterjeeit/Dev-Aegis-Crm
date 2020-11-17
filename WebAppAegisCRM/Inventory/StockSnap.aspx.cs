@@ -1,6 +1,5 @@
 ﻿using Business.Common;
 using Entity.Inventory;
-using log4net;
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -9,7 +8,6 @@ namespace WebAppAegisCRM.Inventory
 {
     public partial class StockSnap : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void GetStockSnap()
         {
             Business.Inventory.Stock objStock = new Business.Inventory.Stock();
@@ -29,7 +27,7 @@ namespace WebAppAegisCRM.Inventory
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -42,7 +40,7 @@ namespace WebAppAegisCRM.Inventory
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -56,7 +54,7 @@ namespace WebAppAegisCRM.Inventory
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -94,7 +92,7 @@ namespace WebAppAegisCRM.Inventory
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 

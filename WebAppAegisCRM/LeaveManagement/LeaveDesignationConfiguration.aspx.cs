@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveDesignationConfiguration : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private int LeaveDesignationWiseConfigurationId
         {
             get { return Convert.ToInt32(ViewState["LeaveDesignationWiseConfigurationId"]); }
@@ -101,7 +101,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -143,7 +143,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -159,7 +159,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -201,7 +201,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -285,7 +285,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

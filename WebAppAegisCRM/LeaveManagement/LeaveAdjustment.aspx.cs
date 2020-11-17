@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveAdjustment : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
@@ -78,7 +78,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -111,7 +111,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
             }
@@ -138,7 +138,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;

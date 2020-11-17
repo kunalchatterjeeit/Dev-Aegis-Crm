@@ -36,7 +36,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "DoLogin");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -59,7 +59,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "DoAutoLogin");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -83,7 +83,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "Authenticate");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -145,7 +145,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
-                ex.WriteException();
+                new Logger().LogException(ex, "AuthenticateLogin");
                 model.Message = ex.Message;
             }
             return model;
@@ -225,7 +225,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
-                ex.WriteException();
+                new Logger().LogException(ex, "UserLogin");
                 model.Message = ex.Message;
             }
             return model;
@@ -283,7 +283,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
-                ex.WriteException();
+                new Logger().LogException(ex, "UserAutoLogin");
                 model.Message = ex.Message;
             }
             return model;

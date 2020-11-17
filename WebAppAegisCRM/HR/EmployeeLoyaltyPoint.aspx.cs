@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.HR
 {
     public partial class EmployeeLoyaltyPoint : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void EmployeeLoyaltyPoint_GetAll()
         {
             DataTable dtEmployeePoint = new Business.HR.EmployeeLoyaltyPoint().EmployeeLoyaltyPoint_GetAll(ddlMonth.SelectedValue, int.Parse(ddlYear.SelectedValue));
@@ -83,7 +83,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;
@@ -157,7 +157,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;
@@ -182,7 +182,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;
@@ -197,7 +197,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;
@@ -213,7 +213,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message1.IsSuccess = false;
                 Message1.Text = ex.Message;
                 Message1.Show = true;

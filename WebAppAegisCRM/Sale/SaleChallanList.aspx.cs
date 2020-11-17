@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.Inventory;
-using log4net;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,7 +13,7 @@ namespace WebAppAegisCRM.Sale
 {
     public partial class SaleChallanList : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Sale_GetAll()
         {
             Business.Sale.SaleChallan objSaleChallan = new Business.Sale.SaleChallan();
@@ -100,7 +100,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -117,7 +117,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -158,7 +158,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -174,7 +174,7 @@ namespace WebAppAegisCRM.Sale
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

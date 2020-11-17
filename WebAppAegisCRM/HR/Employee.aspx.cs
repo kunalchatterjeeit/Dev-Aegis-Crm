@@ -1,6 +1,5 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
 using System;
 using System.Data;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace WebAppAegisCRM.Employee
 {
     public partial class Employee : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
@@ -185,7 +183,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -263,7 +260,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
             }
@@ -438,7 +434,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -512,7 +507,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -598,7 +592,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -641,7 +634,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageLeave.IsSuccess = false;
                 MessageLeave.Text = ex.Message;
             }
@@ -689,7 +681,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageClaim.IsSuccess = false;
                 MessageClaim.Text = ex.Message;
             }
@@ -751,7 +742,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageGeneralLeave.IsSuccess = false;
                 MessageGeneralLeave.Text = ex.Message;
             }
@@ -774,7 +764,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -792,7 +781,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
@@ -832,7 +820,6 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;

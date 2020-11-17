@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.HR
 {
     public partial class IndividualLoyalityPoint : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -19,7 +19,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         private void IndividualLoyalityPoint_ByEmployeeId()

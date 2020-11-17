@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.HR
 {
     public partial class ManageAttendance : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Attendance_GetAll()
         {
             DataSet dsAttendance =
@@ -41,7 +41,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void gvAttendanceList_PageIndexChanging(object sender, GridViewPageEventArgs e)
@@ -54,7 +54,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void gvAttendanceList_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -98,7 +98,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 MessageBox.IsSuccess = false;
                 MessageBox.Text = ex.Message;
             }
@@ -116,7 +116,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void gvAttendanceList_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -141,7 +141,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

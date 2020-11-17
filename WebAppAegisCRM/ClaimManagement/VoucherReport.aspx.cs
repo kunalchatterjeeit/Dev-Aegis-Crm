@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class VoucherReport : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Voucher_GetAll()
         {
             Business.ClaimManagement.Voucher objVoucher = new Business.ClaimManagement.Voucher();
@@ -37,7 +37,7 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -51,7 +51,7 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -64,7 +64,7 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

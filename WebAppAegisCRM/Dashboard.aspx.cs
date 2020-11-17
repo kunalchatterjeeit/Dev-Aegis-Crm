@@ -15,38 +15,45 @@ namespace WebAppAegisCRM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                Response.Redirect("~/MainLogout.aspx");
-
-            if (!IsPostBack)
+            try
             {
-                if (ApplicationModules.HrModule.ModulePermission())
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    Response.Redirect("~/MainLogout.aspx");
+
+                if (!IsPostBack)
                 {
-                    tabControlAdmin.Visible = true;
+                    if (ApplicationModules.HrModule.ModulePermission())
+                    {
+                        tabControlAdmin.Visible = true;
+                    }
+                    if (ApplicationModules.SalesModule.ModulePermission())
+                    {
+                        tabControlSales.Visible = true;
+                    }
+                    LoadDocket(gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
+                    LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
+                    LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
+                    LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);
+                    GetLeaveApplications_ByApproverId((int)LeaveStatusEnum.Pending);
+                    GetClaimApplications_ByApproverId((int)ClaimStatusEnum.Pending);
                 }
-                if (ApplicationModules.SalesModule.ModulePermission())
+
+                DocketListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
+                TonerListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_TONER_LIST);
+                ChartDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART);
+                ExpiringListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST);
+                ExpiredListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
+                LeaveDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_LEAVE_PENDING_LIST);
+                ClaimDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CLAIM_PENDING_LIST);
+
+                if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART))
                 {
-                    tabControlSales.Visible = true;
+                    LoadPieChart();
                 }
-                LoadDocket(gvDocketAsync.PageIndex, gvDocketAsync.PageSize);
-                LoadTonerRequest(gvTonnerRequestAsync.PageIndex, gvTonnerRequestAsync.PageSize);
-                LoadContractExpiringList(gvExpiringSoonAsync.PageIndex, gvExpiringSoonAsync.PageSize);
-                LoadContractExpiredList(gvExpiredListAsync.PageIndex, gvExpiredListAsync.PageSize);
-                GetLeaveApplications_ByApproverId((int)LeaveStatusEnum.Pending);
-                GetClaimApplications_ByApproverId((int)ClaimStatusEnum.Pending);
             }
-
-            DocketListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_DOCKET_LIST);
-            TonerListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_TONER_LIST);
-            ChartDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART);
-            ExpiringListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRING_LIST);
-            ExpiredListDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_EXPIRED_LIST);
-            LeaveDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_LEAVE_PENDING_LIST);
-            ClaimDiv.Visible = HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CLAIM_PENDING_LIST);
-
-            if (HttpContext.Current.User.IsInRole(Entity.HR.Utility.DASHBOARD_CONTRACT_STATUS_CHART))
+            catch(Exception ex)
             {
-                LoadPieChart();
+                new Logger().LogException(ex, "Page_Load");
             }
         }
         private void LoadDocket(int pageIndex, int pageSize)

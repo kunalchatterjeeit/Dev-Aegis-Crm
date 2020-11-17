@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.Inventory;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web;
@@ -10,7 +10,7 @@ namespace WebAppAegisCRM.Purchase
 {
     public partial class PurchaseList : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Purchase_GetAll()
         {
             Business.Purchase.Purchase objPurchase = new Business.Purchase.Purchase();
@@ -62,7 +62,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -75,7 +75,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -89,7 +89,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -111,7 +111,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 

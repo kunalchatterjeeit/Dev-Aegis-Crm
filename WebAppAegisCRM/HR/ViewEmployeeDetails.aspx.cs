@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data.SqlClient;
 
@@ -7,7 +7,7 @@ namespace WebAppAegisCRM.Employee
 {
     public partial class ViewEmoployeeDetails : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         public int EmployeeId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
@@ -23,7 +23,7 @@ namespace WebAppAegisCRM.Employee
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void Show(int Id)

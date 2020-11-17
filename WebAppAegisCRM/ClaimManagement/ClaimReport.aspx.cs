@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.IO;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimReport : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Status_GetAll()
         {
             Business.ClaimManagement.ClaimStatus objClaimStatus = new Business.ClaimManagement.ClaimStatus();
@@ -70,7 +70,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -86,7 +86,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -103,7 +103,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -124,7 +124,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -205,7 +205,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -234,7 +234,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
             finally
             {

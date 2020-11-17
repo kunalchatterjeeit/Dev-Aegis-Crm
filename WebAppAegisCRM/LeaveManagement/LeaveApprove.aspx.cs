@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +14,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveApprove : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void GetLeaveApplications_ByApproverId(int statusId)
         {
             LeaveTypeEnum leaveType = (LeaveTypeEnum)Enum.Parse(typeof(LeaveTypeEnum), ddlLeaveType.SelectedValue);
@@ -218,7 +218,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -240,7 +240,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -353,7 +353,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -407,7 +407,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -436,7 +436,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -452,7 +452,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -509,7 +509,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

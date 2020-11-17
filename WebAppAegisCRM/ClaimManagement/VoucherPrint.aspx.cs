@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.ClaimManagement;
-using log4net;
+
 using Newtonsoft.Json;
 using System;
 using System.Data;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class VoucherPrint : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -36,7 +36,7 @@ namespace WebAppAegisCRM.ClaimManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 

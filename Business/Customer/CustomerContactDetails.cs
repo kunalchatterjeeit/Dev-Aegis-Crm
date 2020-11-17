@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data;
 namespace Business.Customer
 {
-   public class CustomerContactDetails
+    public class CustomerContactDetails
     {
        DataAccess.Customer.CustomerContactDetails ObjDelelCustomerContactDetails = new DataAccess.Customer.CustomerContactDetails();
         public int SaveContactDeatails(Entity.Customer.CustomerContactDetails ObjElCustomerContactDetails)

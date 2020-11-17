@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Web.UI.WebControls;
 
@@ -7,7 +7,7 @@ namespace WebAppAegisCRM.Purchase
 {
     public partial class VendorMasterView : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         Business.Purchase.Vendor objVendorMaster = new Business.Purchase.Vendor();
         Entity.Purchase.Vendor vendormaster = new Entity.Purchase.Vendor();
         public int VendorId
@@ -28,7 +28,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void LoadVendor()
@@ -47,7 +47,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -70,7 +70,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -84,7 +84,7 @@ namespace WebAppAegisCRM.Purchase
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

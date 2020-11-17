@@ -29,7 +29,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetAttendanceState");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -52,7 +52,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "MakeAttendance");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -85,6 +85,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
+                new Logger().LogException(ex, "Attendance_GetByEmployeeId");
                 model.Message = ex.Message;
             }
             model.Message = "OUT";
@@ -174,6 +175,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
+                new Logger().LogException(ex, "SaveAttendance");
                 model.ResponseCode = 99;
                 model.Message = ex.Message;
             }
@@ -196,7 +198,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "Attendance_CurrentMonth");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;

@@ -1,12 +1,12 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 
 namespace WebAppAegisCRM.Sales
 {
     public partial class QuoteBeforePrint : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -19,7 +19,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         private void LoadQuoteDetails(int QuoteId)

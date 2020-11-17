@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimCategory : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private int ClaimCategoryId
         {
             get { return Convert.ToInt32(ViewState["ClaimCategoryId"]); }
@@ -119,7 +119,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -159,7 +159,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -175,7 +175,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -191,7 +191,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.ControlPanel
 {
     public partial class CallAttendanceManager : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void Service_ServiceCallAttendance_GetAll()
         {
             try
@@ -125,7 +125,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -195,7 +195,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -250,7 +250,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -267,7 +267,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -283,7 +283,7 @@ namespace WebAppAegisCRM.ControlPanel
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
