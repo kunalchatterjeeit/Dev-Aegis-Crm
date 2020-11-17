@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Web.UI.WebControls;
 
@@ -7,7 +7,7 @@ namespace WebAppAegisCRM.Customer
 {
     public partial class Contract : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         public int ContractId
         {
             get { return Convert.ToInt32(ViewState["ContractId"]); }
@@ -27,7 +27,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -79,7 +79,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -95,7 +95,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -112,7 +112,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -138,7 +138,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

@@ -1,6 +1,5 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
 using System;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -9,7 +8,6 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Calls : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void SetQueryStringValue()
         {
             if (Request.QueryString["id"] != null && Request.QueryString["itemtype"] != null)
@@ -50,7 +48,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -207,7 +205,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -222,7 +220,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -261,7 +259,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

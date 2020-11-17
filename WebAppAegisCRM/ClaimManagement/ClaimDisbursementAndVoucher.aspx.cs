@@ -1,7 +1,6 @@
 ﻿using Business.Common;
 using Entity.ClaimManagement;
 using Entity.Common;
-using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimDisbursementAndVoucher : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private DataTable _ClaimPaymentDetails
         {
             get
@@ -108,7 +106,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -124,7 +121,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -146,7 +142,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -175,7 +170,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
             ModalPopupExtender1.Show();
         }
@@ -242,7 +236,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
             ModalPopupExtender1.Show();
         }
@@ -363,7 +356,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -595,7 +587,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
             ModalPopupExtender1.Show();
         }
@@ -639,7 +630,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -682,7 +672,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
             finally
             {

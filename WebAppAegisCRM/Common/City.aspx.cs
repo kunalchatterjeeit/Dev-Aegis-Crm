@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Web.UI.WebControls;
 
@@ -7,7 +7,7 @@ namespace WebAppAegisCRM.Common
 {
     public partial class City : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         public int CityId
         {
             get { return Convert.ToInt32(ViewState["CityId"]); }
@@ -26,7 +26,7 @@ namespace WebAppAegisCRM.Common
                 catch (Exception ex)
                 {
                     ex.WriteException();
-                    logger.Error(ex.Message);
+                    
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace WebAppAegisCRM.Common
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -130,7 +130,7 @@ namespace WebAppAegisCRM.Common
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -144,7 +144,7 @@ namespace WebAppAegisCRM.Common
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -157,7 +157,7 @@ namespace WebAppAegisCRM.Common
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

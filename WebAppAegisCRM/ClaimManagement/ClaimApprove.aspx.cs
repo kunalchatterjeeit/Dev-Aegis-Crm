@@ -1,6 +1,5 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
 using System;
 using System.Data;
 using System.IO;
@@ -12,7 +11,6 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApprove : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
         private void GetClaimApplications_ByApproverId(int statusId)
         {
             DateTime fromApplicationDate = string.IsNullOrEmpty(txtFromClaimDate.Text.Trim()) ? DateTime.MinValue : Convert.ToDateTime(txtFromClaimDate.Text.Trim());
@@ -123,7 +121,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -145,7 +142,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -252,7 +248,6 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
             }
         }
 
@@ -315,7 +310,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -354,7 +349,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -411,7 +406,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -454,7 +449,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -499,7 +494,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
             finally
             {

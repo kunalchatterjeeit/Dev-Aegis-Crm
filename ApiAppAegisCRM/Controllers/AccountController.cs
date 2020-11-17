@@ -32,7 +32,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetAttendanceState");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -57,7 +57,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
-                ex.WriteException();
+                new Logger().LogException(ex, "EmployeeMaster_ById");
             }
             return model;
         }
@@ -108,6 +108,7 @@ namespace ApiAppAegisCRM.Controllers
             }
             catch (Exception ex)
             {
+                new Logger().LogException(ex, "AttendanceState_GetByEmployeeId");
                 model.Message = ex.Message;
             }
             model.Message = "OUT";
@@ -131,7 +132,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetHolidayList");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -189,7 +190,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetUpcomingLeave");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -232,7 +233,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetPendingClaim");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -286,7 +287,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetLoyalityPoint");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -347,7 +348,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetDocket");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -420,7 +421,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetToner");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -492,7 +493,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "IsAuthorized");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -536,7 +537,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetStockSnaps");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;
@@ -603,7 +604,7 @@ namespace ApiAppAegisCRM.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ex.WriteException();
+                    new Logger().LogException(ex, "GetStockDetails");
                     retValue = Request.CreateResponse(HttpStatusCode.OK, ex.Message);
                 }
                 return retValue;

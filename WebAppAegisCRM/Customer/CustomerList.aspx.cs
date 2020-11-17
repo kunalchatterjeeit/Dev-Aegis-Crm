@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerList : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -25,7 +25,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         private void Customer_Customer_GetByAssignEngineerId()
@@ -63,7 +63,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

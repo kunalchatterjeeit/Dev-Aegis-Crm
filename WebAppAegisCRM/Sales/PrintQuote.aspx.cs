@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class PrintQuote : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -29,7 +29,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
             if (Request.QueryString["showStamp"] != null && Request.QueryString["showStamp"].ToString().Length > 0)
             {

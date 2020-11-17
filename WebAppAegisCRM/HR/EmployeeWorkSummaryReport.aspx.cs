@@ -1,12 +1,12 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 
 namespace WebAppAegisCRM.HR
 {
     public partial class EmployeeWorkSummaryReport : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -20,7 +20,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         private void EmployeeWorkReport()

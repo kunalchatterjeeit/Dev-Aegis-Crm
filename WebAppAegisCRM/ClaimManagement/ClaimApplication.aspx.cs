@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.HR;
-using log4net;
+
 using System;
 using System.Data;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace WebAppAegisCRM.ClaimManagement
 {
     public partial class ClaimApplication : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private string _ClaimNo
         {
             get
@@ -177,7 +177,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -205,7 +205,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -258,7 +258,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -350,7 +350,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -366,7 +366,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -420,7 +420,7 @@ namespace WebAppAegisCRM.ClaimManagement
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
-                logger.Error(ex.Message);
+                
             }
         }
 

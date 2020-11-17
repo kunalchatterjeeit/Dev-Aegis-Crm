@@ -1,6 +1,6 @@
 ﻿using Business.Common;
 using Entity.Common;
-using log4net;
+
 using System;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -9,7 +9,7 @@ namespace WebAppAegisCRM.Sales
 {
     public partial class Contacts : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -28,7 +28,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -113,7 +113,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -128,7 +128,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -167,7 +167,7 @@ namespace WebAppAegisCRM.Sales
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

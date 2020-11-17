@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web;
@@ -11,7 +11,7 @@ namespace WebAppAegisCRM.Customer
 {
     public partial class CustomerMaster : Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private long CustomerId
         {
             get { return Convert.ToInt64(ViewState["CustomerId"]); }
@@ -45,7 +45,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -107,7 +107,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -145,7 +145,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -202,7 +202,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -262,7 +262,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -301,7 +301,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -412,7 +412,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -457,7 +457,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -473,7 +473,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;
@@ -488,7 +488,7 @@ namespace WebAppAegisCRM.Customer
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
                 Message.IsSuccess = false;
                 Message.Text = ex.Message;
                 Message.Show = true;

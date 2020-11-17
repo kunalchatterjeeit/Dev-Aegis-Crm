@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +12,7 @@ namespace WebAppAegisCRM.LeaveManagement
 {
     public partial class LeaveReport : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private void LoadLeaveType()
         {
             Business.LeaveManagement.LeaveType objLeaveType = new Business.LeaveManagement.LeaveType();
@@ -77,7 +77,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -90,7 +90,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
 
@@ -104,7 +104,7 @@ namespace WebAppAegisCRM.LeaveManagement
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Business.Common;
-using log4net;
+
 using System;
 using System.Data;
 using System.Web;
@@ -8,7 +8,7 @@ namespace WebAppAegisCRM.HR
 {
     public partial class PersonalInfo : System.Web.UI.Page
     {
-        ILog logger = log4net.LogManager.GetLogger("ErrorLog");
+        
         private int EmployeeMasterId
         {
             get { return Convert.ToInt32(ViewState["EmployeeMasterId"]); }
@@ -77,7 +77,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace WebAppAegisCRM.HR
             catch (Exception ex)
             {
                 ex.WriteException();
-                logger.Error(ex.Message);
+                
             }
         }
     }
