@@ -28,6 +28,10 @@
             }
         }
     </script>
+    <link href="../js/AutoComplete/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <%--<script type="text/javascript" src="../js/AutoComplete/jquery.min.js"></script>--%>
+    <script type="text/javascript" src="../js/AutoComplete/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../dist/js/custom.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server"></asp:ToolkitScriptManager>
@@ -57,7 +61,7 @@
                                 <div class="col-lg-3">
                                     <div class="form-group has-error">
                                         Name
-                                        <asp:TextBox ID="txtName" CssClass="form-control" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="txtName" CssClass="form-control" runat="server" onkeydown="javascript:GetAutoCompleteCustomer(this)"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 left">

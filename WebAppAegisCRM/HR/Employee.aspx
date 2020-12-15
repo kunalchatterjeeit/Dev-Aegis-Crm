@@ -292,12 +292,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Employee List
                         </div>
                         <div class="panel-body">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            Search Phrase
+                                         <asp:TextBox ID="txtSearchPhrase" CssClass="form-control" runat="server"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-lg-6 (nested) -->
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <br />
+                                            Show All
+                                            <asp:CheckBox ID="chkActiveEmployee" runat="server" ToolTip="Show all active and deactive employees" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <br />
+                                            <asp:Button ID="btnSearch" runat="server" Text="Search" class="btn btn-outline btn-primary" OnClick="btnSearch_Click" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <asp:GridView ID="gvEmployeerMaster" DataKeyNames="EmployeeMasterId" runat="server" DataMember="EmployeeMasterId"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333"

@@ -1,5 +1,6 @@
 ﻿using Business.Common;
-
+using Entity.ClaimManagement;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Web.UI.WebControls;
@@ -14,6 +15,7 @@ namespace WebAppAegisCRM.ClaimManagement
             Business.ClaimManagement.Voucher objVoucher = new Business.ClaimManagement.Voucher();
             DataSet dsVoucher = objVoucher.Voucher_GetAll(new Entity.ClaimManagement.Voucher()
             {
+                EmployeeName = txtEmployeeName.Text.Trim(),
                 VoucherNo = txtVoucherNo.Text.Trim(),
                 FromDate = (string.IsNullOrEmpty(txtFromDate.Text.Trim()) ? DateTime.MinValue : Convert.ToDateTime(txtFromDate.Text.Trim())),
                 ToDate = (string.IsNullOrEmpty(txtToDate.Text.Trim()) ? DateTime.MinValue : Convert.ToDateTime(txtToDate.Text.Trim())),
@@ -65,6 +67,19 @@ namespace WebAppAegisCRM.ClaimManagement
             {
                 ex.WriteException();
                 
+            }
+        }
+
+        protected void gvVoucherList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                VoucherJson voucherJson = JsonConvert.DeserializeObject<VoucherJson>(((DataTable)gvVoucherList.DataSource).Rows[e.Row.RowIndex]["VoucherJson"].ToString());
+                if (voucherJson != null)
+                {
+                    Label lblPaidTo = (Label)e.Row.FindControl("lblPaidTo");
+                    lblPaidTo.Text = voucherJson.EmployeeName;
+                }
             }
         }
     }
