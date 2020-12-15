@@ -139,6 +139,8 @@ namespace DataAccess.HR
                         cmd.CommandText = "usp_HR_EmployeeMaster_GetAll";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@CompanyId_FK", ObjElEmployeeMaster.CompanyId_FK);
+                        cmd.Parameters.AddWithValue("@ShowAllEmployees",(ObjElEmployeeMaster.ShowAllEmployees)? DBNull.Value: (object)!ObjElEmployeeMaster.ShowAllEmployees);
+                        cmd.Parameters.AddWithValue("@SearchPhrase", (!string.IsNullOrEmpty(ObjElEmployeeMaster.SearchPhrase) ? (object)ObjElEmployeeMaster.SearchPhrase : DBNull.Value));
                         using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
                             da.Fill(dt);

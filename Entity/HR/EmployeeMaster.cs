@@ -231,5 +231,7 @@ namespace Entity.HR
         public bool IsActive { get; set; }
         public bool IsLoginActive { get; set; }
         public string Signature { get; set; }
+        public string SearchPhrase { get; set; }
+        public bool ShowAllEmployees { get; set; }
     }
 }

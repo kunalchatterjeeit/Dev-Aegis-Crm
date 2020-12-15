@@ -30,11 +30,17 @@
                         <div class="panel-body">
                             <div class="col-lg-3">
                                 <div class="form-group">
+                                    Employee Name
+                                        <asp:TextBox ID="txtEmployeeName" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
                                     Voucher No.
                                         <asp:TextBox ID="txtVoucherNo" runat="server" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     From Date :
                                     <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -43,7 +49,7 @@
                                     </asp:CalendarExtender>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group">
                                     To Date :
                                     <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control"></asp:TextBox>
@@ -70,7 +76,7 @@
                             <div class="table-responsive">
                                 <asp:GridView ID="gvVoucherList" runat="server"
                                     AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" AllowPaging="True" PageSize="20"
-                                    class="table table-striped" GridLines="None" Style="text-align: left"
+                                    class="table table-striped" GridLines="None" Style="text-align: left" OnRowDataBound="gvVoucherList_RowDataBound"
                                     OnPageIndexChanging="gvVoucherList_PageIndexChanging" AllowCustomPaging="true">
                                     <Columns>
                                         <asp:TemplateField>
@@ -82,6 +88,15 @@
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:BoundField HeaderText="Voucher No" DataField="VoucherNo" />
+                                        <asp:TemplateField>
+                                            <HeaderTemplate>
+                                                Paid To
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblPaidTo" runat="server" Text=""></asp:Label>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField HeaderText="Total Amount Paid" DataField="TotalAmount" />
                                         <asp:TemplateField>
                                             <HeaderTemplate>
                                                 Generate Date & Time

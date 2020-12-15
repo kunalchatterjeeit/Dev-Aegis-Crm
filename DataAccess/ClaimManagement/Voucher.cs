@@ -84,6 +84,10 @@ namespace DataAccess.ClaimManagement
                             cmd.Parameters.AddWithValue("@ToDate", DBNull.Value);
                         else
                             cmd.Parameters.AddWithValue("@ToDate", voucher.ToDate);
+                        if (string.IsNullOrEmpty(voucher.EmployeeName))
+                            cmd.Parameters.AddWithValue("@EmployeeName", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@EmployeeName", voucher.EmployeeName);
                         cmd.InsertPaging(voucher, voucher.VoucherId);
 
                         if (con.State == ConnectionState.Closed)

@@ -268,18 +268,22 @@ namespace WebAppAegisCRM.Employee
         private void EmployeeMaster_GetAll()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
-            ObjElEmployeeMaster.CompanyId_FK = 1;
-            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            employeeMaster.ShowAllEmployees = chkActiveEmployee.Checked;
+            employeeMaster.SearchPhrase = txtSearchPhrase.Text.Trim();
+            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
             gvEmployeerMaster.DataSource = dt;
             gvEmployeerMaster.DataBind();
         }
         private void EmployeeMaster_GetAll_Reporting()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
-            ObjElEmployeeMaster.CompanyId_FK = 1;
-            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            employeeMaster.ShowAllEmployees = false;
+            employeeMaster.SearchPhrase = string.Empty;
+            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
 
             ddlReporting.DataSource = dt;
             ddlReporting.DataTextField = "EmployeeName";
@@ -515,9 +519,11 @@ namespace WebAppAegisCRM.Employee
         private void EmployeeMaster_GetAll_ReferenceEmployee()
         {
             Business.HR.EmployeeMaster ObjBelEmployeeMaster = new Business.HR.EmployeeMaster();
-            Entity.HR.EmployeeMaster ObjElEmployeeMaster = new Entity.HR.EmployeeMaster();
-            ObjElEmployeeMaster.CompanyId_FK = 1;
-            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(ObjElEmployeeMaster);
+            Entity.HR.EmployeeMaster employeeMaster = new Entity.HR.EmployeeMaster();
+            employeeMaster.CompanyId_FK = 1;
+            employeeMaster.ShowAllEmployees = true;
+            employeeMaster.SearchPhrase = string.Empty;
+            DataTable dt = ObjBelEmployeeMaster.EmployeeMaster_GetAll(employeeMaster);
 
             if (dt.Rows.Count > 0)
             {
@@ -824,6 +830,11 @@ namespace WebAppAegisCRM.Employee
                 MessageBox.Text = ex.Message;
                 MessageBox.Show = true;
             }
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            EmployeeMaster_GetAll();
         }
     }
 }
