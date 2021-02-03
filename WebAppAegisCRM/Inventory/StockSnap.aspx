@@ -84,7 +84,7 @@
                  <OnShown><Fadein Duration="0.50" /></OnShown>
         </Animations>
     </asp:ModalPopupExtender>
-    <asp:Panel ID="Panel2" runat="server" CssClass="myModalPopup-4" Style="display: none;">
+    <asp:Panel ID="Panel2" runat="server" CssClass="myModalPopup-12" Style="display: none;">
         <asp:Panel ID="Panel4" runat="server" class="popup-working-section" ScrollBars="Auto">
             <h6 id="popupHeader2" runat="server" class="popup-header-companyname"></h6>
             <asp:GridView ID="gvStockLocation" runat="server"
